@@ -18,7 +18,7 @@
 }
 
 
-/* ------------------------- 1 Column: date thumbnail -------------------------- */
+/* -------------------------- 1 Column: date thumbnail -------------------------- */
 
 .events-list-post-date-thumbnail {
   background-color: #55bb66;
@@ -32,25 +32,19 @@
   color: #ffffff;
   font-size: 2em;
   line-height: 1.5em;
-  
-  /*position: relative;
-  top: 50%;
-  transform: translateY(-50%);*/
 }
 
 .events-list-post-date-thumbnail-subtitle {
   color: #ffffff;
   font-size: 1em;
   line-height: 0.5em;
-  /*
-  position: relative;
-  top: 10%;
-  transform: translateY(-50%);*/
 }
 
 /* -------------------------- 2 Column: image thumbnail-------------------------- */
 
 .events-list-post-image-thumbnail {
+  vertical-align: middle;
+  text-align: center;
   width: 100px;
   height: 100px;
 }
@@ -61,12 +55,7 @@
 }
 
 .events-list-post-image-noimglink {
-  width: 100px;
-  height: 100px;
-  line-height: 100px;
-  text-align: center;
   font-size: 3em;
-  font-weight: 600;
 }
 
 /* -------------------------- 3 Column: text -------------------------- */
