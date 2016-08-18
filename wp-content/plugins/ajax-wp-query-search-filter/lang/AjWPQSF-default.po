@@ -1,0 +1,435 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Ajax WP Query Search Filter\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-06-26 01:48+0730\n"
+"PO-Revision-Date: 2013-06-26 01:49+0730\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-KeywordsList: _;gettext;gettext_noop;__;_e\n"
+"X-Poedit-Basepath: ../\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: ajaxwpqf.php:50
+msgid "Ajax Wp Query Search Filter"
+msgstr ""
+
+#: ajaxwpqf.php:50
+#: ajaxwpqf.php:91
+msgid "Ajax WPQSF"
+msgstr ""
+
+#: ajaxwpqf.php:62
+msgid "Ajax WP Query Search Filter"
+msgstr ""
+
+#: ajaxwpqf.php:62
+#: admin/add-new.php:6
+msgid "Add New Search Form"
+msgstr ""
+
+#: ajaxwpqf.php:92
+msgid "Map AWPSF"
+msgstr ""
+
+#: ajaxwpqf.php:106
+msgid "No naughty business here, dude"
+msgstr ""
+
+#: ajaxwpqf.php:178
+msgid "Error! Try to create again."
+msgstr ""
+
+#: ajaxwpqf.php:205
+msgid "Error! Something wrong when updating your setting."
+msgstr ""
+
+#: admin/add-new.php:6
+msgid "Ajax Advance WP Query Search Filter"
+msgstr ""
+
+#: admin/add-new.php:17
+msgid "Copy this code and paste it into your post, page or text widget content."
+msgstr ""
+
+#: admin/add-new.php:28
+msgid "Form Title"
+msgstr ""
+
+#: admin/addTaxoAjax.php:21
+#: admin/fields/taxonomy.php:62
+#: admin/fields/add_taxo_form.php:8
+msgid "category"
+msgstr ""
+
+#: admin/addTaxoAjax.php:52
+#: admin/addCmfAjax.php:45
+#: admin/fields/meta_field.php:96
+#: admin/fields/add_cmf_form.php:50
+#: admin/fields/add_taxo_form.php:51
+#, php-format
+msgid "%s"
+msgstr ""
+
+#: admin/addTaxoAjax.php:57
+#: admin/addCmfAjax.php:50
+#: admin/fields/meta_field.php:101
+#: admin/fields/taxonomy.php:101
+msgid "Remove"
+msgstr ""
+
+#: admin/fields/meta_field.php:1
+msgid "Custom Meta Field"
+msgstr ""
+
+#: admin/fields/meta_field.php:6
+msgid "Boolean relationship between the meta queries"
+msgstr ""
+
+#: admin/fields/meta_field.php:13
+msgid "AND - Must meet all meta field search."
+msgstr ""
+
+#: admin/fields/meta_field.php:14
+msgid "OR - Either one of the meta field search is meet."
+msgstr ""
+
+#: admin/fields/meta_field.php:19
+msgid "Add Custom Meta"
+msgstr ""
+
+#: admin/fields/meta_field.php:25
+#: admin/fields/meta_field.php:36
+msgid "Meta key"
+msgstr ""
+
+#: admin/fields/meta_field.php:26
+#: admin/fields/meta_field.php:37
+#: admin/fields/taxonomy.php:24
+#: admin/fields/taxonomy.php:36
+#: admin/fields/add_cmf_form.php:19
+#: admin/fields/add_taxo_form.php:24
+msgid "Label"
+msgstr ""
+
+#: admin/fields/meta_field.php:27
+#: admin/fields/meta_field.php:38
+#: admin/fields/taxonomy.php:25
+#: admin/fields/taxonomy.php:37
+msgid "\"Search All\" Text"
+msgstr ""
+
+#: admin/fields/meta_field.php:28
+#: admin/fields/meta_field.php:39
+#: admin/fields/add_cmf_form.php:29
+msgid "Compare"
+msgstr ""
+
+#: admin/fields/meta_field.php:29
+#: admin/fields/meta_field.php:40
+msgid "Options"
+msgstr ""
+
+#: admin/fields/meta_field.php:30
+#: admin/fields/meta_field.php:41
+#: admin/fields/taxonomy.php:28
+#: admin/fields/taxonomy.php:40
+msgid "Display Type"
+msgstr ""
+
+#: admin/fields/meta_field.php:31
+#: admin/fields/meta_field.php:42
+#: admin/fields/taxonomy.php:29
+#: admin/fields/taxonomy.php:41
+msgid "Remove?"
+msgstr ""
+
+#: admin/fields/meta_field.php:112
+#: admin/fields/taxonomy.php:113
+msgid "*Drag and Drop to reorder your table row. The table row order indicates the order of the search form fields in the frontend. "
+msgstr ""
+
+#: admin/fields/taxonomy.php:1
+#: admin/fields/taxonomy.php:23
+#: admin/fields/taxonomy.php:35
+msgid "Taxonomy"
+msgstr ""
+
+#: admin/fields/taxonomy.php:6
+msgid "Boolean relationship between the taxonomy queries"
+msgstr ""
+
+#: admin/fields/taxonomy.php:14
+msgid "AND - Must meet all taxonomy search."
+msgstr ""
+
+#: admin/fields/taxonomy.php:15
+msgid "OR - Either one of the taxonomy search is meet."
+msgstr ""
+
+#: admin/fields/taxonomy.php:18
+#: admin/fields/add_taxo_form.php:58
+msgid "Add Taxonomy"
+msgstr ""
+
+#: admin/fields/taxonomy.php:26
+#: admin/fields/taxonomy.php:38
+msgid "Hide Empty?"
+msgstr ""
+
+#: admin/fields/taxonomy.php:27
+#: admin/fields/taxonomy.php:39
+msgid "Exculde ID"
+msgstr ""
+
+#: admin/fields/formoption.php:2
+msgid "Form's Theme"
+msgstr ""
+
+#: admin/fields/formoption.php:18
+msgid " Preview"
+msgstr ""
+
+#: admin/fields/add_cmf_form.php:4
+msgid "Meta Field Setting"
+msgstr ""
+
+#: admin/fields/add_cmf_form.php:5
+msgid "Meta Key"
+msgstr ""
+
+#: admin/fields/add_cmf_form.php:10
+msgid "Choose a meta key"
+msgstr ""
+
+#: admin/fields/add_cmf_form.php:20
+msgid " To be displayed in the search form"
+msgstr ""
+
+#: admin/fields/add_cmf_form.php:24
+#: admin/fields/add_taxo_form.php:29
+msgid "Text For 'Search All' Options"
+msgstr ""
+
+#: admin/fields/add_cmf_form.php:25
+msgid " eg, All prices, All weight"
+msgstr ""
+
+#: admin/fields/add_cmf_form.php:38
+msgid "Operator to test. Use it carefully. If you choose 'BETWEEN', then your options should be range."
+msgstr ""
+
+#: admin/fields/add_cmf_form.php:40
+#, php-format
+msgid "More about compare, please visit <a href='%s' target='_blank'>here</a>"
+msgstr ""
+
+#: admin/fields/add_cmf_form.php:45
+#: admin/fields/add_taxo_form.php:45
+msgid "Display Type?"
+msgstr ""
+
+#: admin/fields/add_cmf_form.php:55
+msgid "* Warning! Checkbox only work with \"IN\" and \"NOT IN\" compare operator."
+msgstr ""
+
+#: admin/fields/add_cmf_form.php:60
+msgid "Dropdown Options"
+msgstr ""
+
+#: admin/fields/add_cmf_form.php:61
+msgid "Your options should defined in xxx::xxx and each option is separated by '|' .<br> The left value in option xxx::xxx is the <b>real meta value</b>, and the right value is for <b>user viewed value</b>. <br>eg. 100::$100, 2000::$2,000"
+msgstr ""
+
+#: admin/fields/add_cmf_form.php:62
+msgid "Generate Value"
+msgstr ""
+
+#: admin/fields/add_cmf_form.php:63
+msgid "Based on the meta key selected above"
+msgstr ""
+
+#: admin/fields/add_cmf_form.php:64
+msgid "eg: for normal options set 100::$100 | 200::$200 | 100::$300...etc"
+msgstr ""
+
+#: admin/fields/add_cmf_form.php:65
+msgid "eg: for range option 1-100::$1 - $100 | 101-200 :: $101 - $200 | 201-300 :: $201 - $300...etc"
+msgstr ""
+
+#: admin/fields/add_cmf_form.php:69
+msgid "Add Custom Field"
+msgstr ""
+
+#: admin/fields/post_type.php:1
+msgid "Post Type"
+msgstr ""
+
+#: admin/fields/post_type.php:5
+msgid "Choose the post type you want to include in the search"
+msgstr ""
+
+#: admin/fields/add_taxo_form.php:3
+msgid "Taxonomy Details"
+msgstr ""
+
+#: admin/fields/add_taxo_form.php:6
+msgid "Select Taxonomy"
+msgstr ""
+
+#: admin/fields/add_taxo_form.php:26
+msgid "To be displayed in the search form"
+msgstr ""
+
+#: admin/fields/add_taxo_form.php:31
+msgid "eg, All cities, All genres"
+msgstr ""
+
+#: admin/fields/add_taxo_form.php:34
+msgid "Hide Empty Terms?"
+msgstr ""
+
+#: admin/fields/add_taxo_form.php:37
+msgid "Empty terms are the terms that no posts assigned to them. "
+msgstr ""
+
+#: admin/fields/add_taxo_form.php:40
+msgid "Exculde Term ID"
+msgstr ""
+
+#: admin/fields/add_taxo_form.php:42
+msgid "Enter the term's ID that you want to exclude. Seperate by comma ',' "
+msgstr ""
+
+#: admin/fields/misc.php:5
+msgid "Search by Keyword"
+msgstr ""
+
+#: admin/fields/misc.php:17
+msgid "MISC"
+msgstr ""
+
+#: admin/fields/misc.php:19
+msgid "Add String Search?"
+msgstr ""
+
+#: admin/fields/misc.php:20
+msgid "Enabling string search"
+msgstr ""
+
+#: admin/fields/misc.php:21
+msgid "This will add string search in the form. Note that when user using this to search, the taxonomy and custom meta filter that defined above will not be used. However, the search will still go through the post type defined above."
+msgstr ""
+
+#: admin/fields/misc.php:22
+msgid "Label for string search."
+msgstr ""
+
+#: admin/fields/misc.php:28
+msgid "Result Page Setting"
+msgstr ""
+
+#: admin/fields/misc.php:29
+msgid "Sorting Meta Key."
+msgstr ""
+
+#: admin/fields/misc.php:39
+msgid "Insert the meta key that will be used for the result sorting. Leave empty will using the default 'date' value for sorting."
+msgstr ""
+
+#: admin/fields/misc.php:41
+msgid "Meta Value Type"
+msgstr ""
+
+#: admin/fields/misc.php:42
+msgid "Words"
+msgstr ""
+
+#: admin/fields/misc.php:43
+msgid "Numeric"
+msgstr ""
+
+#: admin/fields/misc.php:44
+msgid "What is the meta value type of the sorting meta key? eg. sorting meta key = 'price', then the meta value type should be numeric. Leave it blank if your sorting meta key is empty."
+msgstr ""
+
+#: admin/fields/misc.php:46
+msgid "Sorting Order"
+msgstr ""
+
+#: admin/fields/misc.php:47
+msgid "Descending"
+msgstr ""
+
+#: admin/fields/misc.php:48
+msgid "Ascending"
+msgstr ""
+
+#: admin/fields/misc.php:49
+msgid "The search result sorting order. Default is descending"
+msgstr ""
+
+#: admin/fields/misc.php:51
+msgid "Results per Page"
+msgstr ""
+
+#: admin/fields/misc.php:53
+msgid "How many posts shows at each result page?"
+msgstr ""
+
+#: admin/fields/misc.php:55
+msgid "Search Button Text"
+msgstr ""
+
+#: admin/fields/misc.php:57
+msgid "The text of the submit button?"
+msgstr ""
+
+#: admin/fields/misc.php:59
+msgid "Div to display result"
+msgstr ""
+
+#: admin/fields/misc.php:61
+msgid "The Div id of where you want the result to display. eg. #content"
+msgstr ""
+
+#: classes/list-table-class.php:41
+msgid "Form"
+msgstr ""
+
+#: classes/list-table-class.php:42
+msgid "Forms"
+msgstr ""
+
+#: classes/list-table-class.php:53
+msgid "No Ajax WP Query Search Filter Form found, dude."
+msgstr ""
+
+#: classes/list-table-class.php:99
+msgid "Delete"
+msgstr ""
+
+#: classes/process.php:234
+msgid "Nothing Found"
+msgstr ""
+
+#: classes/ajwpqsf-misc-class.php:223
+msgid "First"
+msgstr ""
+
+#: classes/ajwpqsf-misc-class.php:225
+msgid "Previous"
+msgstr ""
+
+#: classes/ajwpqsf-misc-class.php:237
+msgid "Next"
+msgstr ""
+
+#: classes/ajwpqsf-misc-class.php:239
+msgid "Last"
+msgstr ""
+
