@@ -58,9 +58,6 @@ register_activation_hook( __FILE__, 'lptw_recent_posts_activate' );
 -------------------------------------- Shortcode --------------------------------------
 **/
 
-/* Main Class for all Layouts Rendering */
-include( plugin_dir_path( __FILE__ ) . 'includes/class.render.layout.php');
-
 function events_list_display ( $atts ) {
     $default_posts_per_page =  get_option( 'posts_per_page', '10' );
 
