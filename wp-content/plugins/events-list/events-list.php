@@ -36,6 +36,13 @@ function return_event_date_instead_of_publish_date( $the_date, $d, $post ) {
 //add_action( 'get_the_date', 'return_event_date_instead_of_publish_date', 10, 3 );
 add_filter( 'get_the_date', 'return_event_date_instead_of_publish_date', 10, 3 );
 
+
+function replace_featured_image_size($size, $post_id) {
+    return 'medium';
+}
+add_filter('tribe_event_featured_image_size', 'replace_featured_image_size', 10, 2);
+
+
 /* trim excerpt to custom size */
 function event_list_custom_excerpt ($limit, $ignore_more_tag) {
     global $more;
