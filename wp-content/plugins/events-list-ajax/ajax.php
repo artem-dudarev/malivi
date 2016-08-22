@@ -214,6 +214,7 @@
 			$args['paged'] = (int) $_POST['data']['page']['val'];
 		
 		$data['result'] = array();
+		
 		$args = apply_filters( 'sf-filter-args', $args );
 		$wpdb->query( 'SET OPTION SQL_BIG_SELECTS = 1' );
 		$query = new WP_Query( $args );
@@ -223,67 +224,86 @@
 		endif;
 		remove_filter( 'posts_join_paged', 'sf_content_filter_join' );
 		remove_filter( 'posts_where', 'sf_content_filter' );
-		if( $query->have_posts() ):
-			while( $query->have_posts() ): $query->the_post();
-				ob_start();
-				require( $template_file . '.php' );
-				$template = ob_get_contents();
-				ob_end_clean();
-				
-				$template_single = preg_replace( '^#the_title#^', get_the_title(), $template );
-				$template_single = preg_replace( '^#the_excerpt#^', get_the_excerpt(), $template_single );
-				$template_single = preg_replace( '^#the_content#^', get_the_content(), $template_single );
-				
-				$template_single = preg_replace( '^#the_author#^', get_the_author(), $template_single );
-				$template_single = preg_replace( '^#the_date#^', get_the_date(), $template_single );
-				$template_single = preg_replace( '^#the_permalink#^', get_permalink(), $template_single );
-				$template_single = preg_replace( '^#the_id#^', get_the_ID(), $template_single );
-				$template_single = preg_replace( '^#count_comments#^', wp_count_comments( get_the_ID() )->approved, $template_single );
-				
-				if( isset( $field['tax'] ) && is_array( $field['tax'] ) ):
-				foreach( $field['tax'] as $t ):
-					$terms = get_the_terms( get_the_ID(), $t );
-					$termstring = '';
-					if( is_array( $terms ) ):
-						foreach( $terms as $term ):
-							if( $termstring != '' )
-								$termstring .= ', ';
-							$termname = $term->name;
-							$termstring .= $termname;
-						endforeach;
-					endif;
-					$template_single = preg_replace( '^#tax_' . preg_quote( $t ) . '#^', $termstring, $template_single );
-				endforeach;
-				endif;
-				
-				if( isset( $field['meta'] ) && is_array( $field['meta'] ) ):
-				foreach( $field['meta'] as $m ):
-					$meta = get_post_meta( get_the_ID(), $m, true );
-					if( is_array( $meta ) )
-						continue;
+		if( $query->have_posts() ) {
+			 $content = '<div class="events-list-table">';
+			while( $query->have_posts() ) {
+				$query->the_post();
+				$post_id = get_the_ID();
 
-					$template_single = preg_replace( '^#meta_' . preg_quote( $m ) . '#^', $meta, $template_single );					
-				endforeach;
-				endif;
+				/* ------------------------------------ start layouts output ------------------------------------ */
+
+				$thumbnail = wp_get_attachment_image_src( get_post_thumbnail_id($post_id) );
+				$title = get_the_title();
+
+				$current_date = date("d.m.Y");
+				$post_date = get_the_date('d.m.Y');
+
+				// Если событие сегодня, то на иконке отображаем время начала
+				// Иначе показываем дату
+				if ( $current_date == $post_date) {
+					// Если событие идет весь день, то вместо времени начала показываем надпись "весь день"
+					if (tribe_event_is_all_day($post_id)) {
+						$post_time = '';
+						$thumbnail_title = "ВЕСЬ ДЕНЬ";
+					} else {
+						$post_time = get_the_date('H:i');
+						$thumbnail_title = $post_time;
+					}
+					$show_thumbnail_subtitle = false;
+				} else {
+					$thumbnail_title = get_the_date('d');
+					$thumbnail_subtitle = get_the_date('M.Y');
+					$show_thumbnail_subtitle = true;
+				}
+
 				
-				$image = "";
-				if( has_post_thumbnail() ):
-					$image = wp_get_attachment_image_src( get_post_thumbnail_id(), 'thumb' );
-					$image = '<img src="' . $image[0] . '" width="' . $image[1] . '" height="' . $image[2] . '" alt="' . get_the_title() . '" />';
-				endif;				
-				$template_single = preg_replace( '^#thumbnail#^', $image, $template_single );
-				$data['result'][] = '<li>' . apply_filters( 'sf-results-single-result', $template_single ) . '</li>';
-			endwhile;
-		endif;
+				if (empty($thumbnail) || $thumbnail == false) {
+					$image_content = '<span class="events-list-post-image-noimglink">';
+					$image_content .= mb_substr($title, 0, 1);
+					$image_content .= '</span>';
+				} else {
+					$image_content = '<img class="events-list-post-image-link" src="'.$thumbnail['0'].'" alt="'.$title.'" />';
+				}
+
+				
+				$content .= '<a class="events-list-row" href="' . get_the_permalink() . '" >';
+					$content .= '<div class="events-list-post-date-thumbnail events-list-cell" >';
+						$content .= '<div class="events-list-post-date-thumbnail-title" >';
+						$content .= $thumbnail_title;
+						$content .= '</div>';
+						
+						if ($show_thumbnail_subtitle) {
+						$content .= '<div class="events-list-post-date-thumbnail-subtitle" >';
+						$content .= $thumbnail_subtitle;
+						$content .= '</div>';
+						}
+					$content .= '</div>';
+
+					$content .= '<div class="events-list-post-image-thumbnail events-list-cell" >';
+						$content .= $image_content;
+					$content .= '</div>';
+
+					$content .= '<div class="events-list-post-text events-list-cell" >';
+						$content .= '<div class="events-list-post-text-header">';
+							$content .= $title;
+						$content .= '</div>';
+
+						$content .= '<div class="events-list-post-text-content">';
+							//$content .= event_list_custom_excerpt(a['excerpt_lenght'], a['ignore_more_tag']);
+							$content .= event_list_custom_excerpt('25', 'true');
+						$content .= '</div>';
+					$content .= '</div>';
+					
+				$content .= '</a>';
+				
+			} // end while( $query->have_posts() )
+			$content .= '</div>';
+		} else {
+			$content = __( 'No recent posts', 'lptw_recent_posts_domain' );
+		}
+		wp_reset_postdata();
 		
-		if( count( $data['result'] ) == 0 ):			
-			ob_start();
-			require( $template_file . '-noresult.php' );
-			$template_noresult = ob_get_contents();
-			ob_end_clean();
-			$data['result'][] = '<li class="sf-noresult">' . apply_filters( 'sf-results-noresult', $template_noresult ) . '</li>';
-		endif;
-		
+	
 		
 		
 		if( defined( 'ICL_LANGUAGE_CODE' )  ):
@@ -299,9 +319,9 @@
 			endif;
 		endif;
 		
-		$data['head'] = sprintf( __( '<span class="sf-foundcount">%d results</span> out of <span class="sf-totalcount">%d posts</span>', 'sf' ), $query->found_posts, $num_of_posts );
+		$content .= sprintf( __( '<span class="sf-foundcount">%d results</span> out of <span class="sf-totalcount">%d posts</span>', 'sf' ), $query->found_posts, $num_of_posts );
 			
-		$data['nav'] = array();
+		
 		if( $query->max_num_pages > 1 ):
 			$pages_around_result = 4;
 			if( !isset( $_POST['data']['page'] ) )
@@ -310,23 +330,25 @@
 				$paged = (int) $_POST['data']['page']['val'];
 			$i = 0;
 			
-			if( $paged > 1 )
-				$data['nav'][]='<li><span class="sf-nav-click sf-nav-left-arrow" data-href="' . ( $paged - 1 ) . '">&laquo;</span></li>';
+			if( $paged > 1 ) {
+				$content .= '<li><span class="sf-nav-click sf-nav-left-arrow" data-href="' . ( $paged - 1 ) . '">&laquo;</span></li>';
+			}
 			while( $i < $query->max_num_pages ){
 				$i++;
 				if( $i == 1 || ( $i > $paged - $pages_around_result && $i < $paged + $pages_around_result ) || $i == $query->max_num_pages ){
 					if( $i != $paged )
-						$data['nav'][]='<li><span class="sf-nav-click" data-href="' . ( $i ) . '">' . $i . '</span></li>';
+						$content .= '<li><span class="sf-nav-click" data-href="' . ( $i ) . '">' . $i . '</span></li>';
 					else
-						$data['nav'][]='<li><span class="sf-nav-current">' . $i . '</span></li>';
+						$content .= '<li><span class="sf-nav-current">' . $i . '</span></li>';
 				} elseif( ( $i == $paged - $pages_around_result || $i == $paged + $pages_around_result )  ){
-						$data['nav'][]='<li><span class="sf-nav-three-points">...</span></li>';
+						$content .= '<li><span class="sf-nav-three-points">...</span></li>';
 				}
 			}
 			if( $paged < $query->max_num_pages )
-				$data['nav'][]='<li><span class="sf-nav-click sf-nav-right-arrow" data-href="' . ( $paged + 1 ) . '">&raquo;</span></li>';		
+				$content .= '<li><span class="sf-nav-click sf-nav-right-arrow" data-href="' . ( $paged + 1 ) . '">&raquo;</span></li>';		
 			
 		endif;
+		$data['html'] = $content;
 		return $data;
 	}
 ?>

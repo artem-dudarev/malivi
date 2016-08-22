@@ -72,92 +72,67 @@ function collect_data( wrapper ){
 		return data;
 	}
 
-function get_filter_results( start, $form ){
-
+function get_filter_results( $is_on_load = false ){
 		var wrapper = jQuery( '.sf-wrapper' );
 		var data = {
 				action	:	'sf-search',
 				data	:	collect_data( wrapper )
 		};
 		
-		
-		if( typeof start == 'undefined' ){
-			location.href = '#sf-' + JSON.stringify( data.data );
-		} else {
-			if( typeof $form != 'undefined' ){
-				var url = $form.attr( 'action' );
-				url += '#sf-' + JSON.stringify( collect_data( $form ) );
-				location.href = url;
-				return;
-			}
+		if( !$is_on_load ){
+			location.href = '#filter-' + JSON.stringify( data.data ); 
 		}
-		wrapper.css({opacity:.1});
+		
+		//$article = $doc('article');
+		$article = jQuery('.entry-content');
+		//$article('article').empty();
+		//wrapper.css({opacity:.1});
+		$article.css({opacity:.7});
 		search_data = data.data;
 		jQuery.post(
-					sf_ajax_root,
-					data,
-					function( response ){
-						response = JSON.parse( response );
-						if( JSON.stringify( search_data ) != JSON.stringify( response.post ) )
-							return;
-						wrapper.css({opacity:1});
-						
-						var txt = '';
-						if( response.result.length > 0 ){
-							for( var i = 0; i < response.result.length; i++ ){
-								txt += response.result[i];
-							}
-						} else {
-							txt = '<li class="no-result">Keine Ergebnisse gefunden</li>';
-						}
-						jQuery( wrapper ).find( '.sf-result' ).html( txt );
-						if( response.result.length > 0 ){
-							sf_adjust_elements_waitimg();
-						}
-						
-						var txt = '';
-						if( response.nav.length > 0 ){
-							for( var i = 0; i < response.nav.length; i++ ){
-								txt += response.nav[i];
-							}
-						}
-						jQuery( wrapper ).find('ul.sf-nav').html( txt );
-						if( typeof( response.head ) != 'undefined' )
-							jQuery( wrapper ).find('.sf-result-head').html( response.head );
-						
-						
-						if (document.createEvent) {
-							sfLoadEvent = document.createEvent( 'HTMLEvents' );
-							sfLoadEvent.initEvent( 'sfLoadEvent', true, true, response );
-						} else {
-							sfLoadEvent = document.createEventObject();
-							sfLoadEvent.eventType = 'sfLoadEvent';
-						}
-						sfLoadEvent.eventName = 'sfLoadEvent';
-						sfLoadEvent.data = { 'response': response, 'fields' : data.data };
-						
-						var eventElement = document.getElementsByClassName( 'sf-wrapper' );
-						eventElement = eventElement[0];
-						if (document.createEvent) {
-							eventElement.dispatchEvent(sfLoadEvent);
-						} else {
-							eventElement.fireEvent("on" + sfLoadEvent.eventType, sfLoadEvent);
-						}
-					}
-					);
+			sf_ajax_root,
+			data,
+			function( response ){
+				response = JSON.parse( response );
+				if( JSON.stringify( search_data ) != JSON.stringify( response.post ) )
+					return;
+				//wrapper.css({opacity:1});
+				$article.css({opacity:1});
+				$article.html(response.html);
+				
+				//sf_adjust_elements_waitimg();
+				/*
+				
+				if (document.createEvent) {
+					sfLoadEvent = document.createEvent( 'HTMLEvents' );
+					sfLoadEvent.initEvent( 'sfLoadEvent', true, true, response );
+				} else {
+					sfLoadEvent = document.createEventObject();
+					sfLoadEvent.eventType = 'sfLoadEvent';
+				}
+				sfLoadEvent.eventName = 'sfLoadEvent';
+				sfLoadEvent.data = { 'response': response, 'fields' : data.data };
+				
+				var eventElement = document.getElementsByClassName( 'sf-wrapper' );
+				eventElement = eventElement[0];
+				if (document.createEvent) {
+					eventElement.dispatchEvent(sfLoadEvent);
+				} else {
+					eventElement.fireEvent("on" + sfLoadEvent.eventType, sfLoadEvent);
+				}*/
+			}
+		);
 	}
 
 
-jQuery( document ).ready( function(){
-
-	
-	jQuery( '.sf-wrapper' ).find( 'input' ).keyup( function( event ){
-		if(event.which == 13)
-			get_filter_results();
-	});
-
-
-	
+jQuery( document ).ready( function() {
+	// Переместим фильтры в боковое меню
+	if (jQuery('.sf-wrapper').length == 0) {
+		jQuery('#events-list-filters-anchor').parent().parent().hide();
+		return;
+	}
+	jQuery( '.entry-content' ).children().prependTo('#events-list-filters-anchor');
+		
 	jQuery( document ).on( 'change', '.sf-filter input, .sf-filter select', function(){
 		var possible_cond_key = jQuery( this ).closest( '.sf-element' ).attr( 'data-id' );
 		var possible_cond_val = jQuery( this ).val();
@@ -190,11 +165,10 @@ jQuery( document ).ready( function(){
 		jQuery('html, body').animate({ scrollTop: ( jQuery('.sf-wrapper').offset().top - 25 )}, 'slow');
 	});
 	
-	if( location.hash.substr( 0, 4 ) == '#sf-' ){
+	if( location.hash.substr( 0, 4 ) == '#filter-' ){
 		var range_max = '';
 		var range_min = '';
 		var	hash = JSON.parse( location.hash.substr( 4 ) );
-		var do_ajax_request = true;
 		for ( property in hash ) {
 			jQuery( '.sf-element-hide[data-condkey="'+property+'"]' ).each( function(){
 				if( jQuery( this ).attr( 'data-condval' ) == hash[property] ){
@@ -243,9 +217,10 @@ jQuery( document ).ready( function(){
 				}
 			}
 		}
-		if( do_ajax_request )
-			get_filter_results( true );
+		
 	}
+	get_filter_results( true );
+	
 });
 /**
  * The load event

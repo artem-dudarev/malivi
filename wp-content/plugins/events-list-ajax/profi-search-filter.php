@@ -65,6 +65,7 @@
 	}
 	
 	add_shortcode( 'search-form', 'sf_init_searchform' );
+	add_filter('widget_text', 'do_shortcode');
 	function sf_init_searchform( $attr ){
 		ob_start();
 		require( SF_DIR . 'includes/shortcode.php' );

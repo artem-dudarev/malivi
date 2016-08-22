@@ -7,96 +7,8 @@
 ?>
 <!-- Search Filter: <?php echo $attr['id']; ?>-->
 <div class="sf-wrapper">
-	<style>
-	<?php if( isset( $field['columns'] ) ): ?>
-	<?php if( $field['columns'] == 2 ): ?>
-	ul.sf-result > li{
-		margin: 2% 0;
-		margin-right: 2%;
-		float: left; 
-		width: 49%;
-	}
-
-	ul.sf-result > li:nth-child(2n){
-		margin-right: 0;
-	}
-
 	
-	ul.sf-result > li:nth-child(2n+1){
-		clear: both;
-	}
-	<?php elseif( $field['columns'] == 3 ): ?>
-	ul.sf-result > li{
-		margin: 2% 0;
-		margin-right: 2%;
-		float: left; 
-		width: 32%;
-	}
-
-	ul.sf-result > li:nth-child(3n){
-		margin-right: 0;
-	}
-
-	
-	ul.sf-result > li:nth-child(3n+1){
-		clear: both;
-	}
-	<?php elseif( $field['columns'] == 4 ): ?>
-	ul.sf-result > li{
-		margin: 2% 0;
-		margin-right: 2%;
-		float: left; 
-		width: 23.5%;
-	}
-
-	ul.sf-result > li:nth-child(4n){
-		margin-right: 0;
-	}
-
-	
-	ul.sf-result > li:nth-child(4n+1){
-		clear: both;
-	}
-	<?php endif; ?>
-	<?php endif; ?>
-	<?php if( isset( $field['border'] ) ): ?>
-	.sf-result li{
-		border: 1px solid <?php echo $field['border']; ?>;
-	}
-	<?php endif; ?>
-	<?php if( isset( $field['background'] ) ): ?>
-	.sf-result li{
-		background: <?php echo $field['background']; ?>;
-	}
-	
-	ul.sf-nav > li > span.sf-nav-click{
-		background: <?php echo $field['background']; ?>;
-	}
-	<?php endif; ?>
-	<?php if( isset( $field['highlightcolor'] ) ): ?>
-	.sf-selected{
-		background-color: <?php echo $field['highlightcolor']; ?>;
-	}
-	<?php endif; ?>
-	
-	
-	ul.sf-result > li.sf-noresult{
-		float: none;
-		width: 100%;
-		margin: 0;
-	}
-	
-	<?php 
-	if( isset( $field['custom_css'] ) && trim( $field['custom_css'] ) != '' ):
-		echo stripslashes( $field['custom_css'] );
-	endif;
-	?>
-	</style>
-	<script>
-		var sf_columns = <?php if( isset( $field['columns'] ) ) echo $field['columns']; else echo 1;?>;
-	</script>
 	<div class="sf-filter">
-		<?php apply_filters( 'sf-before-form', '' ); ?>
 		<?php if( defined( 'ICL_LANGUAGE_CODE' )  ):
 			global $sitepress; ?>
 			<input type="hidden" name="wpml" value="<?php echo $sitepress->get_current_language(); ?>" />
@@ -127,7 +39,7 @@
 		endif;
 			
 		?>
-		<fieldset data-id="<?php echo $key; ?>" <?php  echo $style_hide . 'data-condkey="' . $cond_key . '" data-condval="'  . $cond_value .  '"'; ?> class="sf-element<?php echo $class_hide; ?> <?php echo $element['type']; ?>">
+		<fieldset data-id="<?php echo $key; ?>" <?php  echo $style_hide . 'data-condkey="' . $cond_key . '" data-condval="'  . $cond_value .  '"'; ?> class="sf-element<?php echo $class_hide; ?> ">
 			<legend><?php echo $element['fieldname']; ?></legend>	
 		<?php	
 			if( $element['type'] == 'select' ):
@@ -279,59 +191,22 @@
 		<?php
 		endforeach; ?>
 	</div>
-	<?php apply_filters( 'sf-after-form', '' ); ?>
-			<?php
-			if( isset( $attr['showall'] ) ):
-				unset( $_POST['data'] );
-				$_POST['data']['search-id'] = $attr['id'];
-				$results = sf_do_search();
-			endif;
-		?>
-		
-	<div class="sf-result-head">
-		<?php
-			if( isset( $results ) ):				
-					echo $results['head'];
-			endif;
-		?>
-	
-	</div>
-	<?php apply_filters( 'sf-after-result-head', '' ); ?>
-
-	<ul class="sf-result">
-		<?php
-			if( isset( $results ) ):				
-				foreach( $results['result'] as $r )
-					echo $r;
-			endif;
-		?>
-	</ul>	
-	<?php apply_filters( 'sf-after-results', '' ); ?>
-	<ul class="sf-nav">
-		<?php
-			if( isset( $results ) ):				
-				foreach( $results['nav'] as $r )
-					echo $r;
-			endif;
-		?>
-	
-	</ul>	
-	<?php apply_filters( 'sf-after-navigation', '' ); ?>
 </div>
 
-		<?php
-			if( isset( $results ) ):				
-				?>
-				<script>sf_adjust_elements_waitimg();</script>
-				<?php
-			endif;
+<?php
+	if( isset( $results ) ):				
 		?>
+		<script>sf_adjust_elements_waitimg();</script>
+		<?php
+	endif;
+?>
 		
-	<?php
-		if( isset( $results['args'] ) ):
-	?><p>Debug Mode</p>
-	<pre>Args:
+<?php
+	if( isset( $results['args'] ) ):
+?>
+<p>Debug Mode</p>
+<pre>Args:
 <?php print_r( $results['args'] ); ?>
 Query:
 <?php print_r( $results['query'] ); ?></pre>
-	<?php endif; ?>
+<?php endif; ?>

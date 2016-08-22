@@ -38,8 +38,7 @@
 	<p><?php _e( 'No Search Filter yet.', 'sf' ); ?></p>
 	<?php endif; ?>
 	</div>
-	<a href="http://codecanyon.net/item/filter-custom-fields-taxonomies/6964843?ref=websupporter" target="_blank"><img src="<?php echo SF_URL; ?>/res/admin/gopro.png" alt="Go Pro" class="sf-half" /></a>
 	
 	<hr class="sf"/>
-	<p><strong>Current Version: <?php echo SF_CURRENT_VERSION; ?></strong></p>
+	<p><strong>Current Version: <?php echo EL_CURRENT_VERSION; ?></strong></p>
 </div>
