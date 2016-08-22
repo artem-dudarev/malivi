@@ -16,13 +16,11 @@
   margin: 0 20px 0 0 !important;
 }
 
-/*--------------------------------------------------------------
-	HEADER
---------------------------------------------------------------*/
+
 
 
 /*--------------------------------------------------------------
-	GENERAL
+	Events-list styles
 --------------------------------------------------------------*/
 
 .hentry {
@@ -167,3 +165,85 @@ p {
 	FOOTER
 --------------------------------------------------------------*/
 
+/* -------------------------- start shortcodes styles -------------------------- */
+
+.events-list-table {
+  display: table;
+  width: 100%;
+  border-spacing: 10px 20px;
+}
+
+.events-list-row {
+  background-color: #EEEEEE;
+  width: 100%;
+  display: table-row;
+}
+
+.events-list-cell {
+  display: table-cell;
+  vertical-align: top;
+}
+
+
+/* -------------------------- 1 Column: date thumbnail -------------------------- */
+
+.events-list-post-date-thumbnail {
+  background-color: #55bb66;
+  text-align: center;
+  vertical-align: middle;
+  width: 100px;
+  height: 100px;
+}
+
+.events-list-post-date-thumbnail-title {
+  color: #ffffff;
+  font-size: 2em;
+  line-height: 1.5em;
+}
+
+.events-list-post-date-thumbnail-subtitle {
+  color: #ffffff;
+  font-size: 1em;
+  line-height: 0.5em;
+}
+
+/* -------------------------- 2 Column: image thumbnail-------------------------- */
+
+.events-list-post-image-thumbnail {
+  vertical-align: middle;
+  text-align: center;
+  width: 100px;
+  height: 100px;
+}
+
+.events-list-post-image-link {
+  width: 100px;
+  height: 100px;
+}
+
+.events-list-post-image-noimglink {
+  font-size: 3em;
+}
+
+/* -------------------------- 3 Column: text -------------------------- */
+
+.events-list-post-text {
+    background-color: #ffeedd;
+}
+
+.events-list-post-text-header {
+  margin-bottom: 0.25em;
+  font-size: 1em;
+  line-height: 1.5em;
+  color: #333333;
+}
+
+.events-list-post-text-content {
+  font-style: italic;
+  font-weight: 400;
+  line-height: 1.5em;
+  font-size: 0.875em;
+  color: #444444;
+}
+
+/* -------------------------- end of shortcodes styles -------------------------- */
