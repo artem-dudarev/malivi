@@ -20,23 +20,45 @@
 
 
 /*--------------------------------------------------------------
-	Events-list styles
+	Flat-sky
 --------------------------------------------------------------*/
 
 .hentry {
     border-bottom: 1px solid #EEE;
-    padding: 60px 35px !important;
+    padding: 45px 25px !important;
     position: relative;
+}
+@media (max-width: 767px) {
+    .hentry {
+        padding: 0px 0px !important;
+    }
+}
+
+.site-description {
+    color: rgba(255,255,255,0.8)  !important;
 }
 
 #page:before, .sidebar-offcanvas, #secondary { 
-	background-color: #0073A1 !important;
+	background-color: #60B0D0 !important;
 }
 
 .hentry .entry-title {
     margin-top: 0px;
-    text-align: left !important;
+    text-align: center !important;
     font-size: 44px !important;
+}
+
+@media (max-width: 767px) {
+    .hentry .entry-title {
+        margin: 0px 0px;
+        text-align: center !important;
+        font-size: 32px !important;
+        line-height: 2em;
+    }
+
+    .entry-content {
+        padding: 0px !important;
+    }
 }
 
 .hentry .entry-meta {
@@ -54,12 +76,12 @@
 .hentry .tags-links a {
     background: #535353 none repeat scroll 0% 0% !important;
 	color: #E1E1E1 !important;
-	padding: 5px 10px;
+	padding: 5px 0px;
 	border-radius: 4px;
 }
 .entry-header {
 	border-bottom: 1px solid #F3F3F3;
-	padding: 0px 0px 10px 0px;
+	padding: 0;
 }
 
 p {
@@ -78,6 +100,7 @@ p {
     border-bottom: 1px solid rgba(255, 255, 255, 0.3);
     display: block;
 }
+
 
 #secondary .widget-title {
     text-transform: uppercase;
@@ -162,15 +185,21 @@ p {
 }
 
 /*--------------------------------------------------------------
-	FOOTER
+	Events-list styles
 --------------------------------------------------------------*/
-
-/* -------------------------- start shortcodes styles -------------------------- */
 
 .events-list-table {
   display: table;
   width: 100%;
-  border-spacing: 10px 20px;
+  border-spacing: 5px 8px;
+  border: 1px solid #ffffff;
+}
+
+@media (max-width: 767px) {
+    .events-list-table {
+        border-spacing: 0px 0px;
+        
+    }
 }
 
 .events-list-row {
@@ -182,13 +211,15 @@ p {
 .events-list-cell {
   display: table-cell;
   vertical-align: top;
+  border-bottom: 5px solid #ffffff;
+  border-right: 2px solid #ffffff;
 }
 
 
 /* -------------------------- 1 Column: date thumbnail -------------------------- */
 
 .events-list-post-date-thumbnail {
-  background-color: #55bb66;
+  background-color: #77cc88;
   text-align: center;
   vertical-align: middle;
   width: 100px;
@@ -196,13 +227,13 @@ p {
 }
 
 .events-list-post-date-thumbnail-title {
-  color: #ffffff;
+  color: #FFFFFF;
   font-size: 2em;
   line-height: 1.5em;
 }
 
 .events-list-post-date-thumbnail-subtitle {
-  color: #ffffff;
+  color: #FFFFFF;
   font-size: 1em;
   line-height: 0.5em;
 }
@@ -232,7 +263,14 @@ p {
     height: 88px;
     text-overflow: ellipsis;
     overflow: hidden;
+    width: 100%;
 }
+
+/*@media (max-width: 767px) {
+    .events-list-post-text {
+        height: 95px;
+    }
+}*/
 
 .events-list-post-text-header {
   margin-bottom: 0.25em;
@@ -240,12 +278,27 @@ p {
   line-height: 1.5em;
 }
 
+/*@media (max-width: 767px) {
+  .events-list-post-text-header {
+    margin-bottom: 0.25em;
+    font-size: 0.75em;
+    line-height: 1.5em;
+  }
+}*/
+
 .events-list-post-text-content {
   font-style: italic;
   line-height: 1.5em;
   font-size: 0.875em;
   color: #444444;
 }
+
+/*@media (max-width: 767px) {
+    .events-list-post-text-content {
+        line-height: 1em;
+        font-size: 0.5em;
+    }
+}*/
 
 label {
     width: 100%;
