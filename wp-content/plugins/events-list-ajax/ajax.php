@@ -283,14 +283,16 @@
 						$content .= $image_content;
 					$content .= '</div>';
 
-					$content .= '<div class="events-list-post-text events-list-cell" >';
-						$content .= '<div class="events-list-post-text-header">';
-							$content .= $title;
-						$content .= '</div>';
+					$content .= '<div class="events-list-cell" >';
+						$content .= '<div class="events-list-post-text" >';
+							$content .= '<div class="events-list-post-text-header">';
+								$content .= $title;
+							$content .= '</div>';
 
-						$content .= '<div class="events-list-post-text-content">';
-							//$content .= event_list_custom_excerpt(a['excerpt_lenght'], a['ignore_more_tag']);
-							$content .= event_list_custom_excerpt('25', 'true');
+							$content .= '<div class="events-list-post-text-content">';
+								//$content .= event_list_custom_excerpt(a['excerpt_lenght'], a['ignore_more_tag']);
+								$content .= event_list_custom_excerpt('25', 'true');
+							$content .= '</div>';
 						$content .= '</div>';
 					$content .= '</div>';
 					

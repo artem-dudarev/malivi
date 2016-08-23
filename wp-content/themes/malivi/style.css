@@ -174,7 +174,7 @@ p {
 }
 
 .events-list-row {
-  background-color: #EEEEEE;
+  background-color: #ffeedd;
   width: 100%;
   display: table-row;
 }
@@ -229,21 +229,26 @@ p {
 
 .events-list-post-text {
     background-color: #ffeedd;
+    height: 88px;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 
 .events-list-post-text-header {
   margin-bottom: 0.25em;
   font-size: 1em;
   line-height: 1.5em;
-  color: #333333;
 }
 
 .events-list-post-text-content {
   font-style: italic;
-  font-weight: 400;
   line-height: 1.5em;
   font-size: 0.875em;
   color: #444444;
+}
+
+label {
+    width: 100%;
 }
 
 /* -------------------------- end of shortcodes styles -------------------------- */

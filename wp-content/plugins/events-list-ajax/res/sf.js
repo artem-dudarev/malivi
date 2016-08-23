@@ -126,13 +126,16 @@ function get_filter_results( $is_on_load = false ){
 
 
 jQuery( document ).ready( function() {
-	// Переместим фильтры в боковое меню
+	// Активируем логику, только если на странице есть есть наши фильтры
 	if (jQuery('.sf-wrapper').length == 0) {
+		// Если фильтров нет, то удалим placeholder в боковом меню
 		jQuery('#events-list-filters-anchor').parent().parent().hide();
 		return;
 	}
+	// Переместим фильтры в боковое меню
 	jQuery( '.entry-content' ).children().prependTo('#events-list-filters-anchor');
 		
+	// Отслеживаем изменения фильтров и вызываем поиск после каждого изменения
 	jQuery( document ).on( 'change', '.sf-filter input, .sf-filter select', function(){
 		var possible_cond_key = jQuery( this ).closest( '.sf-element' ).attr( 'data-id' );
 		var possible_cond_val = jQuery( this ).val();
@@ -156,6 +159,7 @@ jQuery( document ).ready( function() {
 			get_filter_results();
 	});
 	
+	// Переключение страниц
 	jQuery( document ).on( 'click','.sf-nav-click', function( event ){
 		event.preventDefault();
 		jQuery( '.sf-wrapper' ).find( 'input[name="page"]' ).remove();
@@ -165,7 +169,8 @@ jQuery( document ).ready( function() {
 		jQuery('html, body').animate({ scrollTop: ( jQuery('.sf-wrapper').offset().top - 25 )}, 'slow');
 	});
 	
-	if( location.hash.substr( 0, 4 ) == '#filter-' ){
+	// Если загрузилась страница с указанием фильтров, применим эти фильтры
+	if( location.hash.substr( 0, 4 ) == '#filter-' ) {
 		var range_max = '';
 		var range_min = '';
 		var	hash = JSON.parse( location.hash.substr( 4 ) );
@@ -219,6 +224,7 @@ jQuery( document ).ready( function() {
 		}
 		
 	}
+	// После загрузки страницы - вызываем поиск
 	get_filter_results( true );
 	
 });
