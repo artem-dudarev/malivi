@@ -34,7 +34,7 @@
     }
 }
 
-.site-description {
+#secondary, .site-description {
     color: rgba(255,255,255,0.8)  !important;
 }
 
@@ -226,6 +226,13 @@ p {
   height: 100px;
 }
 
+@media (max-width: 767px) {
+    .events-list-post-date-thumbnail {
+        width: 80px;
+        height: 80px;
+    }
+}
+
 .events-list-post-date-thumbnail-title {
   color: #FFFFFF;
   font-size: 2em;
@@ -246,10 +253,23 @@ p {
   width: 100px;
   height: 100px;
 }
+@media (max-width: 767px) {
+    .events-list-post-image-thumbnail {
+        width: 80px;
+        height: 80px;
+    }
+}
 
 .events-list-post-image-link {
   width: 100px;
   height: 100px;
+}
+
+@media (max-width: 767px) {
+    .events-list-post-image-link {
+        width: 80px;
+        height: 80px;
+    }
 }
 
 .events-list-post-image-noimglink {
@@ -266,11 +286,11 @@ p {
     width: 100%;
 }
 
-/*@media (max-width: 767px) {
+@media (max-width: 767px) {
     .events-list-post-text {
-        height: 95px;
+        height: 80px;
     }
-}*/
+}
 
 .events-list-post-text-header {
   margin-bottom: 0.25em;
@@ -278,13 +298,12 @@ p {
   line-height: 1.5em;
 }
 
-/*@media (max-width: 767px) {
+@media (max-width: 767px) {
   .events-list-post-text-header {
-    margin-bottom: 0.25em;
     font-size: 0.75em;
     line-height: 1.5em;
   }
-}*/
+}
 
 .events-list-post-text-content {
   font-style: italic;
@@ -293,12 +312,13 @@ p {
   color: #444444;
 }
 
-/*@media (max-width: 767px) {
+@media (max-width: 767px) {
     .events-list-post-text-content {
         line-height: 1em;
-        font-size: 0.5em;
+        font-size: 0.65em;
+        color: #444444;
     }
-}*/
+}
 
 label {
     width: 100%;

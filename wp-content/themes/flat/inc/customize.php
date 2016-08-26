@@ -433,14 +433,6 @@ function flat_customize_register( $wp_customize ) {
 			'sanitize_callback' => 'flat_sanitize_text',
 	) );
 	
-	$wp_customize->add_control( new Flat_Message( $wp_customize, 'flat_footer_widgets',
-		array(
-			'label'    => __( 'Footer widgets', 'flat' ),
-			'section' => 'flat_footer_section',
-			'priority' => 1,
-			'flat_message' => __( 'Check out the <a href="http://themeisle.com/plugins/flat-plus/">PRO version</a> for full control over the footer area!', 'flat' )
-	   )
-	));
 	
 	$wp_customize->add_setting( 'flat_footer_copyright', array(
 			'sanitize_callback' => 'flat_sanitize_text',
@@ -465,14 +457,6 @@ function flat_customize_register( $wp_customize ) {
 			'sanitize_callback' => 'flat_sanitize_text',
 	) );
 	
-	$wp_customize->add_control( new Flat_Message( $wp_customize, 'flat_woocommerce_setting',
-		array(
-			'label'    => __( 'WooCoomerce support', 'flat' ),
-			'section' => 'flat_woocommerce_section',
-			'priority' => 1,
-			'flat_message' => __( 'Check out the <a href="http://themeisle.com/plugins/flat-plus/">PRO version</a> for full compatibility with WooCommerce!', 'flat' )
-	   )
-	));
 	
 	/* Color Schemes */
 	$wp_customize->add_section( 'flat_colorscheme_section' , array(
@@ -485,14 +469,6 @@ function flat_customize_register( $wp_customize ) {
 			'sanitize_callback' => 'flat_sanitize_text',
 	) );
 	
-	$wp_customize->add_control( new Flat_Message( $wp_customize, 'flat_colorscheme_setting',
-		array(
-			'label'    => __( 'Color schemes', 'flat' ),
-			'section' => 'flat_colorscheme_section',
-			'priority' => 1,
-			'flat_message' => __( 'Check out the <a href="http://themeisle.com/plugins/flat-plus/">PRO version</a> for some awesome color schemes!', 'flat' )
-	   )
-	));
 	
 	/* Sidebar position */
 	$wp_customize->add_section( 'flat_sidebar_section' , array(
@@ -504,16 +480,7 @@ function flat_customize_register( $wp_customize ) {
 	$wp_customize->add_setting( 'flat_sidebar_setting', array(
 			'sanitize_callback' => 'flat_sanitize_text',
 	) );
-	
-	$wp_customize->add_control( new Flat_Message( $wp_customize, 'flat_sidebar_setting',
-		array(
-			'label'    => __( 'Sidebar position', 'flat' ),
-			'section' => 'flat_sidebar_section',
-			'priority' => 1,
-			'flat_message' => __( 'Check out the <a href="http://themeisle.com/plugins/flat-plus/">PRO version</a> for full control over the sidebar position!', 'flat' )
-	   )
-	));
-	
+		
 	/* Custom width */
 	$wp_customize->add_section( 'flat_width_section' , array(
 		'title'       => esc_html__( 'Custom width', 'flat' ),
@@ -525,15 +492,6 @@ function flat_customize_register( $wp_customize ) {
 			'sanitize_callback' => 'flat_sanitize_text',
 	) );
 	
-	$wp_customize->add_control( new Flat_Message( $wp_customize, 'flat_width_setting',
-		array(
-			'label'    => __( 'Custom width', 'flat' ),
-			'section' => 'flat_width_section',
-			'priority' => 1,
-			'flat_message' => __( 'Check out the <a href="http://themeisle.com/plugins/flat-plus/">PRO version</a> for full control over the main content width!', 'flat' )
-	   )
-	));
-	
 	/* Infinite scroll */
 	$wp_customize->add_section( 'flat_infinitescroll_section' , array(
 		'title'       => esc_html__( 'Infinite scroll', 'flat' ),
@@ -542,18 +500,7 @@ function flat_customize_register( $wp_customize ) {
 	
 	$wp_customize->add_setting( 'flat_infinitescroll_setting', array(
 			'sanitize_callback' => 'flat_sanitize_text',
-	) );
-	
-	$wp_customize->add_control( new Flat_Message( $wp_customize, 'flat_infinitescroll_setting',
-		array(
-			'label'    => __( 'Infinite scroll', 'flat' ),
-			'section' => 'flat_infinitescroll_section',
-			'priority' => 1,
-			'flat_message' => __( 'Check out the <a href="http://themeisle.com/plugins/flat-plus/">PRO version</a> for full compatibility with Jetpack Infinite Scroll option!', 'flat' )
-	   )
-	));
-	
-	
+	) );	
 	
 }
 add_action( 'customize_register', 'flat_customize_register' );

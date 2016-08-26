@@ -72,18 +72,17 @@ function collect_data( wrapper ){
 		return data;
 	}
 
-function get_filter_results( $is_on_load = false ){
+function get_filter_results( is_on_load ) {
 		var wrapper = jQuery( '.sf-wrapper' );
 		var data = {
-				action	:	'sf-search',
-				data	:	collect_data( wrapper )
+			action	:	'sf-search',
+			data	:	collect_data( wrapper )
 		};
 		
-		if( !$is_on_load ){
+		if( typeof is_on_load == 'undefined' ){
 			location.href = '#filter-' + JSON.stringify( data.data ); 
 		}
-		
-		//$article = $doc('article');
+
 		$article = jQuery('.entry-content');
 		//$article('article').empty();
 		//wrapper.css({opacity:.1});

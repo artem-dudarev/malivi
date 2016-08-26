@@ -52,6 +52,23 @@
 		die();	
 	}
 	
+	
+	/* trim excerpt to custom size */
+	function event_list_custom_excerpt ($limit, $ignore_more_tag) {
+		global $more;
+		if ($ignore_more_tag == 'true') { $more = 1; }
+		else { $more = 0; }
+		$excerpt = explode(' ', get_the_excerpt(), $limit);
+		if (count($excerpt)>=$limit) {
+			array_pop($excerpt);
+			$excerpt = implode(" ",$excerpt).'...';
+		} else {
+			$excerpt = implode(" ",$excerpt);
+		}
+		$excerpt = preg_replace('`\[[^\]]*\]`','',$excerpt);
+		return $excerpt;
+	}
+
 	function sf_do_search( $exclude = array() ){
 		global $wpdb;
 			
@@ -303,11 +320,8 @@
 		} else {
 			$content = __( 'No recent posts', 'lptw_recent_posts_domain' );
 		}
-		wp_reset_postdata();
-		
-	
-		
-		
+		//wp_reset_postdata();
+		/*
 		if( defined( 'ICL_LANGUAGE_CODE' )  ):
 			global $sitepress;
 			$num_of_posts = sf_count_posts( $sitepress->get_current_language(), $field['posttype'] );
@@ -322,34 +336,37 @@
 		endif;
 		
 		$content .= sprintf( __( '<span class="sf-foundcount">%d results</span> out of <span class="sf-totalcount">%d posts</span>', 'sf' ), $query->found_posts, $num_of_posts );
-			
+		*/	
 		
-		if( $query->max_num_pages > 1 ):
+		if( $query->max_num_pages > 1 ) {
 			$pages_around_result = 4;
-			if( !isset( $_POST['data']['page'] ) )
+			if( !isset( $_POST['data']['page'] ) ) {
 				$paged = 1;
-			else
+			} else {
 				$paged = (int) $_POST['data']['page']['val'];
+			}
 			$i = 0;
 			
 			if( $paged > 1 ) {
 				$content .= '<li><span class="sf-nav-click sf-nav-left-arrow" data-href="' . ( $paged - 1 ) . '">&laquo;</span></li>';
 			}
-			while( $i < $query->max_num_pages ){
+			while( $i < $query->max_num_pages ) {
 				$i++;
 				if( $i == 1 || ( $i > $paged - $pages_around_result && $i < $paged + $pages_around_result ) || $i == $query->max_num_pages ){
-					if( $i != $paged )
+					if( $i != $paged ) {
 						$content .= '<li><span class="sf-nav-click" data-href="' . ( $i ) . '">' . $i . '</span></li>';
-					else
+					} else {
 						$content .= '<li><span class="sf-nav-current">' . $i . '</span></li>';
-				} elseif( ( $i == $paged - $pages_around_result || $i == $paged + $pages_around_result )  ){
-						$content .= '<li><span class="sf-nav-three-points">...</span></li>';
+					}
+				} else if( ( $i == $paged - $pages_around_result || $i == $paged + $pages_around_result )  ) {
+					$content .= '<li><span class="sf-nav-three-points">...</span></li>';
 				}
 			}
-			if( $paged < $query->max_num_pages )
-				$content .= '<li><span class="sf-nav-click sf-nav-right-arrow" data-href="' . ( $paged + 1 ) . '">&raquo;</span></li>';		
+			if( $paged < $query->max_num_pages ) {
+				$content .= '<li><span class="sf-nav-click sf-nav-right-arrow" data-href="' . ( $paged + 1 ) . '">&raquo;</span></li>';
+			}		
 			
-		endif;
+		}
 		$data['html'] = $content;
 		return $data;
 	}

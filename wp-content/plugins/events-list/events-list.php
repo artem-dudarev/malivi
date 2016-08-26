@@ -59,7 +59,6 @@ function event_list_custom_excerpt ($limit, $ignore_more_tag) {
     return $excerpt;
 }
 
-register_activation_hook( __FILE__, 'lptw_recent_posts_activate' );
 
 /**
 -------------------------------------- Shortcode --------------------------------------
