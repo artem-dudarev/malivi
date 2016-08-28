@@ -252,7 +252,7 @@
 		}
 
 		if ( tribe_is_event( $post_id ) ) {
-			return date( $d, strtotime(get_post_meta( $post_id, '_EventStartDate', true ) ) );
+			return date_i18n( $d, strtotime(get_post_meta( $post_id, '_EventStartDate', true ) ) );
 		}
 			
 		return $the_date;
