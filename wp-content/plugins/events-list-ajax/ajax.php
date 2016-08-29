@@ -248,7 +248,7 @@
 		remove_filter( 'posts_join_paged', 'sf_content_filter_join' );
 		remove_filter( 'posts_where', 'sf_content_filter' );
 		if( $query->have_posts() ) {
-			$content = '<div class="table-post-list table-'. $post_type . '">';
+			$content = '<div class="events-list-table table-'. $post_type . '">';
 			while( $query->have_posts() ) {
 				$query->the_post();
 				$post_id = get_the_ID();
