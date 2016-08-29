@@ -6,7 +6,7 @@
 			
 ?>
 <!-- Search Filter: <?php echo $attr['id']; ?>-->
-<div class="sf-wrapper">
+<div class="sf-wrapper" style="display: none">
 	
 	<div class="sf-filter">
 		<?php if( defined( 'ICL_LANGUAGE_CODE' )  ):

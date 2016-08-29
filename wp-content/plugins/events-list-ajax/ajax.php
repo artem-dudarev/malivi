@@ -76,50 +76,57 @@
 			$_SESSION['sf'] = $_POST['data'];
 		$data['post'] = $_POST['data'];		
 		
-		if( isset( $_POST['data']['wpml'] ) ):
+		if( isset( $_POST['data']['wpml'] ) ) {
 			global $sitepress;
 			$sitepress->switch_lang( $_POST['data']['wpml'], true );
 			unset( $_POST['data']['wpml'] );
-		endif;
+		}
 		
 		$fulltext = "";
 		$fields = get_option( 'sf-fields' );
 		$found = false;
-		foreach( $fields as $field ):
-			if( $field['name'] == $_POST['data']['search-id'] ):
+		foreach( $fields as $field ) {
+			if( $field['name'] == $_POST['data']['search-id'] ) {
 				$found = true;
 				break;
-			endif;
-		endforeach;
+			}
+		}
 		
-		if( !$found )
+		if( !$found ) {
 			die( 'Wrong parameter' );
+		}
+
+		$post_type = $field['posttype'];
+		if( is_array( $field['posttype'] ) ) {
+			foreach( $field['posttype'] as $posttype ) {
+				$post_type = $posttype;
+				break;
+			}
+		} else {
+			$post_type = $field['posttype'];
+		}
 				
 		$args = array(
-			'post_type'		=> $field['posttype'],
+			'post_type'		=> $post_type,
 			'post_status'	=> 'publish'
 		);
 
-		
-		$template_file = SF_DIR . 'templates/template-' . $field['name'];
-		if( function_exists('is_multisite') && is_multisite() )
-			$template_file = SF_DIR . 'templates/template-' . $wpdb->blogid . '-' . $field['name'] ;
-		
-		
-		if( !is_file( $template_file . '.php' ) )
-			$template_file = SF_DIR . 'templates/res/template-standard';
 			
+		$test = $_POST['data'];
 		$data_tmp = array();
-		foreach( $_POST['data'] as $key => $val ):
-			if( $val == '' || empty( $val ) )
+		foreach( $_POST['data'] as $key => $val ) {
+			if( $val == '' || empty( $val ) ) {
 				continue;
+			}
 				
 			$key = explode( '|', $key );
-			if( !isset( $key[1] ) )
+			if( !isset( $key[1] ) ) {
 				$data_tmp[ $key[0] ]['val'] = $val;
-			if( isset( $key[1] ) )
+			}
+			if( isset( $key[1] ) ) {
 				$data_tmp[ $key[0] ][ $key[1] ] = $val;
-		endforeach;		
+			}
+		}		
 		$_POST['data'] = $data_tmp;
 		
 		$operator = array( 'like' => 'LIKE', 'between' => 'BETWEEN', 'equal' => '=', 'bt' => '>', 'st' => '<', 'bte' => '>=', 'ste' => '<=' );
@@ -132,7 +139,6 @@
 				$data_type = $val['type'];
 				$data_value = $val['type'] ;
 			endif;
-			
 			if( isset( $_POST['data'][ $key ] ) ):
 				/**
 				Taxonomy Query
@@ -242,83 +248,23 @@
 		remove_filter( 'posts_join_paged', 'sf_content_filter_join' );
 		remove_filter( 'posts_where', 'sf_content_filter' );
 		if( $query->have_posts() ) {
-			 $content = '<div class="events-list-table">';
+			$content = '<div class="table-post-list table-'. $post_type . '">';
 			while( $query->have_posts() ) {
 				$query->the_post();
 				$post_id = get_the_ID();
-
+				
+				ob_start();
+				require( SF_DIR . 'includes/item-'. $post_type .'.php' );
+				$content .= ob_get_contents();
+				ob_end_clean();
 				/* ------------------------------------ start layouts output ------------------------------------ */
 
-				$thumbnail = wp_get_attachment_image_src( get_post_thumbnail_id($post_id) );
-				$title = get_the_title();
-
-				$current_date = date("d.m.Y");
-				$post_date = get_the_date('d.m.Y');
-
-				// Если событие сегодня, то на иконке отображаем время начала
-				// Иначе показываем дату
-				if ( $current_date == $post_date) {
-					// Если событие идет весь день, то вместо времени начала показываем надпись "весь день"
-					if (tribe_event_is_all_day($post_id)) {
-						$post_time = '';
-						$thumbnail_title = "ВЕСЬ ДЕНЬ";
-					} else {
-						$post_time = get_the_date('H:i');
-						$thumbnail_title = $post_time;
-					}
-					$show_thumbnail_subtitle = false;
-				} else {
-					$thumbnail_title = get_the_date('d');
-					$thumbnail_subtitle = get_the_date('M.Y');
-					$show_thumbnail_subtitle = true;
-				}
-
 				
-				if (empty($thumbnail) || $thumbnail == false) {
-					$image_content = '<span class="events-list-post-image-noimglink">';
-					$image_content .= mb_substr($title, 0, 1);
-					$image_content .= '</span>';
-				} else {
-					$image_content = '<img class="events-list-post-image-link" src="'.$thumbnail['0'].'" alt="'.$title.'" />';
-				}
-
-				
-				$content .= '<a class="events-list-row" href="' . get_the_permalink() . '" >';
-					$content .= '<div class="events-list-post-date-thumbnail events-list-cell" >';
-						$content .= '<div class="events-list-post-date-thumbnail-title" >';
-						$content .= $thumbnail_title;
-						$content .= '</div>';
-						
-						if ($show_thumbnail_subtitle) {
-						$content .= '<div class="events-list-post-date-thumbnail-subtitle" >';
-						$content .= $thumbnail_subtitle;
-						$content .= '</div>';
-						}
-					$content .= '</div>';
-
-					$content .= '<div class="events-list-post-image-thumbnail events-list-cell" >';
-						$content .= $image_content;
-					$content .= '</div>';
-
-					$content .= '<div class="events-list-cell" >';
-						$content .= '<div class="events-list-post-text" >';
-							$content .= '<div class="events-list-post-text-header">';
-								$content .= $title;
-							$content .= '</div>';
-
-							$content .= '<div class="events-list-post-text-content">';
-								//$content .= event_list_custom_excerpt(a['excerpt_lenght'], a['ignore_more_tag']);
-								$content .= event_list_custom_excerpt('25', 'true');
-							$content .= '</div>';
-						$content .= '</div>';
-					$content .= '</div>';
-					
-				$content .= '</a>';
 				
 			} // end while( $query->have_posts() )
 			$content .= '</div>';
 		} else {
-			$content = __( 'No recent posts', 'lptw_recent_posts_domain' );
+			//$content = __( 'No recent posts', 'lptw_recent_posts_domain' );
 		}
 		//wp_reset_postdata();
 		/*
@@ -338,7 +284,7 @@
 		$content .= sprintf( __( '<span class="sf-foundcount">%d results</span> out of <span class="sf-totalcount">%d posts</span>', 'sf' ), $query->found_posts, $num_of_posts );
 		*/	
 		
-		if( $query->max_num_pages > 1 ) {
+		/*if( $query->max_num_pages > 1 ) {
 			$pages_around_result = 4;
 			if( !isset( $_POST['data']['page'] ) ) {
 				$paged = 1;
@@ -366,8 +312,18 @@
 				$content .= '<li><span class="sf-nav-click sf-nav-right-arrow" data-href="' . ( $paged + 1 ) . '">&raquo;</span></li>';
 			}		
 			
+		}*/
+		 
+		/*
+		$deb = '';
+		foreach($test as $key => $value) {
+			$deb .= $key." : ". $value;
 		}
+		$content = $deb . $content;
+		*/
 		$data['html'] = $content;
+
+		$data['pages_count'] = $query->max_num_pages;
 		return $data;
 	}
 ?>

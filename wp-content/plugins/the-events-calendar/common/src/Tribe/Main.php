@@ -12,12 +12,23 @@ if ( class_exists( 'Tribe__Main' ) ) {
 	return;
 }
 
+class Tribe__Events__Pro__Main {
+	const VERSION      = '4.2.4';
+	function disable_recurring_info_tooltip() {
+
+	}
+
+	function enable_recurring_info_tooltip() {
+		
+	}
+}
+
 class Tribe__Main {
 	const EVENTSERROROPT      = '_tribe_events_errors';
 	const OPTIONNAME          = 'tribe_events_calendar_options';
 	const OPTIONNAMENETWORK   = 'tribe_events_calendar_network_options';
 
-	const VERSION           = '4.2.4dev';
+	const VERSION           = '4.2.4';
 	const FEED_URL          = 'https://theeventscalendar.com/feed/';
 
 	protected $plugin_context;

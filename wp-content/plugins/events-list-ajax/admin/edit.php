@@ -38,36 +38,14 @@
 			$field['tax'] = $sf['tax'];
 			$field['meta'] = $sf['meta'];
 		endif;
+				
 		if( isset( $_POST['sf_step'] ) && $_POST['sf_step'] == 3 ):
 			
 			foreach( $sf as $key => $val ):
 				$field[ $key ] = $val;
 			endforeach;
-			
-			if( !function_exists('is_multisite') || !is_multisite() )
-				$file = SF_DIR . 'templates/template-' . $field['name'] . '.php';
-			else
-				$file = SF_DIR . 'templates/template-' . $wpdb->blogid . '-' . $field['name'] . '.php';
-			$fp = fopen( $file, 'w' );
-			fwrite( $fp, stripslashes( $_POST['template']['result'] ) );
-			fclose( $fp );
-		
-			if( !function_exists('is_multisite') || !is_multisite() )
-				$file = SF_DIR . 'templates/template-' . $field['name'] . '-noresult.php';
-			else
-				$file = SF_DIR . 'templates/template-' . $wpdb->blogid . '-' . $field['name'] . '-noresult.php';
-			$fp = fopen( $file, 'w' );
-			fwrite( $fp, stripslashes( $_POST['template']['noresult'] ) );
-			fclose( $fp );			
 		endif;
 		
-		
-		if( isset( $_POST['sf_step'] ) && $_POST['sf_step'] == 4 ):
-			
-			foreach( $sf as $key => $val ):
-				$field[ $key ] = $val;
-			endforeach;
-		endif;
 		
 		$fields[ $field['name'] ] = $field;
 		update_option( 'sf-fields', $fields ); 
@@ -86,7 +64,7 @@
 		<ul>
 			<li><a href="#general-settings"><?php _e( 'General Settings', 'sf' ); ?></a></li>
 			<li><a href="#taxonomies-postmeta"><?php _e( 'Taxonomies & Postmetas' ,'sf' ); ?></a></li>
-			<li><a href="#layout"><?php _e( 'Layout' ,'sf' ); ?></a></li>
+			<!--<li><a href="#layout"><?php _e( 'Layout' ,'sf' ); ?></a></li>-->
 			<li><a href="#form-elements"><?php _e( 'Form Elements' ,'sf' ); ?></a></li>
 			<li><a href="#import-export"><?php _e( 'Import & Export', 'sf' ); ?></a></li>
 		</ul>
@@ -194,142 +172,10 @@
 			</form>
 		</div>
 		
-		<!-- 3. Tab: Layout -->
-		<div id="layout">
-			<h3><?php _e( 'Layout' ,'sf' ); ?></h3>
-			<form method="post" class="sf-form"><?php wp_nonce_field( 'update-sf', 'sf-wpnonce', false ); ?>
-				<input name="sf_step" value="3" type="hidden" />
-				
-			<div class="sf-accordion">
-				<h3><?php _e( 'Search Result Columns' ,'sf' ); ?></h3>
-				<div>
-					<div class="sf-4columns">
-						<label>
-							<img src="<?php echo SF_URL; ?>/res/admin/layout-li-column1.png" alt="1 Column" />
-							<br />
-							<input <?php if( !isset( $field['columns'] ) || $field['columns'] == 1 ) echo 'checked="checked" '; ?>name="sf[columns]" value="1" type="radio"/>
-							<?php _e( '1 Column', 'sf' ); ?>
-						</label>
-					</div>
-					<div class="sf-4columns">
-						<label>
-							<img src="<?php echo SF_URL; ?>/res/admin/layout-li-column2.png" alt="2 Columns" />
-							<br />
-							<input <?php if( isset( $field['columns'] ) && $field['columns'] == 2 ) echo 'checked="checked" '; ?>name="sf[columns]" value="2" type="radio"/>
-							<?php _e( '2 Columns', 'sf' ); ?>
-						</label>
-					</div>
-					<div class="sf-4columns">
-						<label>
-							<img src="<?php echo SF_URL; ?>/res/admin/layout-li-column3.png" alt="3 Columns" />
-							<br />
-							<input <?php if( isset( $field['columns'] ) && $field['columns'] == 3 ) echo 'checked="checked" '; ?>name="sf[columns]" value="3" type="radio"/>
-							<?php _e( '3 Columns', 'sf' ); ?>
-						</label>
-					</div>
-					<div class="sf-4columns">
-						<label>
-							<img src="<?php echo SF_URL; ?>/res/admin/layout-li-column4.png" alt="4 Columns" />
-							<br />
-							<input <?php if( isset( $field['columns'] ) && $field['columns'] == 4 ) echo 'checked="checked" '; ?>name="sf[columns]" value="4" type="radio"/>
-							<?php _e( '4 Columns', 'sf' ); ?>
-						</label>
-					</div>
-					<div class="sf-clear"></div>
-				</div>
-				<h3><?php _e( 'Border & Background', 'sf' ); ?></h3>
-				<div>
-					<label for="sfborder"><?php _e( 'Border Color' ); ?>: </label><input id="sfborder" type="text" value="<?php echo $field['border']; ?>" name="sf[border]" class="sf-colorfield" />
-					<label for="sfbackground"><?php _e( 'Background Color' ); ?>: </label><input id="sfbackground" type="text" value="<?php echo $field['background']; ?>" name="sf[background]" class="sf-colorfield" />
-				</div>
-				
-				<h3><?php _e( 'Single Result Element', 'sf' ); ?></h3>
-				<div>
-					<?php 
-					$resdir = SF_DIR . 'templates/res/';
-					$dir = SF_DIR . 'templates/';
-					$files = array();
-					
-					if (!is_writable( $dir ) ):
-						?>
-						<div class="error"><? _e( 'The directory ' . $dir . ' is not writeable.' ); ?></div>
-						<?php
-					endif;
-				
-					$template_name = $field['name'];
-					if( function_exists('is_multisite') && is_multisite() )
-						$template_name = $wpdb->blogid . '-' . $field['name'];
-					if( !is_file( SF_DIR . 'templates/template-' . $template_name . '.php' ) )
-						$file = SF_DIR . 'templates/res/template-standard.php';
-					else
-						$file = SF_DIR . 'templates/template-' . $template_name . '.php';
-					if( !is_file( SF_DIR . 'templates/template-' . $template_name . '-noresult.php' ) )
-						$file_no_result = SF_DIR . 'templates/res/template-standard-noresult.php';
-					else
-						$file_no_result = SF_DIR . 'templates/template-' . $template_name . '-noresult.php';
-					?>
-					<div class="sf-2columns">
-						<?php _e( 'Adjust template for Result Elemet', 'sf' ); ?>
-						<textarea class="sf" name="template[result]"><?php echo file_get_contents( $file ); ?></textarea>
-						<?php _e( 'Adjust template for No Result Elemet', 'sf' ); ?>
-						<textarea class="sf" name="template[noresult]"><?php echo file_get_contents( $file_no_result ); ?></textarea>		
-					</div>
-					<div class="sf-2columns">
-						<strong><?php _e( 'Template Tags', 'sf' ); ?></strong><br />
-						<?php _e( 'You can enrich your template with Taxonomies, Postmeta-Values and much more. Here, you see the list of Template Tags you can use:', 'sf' ); ?>
-						<table>
-							<thead>
-								<tr><th><?php _e( 'Name', 'sf' ); ?></th><th><?php _e( 'Displays', 'sf' ); ?></th></tr>
-							</thead>
-							<tbody>
-								<tr><td><code>#the_title#</code></td><td><?php _e( 'Displays the title of the post', 'sf' ); ?></td></tr>
-								<tr><td><code>#the_content#</code></td><td><?php _e( 'Displays the content of the post', 'sf' ); ?></td></tr>
-								<tr><td><code>#the_excerpt#</code></td><td><?php _e( 'Displays the excerpt of the post', 'sf' ); ?></td></tr>
-								<tr><td><code>#the_author#</code></td><td><?php _e( 'Displays the authors name', 'sf' ); ?></td></tr>
-								<tr><td><code>#count_comments#</code></td><td><?php _e( 'Displays the number of comments on this post', 'sf' ); ?></td></tr>
-								<tr><td><code>#the_permalink#</code></td><td><?php _e( 'Displays the link to the post', 'sf' ); ?></td></tr>
-								<tr><td><code>#thumbnail#</code></td><td><?php _e( 'Displays the thumbnail of the post', 'sf' ); ?></td></tr>
-								<?php
-								if( isset( $field['tax'] ) && is_array( $field['tax'] ) ):
-									foreach( $field['tax'] as $tax ):
-								?>
-								<tr><td><code>#tax_<?php echo $tax; ?>#</code></td><td><?php printf( __( 'Displays the used terms of the taxonomy "%s"', 'sf' ), $tax ); ?></td></tr>					
-								<?php
-									endforeach;
-								?><?php
-								endif;
-						
-								if( isset( $field['meta'] ) && is_array( $field['meta'] ) ):
-									foreach( $field['meta'] as $tax ):
-								?>
-								<tr><td><code>#meta_<?php echo $tax; ?>#</code></td><td><?php printf( __( 'Displays the value of the Postmeta "%s"', 'sf' ), $tax ); ?></td></tr>					
-								<?php
-									endforeach;
-								endif;
-								?>
-							</tbody>
-							<tfoot>
-								<tr><th><?php _e( 'Name', 'sf' ); ?></th><th><?php _e( 'Displays', 'sf' ); ?></th></tr>
-							</tfoot>
-						</table>
-					</div>
-					<div class="sf-clear"></div>
-				</div>
-				<h3 class="last"><?php _e( 'Custom CSS', 'sf' ); ?></h3>
-				<div class="last">
-					<?php _e( 'You can enter here your custom CSS for the search form.', 'sf' ); ?>
-					<textarea id="newcontent" class="sf" name="sf[custom_css]"><?php if( isset( $field['custom_css'] ) ) echo  stripslashes( $field['custom_css'] ); ?></textarea>
-				</div>
-				
-			</div>
-			<div class="sf-clear"></div>
-			<hr />
-			<input class="button" type="submit" value="<?php _e( 'Update', 'sf' ); ?>" />
-		</form>	
-	</div>
+		
 	
 	
-	<!-- 4. Form Elements -->
+	<!-- 3. Form Elements -->
 	<div id="form-elements">
 		<h3><?php _e( 'Form Elements' ,'sf' ); ?></h3>
 		<p><?php _e( 'Move the form elements, which you want to have in your form, from the right to the left pane. You can edit the elements attributes by clicking on it in the pane "Chosen Form Elements". In this dialog, you can set the necessary attributes.', 'sf' ); ?></p>
@@ -366,7 +212,7 @@
 		</div>	
 
 		<form method="post" class="sf-form"><?php wp_nonce_field( 'update-sf', 'sf-wpnonce', false ); ?>
-			<input name="sf_step" value="4" type="hidden" />
+			<input name="sf_step" value="3" type="hidden" />
 			<div class="field filter">
 				<p><strong><?php _e( 'Chosen Form Elements', 'sf' ); ?></strong></p>
 				<?php 
@@ -385,22 +231,22 @@
 								'date'		=>	'date.png'
 				);
 				$i = 0;
-				foreach( $field['fields'] as $key => $f ): 
-				$i++;
-				?>
-				<div data-attr='<?php echo json_encode( $f ); ?>' style="" data-id="<?php echo $i; ?>">
-<img alt="" src="<?php echo SF_URL ?>res/admin/<?php echo $img_array[ $f['type'] ]; ?>">
-<span><?php echo $f['fieldname']; ?></span>
-	<?php foreach( $f as $k => $v ): ?>
-		<?php if( is_array( $v ) ): ?>
-			<?php foreach( $v as $single_v ): ?>
-			<input type="hidden" value="<?php echo $single_v; ?>" name="sf[fields][<?php echo $i; ?>][<?php echo $k; ?>][]">
-			<?php endforeach; ?>
-		<?php else: ?>
-			<input type="hidden" value="<?php echo $v; ?>" name="sf[fields][<?php echo $i; ?>][<?php echo $k; ?>]">
-		<?php endif; ?>
-	<?php endforeach; ?>
-</div>
+				foreach( $field['fields'] as $key => $f ):
+					$i++;
+					?>
+					<div data-attr='<?php echo json_encode( $f ); ?>' style="" data-id="<?php echo $i; ?>">
+						<img alt="" src="<?php echo SF_URL ?>res/admin/<?php echo $img_array[ $f['type'] ]; ?>">
+						<span><?php echo $f['fieldname']; ?></span>
+						<?php foreach( $f as $k => $v ): ?>
+							<?php if( is_array( $v ) ): ?>
+								<?php foreach( $v as $single_v ): ?>
+									<input type="hidden" value="<?php echo $single_v; ?>" name="sf[fields][<?php echo $i; ?>][<?php echo $k; ?>][]">
+								<?php endforeach; ?>
+							<?php else: ?>
+								<input type="hidden" value="<?php echo $v; ?>" name="sf[fields][<?php echo $i; ?>][<?php echo $k; ?>]">
+							<?php endif; ?>
+						<?php endforeach; ?>
+					</div>
 				<?php endforeach; ?>
 			</div>
 		
@@ -431,13 +277,13 @@
 		</form>
 	</div>
 	
-	<!-- 5. Tab: Import & Export -->
+	<!-- 4. Tab: Import & Export -->
 	<div id="import-export">
 		<h3><?php _e( 'Import & Export', 'sf' ); ?></h3>
 		<p><?php _e( 'Here you can import & export your search field. Copy the text below and save it in order to export your search field. Paste the settings here, in order to import your exported search field.', 'sf' ); ?></p>
 		<form method="post"><?php wp_nonce_field( 'update-sf', 'sf-wpnonce', false ); ?>
 			
-			<input name="sf_step" value="5" type="hidden" />
+			<input name="sf_step" value="4" type="hidden" />
 			<textarea style="width:100%;height:250px" name="import"><?php echo serialize( $field ); ?></textarea>
 			<input class="button" type="submit" value="<?php _e( 'Import', 'sf' ); ?>" />
 		</form>

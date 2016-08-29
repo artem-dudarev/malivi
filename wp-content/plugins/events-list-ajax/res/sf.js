@@ -1,36 +1,3 @@
-function sf_adjust_elements_waitimg(){
-	jQuery( '.sf-result' ).find( 'img' ).load( function(){
-		sf_adjust_elements();
-	});
-}
-
-function sf_adjust_elements(){
-	if( typeof( jQuery( '.sf-result' ).attr( 'sf-stop-adjust-elements' ) ) != 'undefined' )
-		return false;
-
-	jQuery( '.sf-result > li' ).css( {'height':'auto'} );
-	var resultlist = jQuery( '.sf-result > li' );
-	var i = 1;
-	var h = 0;
-	var elements = [];
-	resultlist.each( function(){
-		if( h < jQuery( this ).outerHeight() )
-			h = jQuery( this ).outerHeight();
-		if( i <= sf_columns )
-			elements.push( this );
-		if( i == sf_columns ){
-			jQuery( elements ).each( function(){
-				jQuery( this ).css({height:h+'px'});
-			});
-			elements = [];
-			h = 0;
-			i = 0;
-		} else {
-		
-		}
-		i++;
-	});
-}
 
 function collect_data( wrapper ){
 
@@ -72,56 +39,110 @@ function collect_data( wrapper ){
 		return data;
 	}
 
-function get_filter_results( is_on_load ) {
-		var wrapper = jQuery( '.sf-wrapper' );
-		var data = {
-			action	:	'sf-search',
-			data	:	collect_data( wrapper )
-		};
-		
-		if( typeof is_on_load == 'undefined' ){
-			location.href = '#filter-' + JSON.stringify( data.data ); 
-		}
-
-		$article = jQuery('.entry-content');
-		//$article('article').empty();
-		//wrapper.css({opacity:.1});
-		$article.css({opacity:.7});
-		search_data = data.data;
-		jQuery.post(
-			sf_ajax_root,
-			data,
-			function( response ){
-				response = JSON.parse( response );
-				if( JSON.stringify( search_data ) != JSON.stringify( response.post ) )
-					return;
-				//wrapper.css({opacity:1});
-				$article.css({opacity:1});
-				$article.html(response.html);
-				
-				//sf_adjust_elements_waitimg();
-				/*
-				
-				if (document.createEvent) {
-					sfLoadEvent = document.createEvent( 'HTMLEvents' );
-					sfLoadEvent.initEvent( 'sfLoadEvent', true, true, response );
-				} else {
-					sfLoadEvent = document.createEventObject();
-					sfLoadEvent.eventType = 'sfLoadEvent';
-				}
-				sfLoadEvent.eventName = 'sfLoadEvent';
-				sfLoadEvent.data = { 'response': response, 'fields' : data.data };
-				
-				var eventElement = document.getElementsByClassName( 'sf-wrapper' );
-				eventElement = eventElement[0];
-				if (document.createEvent) {
-					eventElement.dispatchEvent(sfLoadEvent);
-				} else {
-					eventElement.fireEvent("on" + sfLoadEvent.eventType, sfLoadEvent);
-				}*/
-			}
-		);
+var current_page = 1;
+var pages_count = 0;
+function get_filter_results( is_on_load, is_append ) {
+	var wrapper = jQuery( '.sf-wrapper' );
+	var data = {
+		action	:	'sf-search',
+		data	:	collect_data( wrapper )
+	};
+	
+	if( typeof is_on_load == 'undefined' ){
+		location.href = '#filter-' + JSON.stringify( data.data ); 
 	}
+
+	
+	if ( typeof is_append != 'undefined' ) {
+		if (current_page == pages_count) {
+			return;
+		}
+		current_page++;
+		data.data.page = current_page;
+	}
+
+	$article = jQuery('.entry-content');
+	if(typeof is_append == 'undefined') {
+		$article.css({opacity:.7});
+	}
+	//wrapper.css({opacity:.1});
+	
+	search_data = data.data;
+	jQuery.post(
+		sf_ajax_root,
+		data,
+		function( response ){
+			response = JSON.parse( response );
+			if( JSON.stringify( search_data ) != JSON.stringify( response.post ) ) {
+				//return;
+			}
+			//wrapper.css({opacity:1});
+			$article.css({opacity:1});
+			if( typeof is_append == 'undefined' ) {
+				pages_count = response.pages_count;
+				$article.html(response.html);
+			} else {
+				$article.append(response.html);
+			}
+			
+		}
+	);
+}
+
+// Парсит строку адреса и выставляет фильтрам указанные в строке данные
+function parse_location_data(filter_string) {
+	var range_max = '';
+	var range_min = '';
+	var	hash = JSON.parse( filter_string );
+	for ( property in hash ) {
+		jQuery( '.sf-element-hide[data-condkey="'+property+'"]' ).each( function(){
+			if( jQuery( this ).attr( 'data-condval' ) == hash[property] ){
+				jQuery( this ).show();
+				jQuery( this ).addClass( 'sf-element' );
+			}
+		});
+			
+		if( jQuery( '.sf-filter *[name="' + property + '"]' ).attr( 'type' ) != 'radio' )
+			jQuery( '.sf-filter *[name="' + property + '"]' ).val( hash[property] );
+		jQuery( '.sf-filter input[name="' + property + '[]"]' ).each( function(){
+			if( jQuery( this ).attr( 'type' ) == 'checkbox' ){
+				for( var i = 0; i < hash[property].length; i++ )
+					if( jQuery( this ).val() == hash[property][i] )
+						jQuery( this ).prop( 'checked', true );
+			}
+		});
+		
+		var date_index = 0;
+		jQuery( '.sf-filter input.sf-date[name="' + property + '[]"]' ).each( function(){
+			jQuery( this ).val( hash[property][ date_index ] );
+			date_index++;
+		});
+		
+		jQuery( '.sf-filter input[type="radio"][name="' + property + '"][value="' + hash[property] +'"]' ).prop('checked',true);
+		if( jQuery( '.sf-filter *[name="' + property + '"]' ).parent().hasClass( 'sf-range-wrapper' ) ){
+			var arrange_slider = true;
+			jQuery( '.sf-filter *[name="' + property + '"]' ).parent().find( 'input[type="hidden"]' ).each( function(){
+				if( jQuery( this ).val() != hash[ jQuery( this ).attr( 'name') ] )
+					arrange_slider = false;
+			});
+			if( arrange_slider ){
+				var parent = jQuery( '.sf-filter *[name="' + property + '"]' ).parent()
+				parent.find( 'input[type="hidden"]' ).each( function(){						
+					if( jQuery( this ).attr( 'name' ).match(/max/i) )
+						range_max = parseInt( jQuery( this ).val() );
+					else
+						range_min = parseInt( jQuery( this ).val() );
+				});
+				parent.find( '.sf-range' ).slider( "option", "values", [range_min,range_max] );	
+				if( parent.attr( 'data-unitfront' ) == 1 )
+					var pricetxt = parent.attr( 'data-unit' ) + range_min + ' - ' + parent.attr( 'data-unit' ) + range_max;
+				else
+					var pricetxt = range_min + parent.attr( 'data-unit' ) + ' - ' + range_max + parent.attr( 'data-unit' );
+				parent.find( '.sf-write' ).text( pricetxt );
+			}
+		}
+	}
+}
 
 
 jQuery( document ).ready( function() {
@@ -131,8 +152,23 @@ jQuery( document ).ready( function() {
 		jQuery('#events-list-filters-anchor').parent().parent().hide();
 		return;
 	}
+
 	// Переместим фильтры в боковое меню
-	jQuery( '.entry-content' ).children().prependTo('#events-list-filters-anchor');
+	jQuery('.sf-wrapper').show();
+	jQuery('.sf-wrapper').prependTo('#events-list-filters-anchor');
+
+	// Добавим автоподгрузку на скрол
+	var win = jQuery(window);
+	// Each time the user scrolls
+	win.scroll(function() {
+		//$article = jQuery('.entry-content').prepend('<div>' + win.scrollTop() + '</div>');
+		// End of the document reached?
+		if (jQuery(document).height() - win.height()*5/4 <= win.scrollTop()) {
+			//$('#loading').show();
+
+			get_filter_results(false, true);
+		}
+	});
 		
 	// Отслеживаем изменения фильтров и вызываем поиск после каждого изменения
 	jQuery( document ).on( 'change', '.sf-filter input, .sf-filter select', function(){
@@ -169,65 +205,11 @@ jQuery( document ).ready( function() {
 	});
 	
 	// Если загрузилась страница с указанием фильтров, применим эти фильтры
-	if( location.hash.substr( 0, 4 ) == '#filter-' ) {
-		var range_max = '';
-		var range_min = '';
-		var	hash = JSON.parse( location.hash.substr( 4 ) );
-		for ( property in hash ) {
-			jQuery( '.sf-element-hide[data-condkey="'+property+'"]' ).each( function(){
-				if( jQuery( this ).attr( 'data-condval' ) == hash[property] ){
-					jQuery( this ).show();
-					jQuery( this ).addClass( 'sf-element' );
-				}
-			});
-				
-			if( jQuery( '.sf-filter *[name="' + property + '"]' ).attr( 'type' ) != 'radio' )
-				jQuery( '.sf-filter *[name="' + property + '"]' ).val( hash[property] );
-			jQuery( '.sf-filter input[name="' + property + '[]"]' ).each( function(){
-				if( jQuery( this ).attr( 'type' ) == 'checkbox' ){
-					for( var i = 0; i < hash[property].length; i++ )
-						if( jQuery( this ).val() == hash[property][i] )
-							jQuery( this ).prop( 'checked', true );
-				}
-			});
-			
-			var date_index = 0;
-			jQuery( '.sf-filter input.sf-date[name="' + property + '[]"]' ).each( function(){
-				jQuery( this ).val( hash[property][ date_index ] );
-				date_index++;
-			});
-			
-			jQuery( '.sf-filter input[type="radio"][name="' + property + '"][value="' + hash[property] +'"]' ).prop('checked',true);
-			if( jQuery( '.sf-filter *[name="' + property + '"]' ).parent().hasClass( 'sf-range-wrapper' ) ){
-				var arrange_slider = true;
-				jQuery( '.sf-filter *[name="' + property + '"]' ).parent().find( 'input[type="hidden"]' ).each( function(){
-					if( jQuery( this ).val() != hash[ jQuery( this ).attr( 'name') ] )
-						arrange_slider = false;
-				});
-				if( arrange_slider ){
-					var parent = jQuery( '.sf-filter *[name="' + property + '"]' ).parent()
-					parent.find( 'input[type="hidden"]' ).each( function(){						
-						if( jQuery( this ).attr( 'name' ).match(/max/i) )
-							range_max = parseInt( jQuery( this ).val() );
-						else
-							range_min = parseInt( jQuery( this ).val() );
-					});
-					parent.find( '.sf-range' ).slider( "option", "values", [range_min,range_max] );	
-					if( parent.attr( 'data-unitfront' ) == 1 )
-						var pricetxt = parent.attr( 'data-unit' ) + range_min + ' - ' + parent.attr( 'data-unit' ) + range_max;
-					else
-						var pricetxt = range_min + parent.attr( 'data-unit' ) + ' - ' + range_max + parent.attr( 'data-unit' );
-					parent.find( '.sf-write' ).text( pricetxt );
-				}
-			}
-		}
+	if( location.hash.substr( 0, 8 ) == '#filter-' ) {
+		parse_location_data(location.hash.substr( 8 ));
 		
 	}
 	// После загрузки страницы - вызываем поиск
 	get_filter_results( true );
 	
 });
-/**
- * The load event
- */
-var sfLoadEvent;
