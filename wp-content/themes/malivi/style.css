@@ -23,10 +23,13 @@
 	Flat
 --------------------------------------------------------------*/
 
+.site-content {
+    
+}
+
 .hentry {
-    border-bottom: 1px solid #EEE;
+    border-bottom: 0px !important;
     padding: 45px 25px !important;
-    position: relative;
 }
 @media (max-width: 767px) {
     .hentry {
@@ -55,6 +58,20 @@
 
     .entry-content {
         padding: 0px !important;
+    }
+}
+
+label {
+    width: 100%;
+}
+
+.site-info {
+    display: none;
+}
+
+@media (max-width: 767px) {
+    .site-info {
+        display: block;
     }
 }
 
@@ -193,10 +210,6 @@
         font-size: 0.65em;
         color: #444444;
     }
-}
-
-label {
-    width: 100%;
 }
 
 /* -------------------------- end of shortcodes styles -------------------------- */
