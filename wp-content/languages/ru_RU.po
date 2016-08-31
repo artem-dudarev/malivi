@@ -276,7 +276,7 @@ msgstr "Активировать для сети"
 msgid "Edit Menu"
 msgstr "Редактировать меню"
 
-#: wp-includes/wp-db.php:1782 wp-includes/wp-db.php:1788
+#: wp-includes/wp-db.php:1792 wp-includes/wp-db.php:1798
 msgid "Unable to retrieve the error message from MySQL"
 msgstr "Не удалось получить текст ошибки от MySQL"
 
@@ -947,66 +947,66 @@ msgstr "Язык сайта:"
 msgid "Author:"
 msgstr "Автор:"
 
-#: wp-includes/wp-db.php:1680
+#: wp-includes/wp-db.php:1690
 msgid "Are you sure that the database server is not under particularly heavy load?"
 msgstr "Вы уверены, что сервер базы данных не находится под большой нагрузкой?"
 
 #. translators: %s: database host
-#: wp-includes/wp-db.php:1674
+#: wp-includes/wp-db.php:1684
 msgid "This means that we lost contact with the database server at %s. This could mean your host&#8217;s database server is down."
 msgstr "Это значит, что связь с сервером базы данных по адресу %s утеряна. Возможно, сервер недоступен."
 
-#: wp-includes/wp-db.php:1670
+#: wp-includes/wp-db.php:1680
 msgid "Error reconnecting to the database"
 msgstr "Ошибка повторного подключения к базе данных"
 
 #. translators: %s: support forums URL
-#: wp-includes/wp-db.php:1581 wp-includes/wp-db.php:1685
+#: wp-includes/wp-db.php:1591 wp-includes/wp-db.php:1695
 msgid "If you&#8217;re unsure what these terms mean you should probably contact your host. If you still need help you can always visit the <a href=\"%s\">WordPress Support Forums</a>."
 msgstr "Если вы не знаете, что означают эти термины &#8212; возможно, стоит обратиться к хостинг-провайдеру. Если и после этого вам понадобится помощь &#8212; всегда можно посетить <a href=\"%s\">форум поддержки WordPress</a>."
 
-#: wp-includes/wp-db.php:1576 wp-includes/wp-db.php:1679
+#: wp-includes/wp-db.php:1586 wp-includes/wp-db.php:1689
 msgid "Are you sure that the database server is running?"
 msgstr "Вы уверены, что сервер базы данных запущен?"
 
-#: wp-includes/wp-db.php:1575
+#: wp-includes/wp-db.php:1585
 msgid "Are you sure that you have typed the correct hostname?"
 msgstr "Вы уверены, что ввели правильное имя сервера?"
 
-#: wp-includes/wp-db.php:1574
+#: wp-includes/wp-db.php:1584
 msgid "Are you sure you have the correct username and password?"
 msgstr "Вы уверены, что указали правильное имя пользователя и пароль?"
 
 #. translators: 1: wp-config.php. 2: database host
-#: wp-includes/wp-db.php:1568
+#: wp-includes/wp-db.php:1578
 msgid "This either means that the username and password information in your %1$s file is incorrect or we can&#8217;t contact the database server at %2$s. This could mean your host&#8217;s database server is down."
 msgstr "Это значит, что либо имя пользователя и пароль в файле %1$s неверны, либо нам не удалось связаться с сервером базы данных по адресу %2$s. Возможно, сервер недоступен."
 
 #. translators: %s: support forums URL
-#: wp-includes/wp-db.php:1113
+#: wp-includes/wp-db.php:1123
 msgid "If you don&#8217;t know how to set up a database you should <strong>contact your host</strong>. If all else fails you may find help at the <a href=\"%s\">WordPress Support Forums</a>."
 msgstr "Если вы не знаете, как настроить доступ к базе данных, следует <strong>обратиться к хостинг-провайдеру</strong>. Если проблему так и не удалось решить &#8212; возможно, вам помогут на <a href=\"%s\">форуме поддержки WordPress</a>."
 
 #. translators: %s: database name
-#: wp-includes/wp-db.php:1105
+#: wp-includes/wp-db.php:1115
 msgid "On some systems the name of your database is prefixed with your username, so it would be like <code>username_%1$s</code>. Could that be the problem?"
 msgstr "В некоторых системах имя базы данных дополняется именем пользователя в виде префикса, получается что-то вроде <code>username_%1$s</code>. Возможно, причина в этом?"
 
 #. translators: 1: database user, 2: database name
-#: wp-includes/wp-db.php:1098
+#: wp-includes/wp-db.php:1108
 msgid "Does the user %1$s have permission to use the %2$s database?"
 msgstr "Имеет ли пользователь %1$s права на использование базы данных %2$s?"
 
-#: wp-includes/wp-db.php:1094
+#: wp-includes/wp-db.php:1104
 msgid "Are you sure it exists?"
 msgstr "Вы уверены, что она существует?"
 
 #. translators: %s: database name
-#: wp-includes/wp-db.php:1089
+#: wp-includes/wp-db.php:1099
 msgid "We were able to connect to the database server (which means your username and password is okay) but not able to select the %s database."
 msgstr "Мы успешно подключились к серверу (это значит, что имя пользователя и пароль верны), но не смогли выбрать базу данных %s."
 
-#: wp-includes/wp-db.php:1085
+#: wp-includes/wp-db.php:1095
 msgid "Can&#8217;t select database"
 msgstr "Не удалось выбрать базу данных"
 
@@ -1545,7 +1545,7 @@ msgstr "Добавить в меню: %1$s (%2$s)"
 msgid "When starting a new paragraph with one of these formatting shortcuts followed by a space, the formatting will be applied automatically. Press Backspace or Escape to undo."
 msgstr "Если новый абзац начинается с одной из этих комбинаций и пробела, произойдёт автоматическое форматирование. Нажмите Backspace или Escape, чтобы отменить."
 
-#: wp-includes/wp-db.php:1366 wp-includes/wp-db.php:1383
+#: wp-includes/wp-db.php:1376 wp-includes/wp-db.php:1393
 msgid "WordPress database error:"
 msgstr "Ошибка базы данных WordPress:"
 
@@ -2470,7 +2470,7 @@ msgstr "Элемент с указанным именем и ярлыком уж
 
 #. translators: %s: database access abstraction class, usually wpdb or a class
 #. extending wpdb
-#: wp-includes/wp-db.php:1165
+#: wp-includes/wp-db.php:1175
 msgid "%s must set a database connection for use with escaping."
 msgstr "Класс %s должен указать соединение, используемое для экранирования."
 
@@ -3541,7 +3541,7 @@ msgstr "Добавить в плей-лист"
 msgid "Invalid menu ID."
 msgstr "Неверный ID меню."
 
-#: wp-includes/wp-db.php:1281
+#: wp-includes/wp-db.php:1291
 msgid "The query argument of %s must have a placeholder."
 msgstr "Аргумент запроса метода %s должен содержать описатель преобразований."
 
@@ -3809,8 +3809,8 @@ msgstr "Вставить/изменить видеофайл"
 msgid "https://wordpress.org/"
 msgstr "https://ru.wordpress.org/"
 
-#: wp-includes/admin-bar.php:147 wp-includes/wp-db.php:1114
-#: wp-includes/wp-db.php:1582 wp-includes/wp-db.php:1686 wp-login.php:801
+#: wp-includes/admin-bar.php:147 wp-includes/wp-db.php:1124
+#: wp-includes/wp-db.php:1592 wp-includes/wp-db.php:1696 wp-login.php:801
 msgid "https://wordpress.org/support/"
 msgstr "https://ru.forums.wordpress.org/"
 
@@ -5237,7 +5237,7 @@ msgid "Database Error"
 msgstr "Ошибка базы данных"
 
 #: wp-includes/functions.php:3646 wp-includes/ms-load.php:471
-#: wp-includes/wp-db.php:1564
+#: wp-includes/wp-db.php:1574
 msgid "Error establishing a database connection"
 msgstr "Ошибка установки соединения с базой данных"
 
@@ -6348,11 +6348,11 @@ msgstr "Уведомление от %1$s к %2$s зарегистрирован�
 msgid "The specified target URL does not exist."
 msgstr "Указанная ссылка не найдена."
 
-#: wp-includes/wp-db.php:1352
+#: wp-includes/wp-db.php:1362
 msgid "WordPress database error %1$s for query %2$s made by %3$s"
 msgstr "База данных WordPress возвратила ошибку %1$s в ответ на запрос %2$s, выполненный %3$s"
 
-#: wp-includes/wp-db.php:1354
+#: wp-includes/wp-db.php:1364
 msgid "WordPress database error %1$s for query %2$s"
 msgstr "База данных WordPress возвратила ошибку %1$s в ответ на запрос %2$s"
 
@@ -7399,7 +7399,7 @@ msgstr "Пожалуйста, войдите заново."
 msgid "Sidebar %d"
 msgstr "Боковая колонка %d"
 
-#: wp-includes/wp-db.php:3197
+#: wp-includes/wp-db.php:3207
 msgid "<strong>ERROR</strong>: WordPress %1$s requires MySQL %2$s or higher"
 msgstr "<strong>ОШИБКА</strong>: WordPress %1$s требует MySQL %2$s или выше"
 

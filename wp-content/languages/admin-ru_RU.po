@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Administration package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2016-08-16 02:25:25+0000\n"
+"PO-Revision-Date: 2016-08-30 19:40:04+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -2772,7 +2772,7 @@ msgstr "Константа %s в файле %s больше не нужна."
 
 #: wp-admin/install.php:312
 msgid "Welcome to the famous five-minute WordPress installation process! Just fill in the information below and you&#8217;ll be on your way to using the most extendable and powerful personal publishing platform in the world."
-msgstr "Добро пожаловать в знаменитую пятиминутную установку WordPress! Просто заполните информацию ниже &#8212; и вперёд, к использованию самой мощной и гибкой персональной платформы для публикаций в мире!"
+msgstr "Добро пожаловать в знаменитую пятиминутную установку WordPress! Просто заполните поля &#8212; и вперёд, к использованию самой мощной и гибкой персональной платформы для публикаций в мире!"
 
 #: wp-admin/includes/class-wp-plugin-install-list-table.php:580
 msgid "<strong>Incompatible</strong> with your version of WordPress"

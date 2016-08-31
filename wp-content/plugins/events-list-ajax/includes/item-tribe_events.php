@@ -34,41 +34,39 @@
 			
 ?>
 
-<a class="events-list-row" href=" <?php echo get_the_permalink() ?>" >
-	<div class="events-list-post-date-thumbnail events-list-cell" >
 
-		<div class="events-list-post-date-thumbnail-subtitle" >
-			<!--<?php echo $thumbnail_subtitle2 ?>-->
-		</div>
+<div class="events-list-post-date-thumbnail events-list-cell" >
 
-		<div class="events-list-post-date-thumbnail-title" >
-			<?php echo $thumbnail_title; ?>
-		</div>
-		
-		<?php if ($show_thumbnail_subtitle) { ?>
-		<div class="events-list-post-date-thumbnail-subtitle" >
-		<?php echo $thumbnail_subtitle;?>
-		</div>
-
-		<?php
-		}
-		?>
+	<div class="events-list-post-date-thumbnail-subtitle" >
+		<!--<?php echo $thumbnail_subtitle2; ?>-->
 	</div>
 
-	<div class="events-list-post-image-thumbnail events-list-cell" >
-		<?php echo $image_content;?>
+	<div class="events-list-post-date-thumbnail-title" >
+		<?php echo $thumbnail_title; ?>
+	</div>
+	
+	<?php if ($show_thumbnail_subtitle) { ?>
+	<div class="events-list-post-date-thumbnail-subtitle" >
+	<?php echo $thumbnail_subtitle;?>
 	</div>
 
-	<div class="events-list-cell" >
-		<div class="events-list-post-text" >
-			<div class="events-list-post-text-header">
-				<?php echo $title; ?>
-			</div>
+	<?php
+	}
+	?>
+</div>
 
-			<div class="events-list-post-text-content">
-				<?php echo event_list_custom_excerpt('25', 'true'); ?>
-			</div>
+<div class="events-list-post-image-thumbnail events-list-cell" >
+	<?php echo $image_content;?>
+</div>
+
+<div class="events-list-cell" >
+	<div class="events-list-post-text" >
+		<div class="events-list-post-text-header">
+			<?php echo $title; ?>
+		</div>
+
+		<div class="events-list-post-text-content">
+			<?php echo event_list_custom_excerpt('25', 'true'); ?>
 		</div>
 	</div>
-
-</a>
+</div>

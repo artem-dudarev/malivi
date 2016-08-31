@@ -112,7 +112,6 @@
 		);
 
 			
-		$test = $_POST['data'];
 		$data_tmp = array();
 		foreach( $_POST['data'] as $key => $val ) {
 			if( $val == '' || empty( $val ) ) {
@@ -253,10 +252,12 @@
 				$query->the_post();
 				$post_id = get_the_ID();
 				
+				$content .= '<a class="events-list-row" href="' . get_the_permalink() . '" postid="' . get_the_ID() .'" >';
 				ob_start();
 				require( SF_DIR . 'includes/item-'. $post_type .'.php' );
 				$content .= ob_get_contents();
 				ob_end_clean();
+				$content .= '</a>';
 				/* ------------------------------------ start layouts output ------------------------------------ */
 
 				
@@ -313,7 +314,33 @@
 			}		
 			
 		}*/
-		 
+		
+		$data['html'] = $content;
+
+		$data['pages_count'] = $query->max_num_pages;
+		return $data;
+	}
+
+	add_action('wp_ajax_get-post-page', 'get_post_page');
+	add_action('wp_ajax_nopriv_get-post-page', 'get_post_page');
+	function get_post_page() {
+		error_reporting( 0 );
+		echo do_get_post_page();
+		die();	
+	}
+	
+
+	function do_get_post_page( $exclude = array() ) {
+		$post_id = $_POST['post_id'];
+		//$post_id = 34;
+		$post = get_post($post_id);
+		//$page = '<div>' . $post->post_title . '</div>';
+		setup_postdata($post);
+		ob_start();
+		require( SF_DIR . 'includes/page-'. $post->post_type .'.php' );
+		$page .= ob_get_contents();
+		ob_end_clean();
+		//$page = '<div>' . $post_id . '</div>';
 		/*
 		$deb = '';
 		foreach($test as $key => $value) {
@@ -321,9 +348,6 @@
 		}
 		$content = $deb . $content;
 		*/
-		$data['html'] = $content;
-
-		$data['pages_count'] = $query->max_num_pages;
-		return $data;
+		return $page;
 	}
 ?>

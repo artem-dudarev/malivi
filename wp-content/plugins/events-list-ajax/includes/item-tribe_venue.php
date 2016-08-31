@@ -34,7 +34,6 @@
 			
 ?>
 
-<a class="events-list-row" href=" <?php echo get_the_permalink() ?>" >
 	<!--
 	<div class="events-list-post-date-thumbnail events-list-cell" >
 
@@ -72,5 +71,3 @@
 			</div>
 		</div>
 	</div>
-
-</a>

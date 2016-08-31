@@ -85,9 +85,64 @@ function get_filter_results( is_on_load, is_append ) {
 				$article.append(response.html);
 			}
 			
+			jQuery( '.events-list-row' ).click( function( event ){
+				if(event.which == 1) {
+					event.preventDefault();
+					var post_id = jQuery( this ).attr( 'postid' );
+					open_popup(post_id);
+				}				
+			});
 		}
 	);
 }
+
+function open_popup(post_id) {
+	//var url = jQuery( this ).attr( 'href' );
+	
+	var shadow = '<div class="popup-dialog-shadow"></div>';
+	jQuery( shadow ).appendTo( 'body' );
+	window.history.pushState('forward', null, '#show=' + post_id);
+	//jQuery('.popup-dialog').load('event/kaliningrad-siti-dzhaz1');
+	//var page = jQuery.get(url);
+	//jQuery('.popup-dialog').html(page);
+	// Получить данные страницы через ajax и создать из них по шаблону страницу
+	
+	var settings = {
+		action	:	'get-post-page',
+		post_id	: post_id	
+	};
+	
+	jQuery.post(
+		sf_ajax_root,
+		settings,
+		function( response ){
+			var popup = '<div class="popup-dialog">' + response + '</div>';
+			jQuery(popup).appendTo('body');
+			
+			jQuery(window).on('popstate', function(event) {
+				close_popup();
+			});
+		}
+	);
+	
+	//document.location = url;
+	jQuery(document).keydown(function(e) {
+		if (e.keyCode == 27) { // escape key maps to keycode `27`
+			event.preventDefault();
+			window.history.back();
+		}
+	});
+
+	jQuery('.popup-dialog-shadow').click(function(e) {
+		event.preventDefault();
+		window.history.back();
+	});
+}
+
+function close_popup() {
+	jQuery( '.popup-dialog, .popup-dialog-shadow' ).remove();
+}
+
 
 // Парсит строку адреса и выставляет фильтрам указанные в строке данные
 function parse_location_data(filter_string) {
@@ -152,7 +207,7 @@ jQuery( document ).ready( function() {
 		jQuery('#events-list-filters-anchor').parent().parent().hide();
 		return;
 	}
-
+	
 	// Переместим фильтры в боковое меню
 	jQuery('.sf-wrapper').show();
 	jQuery('.sf-wrapper').prependTo('#events-list-filters-anchor');
@@ -209,7 +264,14 @@ jQuery( document ).ready( function() {
 		parse_location_data(location.hash.substr( 8 ));
 		
 	}
+
 	// После загрузки страницы - вызываем поиск
 	get_filter_results( true );
+
+	// Если загрузилась страница с указанием фильтров, применим эти фильтры
+	if( location.hash.substr( 0, 6 ) == '#show=' ) {
+		var post_id = parseInt(location.hash.substr( 6 ), 10);
+		open_popup(post_id);
+	}
 	
 });
