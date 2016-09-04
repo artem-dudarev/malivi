@@ -1,5 +1,5 @@
 
-function collect_data( wrapper ){
+ function collect_data( wrapper ){
 
 		var data = {};
 		wrapper.find('select').each( function(){
@@ -201,16 +201,24 @@ function parse_location_data(filter_string) {
 
 
 jQuery( document ).ready( function() {
+	var wrapper = jQuery('.sf-wrapper');
+	var anchor = jQuery('#events-list-filters-anchor');
 	// Активируем логику, только если на странице есть есть наши фильтры
-	if (jQuery('.sf-wrapper').length == 0) {
+	if (wrapper.length == 0) {
 		// Если фильтров нет, то удалим placeholder в боковом меню
-		jQuery('#events-list-filters-anchor').parent().parent().hide();
+		if (anchor.length > 0) {
+			anchor.parent().parent().hide();
+		}
 		return;
 	}
 	
 	// Переместим фильтры в боковое меню
-	jQuery('.sf-wrapper').show();
-	jQuery('.sf-wrapper').prependTo('#events-list-filters-anchor');
+	wrapper.show();
+	if (anchor.length == 0) {
+		wrapper.html('Not found anchor with id: #events-list-filters-anchor');
+		return;
+	}
+	wrapper.prependTo(anchor);
 
 	// Добавим автоподгрузку на скрол
 	var win = jQuery(window);

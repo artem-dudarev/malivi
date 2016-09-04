@@ -10,11 +10,12 @@
 	if ( $current_date == $post_date) {
 		// Если событие идет весь день, то вместо времени начала показываем надпись "весь день"
 		if (tribe_event_is_all_day($post_id)) {
-			$thumbnail_title = "ВЕСЬ ДЕНЬ";
+			$thumbnail_title = 'ВЕСЬ ДЕНЬ';
 		} else {
 			$thumbnail_title = get_the_date('H:i');
 		}
-		$show_thumbnail_subtitle = false;
+		$show_thumbnail_subtitle = true;
+		$thumbnail_subtitle = 'Сегодня';
 	} else {
 		$thumbnail_title = get_the_date('d');
 		//$thumbnail_title .= ' - ' . date_i18n( 'd', strtotime(get_post_meta( $post_id, '_EventEndDate', true ) ) );
@@ -22,7 +23,7 @@
 		//$thumbnail_subtitle2 = get_the_date('H:i');
 		$show_thumbnail_subtitle = true;
 	}
-
+	//$show_thumbnail_subtitle = false;
 	
 	if (empty($thumbnail) || $thumbnail == false) {
 		$image_content = '<span class="events-list-post-image-noimglink">';
