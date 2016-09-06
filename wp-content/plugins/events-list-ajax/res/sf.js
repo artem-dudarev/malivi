@@ -117,7 +117,7 @@ function open_popup(post_id) {
 		settings,
 		function( response ){
 			var popup = '<div class="popup-dialog">' + response + '</div>';
-			jQuery(popup).appendTo('body');
+			jQuery(popup).appendTo('.popup-dialog-shadow');
 			
 			jQuery(window).on('popstate', function(event) {
 				close_popup();
@@ -140,7 +140,7 @@ function open_popup(post_id) {
 }
 
 function close_popup() {
-	jQuery( '.popup-dialog, .popup-dialog-shadow' ).remove();
+	jQuery( '.popup-dialog-shadow' ).remove();
 }
 
 

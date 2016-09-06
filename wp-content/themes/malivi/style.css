@@ -221,6 +221,9 @@ label {
 	top: 0;
 	left: 0;
 	z-index: 100;
+    overflow: scroll;
+    
+    padding-top: 100px;
 }
 
 .popup-dialog{ 
@@ -230,10 +233,10 @@ label {
 	z-index: 101;
     width: 80%;
     max-width: 700px;
-    position: fixed;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    margin: auto;
+    
 }
 
 /* -------------------------- page view -------------------------- */

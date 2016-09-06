@@ -78,8 +78,8 @@ Tribe__Events__iCal::single_event_links();
 
 <div class="tribe-events-single-section tribe-events-event-meta primary tribe-clearfix">
 <?php
-	//require( SF_DIR . 'includes/meta/details.php' );
-	//require( SF_DIR . 'includes/meta/venue.php' );
-	//require( SF_DIR . 'includes/meta/map.php' );
+	require( SF_DIR . 'includes/meta/details.php' );
+	require( SF_DIR . 'includes/meta/venue.php' );
+	require( SF_DIR . 'includes/meta/map.php' );
 ?>
 </div>
