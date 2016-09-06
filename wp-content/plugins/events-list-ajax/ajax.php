@@ -332,9 +332,8 @@
 
 	function do_get_post_page( $exclude = array() ) {
 		$post_id = $_POST['post_id'];
-		//$post_id = 34;
+		global $post;
 		$post = get_post($post_id);
-		//$page = '<div>' . $post->post_title . '</div>';
 		setup_postdata($post);
 		ob_start();
 		require( SF_DIR . 'includes/page-'. $post->post_type .'.php' );

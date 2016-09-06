@@ -24,9 +24,10 @@ $has_venue_address = ( ! empty( $venue_details['address'] ) ) ? ' location' : ''
 <!-- Event Title -->
 <?php do_action( 'tribe_events_before_the_event_title' ) ?>
 <h2 class="tribe-events-list-event-title summary">
-	<a class="url" href="<?php echo esc_url( tribe_get_event_link() ); ?>" title="<?php the_title_attribute() ?>" rel="bookmark">
+	<!--<a class="url" href="<?php echo esc_url( tribe_get_event_link() ); ?>" title="<?php the_title_attribute() ?>" rel="bookmark">
 		<?php the_title() ?>
-	</a>
+	</a>-->
+	<?php the_title() ?>
 </h2>
 <?php do_action( 'tribe_events_after_the_event_title' ) ?>
 
@@ -57,13 +58,28 @@ $has_venue_address = ( ! empty( $venue_details['address'] ) ) ? ' location' : ''
 <?php do_action( 'tribe_events_after_the_meta' ) ?>
 
 <!-- Event Image -->
-<?php echo tribe_event_featured_image( null, 'medium' ); ?>
+<?php echo tribe_event_featured_image( null, 'medium', false ); ?>
 
 <!-- Event Content -->
 <?php do_action( 'tribe_events_before_the_content' ) ?>
 <div class="tribe-events-list-event-description tribe-events-content description entry-summary">
 	<?php echo tribe_events_get_the_excerpt(); ?>
+	<!--
 	<a href="<?php echo esc_url( tribe_get_event_link() ); ?>" class="tribe-events-read-more" rel="bookmark"><?php esc_html_e( 'Find out more', 'the-events-calendar' ) ?> &raquo;</a>
+	-->
 </div><!-- .tribe-events-list-event-description -->
 <?php
 do_action( 'tribe_events_after_the_content' );
+
+Tribe__Events__iCal::single_event_links();
+?>
+
+
+
+<div class="tribe-events-single-section tribe-events-event-meta primary tribe-clearfix">
+<?php
+	//require( SF_DIR . 'includes/meta/details.php' );
+	//require( SF_DIR . 'includes/meta/venue.php' );
+	//require( SF_DIR . 'includes/meta/map.php' );
+?>
+</div>
