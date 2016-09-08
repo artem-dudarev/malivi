@@ -1,59 +1,59 @@
 
- function collect_data( wrapper ){
-
-		var data = {};
-		wrapper.find('select').each( function(){
-			if( ( jQuery( this ).attr( 'name' ) != 'orderby' || jQuery( this ).val() != null ) && jQuery( this ).attr( 'disabled' ) != 'disabled' ){				
-				if( jQuery( this ).val() != '' ){
-					data[ jQuery( this ).attr( 'name' ) ] = jQuery( this ).val() ;
-				}
+function CollectData( wrapper ){
+	var data = {};
+	wrapper.find('select').each( function(){
+		if( ( jQuery( this ).attr( 'name' ) != 'orderby' || jQuery( this ).val() != null ) && jQuery( this ).attr( 'disabled' ) != 'disabled' ){				
+			if( jQuery( this ).val() != '' ){
+				data[ jQuery( this ).attr( 'name' ) ] = jQuery( this ).val() ;
 			}
-		});
-		
-		wrapper.find('input').each( function(){
-			if( typeof( jQuery( this ).attr( 'name' ) ) != 'undefined' && ( typeof jQuery( this ).attr( 'disabled' ) == 'undefined' || jQuery( this ).attr( 'disabled' ) == false ) ){
-				if( jQuery( this ).hasClass( 'sf-date' ) || jQuery( this ).attr( 'type' ) == 'hidden' || jQuery( this ).attr( 'name' ).substr( jQuery( this ).attr( 'name' ).length - 2, 2 ) != '[]' ){
-					if( jQuery( this ).val() != '' ){
-						if( jQuery( this ).attr( 'type' ) != 'radio' || jQuery( this ).prop( 'checked' ) ){
-							if( jQuery( this ).attr( 'name' ).substr( jQuery( this ).attr( 'name' ).length - 2, 2 ) != '[]' ){
-								data[ jQuery( this ).attr( 'name' ) ] = jQuery( this ).val() ;
-							} else {
-								var data_name = jQuery( this ).attr( 'name' ).substr( 0, jQuery( this ).attr( 'name' ).length - 2 )
-								if( typeof( data[ data_name ] ) == 'undefined' )
-									data[ data_name ] = [];
-								data[ data_name ].push( jQuery( this ).val() );
-							}
+		}
+	});
+	
+	wrapper.find('input').each( function(){
+		if( typeof( jQuery( this ).attr( 'name' ) ) != 'undefined' && ( typeof jQuery( this ).attr( 'disabled' ) == 'undefined' || jQuery( this ).attr( 'disabled' ) == false ) ){
+			if( jQuery( this ).hasClass( 'sf-date' ) || jQuery( this ).attr( 'type' ) == 'hidden' || jQuery( this ).attr( 'name' ).substr( jQuery( this ).attr( 'name' ).length - 2, 2 ) != '[]' ){
+				if( jQuery( this ).val() != '' ){
+					if( jQuery( this ).attr( 'type' ) != 'radio' || jQuery( this ).prop( 'checked' ) ){
+						if( jQuery( this ).attr( 'name' ).substr( jQuery( this ).attr( 'name' ).length - 2, 2 ) != '[]' ){
+							data[ jQuery( this ).attr( 'name' ) ] = jQuery( this ).val() ;
+						} else {
+							var data_name = jQuery( this ).attr( 'name' ).substr( 0, jQuery( this ).attr( 'name' ).length - 2 )
+							if( typeof( data[ data_name ] ) == 'undefined' )
+								data[ data_name ] = [];
+							data[ data_name ].push( jQuery( this ).val() );
 						}
 					}
-				} else{
-					var n = jQuery( this ).attr( 'name' ).substr( 0, jQuery( this ).attr( 'name' ).length - 2 );
-				
-					if( jQuery( this ).prop( 'checked' ) ){
-						if( typeof data[n] == 'undefined' )
-							data[n] = [];					
-						data[n].push( jQuery( this ).val() );
-					}
+				}
+			} else{
+				var n = jQuery( this ).attr( 'name' ).substr( 0, jQuery( this ).attr( 'name' ).length - 2 );
+			
+				if( jQuery( this ).prop( 'checked' ) ){
+					if( typeof data[n] == 'undefined' )
+						data[n] = [];					
+					data[n].push( jQuery( this ).val() );
 				}
 			}
-		});
-		return data;
-	}
+		}
+	});
+	return data;
+}
 
 var current_page = 1;
 var pages_count = 0;
-function get_filter_results( is_on_load, is_append ) {
+var isPopupOpen = false;
+
+function GetFilterResults( is_on_load, is_append ) {
 	var wrapper = jQuery( '.sf-wrapper' );
 	var data = {
 		action	:	'sf-search',
-		data	:	collect_data( wrapper )
+		data	:	CollectData( wrapper )
 	};
 	
-	if( typeof is_on_load == 'undefined' ){
+	if(typeof is_on_load == 'undefined'){
 		location.href = '#filter-' + JSON.stringify( data.data ); 
 	}
 
-	
-	if ( typeof is_append != 'undefined' ) {
+	if (typeof is_append != 'undefined') {
 		if (current_page == pages_count) {
 			return;
 		}
@@ -62,7 +62,7 @@ function get_filter_results( is_on_load, is_append ) {
 	}
 
 	$article = jQuery('.entry-content');
-	if(typeof is_append == 'undefined') {
+	if (typeof is_append == 'undefined') {
 		$article.css({opacity:.7});
 	}
 	//wrapper.css({opacity:.1});
@@ -71,9 +71,9 @@ function get_filter_results( is_on_load, is_append ) {
 	jQuery.post(
 		sf_ajax_root,
 		data,
-		function( response ){
-			response = JSON.parse( response );
-			if( JSON.stringify( search_data ) != JSON.stringify( response.post ) ) {
+		function (response) {
+			response = JSON.parse(response);
+			if( JSON.stringify(search_data) != JSON.stringify(response.post) ) {
 				//return;
 			}
 			//wrapper.css({opacity:1});
@@ -89,22 +89,22 @@ function get_filter_results( is_on_load, is_append ) {
 				if(event.which == 1) {
 					event.preventDefault();
 					var post_id = jQuery( this ).attr( 'postid' );
-					open_popup(post_id);
+					OpenPopup(post_id);
 				}				
 			});
 		}
 	);
 }
 
-function open_popup(post_id) {
+function OpenPopup(post_id, shouldPushState = true) {
+	isPopupOpen = true;
 	//var url = jQuery( this ).attr( 'href' );
 	
-	var shadow = '<div class="popup-dialog-shadow"></div>';
-	jQuery( shadow ).appendTo( 'body' );
-	window.history.pushState('forward', null, '#show=' + post_id);
-	//jQuery('.popup-dialog').load('event/kaliningrad-siti-dzhaz1');
-	//var page = jQuery.get(url);
-	//jQuery('.popup-dialog').html(page);
+	var shadow = jQuery('<div class="popup-dialog-shadow"></div>');
+	shadow.appendTo( 'body' );
+	if (shouldPushState) {
+		window.history.pushState('forward', null, '#show=' + post_id);
+	}
 	// Получить данные страницы через ajax и создать из них по шаблону страницу
 	
 	var settings = {
@@ -116,36 +116,49 @@ function open_popup(post_id) {
 		sf_ajax_root,
 		settings,
 		function( response ){
-			var popup = '<div class="popup-dialog">' + response + '</div>';
-			jQuery(popup).appendTo('.popup-dialog-shadow');
-			
-			jQuery(window).on('popstate', function(event) {
-				close_popup();
-			});
+			if (isPopupOpen) {
+				var popup = '<div class="popup-dialog-wrapper"><div class="popup-dialog">' + response + '</div></div>';
+				jQuery(popup).appendTo('body');
+			}
 		}
 	);
 	
 	//document.location = url;
-	jQuery(document).keydown(function(e) {
-		if (e.keyCode == 27) { // escape key maps to keycode `27`
-			event.preventDefault();
-			window.history.back();
-		}
-	});
+	
 
-	jQuery('.popup-dialog-shadow').click(function(e) {
+	shadow.click(function(e) {
 		event.preventDefault();
 		window.history.back();
 	});
+	//jQuery('#page').addClass('no-scroll');
 }
 
-function close_popup() {
-	jQuery( '.popup-dialog-shadow' ).remove();
+function ClosePopup() {
+	if (!isPopupOpen) {
+		return;
+	}
+	isPopupOpen = false;
+	jQuery( '.popup-dialog-wrapper, .popup-dialog-shadow' ).remove();
+	//jQuery('#page').removeClass('no-scroll');
+}
+
+function CheckCurrentPageParameters() {
+	// Если загрузилась страница с указанием фильтров, применим эти фильтры
+	if( location.hash.substr( 0, 8 ) == '#filter-' ) {
+		ParseFilters(location.hash.substr( 8 ));
+	}
+	// После загрузки страницы - вызываем поиск
+	GetFilterResults( true );
+	// Если загрузилась страница с указанием фильтров, применим эти фильтры
+	if( location.hash.substr( 0, 6 ) == '#show=' ) {
+		var post_id = parseInt(location.hash.substr( 6 ), 10);
+		OpenPopup(post_id, false);
+	}
 }
 
 
 // Парсит строку адреса и выставляет фильтрам указанные в строке данные
-function parse_location_data(filter_string) {
+function ParseFilters(filter_string) {
 	var range_max = '';
 	var range_min = '';
 	var	hash = JSON.parse( filter_string );
@@ -199,7 +212,6 @@ function parse_location_data(filter_string) {
 	}
 }
 
-
 jQuery( document ).ready( function() {
 	var wrapper = jQuery('.sf-wrapper');
 	var anchor = jQuery('#events-list-filters-anchor');
@@ -229,7 +241,20 @@ jQuery( document ).ready( function() {
 		if (jQuery(document).height() - win.height()*5/4 <= win.scrollTop()) {
 			//$('#loading').show();
 
-			get_filter_results(false, true);
+			GetFilterResults(false, true);
+		}
+	});
+	win.keydown(function(e) {
+		if (isPopupOpen && e.keyCode == 27) { // escape key maps to keycode `27`
+			event.preventDefault();
+			window.history.back();
+		}
+	});
+	win.on('popstate', function(event) {
+		if (isPopupOpen) {
+			ClosePopup();
+		} else {
+			CheckCurrentPageParameters();
 		}
 	});
 		
@@ -254,32 +279,8 @@ jQuery( document ).ready( function() {
 		});
 		jQuery( '.sf-wrapper' ).find( 'input[name="page"]' ).remove();
 		if( jQuery( '.sf-wrapper' ).find( '.sf-button-btnsearch' ).length == 0 )
-			get_filter_results();
+			GetFilterResults();
 	});
 	
-	// Переключение страниц
-	jQuery( document ).on( 'click','.sf-nav-click', function( event ){
-		event.preventDefault();
-		jQuery( '.sf-wrapper' ).find( 'input[name="page"]' ).remove();
-		var txt = '<input type="hidden" name="page" value="' + jQuery( this ).attr( 'data-href' ) + '" />';
-		jQuery( txt ).appendTo( '.sf-wrapper' );
-		get_filter_results();
-		jQuery('html, body').animate({ scrollTop: ( jQuery('.sf-wrapper').offset().top - 25 )}, 'slow');
-	});
-	
-	// Если загрузилась страница с указанием фильтров, применим эти фильтры
-	if( location.hash.substr( 0, 8 ) == '#filter-' ) {
-		parse_location_data(location.hash.substr( 8 ));
-		
-	}
-
-	// После загрузки страницы - вызываем поиск
-	get_filter_results( true );
-
-	// Если загрузилась страница с указанием фильтров, применим эти фильтры
-	if( location.hash.substr( 0, 6 ) == '#show=' ) {
-		var post_id = parseInt(location.hash.substr( 6 ), 10);
-		open_popup(post_id);
-	}
-	
+	CheckCurrentPageParameters();
 });
