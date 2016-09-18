@@ -42,11 +42,7 @@ $has_venue_address = ( ! empty( $venue_details['address'] ) ) ? ' location' : ''
 		</div>
 	<?php endif; ?>
 
-	<!-- Schedule & Recurrence Details -->
-	<div class="tribe-updated published time-details">
-		<?php echo tribe_events_event_schedule_details(); ?>
-	</div>
-
+	
 	<?php if ( $venue_details ) : ?>
 		<!-- Venue Display Info -->
 		<div class="tribe-events-venue-details">
@@ -76,10 +72,18 @@ Tribe__Events__iCal::single_event_links();
 
 
 
-<div class="tribe-events-single-section tribe-events-event-meta primary tribe-clearfix">
+
+<div class="tribe-events-single-section tribe-events-event-meta">
 <?php
 	require( SF_DIR . 'includes/meta/details.php' );
 	require( SF_DIR . 'includes/meta/venue.php' );
-	require( SF_DIR . 'includes/meta/map.php' );
+	if ( tribe_has_organizer() ) {
+		require( SF_DIR . 'includes/meta/organizer.php' );
+	}
+	require( SF_DIR . 'includes/meta/yandex-map.php' );
 ?>
 </div>
+
+<?php 
+	//comments_template(); 
+?> 

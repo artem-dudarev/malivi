@@ -47,9 +47,9 @@
 	</div>
 	
 	<?php if ($show_thumbnail_subtitle) { ?>
-	<div class="events-list-post-date-thumbnail-subtitle" >
-	<?php echo $thumbnail_subtitle;?>
-	</div>
+		<div class="events-list-post-date-thumbnail-subtitle" >
+		<?php echo $thumbnail_subtitle;?>
+		</div>
 
 	<?php
 	}
@@ -60,7 +60,7 @@
 	<?php echo $image_content;?>
 </div>
 
-<div class="events-list-cell" >
+<div class="events-list-cell events-list-post-text-cell" >
 	<div class="events-list-post-text" >
 		<div class="events-list-post-text-header">
 			<?php echo $title; ?>

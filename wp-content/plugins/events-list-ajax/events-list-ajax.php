@@ -32,6 +32,13 @@
 	
 	add_action( 'wp_head', 'sf_head', 1 );
 	function sf_head(){
+		wp_register_script('yandexMaps', "//api-maps.yandex.ru/2.1/?lang=" . get_bloginfo('language','display'));
+		wp_enqueue_script('yandexMaps');
+
+		//wp_register_script('googleMaps', "//maps.google.com/maps/api/js");
+		//wp_enqueue_script('googleMaps');
+		
+
 		$settings = get_option( 'search-filter-settings' );
 		if( !isset( $settings['style'] ) || $settings['style'] == '' )
 			wp_register_style( 'sf-style', SF_URL . 'res/style.css' );
@@ -44,13 +51,13 @@
 		//wp_enqueue_script('jquery-ui-slider');
 		//wp_register_script( 'sf-script', SF_URL . 'res/sf.js' );
 		wp_register_script(
-			'sf-script',
+			'events-list-ajax-script',
 			SF_URL . 'res/sf.js',
 			array('jquery'),
 			EL_CURRENT_VERSION,
 			true
 		);
-		wp_enqueue_script( 'sf-script' );
+		wp_enqueue_script( 'events-list-ajax-script' );
 		
 		?>
 		<script>var sf_ajax_root = '<?php echo admin_url('admin-ajax.php'); ?>'</script>
