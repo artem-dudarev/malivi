@@ -99,11 +99,16 @@ function GetFilterResults( is_on_load, is_append ) {
 }
 
 function OpenPopup(post_id, shouldPushState = true) {
+	if (isPopupOpen) {
+		return;
+	}
 	isPopupOpen = true;
 	//var url = jQuery( this ).attr( 'href' );
 	
+	var body = jQuery('body')
+	body.addClass('no-scroll');
 	var shadow = jQuery('<div class="popup-dialog-shadow"></div>');
-	shadow.appendTo( 'body' );
+	body.append(shadow);
 	if (shouldPushState) {
 		window.history.pushState('forward', null, '#show=' + post_id);
 	}
@@ -120,7 +125,7 @@ function OpenPopup(post_id, shouldPushState = true) {
 		function( response ) {
 			if (isPopupOpen) {
 				var popup = jQuery('<div class="popup-dialog-wrapper"><div class="popup-dialog">' + response + '</div></div>');
-				popup.appendTo('body');
+				body.append(popup);
 				jQuery('.popup-dialog-wrapper').click(function(e) {
 					event.preventDefault();
 					window.history.back();
@@ -143,6 +148,7 @@ function ClosePopup() {
 	}
 	isPopupOpen = false;
 	jQuery( '.popup-dialog-wrapper, .popup-dialog-shadow' ).remove();
+	jQuery('body').removeClass('no-scroll');
 	//jQuery('#page').removeClass('no-scroll');
 }
 

@@ -4,7 +4,7 @@
  
  Author:       Ilia Dudarev
  Author URI:   https://malivi.ru
- Template:     flat
+ 
  Version:      1.0.0
  License:      GNU General Public License version 2
  License URI:  license.txt
@@ -21,16 +21,14 @@
 	min-height: 300px;
 }
 
-
+html {
+  height: 100%;
+}
 
 
 /*--------------------------------------------------------------
 	Flat
 --------------------------------------------------------------*/
-
-#primary {
-    overflow-y: scroll;
-}
 
 .hentry {
     border-bottom: 0px !important;
