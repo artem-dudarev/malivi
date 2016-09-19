@@ -275,10 +275,6 @@ label {
     margin: 10px 0;
 }
 
-.tribe-events-event-cost {
-    text-align: right;
-}
-
 @media (max-width: 767px) {
     .tribe-events-list-event-title {
         font-size: 1.2em;
@@ -298,6 +294,7 @@ label {
 	border: 1px solid #eee;
 	margin: 30px 0;
 	font-size: 13px;
+	overflow-wrap: break-word;
 }
 
 .tribe-events-meta-group {
@@ -306,7 +303,11 @@ label {
 	padding: 0 10px;
 	text-align: left;
 	vertical-align: top;
-	
+}
+@media (max-width: 767px) {
+	.tribe-events-meta-group {
+		width: 100%;
+	}
 }
 
 .tribe-events-button {
