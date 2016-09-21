@@ -171,6 +171,7 @@ label {
 .events-list-post-text-cell {
   background-color: #fafafa;
   border: 1px solid #eee;
+  padding: 0 6px;
 }
 
 .events-list-post-text {
