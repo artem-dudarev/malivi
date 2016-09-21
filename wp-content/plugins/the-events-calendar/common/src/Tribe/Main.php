@@ -12,23 +12,12 @@ if ( class_exists( 'Tribe__Main' ) ) {
 	return;
 }
 
-class Tribe__Events__Pro__Main {
-	const VERSION      = '4.2.4';
-	function disable_recurring_info_tooltip() {
-
-	}
-
-	function enable_recurring_info_tooltip() {
-		
-	}
-}
-
 class Tribe__Main {
 	const EVENTSERROROPT      = '_tribe_events_errors';
 	const OPTIONNAME          = 'tribe_events_calendar_options';
 	const OPTIONNAMENETWORK   = 'tribe_events_calendar_network_options';
 
-	const VERSION           = '4.2.4';
+	const VERSION           = '4.2.7';
 	const FEED_URL          = 'https://theeventscalendar.com/feed/';
 
 	protected $plugin_context;
@@ -101,6 +90,7 @@ class Tribe__Main {
 		Tribe__Debug::instance();
 		Tribe__Settings_Manager::instance();
 
+		require_once $this->plugin_path . 'src/functions/utils.php';
 		require_once $this->plugin_path . 'src/functions/template-tags/general.php';
 		require_once $this->plugin_path . 'src/functions/template-tags/date.php';
 
