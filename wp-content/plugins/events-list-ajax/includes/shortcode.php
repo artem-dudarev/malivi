@@ -40,7 +40,9 @@
 			
 		?>
 		<fieldset data-id="<?php echo $key; ?>" <?php  echo $style_hide . 'data-condkey="' . $cond_key . '" data-condval="'  . $cond_value .  '"'; ?> class="sf-element sf-fieldset <?php echo $class_hide; ?> ">
-			<a data-toggle="collapse" href="#sf-collapsible-fieldset-<?php echo $key; ?>"><div class="sf-legend"><?php echo $element['fieldname']; ?></div></a>
+			<?php if ( !empty($element['fieldname'])) { ?>
+			<div class="sf-legend" data-toggle="collapse" data-target="#sf-collapsible-fieldset-<?php echo $key; ?>"><?php echo $element['fieldname']; ?></div>
+			<?php } ?>
 			<div id="sf-collapsible-fieldset-<?php echo $key; ?>" class="sf-fieldset-content collapse in">	
 		<?php	
 			if( $element['type'] == 'select' ):

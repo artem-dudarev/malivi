@@ -26,35 +26,49 @@
 	margin 0;
     padding: 0;
     width: 100%;
-}
-
-.sf-element:nth-of-type(2n){
-	margin-right: 0;
-}
-
-.sf-element:nth-of-type(2n+1):before{
-	content: '';
-	display: block;
-	clear: both;
-}
-
-.sf-fieldset-content {
-	margin-left: 2px;
+    font-weight: normal;
+    color: rgba(255,255,255,0.8);
 }
 
 .sf-legend {
-	border-top: 1px solid white;
-	background-color: rgba(255,255,255,0.1);
-    font-size: 1.5em;
-    line-height: 3em;
-    font-weight: bold;
+	/*background-color: rgba(255,255,255,0.1);*/
+    font-size: 1.2em;
+    /*font-weight: bold;*/
     border: none;
     margin: 0;
+    padding: 10px 25px;
 }
 
+
 .sf-element label {
+	padding: 0 27px;
+	margin: 0;
+	margin-bottom: 10px;
+}
+.sf-element a:hover,
+.sf-element label:hover,
+.sf-legend:hover {
+	color: rgba(255,255,255,0.4);
+}
+
+.sf-fieldset {
+	padding: 0;
+}
+.sf-fieldset + .sf-fieldset {
+	border-top: 1px solid rgba(255,255,255,0.2);
+}
+.sf-fieldset-content {
 	
 }
+/*
+.sf-element label :nth-of-type(2n) {
+	background-color: rgba(255,0,0,0.1);
+}
+
+.sf-element label:nth-of-type(2n+1) {
+	background-color: rgba(0,255,0,0.1);
+}
+*/
 
 .sf-element input,
 .sf-element select{
