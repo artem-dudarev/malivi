@@ -161,19 +161,19 @@
 			<div class="field elements">
 				<p><strong><?php _e( 'All Form Elements', 'sf' ); ?></strong></p>
 				<div data-attr='{"type":"fulltext"}'>
-					<img src="<?php echo SF_URL ?>res/admin/input-fulltext.png" alt="<?php __( 'Fulltext Search', 'sf' ); ?>" />
+					<img src="<?php echo MALIVI_PLUGIN_URL ?>res/admin/input-fulltext.png" alt="<?php __( 'Fulltext Search', 'sf' ); ?>" />
 					<span><?php _e( 'Fulltext Search', 'sf' ); ?></span>
 				</div>
 				<div data-attr='{"type":"select"}'>
-					<img src="<?php echo SF_URL ?>res/admin/select.png" alt="<?php __( 'Selectbox', 'sf' ); ?>" />
+					<img src="<?php echo MALIVI_PLUGIN_URL ?>res/admin/select.png" alt="<?php __( 'Selectbox', 'sf' ); ?>" />
 					<span><?php _e( 'Selectbox', 'sf' ); ?></span>
 				</div>
 				<div data-attr='{"type":"checkbox"}'>
-					<img src="<?php echo SF_URL ?>res/admin/checkbox.png" alt="<?php __( 'Checkbox', 'sf' ); ?>" />
+					<img src="<?php echo MALIVI_PLUGIN_URL ?>res/admin/checkbox.png" alt="<?php __( 'Checkbox', 'sf' ); ?>" />
 					<span><?php _e( 'Checkbox', 'sf' ); ?></span>
 				</div>
 				<div data-attr='{"type":"radiobox"}'>
-					<img src="<?php echo SF_URL ?>res/admin/radiobox.png" alt="<?php __( 'Radiobox', 'sf' ); ?>" />
+					<img src="<?php echo MALIVI_PLUGIN_URL ?>res/admin/radiobox.png" alt="<?php __( 'Radiobox', 'sf' ); ?>" />
 					<span><?php _e( 'Radiobox', 'sf' ); ?></span>
 				</div>
 				

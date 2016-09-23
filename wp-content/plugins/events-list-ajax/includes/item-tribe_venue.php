@@ -56,11 +56,11 @@
 	</div>
 	-->
 
-	<div class="events-list-post-image-thumbnail events-list-cell" >
+	<div class="events-list-post-image-thumbnail events-list-cell events-list-post-text-cell" >
 		<?php echo $image_content;?>
 	</div>
 
-	<div class="events-list-cell" >
+	<div class="events-list-cell events-list-post-text-cell" >
 		<div class="events-list-post-text" >
 			<div class="events-list-post-text-header">
 				<?php echo $title; ?>

@@ -4,7 +4,7 @@
 		if( !in_array( $hook, array( 'toplevel_page_search-filter', 'admin_page_search-filter-edit','search-filter_page_search-filter-new' ) ) )
 			return;
 			
-		wp_register_style('sf-admin-css', SF_URL . '/res/admin-style.css' ); 
+		wp_register_style('sf-admin-css', MALIVI_PLUGIN_URL . '/res/admin-style.css' ); 
         wp_enqueue_style('sf-admin-css');
 		wp_enqueue_style( 'font-awesome', '//netdna.bootstrapcdn.com/font-awesome/4.0.1/css/font-awesome.css', null, '4.0.1' );
 		wp_enqueue_media();
@@ -15,7 +15,7 @@
 		wp_enqueue_script('jquery-ui-accordion');
 		wp_enqueue_style( 'wp-color-picker' );
 		wp_enqueue_script( 'wp-color-picker');
-		wp_register_script('sf-admin-js', SF_URL . '/res/admin.js' ); 
+		wp_register_script('sf-admin-js', MALIVI_PLUGIN_URL . '/res/admin.js' ); 
         wp_enqueue_script('sf-admin-js');
 		wp_localize_script( 'sf-admin-js', 'objectL10n', array(
 			'datasource' => __( 'Data Source', 'sf' ),
@@ -108,7 +108,7 @@
 	}
 	add_action( 'admin_menu', 'wp_sf_adminpage' );
 	function wp_sf_adminpage() {
-		add_menu_page( __( 'Search Filter', 'sf' ), 'Search Filter', 'edit_posts', 'search-filter', 'sf_admin_output_index', SF_URL . 'res/admin/search-filter-icon.png' );		
+		add_menu_page( __( 'Search Filter', 'sf' ), 'Search Filter', 'edit_posts', 'search-filter', 'sf_admin_output_index', MALIVI_PLUGIN_URL . 'res/admin/search-filter-icon.png' );		
 		add_submenu_page( 'search-filter', __( 'New Filter', 'sf' ), __( 'New Filter', 'sf' ), 'edit_posts', 'search-filter-new', 'sf_admin_output_new' );
 		add_submenu_page( null, __( 'Edit Filter', 'sf' ), __( 'Edit Filter', 'sf' ), 'edit_posts', 'search-filter-edit', 'sf_admin_output_edit' );
 	}

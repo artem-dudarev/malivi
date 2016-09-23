@@ -78,6 +78,10 @@ label {
     }
 }
 
+#secondary .widget {
+    padding: 0;
+}
+
 
 /*--------------------------------------------------------------
 	Events-list styles

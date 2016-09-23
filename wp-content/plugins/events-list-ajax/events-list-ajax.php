@@ -13,16 +13,17 @@
 	if( !session_id() )
 		session_start();
 		
-	define( 'SF_URL', plugins_url( '', __FILE__ ) . '/' );
-	define( 'SF_DIR', dirname( __FILE__ ) . '/' );
+	define( 'MALIVI_PLUGIN_URL', plugins_url( '', __FILE__ ) . '/' );
+	define( 'MALIVI_PLUGIN_DIR', dirname( __FILE__ ) . '/' );
 	define( 'HOME_URL', get_bloginfo( 'url' ) );
 	define( 'HOME_NAME', get_bloginfo( 'name' ) );
 	
-	require_once( SF_DIR . 'admin/admin.php' );
-	require_once( SF_DIR . 'ajax.php' );
-	require_once( SF_DIR . 'includes/wpml-functions.php' );
-	require_once( SF_DIR . 'includes/acf-checkboxes.php' );
-	require_once( SF_DIR . 'includes/types-checkboxes.php' );
+	require_once( MALIVI_PLUGIN_DIR . 'admin/admin.php' );
+	require_once( MALIVI_PLUGIN_DIR . 'events-list-ajax-functions.php' );
+	require_once( MALIVI_PLUGIN_DIR . 'the-events-calendar-extensions.php' );
+	require_once( MALIVI_PLUGIN_DIR . 'includes/wpml-functions.php' );
+	require_once( MALIVI_PLUGIN_DIR . 'includes/acf-checkboxes.php' );
+	require_once( MALIVI_PLUGIN_DIR . 'includes/types-checkboxes.php' );
 	
 	function sf_textdomain() {
 		$plugin_dir = basename( dirname( __FILE__ ) ) . '/res/lang/';
@@ -35,24 +36,27 @@
 		wp_register_script('yandexMaps', "//api-maps.yandex.ru/2.1/?lang=" . get_bloginfo('language','display'));
 		wp_enqueue_script('yandexMaps');
 
+		wp_register_script('bsscripts', "//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js");
+		wp_enqueue_script('bsscripts');
+
 		//wp_register_script('googleMaps', "//maps.google.com/maps/api/js");
 		//wp_enqueue_script('googleMaps');
 		
 
 		$settings = get_option( 'search-filter-settings' );
-		if( !isset( $settings['style'] ) || $settings['style'] == '' )
-			wp_register_style( 'sf-style', SF_URL . 'res/style.css' );
-		else
-			wp_register_style( 'sf-style', SF_URL . 'res/' . $settings['style'] . '.css');
-		wp_enqueue_style( 'sf-style' );	
+		if( !isset( $settings['style'] ) || $settings['style'] == '' ) {
+			wp_register_style( 'events-list-ajax-style', MALIVI_PLUGIN_URL . 'res/style.css' );
+		} else {
+			wp_register_style( 'events-list-ajax-style', MALIVI_PLUGIN_URL . 'res/' . $settings['style'] . '.css');
+		}
+		wp_enqueue_style( 'events-list-ajax-style' );	
 		
 		
 		//wp_enqueue_script('jquery');
 		//wp_enqueue_script('jquery-ui-slider');
-		//wp_register_script( 'sf-script', SF_URL . 'res/sf.js' );
 		wp_register_script(
 			'events-list-ajax-script',
-			SF_URL . 'res/sf.js',
+			MALIVI_PLUGIN_URL . 'res/events-list-ajax-scripts.js',
 			array('jquery'),
 			EL_CURRENT_VERSION,
 			true
@@ -69,7 +73,7 @@
 		$attr = array( 'id' => $id );
 		
 		ob_start();
-		require( SF_DIR . 'includes/shortcode.php' );
+		require( MALIVI_PLUGIN_DIR . 'includes/shortcode.php' );
 		$output_string=ob_get_contents();
 		ob_end_clean();
 		echo $output_string;
@@ -79,7 +83,7 @@
 	add_filter('widget_text', 'do_shortcode');
 	function sf_init_searchform( $attr ){
 		ob_start();
-		require( SF_DIR . 'includes/shortcode.php' );
+		require( MALIVI_PLUGIN_DIR . 'includes/shortcode.php' );
 		$output_string=ob_get_contents();
 		ob_end_clean();
 		return $output_string;

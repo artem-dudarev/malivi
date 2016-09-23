@@ -18,16 +18,12 @@
 	clear: both;
 }
 
-
 .sf-element{
-    border: none;
-	-moz-box-sizing: border-box;
+    -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
     -ms-box-sizing: border-box;
     box-sizing: border-box;
-    float: left;
-	margin: 0;
-    margin-right: 2%;
+	margin 0;
     padding: 0;
     width: 100%;
 }
@@ -42,8 +38,22 @@
 	clear: both;
 }
 
-.sf-element legend{
-	font-size: 1em;
+.sf-fieldset-content {
+	margin-left: 2px;
+}
+
+.sf-legend {
+	border-top: 1px solid white;
+	background-color: rgba(255,255,255,0.1);
+    font-size: 1.5em;
+    line-height: 3em;
+    font-weight: bold;
+    border: none;
+    margin: 0;
+}
+
+.sf-element label {
+	
 }
 
 .sf-element input,
@@ -61,6 +71,7 @@
 	width: 1em;
 	height: 1em;
 	vertical-align: middle;
+	margin-right: 10px;
 }
 
 .sf-element.map{
@@ -129,8 +140,6 @@
     position: absolute;
 }
 
-	
-
 .sf-range-wrapper, .sf-widget-range-wrapper > p{
 	padding: 0;
 	margin: 0;
@@ -141,85 +150,12 @@
 	
 }
 
-ul.sf-result, ul.sf-nav{
-	margin: 0;
-	padding: 0;
-	list-style: none;
-}
-
-ul.sf-result:after, ul.sf-nav:after{
-	clear: both;
-	display: block;
-	content: '';
-}
-
-ul.sf-result img{
-	max-width: 100%;
-	height: auto;
-}
-
-.sf-result > li{
-	margin: 2% 0;
-	padding: 1%;	
-	-moz-box-sizing: border-box;
-    -webkit-box-sizing: border-box;
-    -ms-box-sizing: border-box;
-    box-sizing: border-box;
-}
-
-ul.sf-nav > li{
-	float: left;
-	margin: 0;
-	margin-right: 2%;
-}
-
-ul.sf-nav > li > a, ul.sf-nav > li > span{
-	width: 100%;
-	display: block;
-	padding: 5% 25%;
-	border: 1px solid #cacaca;
-}
-
-ul.sf-nav:after{
-	display: block;
-	content: '';
-	clear: both;
-}
-
-.sf-result-head:before{
-	content: '';
-	display: block;
-	clear: both;	
-}
-
-.sf-result-head{	
-	background: none repeat scroll 0 0 #FAFAFA;
-    border: 1px solid #CACACA;
-    font-size: 1em;
-    margin-bottom: 0;
-    margin-top: 10px;
-    padding: 10px 20px;
-    text-align: center;
-}
-
-.sf-result-head .sf-foundcount{
-	font-weight: bold;
-}
-
-.sf-result-head .sf-totalcount{
-	font-style: italic;
-}
-
 .sf-filter button{
 	float: right;
 }
 
 .sf-filter button:first-of-type{
 	clear: both;
-}
-
-ul.sf-nav > li > span.sf-nav-click{
-	cursor: pointer;
 }
 
 .sf-filter input.sf-date2{

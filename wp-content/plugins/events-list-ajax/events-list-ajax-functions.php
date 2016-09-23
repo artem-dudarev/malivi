@@ -254,7 +254,7 @@
 				
 				$content .= '<a class="events-list-row" href="' . get_the_permalink() . '" postid="' . get_the_ID() .'" >';
 				ob_start();
-				include( SF_DIR . 'includes/item-'. $post_type .'.php' );
+				include( MALIVI_PLUGIN_DIR . 'includes/item-'. $post_type .'.php' );
 				$content .= ob_get_contents();
 				ob_end_clean();
 				$content .= '</a>';
@@ -336,7 +336,7 @@
 		$post = get_post($post_id);
 		setup_postdata($post);
 		ob_start();
-		include( SF_DIR . 'includes/page-'. $post->post_type .'.php' );
+		include( MALIVI_PLUGIN_DIR . 'includes/page-'. $post->post_type .'.php' );
 		$page .= ob_get_clean();
 		//$page = '<div>' . $post_id . '</div>';
 		/*

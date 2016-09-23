@@ -39,8 +39,9 @@
 		endif;
 			
 		?>
-		<fieldset data-id="<?php echo $key; ?>" <?php  echo $style_hide . 'data-condkey="' . $cond_key . '" data-condval="'  . $cond_value .  '"'; ?> class="sf-element<?php echo $class_hide; ?> ">
-			<legend><?php echo $element['fieldname']; ?></legend>	
+		<fieldset data-id="<?php echo $key; ?>" <?php  echo $style_hide . 'data-condkey="' . $cond_key . '" data-condval="'  . $cond_value .  '"'; ?> class="sf-element sf-fieldset <?php echo $class_hide; ?> ">
+			<a data-toggle="collapse" href="#sf-collapsible-fieldset-<?php echo $key; ?>"><div class="sf-legend"><?php echo $element['fieldname']; ?></div></a>
+			<div id="sf-collapsible-fieldset-<?php echo $key; ?>" class="sf-fieldset-content collapse in">	
 		<?php	
 			if( $element['type'] == 'select' ):
 			?>
@@ -95,7 +96,7 @@
 					if( $element['options'] == 'individual' ): ?>
 						<?php foreach( $element['option_key'] as $option_key => $val ):
 						?>
-						<label><input type="checkbox" value="<?php echo $val; ?>" name="<?php echo $key; ?>[]" /> <?php echo $element['option_val'][$option_key]; ?></label>
+						<label class="sf-element"><input type="checkbox" value="<?php echo $val; ?>" name="<?php echo $key; ?>[]" /> <?php echo $element['option_val'][$option_key]; ?></label>
 						<?php
 						endforeach;
 			
@@ -108,14 +109,14 @@
 						$terms = get_terms( $data_value, $args );
 						foreach( $terms as $term ): 
 							?>
-							<label><input type="checkbox" value="<?php echo $term->term_id; ?>" name="<?php echo $key; ?>[]" /> <?php echo $term->name; ?></label>
+							<label class="sf-element"><input type="checkbox" value="<?php echo $term->term_id; ?>" name="<?php echo $key; ?>[]" /> <?php echo $term->name; ?></label>
 							<?php 
 						endforeach;
 					elseif( $data_type == 'meta' && $element['options'] == 'auto' ):
 						$values = get_postmeta_values( $data_value );
 						foreach( $values as $val ):
 						?>
-						<label><input type="checkbox" value="<?php echo $val->meta_value; ?>" name="<?php echo $key; ?>[]" /> <?php echo $val->meta_value; ?></label>
+						<label class="sf-element"><input type="checkbox" value="<?php echo $val->meta_value; ?>" name="<?php echo $key; ?>[]" /> <?php echo $val->meta_value; ?></label>
 						<?php
 						endforeach;
 					elseif( $data_type == 'others' ):
@@ -126,7 +127,7 @@
 							$authors = apply_filters( 'sf-get-authors', get_users( $args ) );
 							foreach( $authors as $author ):
 							?>
-							<label><input type="checkbox" value="<?php echo $author->ID; ?>" name="<?php echo $key; ?>[]" /> <?php echo $author->data->display_name ?></label>
+							<label class="sf-element"><input type="checkbox" value="<?php echo $author->ID; ?>" name="<?php echo $key; ?>[]" /> <?php echo $author->data->display_name ?></label>
 							<?php
 							endforeach;
 						endif;
@@ -140,7 +141,7 @@
 					if( $element['options'] == 'individual' ): ?>
 						<?php foreach( $element['option_key'] as $option_key => $val ):
 						?>
-						<label><input type="radio" value="<?php echo $val; ?>" name="<?php echo $key; ?>" /> <?php echo $element['option_val'][$option_key]; ?></label>
+						<label class="sf-element"><input type="radio" value="<?php echo $val; ?>" name="<?php echo $key; ?>" /> <?php echo $element['option_val'][$option_key]; ?></label>
 						<?php
 						endforeach;
 			
@@ -153,14 +154,14 @@
 						$terms = get_terms( $data_value, $args );
 						foreach( $terms as $term ): 
 							?>
-							<label><input type="radio" value="<?php echo $term->term_id; ?>" name="<?php echo $key; ?>" /> <?php echo $term->name; ?></label>
+							<label class="sf-element"><input type="radio" value="<?php echo $term->term_id; ?>" name="<?php echo $key; ?>" /> <?php echo $term->name; ?></label>
 							<?php 
 						endforeach;
 					elseif( $data_type == 'meta' && $element['options'] == 'auto' ):
 						$values = get_postmeta_values( $data_value );
 						foreach( $values as $val ):
 						?>
-						<label><input type="radio" value="<?php echo esc_attr( $val->meta_value ); ?>" name="<?php echo $key; ?>" /> <?php echo $val->meta_value; ?></label>					
+						<label class="sf-element"><input type="radio" value="<?php echo esc_attr( $val->meta_value ); ?>" name="<?php echo $key; ?>" /> <?php echo $val->meta_value; ?></label>					
 						<?php
 						endforeach;
 					
@@ -172,7 +173,7 @@
 							$authors = apply_filters( 'sf-get-authors', get_users( $args ) );
 							foreach( $authors as $author ):
 							?>
-							<label><input type="radio" value="<?php echo $author->ID; ?>" name="<?php echo $key; ?>[]" /> <?php echo $author->data->display_name ?></label>
+							<label class="sf-element"><input type="radio" value="<?php echo $author->ID; ?>" name="<?php echo $key; ?>[]" /> <?php echo $author->data->display_name ?></label>
 							<?php
 							endforeach;
 						endif;
@@ -187,6 +188,7 @@
 			
 			endif;
 		?>
+		</div>
 		</fieldset>
 		<?php
 		endforeach; ?>
