@@ -22,8 +22,6 @@
 	require_once( MALIVI_PLUGIN_DIR . 'events-list-ajax-functions.php' );
 	require_once( MALIVI_PLUGIN_DIR . 'the-events-calendar-extensions.php' );
 	require_once( MALIVI_PLUGIN_DIR . 'includes/wpml-functions.php' );
-	require_once( MALIVI_PLUGIN_DIR . 'includes/acf-checkboxes.php' );
-	require_once( MALIVI_PLUGIN_DIR . 'includes/types-checkboxes.php' );
 	
 	function sf_textdomain() {
 		$plugin_dir = basename( dirname( __FILE__ ) ) . '/res/lang/';
@@ -36,8 +34,8 @@
 		wp_register_script('yandexMaps', "//api-maps.yandex.ru/2.1/?lang=" . get_bloginfo('language','display'));
 		wp_enqueue_script('yandexMaps');
 
-		wp_register_script('bsscripts', "//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js");
-		wp_enqueue_script('bsscripts');
+		//wp_register_script('bsscripts', "//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js");
+		//wp_enqueue_script('bsscripts');
 
 		//wp_register_script('googleMaps', "//maps.google.com/maps/api/js");
 		//wp_enqueue_script('googleMaps');

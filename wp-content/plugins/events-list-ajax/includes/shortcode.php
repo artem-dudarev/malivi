@@ -9,6 +9,7 @@
 <div class="sf-wrapper" style="display: none">
 	
 	<div class="sf-filter">
+		<div class="sf-element sf-filters-header">Фильтры</div>
 		<?php if( defined( 'ICL_LANGUAGE_CODE' )  ):
 			global $sitepress; ?>
 			<input type="hidden" name="wpml" value="<?php echo $sitepress->get_current_language(); ?>" />

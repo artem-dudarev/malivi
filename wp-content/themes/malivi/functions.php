@@ -114,18 +114,11 @@ if ( ! function_exists( 'flat_scripts_styles' ) ) :
 			wp_enqueue_script( 'comment-reply' );
 		}
 
-		# Minified versions of CSS & JS are used, unless a development constant is set
-		if ( defined( 'WP_ENV' ) && 'development' === WP_ENV ) {
-			$assets = array(
-				'css' => '/assets/css/flat.css',
-				'js'  => '/assets/js/flat.js',
-			);
-		} else {
-			$assets = array(
-				'css' => '/assets/css/flat.min.css',
-				'js'  => '/assets/js/flat.min.js',
-			);
-		}
+		$assets = array(
+			'css' => '/assets/css/flat.css',
+			'js'  => '/assets/js/flat.js',
+		);
+		
 
 		wp_enqueue_style( 'flat-fonts', flat_fonts_url(), array(), null ); # Web fonts
 		wp_enqueue_style( 'flat-theme', get_template_directory_uri() . $assets['css'], array(), $version ); # Flat's styling
@@ -135,7 +128,7 @@ if ( ! function_exists( 'flat_scripts_styles' ) ) :
 
 		# If the `script_loader_tag` filter is unavailable, this script will be added via the `wp_head` hook
 		if ( version_compare( '4.1', $wp_version, '<=' ) ) {
-			wp_enqueue_script( 'html5shiv', get_template_directory_uri() . '/assets/js/html5shiv.min.js', array(), '3.7.2', false );
+			wp_enqueue_script( 'html5shiv', get_template_directory_uri() . '/assets/js/html5shiv.js', array(), '3.7.2', false );
 		}
 		
 	}

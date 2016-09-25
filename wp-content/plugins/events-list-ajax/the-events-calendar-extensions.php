@@ -1,4 +1,8 @@
 <?php
+
+	class Tribe__Events__Pro__Main {
+		
+	}
 	
 	function get_malivi_custom_fields() {
 		return array (

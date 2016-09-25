@@ -18,67 +18,7 @@
 
 .tribe-events-list-event-description {
     min-height: 300px;
-}
-
-html {
-    height: 100%;
-}
-
-
-/*--------------------------------------------------------------
-	Flat overrides
---------------------------------------------------------------*/
-
-.hentry {
-    border-bottom: 0px !important;
-    padding: 45px 25px !important;
-}
-@media (max-width: 767px) {
-    .hentry {
-        padding: 0px 0px !important;
-    }
-}
-
-#secondary, .site-description {
-    color: rgba(255,255,255,0.8)  !important;
-}
-
-
-.hentry .entry-title {
-    margin-top: 0px;
-    text-align: center !important;
-    font-size: 44px !important;
-}
-
-@media (max-width: 767px) {
-    .hentry .entry-title {
-        margin: 0px 0px;
-        text-align: center !important;
-        font-size: 32px !important;
-        line-height: 2em;
-    }
-
-    .entry-content {
-        padding: 0px !important;
-    }
-}
-
-label {
-    width: 100%;
-}
-
-.site-info {
-    display: none;
-}
-
-@media (max-width: 767px) {
-    .site-info {
-        display: block;
-    }
-}
-
-#secondary .widget {
-    padding: 0;
+    margin-bottom: 20px;
 }
 
 

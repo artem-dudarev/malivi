@@ -30,11 +30,17 @@
     color: rgba(255,255,255,0.8);
 }
 
+.sf-filters-header {
+	text-align: center;;
+	font-size: 1.5em;
+	border-bottom: 1px solid rgba(255,255,255,0.2);
+	padding: 10px 0px;
+}
+
 .sf-legend {
 	/*background-color: rgba(255,255,255,0.1);*/
     font-size: 1.2em;
     /*font-weight: bold;*/
-    border: none;
     margin: 0;
     padding: 10px 25px;
 }
@@ -52,11 +58,9 @@
 }
 
 .sf-fieldset {
-	padding: 0;
+	border-bottom: 1px solid rgba(255,255,255,0.2);
 }
-.sf-fieldset + .sf-fieldset {
-	border-top: 1px solid rgba(255,255,255,0.2);
-}
+
 .sf-fieldset-content {
 	
 }

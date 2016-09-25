@@ -2280,6 +2280,7 @@
   $(document).ready(function() {
     $('.toggle-sidebar').click(function() {
       $('.row-offcanvas').toggleClass('active');
+      //$(this).toggleClass('open').next('#site-navigation').slideToggle(300);
     });
     $('.toggle-navigation').click(function() {
       $(this).toggleClass('open').next('#site-navigation').slideToggle(300);
