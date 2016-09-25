@@ -59,7 +59,7 @@ $has_venue_address = ( ! empty( $venue_details['address'] ) ) ? ' location' : ''
 <!-- Event Content -->
 <?php do_action( 'tribe_events_before_the_content' ) ?>
 <div class="tribe-events-list-event-description tribe-events-content description entry-summary">
-	<?php echo get_the_content(); ?>
+	<?php echo the_content(); ?>
 	<!--
 	<a href="<?php echo esc_url( tribe_get_event_link() ); ?>" class="tribe-events-read-more" rel="bookmark"><?php esc_html_e( 'Find out more', 'the-events-calendar' ) ?> &raquo;</a>
 	-->
