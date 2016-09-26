@@ -13,7 +13,7 @@
 	}
 
 	function get_age_restriction_variants($current_value) {
-		$ages = array('0+','3+','5+','12+','16+','18+','21+');
+		$ages = array('0+','3+','5+','12+','16+','18+','20+','21+');
 		$variants = '';
 		foreach ($ages as $age) {
 			if ( $age == $current_value ) {
@@ -28,15 +28,40 @@
 	}
 
 	function is_true( $check_box_variable ) {
-			$check_box_variable = trim( $check_box_variable );
+		$check_box_variable = trim( $check_box_variable );
 
-			return (
-				'true' === strtolower( $check_box_variable )
-				|| 'yes' === strtolower( $check_box_variable )
-				|| true === $check_box_variable
-				|| 1 == $check_box_variable
-			);
-		}
+		return (
+			'true' === strtolower( $check_box_variable )
+			|| 'yes' === strtolower( $check_box_variable )
+			|| true === $check_box_variable
+			|| 1 == $check_box_variable
+		);
+	}
+
+	function register_events_directions() {
+		// create a new taxonomy
+		register_taxonomy(
+			'events_directions',
+			'tribe_events',
+			array(
+				'labels' 				=> array(
+					'name'			=> __( 'Направления' ),
+					'singular_name'	=> __( 'Направление' ),
+				),
+				'rewrite' 				=> array( 
+					'slug' => 'event_direction',
+					'with_front'   => false,
+					'hierarchical' => true, 
+				),
+				'hierarchical'          => true,
+				'public'                => true,
+				'show_ui'               => true,
+			)
+		);
+
+		add_post_type_support(Tribe__Events__Venue::POSTTYPE, array('thumbnail', 'author', 'revisions'));
+	}
+	add_action( 'init', 'register_events_directions' );
 
 
 	function event_config_extension($event_id) {
@@ -51,7 +76,7 @@
 			$debug_log .= $custom_field_name . '=' . $value . ' ; ';
 		}
 		extract($fields_data);
-		include( MALIVI_PLUGIN_DIR . 'templates/event_config.php' );
+		include( SF_DIR . 'templates/event_config.php' );
 	}
 	add_action( 'tribe_events_eventform_top', 'event_config_extension', 10, 1 );
 

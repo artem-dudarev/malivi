@@ -187,6 +187,20 @@
 				<div class="sf-fulltext-wrapper">
 					<input placeholder="<?php echo $element['fieldname']; ?>" name="<?php echo $key; ?>" />
 				</div>
+			<?php elseif( $element['type'] == 'range' ):
+				$max_value = 1000;//get_max_value($key);
+			?>
+				<div class="sf-range-wrapper">
+					Не ограничено
+					<input type="range" min="0" max="<?php echo $max_value;?>" value="<?php echo $max_value;?>" name="<?php echo $key; ?>" />
+				</div>
+			<?php elseif( $element['type'] == 'date' ):
+				$max_value = 1000;//get_max_value($key);
+			?>
+				<div class="sf-range-wrapper">
+					
+					<input type="date"  name="<?php echo $key; ?>" />
+				</div>
 			<?php
 			
 			endif;

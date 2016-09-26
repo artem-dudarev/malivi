@@ -13,15 +13,15 @@
 	if( !session_id() )
 		session_start();
 		
-	define( 'MALIVI_PLUGIN_URL', plugins_url( '', __FILE__ ) . '/' );
-	define( 'MALIVI_PLUGIN_DIR', dirname( __FILE__ ) . '/' );
+	define( 'SF_URL', plugins_url( '', __FILE__ ) . '/' );
+	define( 'SF_DIR', dirname( __FILE__ ) . '/' );
 	define( 'HOME_URL', get_bloginfo( 'url' ) );
 	define( 'HOME_NAME', get_bloginfo( 'name' ) );
 	
-	require_once( MALIVI_PLUGIN_DIR . 'admin/admin.php' );
-	require_once( MALIVI_PLUGIN_DIR . 'events-list-ajax-functions.php' );
-	require_once( MALIVI_PLUGIN_DIR . 'the-events-calendar-extensions.php' );
-	require_once( MALIVI_PLUGIN_DIR . 'includes/wpml-functions.php' );
+	require_once( SF_DIR . 'admin/admin.php' );
+	require_once( SF_DIR . 'events-list-ajax-functions.php' );
+	require_once( SF_DIR . 'the-events-calendar-extensions.php' );
+	require_once( SF_DIR . 'includes/wpml-functions.php' );
 	
 	function sf_textdomain() {
 		$plugin_dir = basename( dirname( __FILE__ ) ) . '/res/lang/';
@@ -43,9 +43,9 @@
 
 		$settings = get_option( 'search-filter-settings' );
 		if( !isset( $settings['style'] ) || $settings['style'] == '' ) {
-			wp_register_style( 'events-list-ajax-style', MALIVI_PLUGIN_URL . 'res/style.css' );
+			wp_register_style( 'events-list-ajax-style', SF_URL . 'res/style.css' );
 		} else {
-			wp_register_style( 'events-list-ajax-style', MALIVI_PLUGIN_URL . 'res/' . $settings['style'] . '.css');
+			wp_register_style( 'events-list-ajax-style', SF_URL . 'res/' . $settings['style'] . '.css');
 		}
 		wp_enqueue_style( 'events-list-ajax-style' );	
 		
@@ -54,7 +54,7 @@
 		//wp_enqueue_script('jquery-ui-slider');
 		wp_register_script(
 			'events-list-ajax-script',
-			MALIVI_PLUGIN_URL . 'res/events-list-ajax-scripts.js',
+			SF_URL . 'res/events-list-ajax-scripts.js',
 			array('jquery'),
 			EL_CURRENT_VERSION,
 			true
@@ -71,7 +71,7 @@
 		$attr = array( 'id' => $id );
 		
 		ob_start();
-		require( MALIVI_PLUGIN_DIR . 'includes/shortcode.php' );
+		require( SF_DIR . 'includes/shortcode.php' );
 		$output_string=ob_get_contents();
 		ob_end_clean();
 		echo $output_string;
@@ -81,7 +81,7 @@
 	add_filter('widget_text', 'do_shortcode');
 	function sf_init_searchform( $attr ){
 		ob_start();
-		require( MALIVI_PLUGIN_DIR . 'includes/shortcode.php' );
+		require( SF_DIR . 'includes/shortcode.php' );
 		$output_string=ob_get_contents();
 		ob_end_clean();
 		return $output_string;

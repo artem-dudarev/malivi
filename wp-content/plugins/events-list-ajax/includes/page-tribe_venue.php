@@ -75,12 +75,12 @@ Tribe__Events__iCal::single_event_links();
 
 <div class="tribe-events-single-section tribe-events-event-meta">
 <?php
-	require( MALIVI_PLUGIN_DIR . 'includes/meta/details.php' );
-	require( MALIVI_PLUGIN_DIR . 'includes/meta/venue.php' );
+	require( SF_DIR . 'includes/meta/details.php' );
+	require( SF_DIR . 'includes/meta/venue.php' );
 	if ( tribe_has_organizer() ) {
-		require( MALIVI_PLUGIN_DIR . 'includes/meta/organizer.php' );
+		require( SF_DIR . 'includes/meta/organizer.php' );
 	}
-	require( MALIVI_PLUGIN_DIR . 'includes/meta/yandex-map.php' );
+	require( SF_DIR . 'includes/meta/yandex-map.php' );
 ?>
 </div>
 

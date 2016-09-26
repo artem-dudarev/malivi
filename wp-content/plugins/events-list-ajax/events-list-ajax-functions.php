@@ -69,7 +69,7 @@
 		return $excerpt;
 	}
 
-	function sf_do_search( $exclude = array() ){
+	function sf_do_search(){
 		global $wpdb;
 			
 		if( !isset( $_POST['data']['page'] ) || $_POST['data']['page'] == 1 )
@@ -254,7 +254,7 @@
 				
 				$content .= '<a class="events-list-row" href="' . get_the_permalink() . '" postid="' . get_the_ID() .'" >';
 				ob_start();
-				include( MALIVI_PLUGIN_DIR . 'includes/item-'. $post_type .'.php' );
+				include( SF_DIR . 'includes/item-'. $post_type .'.php' );
 				$content .= ob_get_contents();
 				ob_end_clean();
 				$content .= '</a>';
@@ -330,13 +330,13 @@
 	}
 	
 
-	function do_get_post_page( $exclude = array() ) {
+	function do_get_post_page( ) {
 		$post_id = $_POST['post_id'];
 		global $post;
 		$post = get_post($post_id);
 		setup_postdata($post);
 		ob_start();
-		include( MALIVI_PLUGIN_DIR . 'includes/page-'. $post->post_type .'.php' );
+		include( SF_DIR . 'includes/page-'. $post->post_type .'.php' );
 		$page .= ob_get_clean();
 		//$page = '<div>' . $post_id . '</div>';
 		/*
