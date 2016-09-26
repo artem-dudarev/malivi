@@ -26,7 +26,10 @@
 				$data_value = '';
 			endif;
 		
-		$class_hide = "";
+		$fieldset_class = "sf-fieldset";
+		if ( empty($element['fieldname'])) {
+			$fieldset_class = "sf-fieldset-no-title";
+		}
 		$style_hide = "";
 		$cond_key = "";
 		$cond_value = "";
@@ -34,13 +37,14 @@
 			$cond_key = $element['cond_key'];
 			$cond_value = $element['cond_value'];
 			if( ( $element['cond_key'] != -1 || !empty( $element['cond_key'] ) ) && !empty( $element['cond_value'] ) ):
-				$class_hide= "-hide";
+				$fieldset_class .= " -hide";
 				$style_hide = 'style="display:none;"';
 			endif;
 		endif;
+		
 			
 		?>
-		<fieldset data-id="<?php echo $key; ?>" <?php  echo $style_hide . 'data-condkey="' . $cond_key . '" data-condval="'  . $cond_value .  '"'; ?> class="sf-element sf-fieldset <?php echo $class_hide; ?> ">
+		<fieldset data-id="<?php echo $key; ?>" <?php  echo $style_hide . 'data-condkey="' . $cond_key . '" data-condval="'  . $cond_value .  '"'; ?> class="sf-element <?php echo $fieldset_class; ?> ">
 			<?php if ( !empty($element['fieldname'])) { ?>
 			<div class="sf-legend" data-toggle="collapse" data-target="#sf-collapsible-fieldset-<?php echo $key; ?>"><?php echo $element['fieldname']; ?></div>
 			<?php } ?>
