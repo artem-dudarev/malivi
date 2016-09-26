@@ -13,7 +13,7 @@
 	}
 
 	function get_age_restriction_variants($current_value) {
-		$ages = array('0+','3+','5+','12+','16+','18+','20+','21+');
+		$ages = array('0+','3+','5+','6+','7+','12+','14+','15+','16+','17+','18+','19+','20+','21+');
 		$variants = '';
 		foreach ($ages as $age) {
 			if ( $age == $current_value ) {
@@ -59,7 +59,7 @@
 			)
 		);
 
-		add_post_type_support(Tribe__Events__Venue::POSTTYPE, array('thumbnail', 'author', 'revisions'));
+		add_post_type_support(Tribe__Events__Venue::POSTTYPE, array('thumbnail', 'author', 'revisions', 'comments'));
 	}
 	add_action( 'init', 'register_events_directions' );
 
