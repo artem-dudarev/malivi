@@ -38,53 +38,130 @@ function CollectData( wrapper ){
 	return data;
 }
 
+function GetFiltersDataWithoutId(data) {
+	var result = {};
+	for (var key in data) {
+		if (key === "search-id") {
+			continue;
+		}
+		result[key] = data[key];
+	}
+	return result;
+}
+
+function SetUrlParameter(key, value, create_history_entry) {
+	//key = encodeURI(key);
+	//value = encodeURI(value);
+	var parameters = [];
+	var hash = location.hash.substr(1);
+	if (hash.length > 0) {
+		parameters = hash.split('&');
+	}
+	var i = 0;
+	for (; i <parameters.length; i++) {
+		var split = parameters[i].split('=');
+		if (split[0] == key) {
+			if (value.length > 0) {
+				split[1] = value;
+				parameters[i] = split.join('=');
+			} else {
+				parameters.splice(i, 1);
+			}
+			break;
+		}
+	}
+	
+	if (i == parameters.length && value.length > 0) {
+		parameters[i] = [key,value].join('=');
+	}
+	var address = '/';
+	if (parameters.length > 0) {
+		address = '#' + parameters.join('&');
+	}
+	if (create_history_entry) {
+		window.history.pushState('forward', null, address);
+	} else {
+		//location.href = '#filter-' + JSON.stringify( CollectData( wrapper));
+		history.replaceState(undefined, undefined, address);
+	}
+}
+
+function GetUrlParameter(key) {
+	var result = '';
+	var hash = location.hash.substr(1);
+	if (hash.length > 0) {
+		var parameters = hash.split('&');
+		for (var i in parameters) {
+			var split = parameters[i].split('=');
+			if (split[0] == key) {
+				if (split.length > 1) {
+					result = split[1];
+				}
+				break;
+			}
+		}
+	}
+	return result;
+}
+
 var current_page = 1;
 var pages_count = 0;
 var isPopupOpen = false;
+var current_request_id = 1;
+// Айди запроса, с которого начался новый сеанс(новый фильтр), все предыдущие запросы нужно игнорировать
+var min_acceptable_request_id = 1;
 
-function GetFilterResults( is_on_load, is_append ) {
+function GetFilterResults( is_append ) {
 	var wrapper = jQuery( '.sf-wrapper' );
-	var data = {
-		action	:	'sf-search',
-		data	:	CollectData( wrapper )
-	};
+	var filters_data = CollectData( wrapper );
 	
-	if(typeof is_on_load == 'undefined'){
-		location.href = '#filter-' + JSON.stringify( data.data ); 
-	}
-	var isAppend = typeof is_append != 'undefined';
-
-	if (isAppend) {
+	if (is_append) {
 		if (current_page == pages_count) {
 			return;
 		}
 		current_page++;
-		data.data.page = current_page;
+	} else {
+		current_page = 1;
+		min_acceptable_request_id = current_request_id;
 	}
+	var request_data = {
+		action		:	'sf-search',
+		data		:	filters_data,
+		request_id	: current_request_id,
+		page		: current_page
+	};
 
-	$events_list_container = jQuery('.events-list-table');
-	if (!isAppend) {
-		$events_list_container.animate({opacity:.7}, 200);
+	var request_id = current_request_id;
+	current_request_id++;
+	var events_list_container = jQuery('.events-list-table');
+	if (!is_append) {
+		events_list_container.animate({opacity:.7}, 200);
 	}
 	//wrapper.css({opacity:.1});
 	
-	search_data = data.data;
+	
 	jQuery.post(
 		sf_ajax_root,
-		data,
-		function (response) {
-			response = JSON.parse(response);
-			if( JSON.stringify(search_data) != JSON.stringify(response.post) ) {
-				//return;
+		request_data,
+		function (response_data) {
+			var response = JSON.parse(response_data);
+			console.debug("response_id: " + response.request_id + ", local_id=" + request_id);
+			if ( response.request_id < min_acceptable_request_id) {
+				console.debug("response is outdated");
+				return;
+			}
+			if( response.request_id != request_id) {
+				console.debug("invalid response received");
+				return;
 			}
 			//wrapper.css({opacity:1});
-			$events_list_container.finish();
-			$events_list_container.css({opacity:1});
-			if(isAppend) {
-				$events_list_container.append(response.html);
+			events_list_container.finish();
+			events_list_container.css({opacity:1});
+			if(is_append) {
+				events_list_container.append(response.html);
 			} else {
 				pages_count = response.pages_count;
-				$events_list_container.html(response.html);
+				events_list_container.html(response.html);
 			}
 			
 			jQuery( '.events-list-row' ).click( function( event ){
@@ -110,7 +187,9 @@ function OpenPopup(post_id, shouldPushState = true) {
 	var shadow = jQuery('<div class="popup-dialog-shadow"></div>');
 	body.append(shadow);
 	if (shouldPushState) {
-		window.history.pushState('forward', null, '#show=' + post_id);
+		SetUrlParameter('show', post_id, true);
+		//window.history.pushState('forward', null, '#show=' + post_id);
+		 //document.location.search = 'show=' + post_id;
 	}
 	// Получить данные страницы через ajax и создать из них по шаблону страницу
 	
@@ -128,7 +207,8 @@ function OpenPopup(post_id, shouldPushState = true) {
 				body.append(popup);
 				jQuery('.popup-dialog-wrapper').click(function(e) {
 					event.preventDefault();
-					window.history.back();
+					SetUrlParameter('show', '', true);
+					ClosePopup();
 				});
 
 				jQuery('.popup-dialog').click(function(e) {
@@ -153,22 +233,42 @@ function ClosePopup() {
 }
 
 function CheckCurrentPageParameters() {
+	console.debug("check_current_page_parameters");
 	// Если загрузилась страница с указанием фильтров, применим эти фильтры
-	if( location.hash.substr( 0, 8 ) == '#filter-' ) {
-		ParseFilters(location.hash.substr( 8 ));
+	var post_id_string = GetUrlParameter('show');
+	if( post_id_string.length > 0) {
+		var post_id = parseInt(post_id_string, 10);
+		OpenPopup(post_id, false);
+		//return;
+	}
+	// Если загрузилась страница с указанием фильтров, применим эти фильтры
+	var filters_string = GetUrlParameter('filter');
+	if( filters_string.length > 0 ) {
+		ParseFilters(filters_string);
 	}
 	// После загрузки страницы - вызываем поиск
-	GetFilterResults( true );
-	// Если загрузилась страница с указанием фильтров, применим эти фильтры
-	if( location.hash.substr( 0, 6 ) == '#show=' ) {
-		var post_id = parseInt(location.hash.substr( 6 ), 10);
-		OpenPopup(post_id, false);
-	}
+	GetFilterResults(false);
 }
 
 
 // Парсит строку адреса и выставляет фильтрам указанные в строке данные
 function ParseFilters(filter_string) {
+	//console.debug("apply filters: " + filter_string);
+	var range_max = '';
+	var range_min = '';
+	var	hash = JSON.parse( filter_string );
+	jQuery('fieldset .sf-element input').each( function() {
+		var fieldset_id = jQuery(this).attr('name');
+		fieldset_id = fieldset_id.substr(0, fieldset_id.length-2);
+		var fieldset_parameters = hash[fieldset_id];
+		var field_id = jQuery(this).attr("value")
+		var checked = fieldset_parameters != undefined && fieldset_parameters.includes(field_id);
+		//console.debug("fieldset="+fieldset_id + ", field_id="+field_id + ", checked=" + checked);
+		jQuery(this).prop('checked', checked);
+	});
+}
+
+function ParseFiltersBak(filter_string) {
 	var range_max = '';
 	var range_min = '';
 	var	hash = JSON.parse( filter_string );
@@ -251,46 +351,57 @@ jQuery( document ).ready( function() {
 		if (jQuery(document).height() - win.height()*5/4 <= win.scrollTop()) {
 			//$('#loading').show();
 
-			GetFilterResults(false, true);
+			//GetFilterResults(true);
 		}
 	});
 	win.keydown(function(e) {
 		if (isPopupOpen && e.keyCode == 27) { // escape key maps to keycode `27`
 			event.preventDefault();
-			window.history.back();
+			SetUrlParameter('show', '', true);
+			ClosePopup();
 		}
 	});
 	win.on('popstate', function(event) {
 		if (isPopupOpen) {
 			ClosePopup();
-		} else {
-			CheckCurrentPageParameters();
 		}
+		CheckCurrentPageParameters();
 	});
 		
 	// Отслеживаем изменения фильтров и вызываем поиск после каждого изменения
-	jQuery( document ).on( 'change', '.sf-filter input, .sf-filter select', function(){
+	jQuery( document ).on( 'change', '.sf-filter input, .sf-filter select', function() {
+		//console.debug("on_filters_change");
 		var possible_cond_key = jQuery( this ).closest( '.sf-element' ).attr( 'data-id' );
 		var possible_cond_val = jQuery( this ).val();
-		if( ( jQuery( this ).attr('type') == 'checkbox' || jQuery( this ).attr('type') == 'radio' ) && !jQuery( this ).prop( 'checked' ) )
+		if( ( jQuery( this ).attr('type') == 'checkbox' || jQuery( this ).attr('type') == 'radio' ) && !jQuery( this ).prop( 'checked' ) ) {
 			possible_cond_val = -2;
-		jQuery( '.sf-element-hide' ).each( function(){
-			if( jQuery( this ).attr( 'data-condkey' ) == possible_cond_key ){
-				if( possible_cond_val == jQuery( this ).attr( 'data-condval' ) ){
+		}
+		jQuery( '.sf-element-hide' ).each( function() {
+			if( jQuery( this ).attr( 'data-condkey' ) == possible_cond_key ) {
+				if( possible_cond_val == jQuery( this ).attr( 'data-condval' ) ) {
 					jQuery( this ).fadeIn();
 					jQuery( this ).addClass( 'sf-element' );
 					jQuery( this ).find( 'input, select' ).attr( 'disabled', false );
-				}else{
+				} else {
 					jQuery( this ).hide();
 					jQuery( this ).removeClass( 'sf-element' );
 					jQuery( this ).find( 'input, select' ).attr( 'disabled', true );
 				}
 			}
 		});
-		jQuery( '.sf-wrapper' ).find( 'input[name="page"]' ).remove();
-		if( jQuery( '.sf-wrapper' ).find( '.sf-button-btnsearch' ).length == 0 )
-			GetFilterResults();
+		var wrapper = jQuery( '.sf-wrapper' );
+		var wrapper = jQuery( '.sf-wrapper' );
+		var filters_data = CollectData( wrapper );
+		var filters_string_data = GetFiltersDataWithoutId(filters_data);
+		var parameters_string = JSON.stringify( filters_string_data );
+		
+		if (parameters_string.length > 2) {
+			SetUrlParameter('filter', parameters_string, false);
+		} else {
+			SetUrlParameter('filter', '', false);
+		}
+		GetFilterResults(false);
 	});
-	
+
 	CheckCurrentPageParameters();
 });
