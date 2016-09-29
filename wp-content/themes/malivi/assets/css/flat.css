@@ -1829,6 +1829,7 @@ html {
 }
 body {
   margin: 0;
+  height: 100%;
 }
 article,
 aside,
@@ -2229,7 +2230,7 @@ h2,
 .h2,
 h3,
 .h3 {
-  margin-top: 26px;
+  margin-top: 13px;
   margin-bottom: 13px;
 }
 h1 small,
@@ -2436,7 +2437,7 @@ ol ol {
 }
 dl {
   margin-top: 0;
-  margin-bottom: 26px;
+  margin-bottom: 0;
 }
 dt,
 dd {
@@ -5145,16 +5146,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   margin-bottom: 26px;
   border: 1px solid transparent;
 }
-@media (min-width: 1200px) {
-  .navbar {
-    border-radius: 3px;
-  }
-}
-@media (min-width: 1200px) {
-  .navbar-header {
-    float: left;
-  }
-}
+
 .navbar-collapse {
   overflow-x: visible;
   padding-right: 15px;
