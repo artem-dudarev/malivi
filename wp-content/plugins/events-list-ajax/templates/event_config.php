@@ -23,18 +23,22 @@
 	</tr>
 
 	<!--   Ссылка   -->
+	<!--
 	<tr>
 		<td><?php printf( esc_html__( 'Для детей:', 'malivi' ), $events_label_singular ); ?></td>
 		<td>
 			<input tabindex="<?php tribe_events_tab_index(); ?>" type="checkbox" name="EventLink" value="<?php echo $EventLink; ?>"/>
 		</td>
 	</tr>
+	-->
 
 	<!--   DEBUG   -->
+	<!--
 	<tr>
 		<td><?php esc_html_e( 'Debug:', 'malivi' ); ?></td>
 		<td>
 			<?php echo $debug_log; ?>
 		</td>
 	</tr>
+	-->
 </table>

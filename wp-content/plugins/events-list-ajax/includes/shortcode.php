@@ -216,6 +216,9 @@
 	</div>
 </div>
 
+<div class="events-list-table">
+</div>
+
 <?php
 	if( isset( $results ) ):				
 		?>

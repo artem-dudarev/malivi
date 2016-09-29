@@ -139,9 +139,7 @@
 				$data_value = $val['type'] ;
 			endif;
 			if( isset( $_POST['data'][ $key ] ) ):
-				/**
-				Taxonomy Query
-				*/
+				/** Taxonomy Query */
 				if( $data_type == 'tax' ):
 					if( !isset( $args['tax_query'] ) ):
 						$args['tax_query']['relation'] = 'AND';
@@ -247,7 +245,7 @@
 		remove_filter( 'posts_join_paged', 'sf_content_filter_join' );
 		remove_filter( 'posts_where', 'sf_content_filter' );
 		if( $query->have_posts() ) {
-			$content = '<div class="events-list-table table-'. $post_type . '">';
+			$content = '';
 			while( $query->have_posts() ) {
 				$query->the_post();
 				$post_id = get_the_ID();
@@ -263,7 +261,7 @@
 				
 				
 			} // end while( $query->have_posts() )
-			$content .= '</div>';
+			
 		} else {
 			//$content = __( 'No recent posts', 'lptw_recent_posts_domain' );
 		}
