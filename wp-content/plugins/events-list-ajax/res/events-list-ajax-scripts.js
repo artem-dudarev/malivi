@@ -62,9 +62,9 @@ function GetFilterResults( is_on_load, is_append ) {
 		data.data.page = current_page;
 	}
 
-	$article = jQuery('.entry-content');
+	$events_list_container = jQuery('.events-list-table');
 	if (!isAppend) {
-		$article.animate({opacity:.7}, 200);
+		$events_list_container.animate({opacity:.7}, 200);
 	}
 	//wrapper.css({opacity:.1});
 	
@@ -78,13 +78,13 @@ function GetFilterResults( is_on_load, is_append ) {
 				//return;
 			}
 			//wrapper.css({opacity:1});
-			$article.finish();
-			$article.css({opacity:1});
+			$events_list_container.finish();
+			$events_list_container.css({opacity:1});
 			if(isAppend) {
-				$article.append(response.html);
+				$events_list_container.append(response.html);
 			} else {
 				pages_count = response.pages_count;
-				$article.html(response.html);
+				$events_list_container.html(response.html);
 			}
 			
 			jQuery( '.events-list-row' ).click( function( event ){
@@ -246,7 +246,7 @@ jQuery( document ).ready( function() {
 	var win = jQuery(window);
 	// Each time the user scrolls
 	win.scroll(function() {
-		//$article = jQuery('.entry-content').prepend('<div>' + win.scrollTop() + '</div>');
+		//$events_list_container = jQuery('.entry-content').prepend('<div>' + win.scrollTop() + '</div>');
 		// End of the document reached?
 		if (jQuery(document).height() - win.height()*5/4 <= win.scrollTop()) {
 			//$('#loading').show();

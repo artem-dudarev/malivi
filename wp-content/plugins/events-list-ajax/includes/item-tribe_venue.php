@@ -25,9 +25,9 @@
 
 	
 	if (empty($thumbnail) || $thumbnail == false) {
-		$image_content = '<span class="events-list-post-image-noimglink">';
+		$image_content = '<div class="events-list-post-image-noimglink">';
 		$image_content .= mb_substr($title, 0, 1);
-		$image_content .= '</span>';
+		$image_content .= '</div>';
 	} else {
 		$image_content = '<img class="events-list-post-image-link" src="'.$thumbnail['0'].'" alt="'.$title.'" />';
 	}
@@ -56,7 +56,7 @@
 	</div>
 	-->
 
-	<div class="events-list-post-image-thumbnail events-list-cell events-list-post-text-cell" >
+	<div class="events-list-post-image-thumbnail events-list-cell" >
 		<?php echo $image_content;?>
 	</div>
 
