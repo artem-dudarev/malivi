@@ -1,0 +1,47 @@
+@CHARSET "UTF-8";
+
+.ced_mul_setting{
+	font-size:15px;
+}
+.ced-multi-shop tr {
+    border-top: 1px solid #ccc;
+}
+.shortcode_name{
+	color:black;
+}
+.section_body {
+	border-style: none solid solid;
+    border-width: medium 0px 0px;
+    margin: 0;
+    padding: 15px;
+    background: none repeat scroll 0 0 #fff;
+    border-color: -moz-use-text-color #e6e6e6 #e6e6e6;
+}
+.default_size_span{
+	margin: 30%;
+}
+.default_span{
+	
+	margin-left: 74px;
+}
+.under_description{
+	
+}
+#custom_image_size_width{
+	
+	text-align: center;
+}
+#custom_image_size_height{
+	
+	text-align: center;
+}
+.regular-text {
+    display: inline-block;
+    width: 70% !important;
+}
+
+table.ced-multi-shop.fh-profile-upload-options tr td:nth-child(4) img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}

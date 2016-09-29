@@ -1,0 +1,12 @@
+.ced_float {
+    float: left;
+    list-style: none outside none;
+    margin: 5px 10px 5px 0;
+    text-align: center;
+   
+}
+.ced_multi_site_list{
+	margin:0;
+	padding:0;
+}
+

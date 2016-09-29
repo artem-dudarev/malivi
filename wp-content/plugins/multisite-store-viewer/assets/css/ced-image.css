@@ -1,0 +1,13 @@
+
+@CHARSET "UTF-8";
+.fh-profile-upload-options th,
+  		.fh-profile-upload-options td,
+  		.fh-profile-upload-options input {
+  			vertical-align: top;
+ }
+.user-preview-image {
+  	display: block;
+  	height: auto;
+  	width: 200px;
+ }
+ 
