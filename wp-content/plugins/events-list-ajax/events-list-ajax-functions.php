@@ -71,10 +71,11 @@
 
 	function sf_do_search(){
 		global $wpdb;
-			
-		if( !isset( $_POST['data']['page'] ) || $_POST['data']['page'] == 1 )
+		$response = array();
+		if( !isset( $_POST['page'] ) || $_POST['page'] == 1 ) {
 			$_SESSION['sf'] = $_POST['data'];
-		$data['post'] = $_POST['data'];		
+		}
+		
 		
 		if( isset( $_POST['data']['wpml'] ) ) {
 			global $sitepress;
@@ -112,7 +113,7 @@
 		);
 
 			
-		$data_tmp = array();
+		$request_parameters = array();
 		foreach( $_POST['data'] as $key => $val ) {
 			if( $val == '' || empty( $val ) ) {
 				continue;
@@ -120,13 +121,13 @@
 				
 			$key = explode( '|', $key );
 			if( !isset( $key[1] ) ) {
-				$data_tmp[ $key[0] ]['val'] = $val;
+				$request_parameters[ $key[0] ]['val'] = $val;
 			}
 			if( isset( $key[1] ) ) {
-				$data_tmp[ $key[0] ][ $key[1] ] = $val;
+				$request_parameters[ $key[0] ][ $key[1] ] = $val;
 			}
 		}		
-		$_POST['data'] = $data_tmp;
+		
 		
 		$operator = array( 'like' => 'LIKE', 'between' => 'BETWEEN', 'equal' => '=', 'bt' => '>', 'st' => '<', 'bte' => '>=', 'ste' => '<=' );
 		foreach( $field['fields'] as $key => $val ):
@@ -138,7 +139,7 @@
 				$data_type = $val['type'];
 				$data_value = $val['type'] ;
 			endif;
-			if( isset( $_POST['data'][ $key ] ) ):
+			if( isset( $request_parameters[ $key ] ) ):
 				/** Taxonomy Query */
 				if( $data_type == 'tax' ):
 					if( !isset( $args['tax_query'] ) ):
@@ -146,10 +147,10 @@
 					endif;
 					
 					/** Select Field */
-					if( $val['type'] == 'select' && $_POST['data'][ $key ]['val']  != "" ):
+					if( $val['type'] == 'select' && $request_parameters[ $key ]['val']  != "" ):
 						$args['tax_query'][] = array( 
 							'taxonomy'	=> $data_value, 
-							'terms'		=> (int) $_POST['data'][ $key ]['val'] 
+							'terms'		=> (int) $request_parameters[ $key ]['val'] 
 						);
 					/** Input Field */
 					elseif( $val['type'] == 'checkbox' ):
@@ -162,7 +163,7 @@
 							
 						$args['tax_query'][] = array( 
 							'taxonomy'	=> $data_value, 
-							'terms'		=> $_POST['data'][ $key ]['val'],
+							'terms'		=> $request_parameters[ $key ]['val'],
 							'operator'	=> $operator,
 							'include_children' => $include_children
 						);
@@ -171,7 +172,7 @@
 					elseif( $val['type'] == 'radiobox' ):						
 						$args['tax_query'][] = array( 
 							'taxonomy'	=> $data_value, 
-							'terms'		=> $_POST['data'][ $key ]['val'] 
+							'terms'		=> $request_parameters[ $key ]['val'] 
 						);
 						
 					endif;
@@ -186,61 +187,63 @@
 					if( $val['type'] == 'select' ):
 						$args['meta_query'][] = array(
 									'key'		=>	$data_value,
-									'value'		=>	$_POST['data'][ $key ]['val'],
+									'value'		=>	$request_parameters[ $key ]['val'],
 									'compare'	=>	'='
 						);
 					elseif( $val['type'] == 'checkbox' ):
 						$args['meta_query'][] = array(
 									'key'		=> $data_value,
-									'value'		=> $_POST['data'][ $key ]['val'],
+									'value'		=> $request_parameters[ $key ]['val'],
 									'type' 		=> 'CHAR',
 									'compare'	=> 'IN'
 						);
 					elseif( $val['type'] == 'radiobox' ):
 						$args['meta_query'][] = array(
 									'key'		=> $data_value,
-									'value'		=> $_POST['data'][ $key ]['val'],
+									'value'		=> $request_parameters[ $key ]['val'],
 									'type' 		=> 'CHAR',
 									'compare'	=> '='
 						);
 					endif;
 						
-				elseif( $val['type'] == 'fulltext' && !empty( $_POST['data'][ $key ]['val'] ) ):
+				elseif( $val['type'] == 'fulltext' && !empty( $request_parameters[ $key ]['val'] ) ):
 					if( in_array( 'the_title', $val['contents'] ) )
-						$args['sf-title'] = $_POST['data'][ $key ]['val'];
+						$args['sf-title'] = $request_parameters[ $key ]['val'];
 					if( in_array( 'the_content', $val['contents'] ) )
-						$args['sf-content'] = $_POST['data'][ $key ]['val'];
+						$args['sf-content'] = $request_parameters[ $key ]['val'];
 					if( in_array( 'the_excerpt', $val['contents'] ) )
-						$args['sf-excerpt'] = $_POST['data'][ $key ]['val'];
+						$args['sf-excerpt'] = $request_parameters[ $key ]['val'];
 					foreach( $val['contents'] as $v ):
 						if( preg_match( '^meta\[(.*)\]^', $v ) ):
 							if( !isset( $args['sf-meta'] ) ):
 								$args['sf-meta'] = array();
 							endif;
-							$args['sf-meta'][ $v ] = $_POST['data'][ $key ]['val'];
+							$args['sf-meta'][ $v ] = $request_parameters[ $key ]['val'];
 						endif;
 					endforeach;
 					add_filter( 'posts_where', 'sf_content_filter', 10, 2 );
 					if( isset( $args['sf-meta'] ) )
 						add_filter( 'posts_join_paged', 'sf_content_filter_join', 10, 2 );
 					
-					$fulltext = $_POST['data'][ $key ]['val'] ;
+					$fulltext = $request_parameters[ $key ]['val'] ;
 				endif;
 			endif;				
 		endforeach;
 		
 		
-		if( isset( $_POST['data']['page'] ) )
+		if( isset( $_POST['data']['page'] ) ) {
 			$args['paged'] = (int) $_POST['data']['page']['val'];
-		
-		$data['result'] = array();
+			$content = '';
+		} else {
+			$content = '<div>Ничего не найдено, попробуйте изменить настройки фильтров.</div>';
+		}
 		
 		$args = apply_filters( 'sf-filter-args', $args );
 		$wpdb->query( 'SET OPTION SQL_BIG_SELECTS = 1' );
 		$query = new WP_Query( $args );
 		if( isset( $field['debug'] ) && $field['debug'] == 1 ):
-			$data['args'] = $args;
-			$data['query'] = $query;
+			$response['args'] = $args;
+			$response['query'] = $query;
 		endif;
 		remove_filter( 'posts_join_paged', 'sf_content_filter_join' );
 		remove_filter( 'posts_where', 'sf_content_filter' );
@@ -261,9 +264,6 @@
 				
 				
 			} // end while( $query->have_posts() )
-			
-		} else {
-			//$content = __( 'No recent posts', 'lptw_recent_posts_domain' );
 		}
 		//wp_reset_postdata();
 		/*
@@ -313,10 +313,10 @@
 			
 		}*/
 		
-		$data['html'] = $content;
-
-		$data['pages_count'] = $query->max_num_pages;
-		return $data;
+		$response['html'] = $content;
+		$response['request_id'] = $_POST['request_id'];
+		$response['pages_count'] = $query->max_num_pages;
+		return $response;
 	}
 
 	add_action('wp_ajax_get-post-page', 'get_post_page');
