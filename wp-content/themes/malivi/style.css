@@ -385,6 +385,13 @@
     padding: 0 10px;
 }
 
+@media (max-width: 767px) {
+    #list_loader {
+        padding: 0 5px;
+        margin-bottom: 10px;
+    }
+}
+
 #list_loader .back {
     background-color: rgba(0,0,0,0.05);
     height:50px;

@@ -1,52 +1,58 @@
 
-function CollectData( wrapper ){
+function CollectData( wrapper, ignore_search_id = false ) {
 	var data = {};
 	wrapper.find('select').each( function(){
-		if( ( jQuery( this ).attr( 'name' ) != 'orderby' || jQuery( this ).val() != null ) && jQuery( this ).attr( 'disabled' ) != 'disabled' ){				
-			if( jQuery( this ).val() != '' ){
-				data[ jQuery( this ).attr( 'name' ) ] = jQuery( this ).val() ;
+		var select = jQuery( this );
+		var name = select.attr( 'name' );
+		if( ( name != 'orderby' || select.val() != null ) && select.attr( 'disabled' ) != 'disabled' ){				
+			if( select.val() != '' ){
+				data[ name ] = select.val() ;
 			}
 		}
 	});
 	
-	wrapper.find('input').each( function(){
-		if( typeof( jQuery( this ).attr( 'name' ) ) != 'undefined' && ( typeof jQuery( this ).attr( 'disabled' ) == 'undefined' || jQuery( this ).attr( 'disabled' ) == false ) ){
-			if( jQuery( this ).hasClass( 'sf-date' ) || jQuery( this ).attr( 'type' ) == 'hidden' || jQuery( this ).attr( 'name' ).substr( jQuery( this ).attr( 'name' ).length - 2, 2 ) != '[]' ){
-				if( jQuery( this ).val() != '' ){
-					if( jQuery( this ).attr( 'type' ) != 'radio' || jQuery( this ).prop( 'checked' ) ){
-						if( jQuery( this ).attr( 'name' ).substr( jQuery( this ).attr( 'name' ).length - 2, 2 ) != '[]' ){
-							data[ jQuery( this ).attr( 'name' ) ] = jQuery( this ).val() ;
-						} else {
-							var data_name = jQuery( this ).attr( 'name' ).substr( 0, jQuery( this ).attr( 'name' ).length - 2 )
-							if( typeof( data[ data_name ] ) == 'undefined' )
-								data[ data_name ] = [];
-							data[ data_name ].push( jQuery( this ).val() );
-						}
-					}
+	wrapper.find('input').each( function() {
+		var input = jQuery( this );
+		var name = input.attr( 'name' );
+		var is_array = name.substr( name.length - 2, 2 ) == '[]' 
+		
+		if( typeof( name ) == 'undefined') {
+			return;
+		}
+		if ( input.attr( 'disabled' ) == true ) {
+			return;
+		}
+		if( input.hasClass( 'sf-date' ) || input.attr( 'type' ) == 'hidden' || !is_array ){
+			if( input.val() == '' ) {
+				return;
+			}
+			if( input.attr( 'type' ) == 'radio' && !input.prop( 'checked' )  == true) {
+				return;
+			}
+			if( !is_array ){
+				if (ignore_search_id && name == 'search-id') {
+					return;
 				}
-			} else{
-				var n = jQuery( this ).attr( 'name' ).substr( 0, jQuery( this ).attr( 'name' ).length - 2 );
-			
-				if( jQuery( this ).prop( 'checked' ) ){
-					if( typeof data[n] == 'undefined' )
-						data[n] = [];					
-					data[n].push( jQuery( this ).val() );
+				data[ name ] = input.val() ;
+			} else {
+				var data_name = name.substr( 0, name.length - 2 )
+				if( typeof( data[ data_name ] ) == 'undefined' ) {
+					data[ data_name ] = [];
 				}
+				data[ data_name ].push( input.val() );
+			}
+		} else{
+			var n = name.substr( 0, name.length - 2 );
+		
+			if( input.prop( 'checked' ) ){
+				if( typeof data[n] == 'undefined' ) {
+					data[n] = [];					
+				}
+				data[n].push( input.val() );
 			}
 		}
 	});
 	return data;
-}
-
-function GetFiltersDataWithoutId(data) {
-	var result = {};
-	for (var key in data) {
-		if (key === "search-id") {
-			continue;
-		}
-		result[key] = data[key];
-	}
-	return result;
 }
 
 function SetUrlParameter(key, value, create_history_entry) {
@@ -81,7 +87,6 @@ function SetUrlParameter(key, value, create_history_entry) {
 	if (create_history_entry) {
 		window.history.pushState('forward', null, address);
 	} else {
-		//location.href = '#filter-' + JSON.stringify( CollectData( wrapper));
 		history.replaceState(undefined, undefined, address);
 	}
 }
@@ -129,19 +134,16 @@ function GetFilterResults( is_append ) {
 	var request_data = {
 		action		:	'sf-search',
 		data		:	filters_data,
-		request_id	: current_request_id,
-		page		: current_page
+		request_id	: 	current_request_id,
+		page		: 	current_page
 	};
 
 	var request_id = current_request_id;
 	current_request_id++;
 	var events_list_container = jQuery('.events-list-table');
 	if (!is_append) {
-		//events_list_container.animate({opacity:.7}, 200);
 		events_list_container.html('');
 	}
-	//wrapper.css({opacity:.1});
-	
 	
 	jQuery.post(
 		sf_ajax_root,
@@ -155,7 +157,7 @@ function GetFilterResults( is_append ) {
 				return;
 			}
 			if( response.request_id != request_id) {
-				console.debug("invalid response received");
+				console.error("invalid response received");
 				return;
 			}
 			//wrapper.css({opacity:1});
@@ -241,7 +243,6 @@ function ClosePopup() {
 }
 
 function CheckCurrentPageParameters() {
-	console.debug("check_current_page_parameters");
 	// Если загрузилась страница с указанием фильтров, применим эти фильтры
 	var post_id_string = GetUrlParameter('show');
 	if( post_id_string.length > 0) {
@@ -359,7 +360,7 @@ jQuery( document ).ready( function() {
 		if (jQuery(document).height() - win.height()*5/4 <= win.scrollTop()) {
 			//$('#loading').show();
 
-			//GetFilterResults(true);
+			GetFilterResults(true);
 		}
 	});
 	win.keydown(function(e) {
@@ -378,7 +379,6 @@ jQuery( document ).ready( function() {
 		
 	// Отслеживаем изменения фильтров и вызываем поиск после каждого изменения
 	jQuery( document ).on( 'change', '.sf-filter input, .sf-filter select', function() {
-		//console.debug("on_filters_change");
 		var possible_cond_key = jQuery( this ).closest( '.sf-element' ).attr( 'data-id' );
 		var possible_cond_val = jQuery( this ).val();
 		if( ( jQuery( this ).attr('type') == 'checkbox' || jQuery( this ).attr('type') == 'radio' ) && !jQuery( this ).prop( 'checked' ) ) {
@@ -398,10 +398,8 @@ jQuery( document ).ready( function() {
 			}
 		});
 		var wrapper = jQuery( '.sf-wrapper' );
-		var wrapper = jQuery( '.sf-wrapper' );
-		var filters_data = CollectData( wrapper );
-		var filters_string_data = GetFiltersDataWithoutId(filters_data);
-		var parameters_string = JSON.stringify( filters_string_data );
+		var filters_data = CollectData( wrapper, true );
+		var parameters_string = JSON.stringify( filters_data );
 		
 		if (parameters_string.length > 2) {
 			SetUrlParameter('filter', parameters_string, false);
