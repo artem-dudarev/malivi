@@ -124,6 +124,8 @@ function GetFilterResults( is_append ) {
 		current_page = 1;
 		min_acceptable_request_id = current_request_id;
 	}
+	var loading_indicator = jQuery('#list_loader');
+	loading_indicator.show();
 	var request_data = {
 		action		:	'sf-search',
 		data		:	filters_data,
@@ -135,7 +137,8 @@ function GetFilterResults( is_append ) {
 	current_request_id++;
 	var events_list_container = jQuery('.events-list-table');
 	if (!is_append) {
-		events_list_container.animate({opacity:.7}, 200);
+		//events_list_container.animate({opacity:.7}, 200);
+		events_list_container.html('');
 	}
 	//wrapper.css({opacity:.1});
 	
@@ -144,6 +147,7 @@ function GetFilterResults( is_append ) {
 		sf_ajax_root,
 		request_data,
 		function (response_data) {
+			loading_indicator.hide();
 			var response = JSON.parse(response_data);
 			console.debug("response_id: " + response.request_id + ", local_id=" + request_id);
 			if ( response.request_id < min_acceptable_request_id) {
@@ -181,10 +185,12 @@ function OpenPopup(post_id, shouldPushState = true) {
 	}
 	isPopupOpen = true;
 	//var url = jQuery( this ).attr( 'href' );
-	
+	var loading_indicator = jQuery('#box_loader');
+	loading_indicator.show();
 	var body = jQuery('body')
 	body.addClass('no-scroll');
 	var shadow = jQuery('<div class="popup-dialog-shadow"></div>');
+	shadow.hide();
 	body.append(shadow);
 	if (shouldPushState) {
 		SetUrlParameter('show', post_id, true);
@@ -202,7 +208,9 @@ function OpenPopup(post_id, shouldPushState = true) {
 		sf_ajax_root,
 		settings,
 		function( response ) {
+			loading_indicator.hide();
 			if (isPopupOpen) {
+				shadow.show();
 				var popup = jQuery('<div class="popup-dialog-wrapper"><div class="popup-dialog">' + response + '</div></div>');
 				body.append(popup);
 				jQuery('.popup-dialog-wrapper').click(function(e) {
