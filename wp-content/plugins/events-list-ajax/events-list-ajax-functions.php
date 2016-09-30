@@ -231,8 +231,8 @@
 		endforeach;
 		
 		
-		if( isset( $_POST['data']['page'] ) ) {
-			$args['paged'] = (int) $_POST['data']['page']['val'];
+		if( isset( $_POST['page'] ) ) {
+			$args['paged'] = (int) $_POST['page']['val'];
 			$content = '';
 		} else {
 			$content = '<div>Ничего не найдено, попробуйте изменить настройки фильтров.</div>';
