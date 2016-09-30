@@ -2461,7 +2461,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			}
 
 			// Append Events structure
-			$event_url .= trailingslashit( sanitize_title( Tribe__Settings_Manager::get_option( 'eventsSlug', 'events' ).'123' ) );
+			$event_url .= trailingslashit( sanitize_title( Tribe__Settings_Manager::get_option( 'eventsSlug', 'events' ) ) );
 
 			// if we're on an Event Cat, show the cat link, except for home and days.
 			if ( $type !== 'home' && is_tax( self::TAXONOMY ) && $term !== false && ! is_numeric( $term ) ) {

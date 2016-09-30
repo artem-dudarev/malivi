@@ -190,10 +190,7 @@ function OpenPopup(post_id, shouldPushState = true) {
 	var loading_indicator = jQuery('#box_loader');
 	loading_indicator.show();
 	var body = jQuery('body')
-	body.addClass('no-scroll');
-	var shadow = jQuery('<div class="popup-dialog-shadow"></div>');
-	shadow.hide();
-	body.append(shadow);
+	jQuery('html').addClass('no-scroll');
 	if (shouldPushState) {
 		SetUrlParameter('show', post_id, true);
 		//window.history.pushState('forward', null, '#show=' + post_id);
@@ -212,10 +209,9 @@ function OpenPopup(post_id, shouldPushState = true) {
 		function( response ) {
 			loading_indicator.hide();
 			if (isPopupOpen) {
-				shadow.show();
-				var popup = jQuery('<div class="popup-dialog-wrapper"><div class="popup-dialog">' + response + '</div></div>');
+				var popup = jQuery('<div class="popup-dialog-wrapper admin-toolbar-fix-for-fixed-position"><div class="popup-dialog"><div class="popup-wrapper-close-button admin-toolbar-fix-for-fixed-position"/>' + response + '</div></div>');
 				body.append(popup);
-				jQuery('.popup-dialog-wrapper').click(function(e) {
+				jQuery('.popup-dialog-wrapper, .popup-wrapper-close-button').click(function(e) {
 					event.preventDefault();
 					SetUrlParameter('show', '', true);
 					ClosePopup();
@@ -227,9 +223,6 @@ function OpenPopup(post_id, shouldPushState = true) {
 			}
 		}
 	);
-	
-	//document.location = url;
-	//jQuery('#page').addClass('no-scroll');
 }
 
 function ClosePopup() {
@@ -237,8 +230,8 @@ function ClosePopup() {
 		return;
 	}
 	isPopupOpen = false;
-	jQuery( '.popup-dialog-wrapper, .popup-dialog-shadow' ).remove();
-	jQuery('body').removeClass('no-scroll');
+	jQuery( '.popup-dialog-wrapper' ).remove();
+	jQuery('html').removeClass('no-scroll');
 	//jQuery('#page').removeClass('no-scroll');
 }
 
