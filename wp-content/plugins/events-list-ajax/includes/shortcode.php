@@ -5,6 +5,17 @@
 			break;
 			
 ?>
+<!-- Всплывающий бокс загрузки -->
+<div id="box_loader" style="display: none">
+	<div class="back">
+		<div class="loader_pr">
+			<div class="pr_bt"></div>
+			<div class="pr_bt"></div>
+			<div class="pr_bt"></div>
+		</div>
+	</div>
+</div>
+
 <!-- Search Filter: <?php echo $attr['id']; ?>-->
 <div class="sf-wrapper" style="display: none">
 	
@@ -217,6 +228,17 @@
 </div>
 
 <div class="events-list-table">
+</div>
+
+<!-- Появляющаяся в списке полоска загрузки -->
+<div id="list_loader" >
+	<div class="back">
+		<div class="loader_pr">
+			<div class="pr_bt"></div>
+			<div class="pr_bt"></div>
+			<div class="pr_bt"></div>
+		</div>
+	</div>
 </div>
 
 <?php
