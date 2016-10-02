@@ -22,7 +22,7 @@ $website = tribe_get_venue_website_link();
 	<dl>
 		<?php do_action( 'tribe_events_single_meta_venue_section_start' ) ?>
 
-		<dd class="tribe-venue"> <?php echo tribe_get_venue() ?> </dd>
+		<dd class="tribe-venue"> <?php echo tribe_get_venue_link() ?> </dd>
 
 		<?php if ( tribe_address_exists() ) : ?>
 			<dd class="tribe-venue-location">
