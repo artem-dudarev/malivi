@@ -2275,20 +2275,60 @@
   })
 
 }(jQuery);
+
+function ToggleSidebar() {
+  jQuery('#secondary').toggleClass('active');
+  jQuery('#primary').toggleClass('no-scroll-blocked-mobile');
+  if (jQuery('#secondary').hasClass('active')) {
+    jQuery('#secondary').toggleClass('enabled');
+  } else {
+    setTimeout(function() {
+      jQuery('#secondary').toggleClass('enabled');
+    }, 250);
+  }
+}
+
 ;(function($){
 	'use strict';
+  
   $(document).ready(function() {
+    jQuery(window).swiperight( function(e) {
+      if (!jQuery('#secondary').hasClass('active')) {
+        ToggleSidebar();
+      }
+    });
+    jQuery(window).swipeleft( function(e) {
+      if (jQuery('#secondary').hasClass('active')) {
+        ToggleSidebar();
+      }
+    });
+    $('#secondary').click(function() {
+      ToggleSidebar();
+    });
+    $('.site-header').click(function(e) {
+      e.stopPropagation();
+    });
+    $('.sidebar-offcanvas').click(function(e) {
+      e.stopPropagation();
+    });
     $('.toggle-sidebar').click(function() {
-      $('.row-offcanvas').toggleClass('active');
-      //$(this).toggleClass('open').next('#site-navigation').slideToggle(300);
+      ToggleSidebar();
     });
-    $('.toggle-navigation').click(function() {
-      $(this).toggleClass('open').next('#site-navigation').slideToggle(300);
+    /*$('.toggle-navigation').click(function() {
+      $('#site-navigation').slideToggle(300);
+    });*/
+
+    var win = jQuery(window);
+    win.keydown(function(e) {
+      if (jQuery('#secondary').hasClass('active') && e.keyCode == 27) { // escape key maps to keycode `27`
+        event.preventDefault();
+        ToggleSidebar();
+      }
     });
+    
 
-    $('#site-navigation .sub-menu, #site-navigation .children').before('<i class="fa fa-caret-right"></i>');
 
-    if(!!('ontouchstart' in window)){
+    /*if(!!('ontouchstart' in window)){
       $('#site-navigation .menu-item-has-children .fa, #site-navigation .page_item_has_children .fa')
       .click(function() {
         $(this).toggleClass('open').next('ul').slideToggle(300);
@@ -2301,6 +2341,6 @@
       },function() {
         $(this).children('.fa').toggleClass('open').next('ul').stop(true, true).delay(500).slideUp();
       });
-    }
+    }*/
   });
 })(jQuery);

@@ -227,6 +227,7 @@
 	</div>
 </div>
 
+<!-- Контейнер для получаемых с сервера элементов -->
 <div class="events-list-table">
 </div>
 
@@ -240,21 +241,3 @@
 		</div>
 	</div>
 </div>
-
-<?php
-	if( isset( $results ) ):				
-		?>
-		<script>sf_adjust_elements_waitimg();</script>
-		<?php
-	endif;
-?>
-		
-<?php
-	if( isset( $results['args'] ) ):
-?>
-<p>Debug Mode</p>
-<pre>Args:
-<?php print_r( $results['args'] ); ?>
-Query:
-<?php print_r( $results['query'] ); ?></pre>
-<?php endif; ?>

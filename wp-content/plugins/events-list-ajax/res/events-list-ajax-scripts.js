@@ -109,9 +109,21 @@ function GetUrlParameter(key) {
 	return result;
 }
 
+function SetPageScrollEnabled(is_enabled) {
+	if (is_enabled) {
+		jQuery('#primary').removeClass('no-scroll');
+	} else {
+		jQuery('#primary').addClass('no-scroll');
+	}
+}
+
+// Текущая страница отфильтрованных событий
 var current_page = 1;
+// Количество доступных страниц результатов
 var pages_count = 0;
+// Статус открыт ли всплывающий диалог
 var isPopupOpen = false;
+// Счетчик запросов для использования в качестве айдишника и определения ответа
 var current_request_id = 1;
 // Айди запроса, с которого начался новый сеанс(новый фильтр), все предыдущие запросы нужно игнорировать
 var min_acceptable_request_id = 1;
@@ -145,10 +157,8 @@ function GetFilterResults( is_append ) {
 		events_list_container.html('');
 	}
 	
-	jQuery.post(
-		sf_ajax_root,
-		request_data,
-		function (response_data) {
+	jQuery.post(sf_ajax_root, request_data).
+		done( function (response_data) {
 			loading_indicator.hide();
 			var response = JSON.parse(response_data);
 			console.debug("response_id: " + response.request_id + ", local_id=" + request_id);
@@ -177,8 +187,14 @@ function GetFilterResults( is_append ) {
 					OpenPopup(post_id);
 				}				
 			});
-		}
-	);
+		}).fail( function() {
+			loading_indicator.hide();
+			if(is_append) {
+				current_page--;
+				ShowConnectionError();
+			}
+			ShowConnectionError();
+		});
 }
 
 function OpenPopup(post_id, shouldPushState = true) {
@@ -190,28 +206,24 @@ function OpenPopup(post_id, shouldPushState = true) {
 	var loading_indicator = jQuery('#box_loader');
 	loading_indicator.show();
 	var body = jQuery('body')
-	jQuery('html').addClass('no-scroll');
+	SetPageScrollEnabled(false);
 	if (shouldPushState) {
 		SetUrlParameter('show', post_id, true);
 		//window.history.pushState('forward', null, '#show=' + post_id);
 		 //document.location.search = 'show=' + post_id;
 	}
 	// Получить данные страницы через ajax и создать из них по шаблону страницу
-	
 	var settings = {
 		action	:	'get-post-page',
 		post_id	: post_id	
 	};
-	
-	jQuery.post(
-		sf_ajax_root,
-		settings,
-		function( response ) {
+	jQuery.post(sf_ajax_root,settings)
+		.done(function( response ) {
 			loading_indicator.hide();
 			if (isPopupOpen) {
-				var popup = jQuery('<div class="popup-dialog-wrapper admin-toolbar-fix-for-fixed-position"><div class="popup-dialog"><div class="popup-wrapper-close-button admin-toolbar-fix-for-fixed-position"/>' + response + '</div></div>');
+				var popup = jQuery('<div class="popup-dialog-wrapper"><div class="popup-dialog">' + response + '</div><div class="popup-wrapper-close-button"/></div>');
 				body.append(popup);
-				jQuery('.popup-dialog-wrapper, .popup-wrapper-close-button').click(function(e) {
+				jQuery('.popup-dialog-wrapper').click(function(e) {
 					event.preventDefault();
 					SetUrlParameter('show', '', true);
 					ClosePopup();
@@ -221,8 +233,18 @@ function OpenPopup(post_id, shouldPushState = true) {
 					e.stopPropagation();
 				});
 			}
-		}
-	);
+		}).fail(function() {
+			loading_indicator.hide();
+			ShowConnectionError();
+		});
+}
+
+function ShowConnectionError(text) {
+	ShowMessageBox('Не удалось подключиться к серверу, проверьте соединение с интернетом или обновите страницу.');
+}
+
+function ShowMessageBox(text) {
+	
 }
 
 function ClosePopup() {
@@ -231,8 +253,7 @@ function ClosePopup() {
 	}
 	isPopupOpen = false;
 	jQuery( '.popup-dialog-wrapper' ).remove();
-	jQuery('html').removeClass('no-scroll');
-	//jQuery('#page').removeClass('no-scroll');
+	SetPageScrollEnabled(true);
 }
 
 function CheckCurrentPageParameters() {
