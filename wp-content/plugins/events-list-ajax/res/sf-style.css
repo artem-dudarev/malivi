@@ -30,6 +30,12 @@
     color: rgba(255,255,255,0.8);
 }
 
+.sf-legend,
+.sf-element label,
+.sf-element input {
+	cursor: pointer;
+}
+
 .sf-filters-header {
 	text-align: center;;
 	font-size: 1.5em;

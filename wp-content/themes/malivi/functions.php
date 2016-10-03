@@ -114,16 +114,26 @@ if ( ! function_exists( 'flat_scripts_styles' ) ) :
 			wp_enqueue_script( 'comment-reply' );
 		}
 
-		$assets = array(
-			'css' => '/assets/css/flat.css',
-			'js'  => '/assets/js/flat.js',
-		);
-		
-
+		wp_enqueue_script('jquery');
 		wp_enqueue_style( 'flat-fonts', flat_fonts_url(), array(), null ); # Web fonts
-		wp_enqueue_style( 'flat-theme', get_template_directory_uri() . $assets['css'], array(), $version ); # Flat's styling
-		wp_enqueue_script( 'flat-js', get_template_directory_uri() . $assets['js'], array( 'jquery' ), $version, false ); # Flat's scripting
+		wp_enqueue_style( 'flat-basics', get_template_directory_uri() . '/assets/css/basics.css'); # Flat's styling
+		wp_enqueue_style( 'flat-theme', get_template_directory_uri() . '/assets/css/flat.css'); # Flat's styling
+		wp_enqueue_script( 'flat-js', get_template_directory_uri() . '/assets/js/flat.js'); # Flat's scripting
 		wp_enqueue_style( 'flat-style', get_stylesheet_uri() ); # Load main stylesheet, for child theme supports
+
+		wp_enqueue_script(
+			'jquery-mobile',
+			get_template_directory_uri() . '/assets/js/jquery.mobile.custom.min.js',
+			array('jquery'),
+			'1.4.5'
+		);
+		//wp_enqueue_script( 'jquery-mobile');
+		wp_enqueue_style(
+			'jqm_css',
+			'http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css',
+			'',
+			'1.4.5'
+		);
 
 
 		# If the `script_loader_tag` filter is unavailable, this script will be added via the `wp_head` hook

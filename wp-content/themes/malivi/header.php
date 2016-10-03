@@ -15,28 +15,27 @@
 <?php flat_hook_body_top(); ?>
 <div id="page">
 	<div class="container">
-		<div class="row row-offcanvas row-offcanvas-left">
-			<div id="secondary" class="col-lg-3">
-				<?php flat_hook_header_before(); ?>
-				<header id="masthead" class="site-header" role="banner">
-					<?php flat_hook_header_top(); ?>
-					<div class="hgroup">
-						<?php flat_logo(); ?>
-					</div>
-					<button type="button" class="btn btn-link hidden-lg toggle-sidebar" data-toggle="offcanvas" aria-label="Sidebar"><?php _e( '<i class="fa fa-bars"></i>', 'flat' ); ?></button>
-					<button type="button" class="btn btn-link hidden-lg toggle-navigation" aria-label="Navigation Menu"><?php _e( '<i class="fa fa-gear"></i>', 'flat' ); ?></button>
+		<div id="secondary">
+			<?php flat_hook_header_before(); ?>
+			<header id="masthead" class="site-header secondary-panel" role="banner">
+				<?php flat_hook_header_top(); ?>
+				<div class="hgroup">
+					<?php flat_logo(); ?>
+				</div>
+				<button type="button" class="btn btn-link hidden-lg toggle-sidebar" data-toggle="offcanvas" aria-label="Sidebar"><?php _e( '<i class="fa fa-bars"></i>', 'flat' ); ?></button>
+				<button type="button" class="btn btn-link hidden-lg toggle-navigation disabled" aria-label="Navigation Menu"><?php _e( '<i class="fa fa-gear"></i>', 'flat' ); ?></button>
+				<?php flat_hook_header_bottom(); ?>
+			</header>
+			<div class="sidebar-offcanvas secondary-panel">
+				<div class="sidebar-offcanvas-container">
 					<nav id="site-navigation" class="navigation main-navigation" role="navigation">
 						<?php wp_nav_menu( array( 'theme_location' => 'primary', 'menu_class' => 'nav-menu', 'container' => false ) ); ?>
 					</nav>
-					<?php flat_hook_header_bottom(); ?>
-				</header>
-				<?php flat_hook_header_after(); ?>
-
-				<div class="sidebar-offcanvas">
-<?php get_sidebar(); ?>
+					<?php get_sidebar(); ?>
 				</div>
 			</div>
-
-			<?php flat_hook_content_before(); ?>
-			<div id="primary" class="content-area col-lg-9" itemprop="mainContentOfPage">
-				<?php flat_hook_content_top(); ?>
+			<?php flat_hook_header_after(); ?>
+		</div>
+		<?php flat_hook_content_before(); ?>
+		<div id="primary" class="content-area" itemprop="mainContentOfPage">
+			<?php flat_hook_content_top(); ?>
