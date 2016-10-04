@@ -3,5 +3,4 @@
 .vscode
 
 **/.DS_Store
-
-wp-content/uploads
+/wp-content/uploads
