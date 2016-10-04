@@ -2304,14 +2304,10 @@ function ToggleSidebar() {
         }
       });
     }
-    $('#secondary').click(function() {
-      ToggleSidebar();
-    });
-    $('.site-header').click(function(e) {
-      e.stopPropagation();
-    });
-    $('.sidebar-offcanvas').click(function(e) {
-      e.stopPropagation();
+    $('#secondary').click(function(e) {
+      if (e.target == this) {
+        ToggleSidebar();
+      }
     });
     $('.toggle-sidebar').click(function() {
       ToggleSidebar();
