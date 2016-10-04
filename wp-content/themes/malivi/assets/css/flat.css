@@ -69,7 +69,10 @@ body {
   position: relative;
   padding: 0;
   padding-top: 122px;
-  overflow-y:scroll;
+  overflow-y:hidden;
+}
+#secondary:hover {
+  overflow-y:auto;
 }
 @media (min-width: 992px) {
   #secondary {
@@ -210,7 +213,7 @@ body {
   background: #fff;
   padding: 0;
   height: 100%;
-  overflow-y: scroll; 
+  overflow-y: auto; 
 }
 @media (min-width: 992px) {
   #primary {
