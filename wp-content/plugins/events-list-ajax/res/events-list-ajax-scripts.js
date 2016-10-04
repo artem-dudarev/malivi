@@ -366,17 +366,20 @@ jQuery( document ).ready( function() {
 	wrapper.prependTo(anchor);
 
 	// Добавим автоподгрузку на скрол
-	var win = jQuery(window);
 	// Each time the user scrolls
-	win.scroll(function() {
+	jQuery('#primary').scroll(function() {
 		//$events_list_container = jQuery('.entry-content').prepend('<div>' + win.scrollTop() + '</div>');
 		// End of the document reached?
-		if (jQuery(document).height() - win.height()*5/4 <= win.scrollTop()) {
+		var content_height = jQuery('.site-content').height();
+		var container_height = jQuery(this).height();
+		var required_scroll = content_height - container_height*5/4;
+		if (jQuery(this).scrollTop() > required_scroll) {
 			//$('#loading').show();
-
 			GetFilterResults(true);
 		}
 	});
+	var win = jQuery(window);
+	// Закрытие попапа на Esc
 	win.keydown(function(e) {
 		if (isPopupOpen && e.keyCode == 27) { // escape key maps to keycode `27`
 			event.preventDefault();
@@ -384,6 +387,7 @@ jQuery( document ).ready( function() {
 			ClosePopup();
 		}
 	});
+	// Закрытие попапа при нажатии "назад"
 	win.on('popstate', function(event) {
 		if (isPopupOpen) {
 			ClosePopup();

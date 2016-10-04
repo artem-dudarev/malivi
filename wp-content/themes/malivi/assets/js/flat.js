@@ -2292,16 +2292,18 @@ function ToggleSidebar() {
 	'use strict';
   
   $(document).ready(function() {
-    jQuery(window).swiperight( function(e) {
-      if (!jQuery('#secondary').hasClass('active')) {
-        ToggleSidebar();
-      }
-    });
-    jQuery(window).swipeleft( function(e) {
-      if (jQuery('#secondary').hasClass('active')) {
-        ToggleSidebar();
-      }
-    });
+    if(jQuery.browser.mobile) {
+      jQuery(window).swiperight( function(e) {
+        if (!jQuery('#secondary').hasClass('active')) {
+          ToggleSidebar();
+        }
+      });
+      jQuery(window).swipeleft( function(e) {
+        if (jQuery('#secondary').hasClass('active')) {
+          ToggleSidebar();
+        }
+      });
+    }
     $('#secondary').click(function() {
       ToggleSidebar();
     });

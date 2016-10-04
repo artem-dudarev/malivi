@@ -2390,7 +2390,6 @@ table th[class*="col-"] {
 .table-responsive {
   overflow-x: auto;
   min-height: 0.01%;
-  -ms-overflow-style: -ms-autohiding-scrollbar;
 }
 
 fieldset {
