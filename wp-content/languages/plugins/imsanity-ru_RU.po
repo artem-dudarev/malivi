@@ -1,0 +1,224 @@
+# Translation of Development (trunk) in Russian
+# This file is distributed under the same license as the Development (trunk) package.
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2016-06-17 21:23:14+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: GlotPress/2.1.0-alpha\n"
+"Project-Id-Version: Development (trunk)\n"
+
+#: ajax.php:98
+msgid "Missing ID Parameter"
+msgstr "Пропущенный параметр ID"
+
+#: ajax.php:170
+msgid "OK: %s"
+msgstr "OK: %s"
+
+#: ajax.php:174
+msgid "ERROR: %s (%s)"
+msgstr "ОШИБКА: %s (%s)"
+
+#: ajax.php:179
+msgid "SKIPPED: %s (Resize not required)"
+msgstr "ПРОПУЩЕНО: %s (изменение размеров не требуется)"
+
+#: ajax.php:185
+msgid "ERROR: (Attachment with ID of %s not found) "
+msgstr "ОШИБКА: (Вложение с ID  %s не найдено) "
+
+#: settings.php:40
+msgid "Imsanity Plugin Settings"
+msgstr "Настройки плагина Imsanity "
+
+#: settings.php:187 settings.php:200
+msgid "Imsanity Network Settings"
+msgstr "Настройки сети Imsanity "
+
+#: settings.php:207
+msgid "Imsanity network settings saved."
+msgstr "Настройки сети Imsanity сохранены."
+
+#: settings.php:221
+msgid "Global Settings Override"
+msgstr "Переопределение глобальных настроек "
+
+#: settings.php:224
+msgid "Allow each site to configure Imsanity settings"
+msgstr "Разрешить каждому сайту настраивать параметры Imsanity"
+
+#: settings.php:225
+msgid "Use global Imsanity settings (below) for all sites"
+msgstr "Использовать глобальные параметры Imsanity (ниже) для всех сайтов"
+
+#: settings.php:231 settings.php:575
+msgid "Images uploaded within a Page/Post"
+msgstr "Изображения загружены на страницы/записи"
+
+#: settings.php:239 settings.php:582
+msgid "Images uploaded directly to the Media Library"
+msgstr "Изображения загружены непосредственно в библиотеку мультимедиа"
+
+#: settings.php:247 settings.php:589
+msgid "Images uploaded elsewhere (Theme headers, backgrounds, logos, etc)"
+msgstr "Изображения загружены в другое место (заголовки тем, фон, логотипы и т.д.)"
+
+#: settings.php:255
+msgid "Convert BMP to JPG"
+msgstr "Преобразовать BMP в  JPG"
+
+#: settings.php:257 settings.php:265 settings.php:613 settings.php:621
+msgid "Yes"
+msgstr "Да"
+
+#: settings.php:258 settings.php:266 settings.php:614 settings.php:622
+msgid "No"
+msgstr "Нет"
+
+#: settings.php:271
+msgid "JPG Quality"
+msgstr "Качество JPG"
+
+#: settings.php:281 settings.php:607
+msgid " (WordPress default is 90)"
+msgstr "(для WordPress по умолчанию 90)"
+
+#: settings.php:286
+msgid "Update Settings"
+msgstr "Настройки обновления"
+
+#: settings.php:467
+msgid "Imsanity automatically resizes insanely huge image uploads"
+msgstr "Imsanity автоматически изменяет размер загружаемых безумно огромных изображений"
+
+#: settings.php:469
+msgid ""
+"<p>Imsanity automaticaly reduces the size of images that are larger than the specified maximum and replaces the original\n"
+"\t\twith one of a more \"sane\" size.  Site contributors don\\'t need to concern themselves with manually scaling images\n"
+"\t\tand can upload them directly from their camera or phone.</p>\n"
+"\n"
+"\t\t<p>The resolution of modern cameras is larger than necessary for typical web display.\n"
+"\t\tThe average computer screen is not big enough to display a 3 megapixel camera-phone image at full resolution.\n"
+"\t\tWordPress does a good job of creating scaled-down copies which can be used, however the original images\n"
+"\t\tare permanently stored, taking up disk quota and, if used on a page, create a poor viewer experience.</p>\n"
+"\n"
+"\t\t<p>This plugin is designed for sites where high-resolution images are not necessary and/or site contributors\n"
+"\t\tdo not want (or understand how) to deal with scaling images.  This plugin should not be used on\n"
+"\t\tsites for which original, high-resolution images must be stored.</p>\n"
+"\n"
+"\t\t<p>Be sure to save back-ups of your full-sized images if you wish to keep them.</p>"
+msgstr ""
+"<p> Imsanity автоматически уменьшает размер изображения, размер которых превышает заданный максимум и заменяет оригинальный\n"
+"\t\tна более \"нормальный\" размер.  Авторы сайта не должны заботиться о масштабировании изображений вручную\n"
+"\t\tи могут загружать их непосредственно из камеры или телефона.</p>\n"
+"\n"
+"\t\t<p>Разрешение современных камер больше, чем это необходимо для обычного веб-дисплея.\n"
+"\t\tОбычный экран компьютера не настолько большой, чтобы отобразить изображение  3-мегапиксельной камеры телефона с полным разрешением.\n"
+"\t\tWordPress хорошо создает уменьшенные копии, которые затем используются, однако исходные изображения\n"
+"\t\tпостоянно хранятся, занимая дисковое пространство, а, если используется на странице, создают негативный зрительный эффект.</p>\n"
+"\n"
+"\t\t<p>Этот плагин предназначен для сайтов, где высокое разрешение изображений не является необходимым и/или сайтов, авторы\n"
+"\t\tкоторых не хотят (или не понимают, как), иметь дело с масштабированием изображения. Этот плагин не должны использоваться на\n"
+"\t\tсайтах, на которых оригинальные, с высоким разрешением изображения должны быть сохранены.</p>\n"
+"\n"
+"\t\t<p>Не забудьте сохранить резервные копии Ваших полноразмерных изображений, если Вы хотите хранить их. </p>"
+
+#: settings.php:484
+msgid "<p>Imsanity Version %s by %s </p>"
+msgstr "<p>Версия Imsanity %s от  %s </p>"
+
+#: settings.php:501
+msgid "Imsanity Settings"
+msgstr "Настройки Imsanity "
+
+#: settings.php:519
+msgid "Bulk Resize Images"
+msgstr "Массовое изменение размера изображений"
+
+#: settings.php:530
+msgid "WARNING: BULK RESIZE WILL ALTER YOUR ORIGINAL IMAGES AND CANNOT BE UNDONE!"
+msgstr "ВНИМАНИЕ: При массовой обработке изменяется размер оригинальных изображений, операция не может быть отменена!"
+
+#: settings.php:532
+msgid ""
+"It is <strong>HIGHLY</strong> recommended that you backup \n"
+"\t\tyour wp-content/uploads folder before proceeding.  You will have a chance to preview and select the images to convert.\n"
+"\t\tIt is also recommended that you initially select only 1 or 2 images and verify that everything is ok before\n"
+"\t\tprocessing your entire library.  You have been warned!"
+msgstr ""
+"<strong>НАСТОЯТЕЛЬНО</strong> рекомендуется сделать архивную копию \n"
+"\t\tпапок wp-content/uploads прежде чем продолжить.  Вы будете иметь возможность предварительного просмотра и выбора изображений для конвертирования.\n"
+"\t\tКроме того, рекомендуется изначально выбрать только 1 или 2 изображения и убедиться, что все в порядке, прежде чем\n"
+"\t\tначать обработку всей Вашей библиотеки. Вы были предупреждены!"
+
+#: settings.php:539
+msgid "Search Images..."
+msgstr "Поиск изображений..."
+
+#: settings.php:556
+msgid "Imsanity settings have been configured by the server administrator. There are no site-specific settings available."
+msgstr "Параметры Imsanity настроены администратором сервера. Нет доступных специфических для сайта настроек."
+
+#: settings.php:597
+msgid "JPG image quality"
+msgstr "Качество изображения JPG "
+
+#: settings.php:611
+msgid "Convert BMP To JPG"
+msgstr "Преобразовать  BMP в JPG"
+
+#: settings.php:628
+msgid "Save Changes"
+msgstr "Сохранить изменения"
+
+#: libs/imagecreatefrombmp.php:14
+msgid "imagecreatefrombmp: Can not open %s!"
+msgstr "imagecreatefrombmp: Не возможно открыть%s!"
+
+#: libs/imagecreatefrombmp.php:21
+msgid "imagecreatefrombmp: %s is not a bitmap!"
+msgstr "imagecreatefrombmp: %s - не bitmap!"
+
+#: libs/imagecreatefrombmp.php:43
+msgid "imagecreatefrombmp: Can not obtain filesize of %s !"
+msgstr "imagecreatefrombmp: Не удалось получить размер файла %s !"
+
+#: libs/imagecreatefrombmp.php:129
+msgid "imagecreatefrombmp: %s has %d bits and this is not supported!"
+msgstr "imagecreatefrombmp: %s имеет %d бит и не поддерживается!"
+
+#: settings.php:234 settings.php:242 settings.php:250 settings.php:577
+#: settings.php:584 settings.php:591
+msgid " (or enter 0 to disable)"
+msgstr "(или 0 для отключения)"
+
+#: settings.php:619
+msgid "Convert PNG To JPG"
+msgstr "Преобразовать PNG в JPG"
+
+#: settings.php:263
+msgid "Convert PNG to JPG"
+msgstr "Преобразовать PNG в JPG"
+
+#. Plugin Name of the plugin/theme
+msgid "Imsanity"
+msgstr "Imsanity"
+
+#. Plugin URI of the plugin/theme
+msgid "http://verysimple.com/products/imsanity/"
+msgstr "http://verysimple.com/products/imsanity/"
+
+#. Author of the plugin/theme
+msgid "Jason Hinkle"
+msgstr "Jason Hinkle"
+
+#. Author URI of the plugin/theme
+msgid "http://verysimple.com/"
+msgstr "http://verysimple.com/"
+
+#. Description of the plugin/theme
+msgid "Imsanity stops insanely huge image uploads"
+msgstr "Imsanity предотвращает загрузку безумно больших изображений"
