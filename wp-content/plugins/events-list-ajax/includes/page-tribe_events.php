@@ -35,20 +35,12 @@ $has_venue_address = ( ! empty( $venue_details['address'] ) ) ? ' location' : ''
 	<?php do_action( 'tribe_events_before_the_meta' ) ?>
 	<div class="tribe-events-event-meta <?php echo esc_attr( $has_venue . $has_venue_address ); ?>">
 
-		<!-- Event Cost -->
-		<?php if ( tribe_get_cost() ) : ?>
-			<div class="tribe-events-event-cost">
-				<span><?php echo tribe_get_cost( null, true ); ?></span>
-			</div>
-		<?php endif; ?>
-
-		
-		<?php if ( $venue_details ) : ?>
-			<!-- Venue Display Info -->
-			<div class="tribe-events-venue-details">
-				<?php echo implode( ', ', $venue_details ); ?>
-			</div> <!-- .tribe-events-venue-details -->
-		<?php endif; ?>
+	<!-- Event Cost -->
+	<?php if ( tribe_get_cost() ) : ?>
+		<div class="tribe-events-event-cost">
+			<span><?php echo tribe_get_cost( null, true ); ?></span>
+		</div>
+	<?php endif; ?>
 
 	</div><!-- .tribe-events-event-meta -->
 	<?php do_action( 'tribe_events_after_the_meta' ) ?>

@@ -179,14 +179,6 @@ function GetFilterResults( is_append ) {
 				pages_count = response.pages_count;
 				events_list_container.html(response.html);
 			}
-			
-			jQuery( '.events-list-row' ).click( function( event ){
-				if(event.which == 1) {
-					event.preventDefault();
-					var post_id = jQuery( this ).attr( 'postid' );
-					OpenPopup(post_id);
-				}				
-			});
 		}).fail( function() {
 			loading_indicator.hide();
 			if(is_append) {
@@ -393,6 +385,15 @@ jQuery( document ).ready( function() {
 			ClosePopup();
 		}
 		CheckCurrentPageParameters();
+	});
+
+	jQuery( document ).on('click', '.events-list-row', function( event ){
+		if(event.which == 1) {
+			//event.preventDefault();
+			var post_id = jQuery( this ).attr( 'postid' );
+			OpenPopup(post_id);
+			return false;
+		}				
 	});
 		
 	// Отслеживаем изменения фильтров и вызываем поиск после каждого изменения
