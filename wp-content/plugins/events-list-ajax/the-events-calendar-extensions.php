@@ -1,9 +1,6 @@
 <?php
 
 	// Наличие этого класса делает публичными некоторые типы, заданные в events_calendar
-	class Tribe__Events__Pro__Main {
-	}
-	
 	function get_malivi_custom_fields() {
 		return array (
 			'EventIsForChildren' => false,
@@ -28,17 +25,20 @@
 
 	add_action( 'init', 'register_events_directions' );
 	function register_events_directions() {
-		// create a new taxonomy
+		if ( !class_exists( 'Tribe__Events__Main' ) ) {
+			return;
+		}
+		// Дополнительные категории для событий
 		register_taxonomy(
 			'events_directions',
-			'tribe_events',
+			Tribe__Events__Main::POSTTYPE,
 			array(
 				'labels' 				=> array(
 					'name'			=> __( 'Направления' ),
 					'singular_name'	=> __( 'Направление' ),
 				),
 				'rewrite' 				=> array( 
-					'slug' => 'event_direction',
+					'slug' => 'direction',
 					'with_front'   => false,
 					'hierarchical' => true, 
 				),
@@ -48,7 +48,27 @@
 			)
 		);
 
-		add_post_type_support(Tribe__Events__Venue::POSTTYPE, array('thumbnail', 'author', 'revisions', 'comments'));
+		register_taxonomy(
+			'venues_types',
+			Tribe__Events__Venue::POSTTYPE,
+			array(
+				'labels' 				=> array(
+					'name'			=> __( 'Категории' ),
+					'singular_name'	=> __( 'Категория' ),
+				),
+				'rewrite' 				=> array( 
+					'slug' => 'category',
+					'with_front'   => false,
+					'hierarchical' => true, 
+				),
+				'hierarchical'          => true,
+				'public'                => true,
+				'show_ui'               => true,
+			)
+		);
+
+		add_post_type_support(Tribe__Events__Venue::POSTTYPE, array('thumbnail', 'author', 'revisions'));
+		add_post_type_support(Tribe__Events__Organizer::POSTTYPE, array('thumbnail', 'author', 'revisions'));
 	}
 
 	add_action( 'tribe_events_eventform_top', 'event_config_extension', 10, 1 );
@@ -90,6 +110,51 @@
 		}
 			
 		return $the_date;
+	}
+
+	add_filter('tribe_events_rewrite_prepared_slug', 'replace_rewrite_slugs', 10, 3);
+	function replace_rewrite_slugs($sanitized_slug, $permastruct_name, $slug) {
+		if ($permastruct_name == Tribe__Events__Main::POSTTYPE) {
+			return "event";
+		}
+		if ($permastruct_name == Tribe__Events__Venue::POSTTYPE) {
+			return 'place';
+		}
+		if ($permastruct_name == Tribe__Events__Organizer:: POSTTYPE) {
+			return 'organization';
+		}
+		return $sanitized_slug;
+	}
+
+	// Choose the wordpress theme template to use
+	//add_filter( 'template_include', 'events_handle_template_include', 20 );
+	function events_handle_template_include($template) {
+		if ( !class_exists( 'Tribe__Events__Main' ) ) {
+			return;
+		}
+		echo '<div class="test">' . 'events-list-plugin template_include: ' . $template . '</div>';
+		if (tribe_is_event_query()) {
+			$type_name = '';
+			if (is_singular( Tribe__Events__Main::POSTTYPE )) {
+				$type_name = Tribe__Events__Main::POSTTYPE;
+			}
+			if (is_singular( Tribe__Events__Venue::POSTTYPE )) {
+				$type_name = Tribe__Events__Venue::POSTTYPE;
+			}
+			if (is_singular( Tribe__Events__Organizer::POSTTYPE )) {
+				$type_name = Tribe__Events__Organizer::POSTTYPE;
+			}
+			if (!empty($type_name)) {
+				echo '<div class="test">' . 'events-list-plugin changed template to: ' . get_events_page_template( $type_name ) . '</div>';
+				return get_page_template( $type_name );
+			}
+		}
+		return $template;
+	}
+
+	// include our view class
+	//add_action( 'template_redirect', 'events_handle_template_redirect' );
+	function events_handle_template_redirect() {
 	}
 
 ?>

@@ -338,10 +338,11 @@
   	zoom:1
 }
 
-.tribe-events-venue-map {
+#events-list-yandex-map.tribe-events-venue-map {
     width: 100%;
     height: 400px;
     background-color: grey;
+    float: none;
 }
 
 @keyframes pr_bt_anim {

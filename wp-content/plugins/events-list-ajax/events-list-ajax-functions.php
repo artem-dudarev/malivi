@@ -323,7 +323,7 @@
 	add_action('wp_ajax_nopriv_get-post-page', 'get_post_page');
 	function get_post_page() {
 		error_reporting( 0 );
-		echo do_get_post_page();
+		do_get_post_page();
 		die();	
 	}
 	
@@ -333,17 +333,12 @@
 		global $post;
 		$post = get_post($post_id);
 		setup_postdata($post);
-		ob_start();
-		include( SF_DIR . 'includes/page-'. $post->post_type .'.php' );
-		$page .= ob_get_clean();
-		//$page = '<div>' . $post_id . '</div>';
-		/*
-		$deb = '';
-		foreach($test as $key => $value) {
-			$deb .= $key." : ". $value;
-		}
-		$content = $deb . $content;
-		*/
-		return $page;
+		//get_template_part( 'content', get_post_format() );
+		$template = get_events_page_template( $post->post_type );
+		include($template);
+	}
+
+	function get_events_page_template($post_type) {
+		return SF_DIR . 'includes/page-'. $post_type .'.php';
 	}
 ?>
