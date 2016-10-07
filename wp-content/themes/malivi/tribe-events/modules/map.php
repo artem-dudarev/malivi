@@ -18,10 +18,9 @@ foreach ( $location_parts as $val ) {
         $address .= $address_part . ' ';
     }
 }
-
 ?>
 
-<div id="events-list-yandex-map" class="tribe-events-venue-map">
+<div id="tribe-events-ymap-<?php esc_attr_e( $index ) ?>" class="tribe-events-meta-group-map tribe-events-ymap">
 </div>
 
 <script type="text/javascript">
@@ -36,7 +35,7 @@ if (typeof(ymaps) !== 'undefined') {
                 var coords = firstGeoObject.geometry.getCoordinates()
 
                 // Создание экземпляра карты и его привязка к контейнеру с заданным id ("map").
-                var map = new ymaps.Map('events-list-yandex-map', {
+                var map = new ymaps.Map('tribe-events-ymap-<?php esc_attr_e( $index ) ?>', {
                     // При инициализации карты обязательно нужно указать её центр и коэффициент масштабирования.
                     center: coords, // калининград
                     zoom: 14

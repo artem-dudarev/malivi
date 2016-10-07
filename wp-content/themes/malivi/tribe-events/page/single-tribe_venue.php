@@ -37,33 +37,20 @@ $venue_id = get_the_ID();
 		<div class="entry-content" itemprop="articleBody">
 			<?php flat_hook_entry_top(); ?>
 			<div class="tribe-events-venue-meta tribe-clearfix">
-				<?php if ( tribe_embed_google_map() && tribe_address_exists() ) : ?>
-				<!-- Venue Map -->
-				<div class="tribe-events-map-wrap">
-					<?php echo tribe_get_embedded_map( $venue_id, '100%', '200px' ); ?>
-				</div><!-- .tribe-events-map-wrap -->
-				<?php endif; ?>
-
-				<?php if ( tribe_show_google_map_link() && tribe_address_exists() ) : ?>
-					<!-- Google Map Link -->
-					<?php echo tribe_get_meta( 'tribe_event_venue_gmap_link' ); ?>
-				<?php endif; ?>
-
+				<div class="tribe-events-list-event-description">
+					<!-- Venue Featured Image -->
+					<?php echo tribe_event_featured_image( null, 'full' ) ?>
+					<!-- Venue Description -->
+					<div class="tribe-venue-description tribe-events-content">
+						<?php the_content(); ?>
+					</div>
+				</div>
+				
 				<!-- Venue Meta -->
 				<?php do_action( 'tribe_events_single_venue_before_the_meta' ) ?>
-				<?php echo tribe_get_meta_group( 'tribe_event_venue' ) ?>
+				<?php tribe_get_template_part( 'modules/meta' ); ?>
 				<?php do_action( 'tribe_events_single_venue_after_the_meta' ) ?>
 
-
-				<!-- Venue Description -->
-				<?php if ( get_the_content() ) : ?>
-				<div class="tribe-venue-description tribe-events-content">
-					<?php the_content(); ?>
-				</div>
-				<?php endif; ?>
-
-				<!-- Venue Featured Image -->
-				<?php echo tribe_event_featured_image( null, 'full' ) ?>
 
 			</div><!-- .tribe-events-event-meta -->
 		</div>
@@ -73,7 +60,8 @@ $venue_id = get_the_ID();
 
 		<?php
 		// Use the tribe_events_single_venuer_posts_per_page to filter the number of events to get here.
-		echo tribe_venue_upcoming_events( $venue_id ); ?>
+		echo tribe_venue_upcoming_events( $venue_id ); 
+		?>
 
 		<?php do_action( 'tribe_events_single_venue_after_upcoming_events' ) ?>
 

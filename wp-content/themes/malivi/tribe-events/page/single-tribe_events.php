@@ -30,19 +30,23 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<?php flat_hook_entry_before(); ?>
 		<div class="entry-content" itemprop="articleBody">
 			<?php flat_hook_entry_top(); ?>
-			<!-- Event featured image, but exclude link -->
-			<?php echo tribe_event_featured_image( $event_id, 'medium', false ); ?>
+			<div class="tribe-events-list-event-description">
+				<!-- Event featured image, but exclude link -->
+				<?php echo tribe_event_featured_image( $event_id, 'medium', false ); ?>
 
-			<!-- Event content -->
-			<?php do_action( 'tribe_events_single_event_before_the_content' ) ?>
-			<?php the_content(); ?>
+				<!-- Event content -->
+				<?php do_action( 'tribe_events_single_event_before_the_content' ) ?>
+				<div class="tribe-event-description tribe-events-content">
+					<?php the_content(); ?>
+				</div>
+			</div>
 			<!-- .tribe-events-single-event-description -->
 			<?php do_action( 'tribe_events_single_event_after_the_content' ) ?>
 
 			<!-- Event meta -->
 			<?php do_action( 'tribe_events_single_event_before_the_meta' ) ?>
 			<?php tribe_get_template_part( 'modules/meta' ); ?>
-			<?php do_action( 'tribe_events_single_event_after_the_meta' ) ?>
+			<?php //do_action( 'tribe_events_single_event_after_the_meta' ) ?>
 			<?php wp_link_pages( array( 'before' => '<div class="page-links"><span class="page-links-title">' . __( 'Pages:', 'flat' ) . '</span>', 'after' => '</div>', 'link_before' => '<span>', 'link_after' => '</span>' ) ); ?>
 			<?php flat_hook_entry_bottom(); ?>
 		</div>
