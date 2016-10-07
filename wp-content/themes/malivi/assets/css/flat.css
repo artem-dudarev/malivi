@@ -179,12 +179,10 @@ body {
   .sidebar-offcanvas {
     border-bottom-left-radius:3px;
     border-bottom-right-radius:3px;
-    box-shadow: 0 1px 0 0 #d7d8db, 0 0 0 1px #e3e4e8;
   }
 }
 @media (max-width: 991px) {
   #secondary {
-    box-shadow:0 2px 10px rgba(0,0,0,.35);
     background: none;
     position: absolute;
     top: 0;
@@ -206,7 +204,7 @@ body {
   #secondary.enabled {
     height: 100%;
   }
-  #secondary.enabled #masthead {
+  #secondary #masthead {
     box-shadow:0 2px 10px rgba(0,0,0,.35)
   }
   #secondary.enabled .sidebar-offcanvas {
@@ -285,8 +283,6 @@ body {
 #site-navigation {
   padding: 0;
   border-top: none;
-  -webkit-box-shadow: none;
-          box-shadow: none;
 }
 #site-navigation ul {
   margin: 0;

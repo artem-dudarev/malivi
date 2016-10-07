@@ -81,11 +81,6 @@
 		return $output_string;
 	}
 
-	add_filter('tribe_event_featured_image_size', 'replace_featured_image_size', 10, 2);
-	function replace_featured_image_size($size, $post_id) {
-		return 'medium';
-	}
-
 	//add_action('wp_head', 'sf_fix_admin_toolbar_padding');
 	function sf_fix_admin_toolbar_padding() {
 		if ( is_admin_bar_showing() ) {
