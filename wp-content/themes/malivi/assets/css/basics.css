@@ -6742,25 +6742,6 @@ input#submit.active {
   font-size: 32px;
 }
 
-#comments {
-  padding: 90px;
-  border-bottom: 1px solid #eeeeee;
-}
-@media (max-width: 991px) {
-  #comments {
-    padding: 60px 125px;
-  }
-}
-@media (max-width: 991px) {
-  #comments {
-    padding: 60px;
-  }
-}
-@media (max-width: 767px) {
-  #comments {
-    padding: 30px;
-  }
-}
 #comments .comments-title {
   margin: 0;
   font-size: 16px;

@@ -338,6 +338,44 @@ function ParseFiltersBak(filter_string) {
 }
 
 jQuery( document ).ready( function() {
+	var win = jQuery(window);
+	// Всплывающий бокс загрузки
+	var loader_box = '';
+	loader_box += '<div id="box_loader" style="display: none">';
+	loader_box += 	'<div class="back">';
+	loader_box += 		'<div class="loader_pr">';
+	loader_box += 			'<div class="pr_bt"></div>';
+	loader_box += 			'<div class="pr_bt"></div>';
+	loader_box += 			'<div class="pr_bt"></div>';
+	loader_box += 		'</div>';
+	loader_box += 	'</div>';
+	loader_box += '</div>';
+	jQuery('body').append(jQuery(loader_box));
+	// Закрытие попапа на Esc
+	win.keydown(function(e) {
+		if (isPopupOpen && e.keyCode == 27) { // escape key maps to keycode `27`
+			event.preventDefault();
+			SetUrlParameter('show', '', true);
+			ClosePopup();
+		}
+	});
+	// Закрытие попапа при нажатии "назад"
+	win.on('popstate', function(event) {
+		if (isPopupOpen) {
+			ClosePopup();
+		}
+		CheckCurrentPageParameters();
+	});
+
+	jQuery( document ).on('click', '.events-list-row', function( event ){
+		if(event.which == 1) {
+			event.preventDefault();
+			ClosePopup();
+			var post_id = jQuery( this ).attr( 'postid' );
+			OpenPopup(post_id);
+		}				
+	});
+
 	var wrapper = jQuery('.sf-wrapper');
 	var anchor = jQuery('#events-list-filters-anchor');
 	// Активируем логику, только если на странице есть есть наши фильтры
@@ -370,31 +408,7 @@ jQuery( document ).ready( function() {
 			GetFilterResults(true);
 		}
 	});
-	var win = jQuery(window);
-	// Закрытие попапа на Esc
-	win.keydown(function(e) {
-		if (isPopupOpen && e.keyCode == 27) { // escape key maps to keycode `27`
-			event.preventDefault();
-			SetUrlParameter('show', '', true);
-			ClosePopup();
-		}
-	});
-	// Закрытие попапа при нажатии "назад"
-	win.on('popstate', function(event) {
-		if (isPopupOpen) {
-			ClosePopup();
-		}
-		CheckCurrentPageParameters();
-	});
-
-	jQuery( document ).on('click', '.events-list-row', function( event ){
-		if(event.which == 1) {
-			//event.preventDefault();
-			var post_id = jQuery( this ).attr( 'postid' );
-			OpenPopup(post_id);
-			return false;
-		}				
-	});
+	
 		
 	// Отслеживаем изменения фильтров и вызываем поиск после каждого изменения
 	jQuery( document ).on( 'change', '.sf-filter input, .sf-filter select', function() {
