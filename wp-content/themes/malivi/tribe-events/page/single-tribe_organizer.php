@@ -33,20 +33,20 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<div class="entry-content" itemprop="articleBody">
 			<?php flat_hook_entry_top(); ?>
 			<div class="tribe-events-venue-meta tribe-clearfix">
+				<div class="tribe-events-list-event-description">
+					<!-- Event featured image, but exclude link -->
+					<?php echo tribe_event_featured_image( $event_id, 'full', false ); ?>
+
+					<!-- Event content -->
+					<?php do_action( 'tribe_events_single_event_before_the_content' ) ?>
+					<div class="tribe-event-description tribe-events-content">
+						<?php the_content(); ?>
+					</div>
+				</div>
 				<!-- Organizer Meta -->
 				<?php do_action( 'tribe_events_single_organizer_before_the_meta' ); ?>
 				<?php echo tribe_get_meta_group( 'tribe_event_organizer' ) ?>
 				<?php do_action( 'tribe_events_single_organizer_after_the_meta' ) ?>
-
-				<!-- Organizer Featured Image -->
-				<?php echo tribe_event_featured_image( null, 'full' ) ?>
-
-				<!-- Organizer Content -->
-				<?php if ( get_the_content() ) { ?>
-				<div class="tribe-organizer-description tribe-events-content">
-					<?php the_content(); ?>
-				</div>
-				<?php } ?>
 			</div>
 			<!-- .tribe-events-organizer-meta -->
 		<?php do_action( 'tribe_events_single_organizer_after_organizer' ) ?>

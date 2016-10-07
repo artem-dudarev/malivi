@@ -78,8 +78,7 @@ body {
     height: 100%;
     float: left;
     width: 25%;
-    padding: 20px 0;
-    padding-top: 142px;
+    padding: 142px 0 20px 0;
   }
 }
 #secondary a {
@@ -180,10 +179,12 @@ body {
   .sidebar-offcanvas {
     border-bottom-left-radius:3px;
     border-bottom-right-radius:3px;
+    box-shadow: 0 1px 0 0 #d7d8db, 0 0 0 1px #e3e4e8;
   }
 }
 @media (max-width: 991px) {
   #secondary {
+    box-shadow:0 2px 10px rgba(0,0,0,.35);
     background: none;
     position: absolute;
     top: 0;
@@ -204,6 +205,12 @@ body {
   /* active переключается сразу, а enabled выключается с задержкой, после анимации*/
   #secondary.enabled {
     height: 100%;
+  }
+  #secondary.enabled #masthead {
+    box-shadow:0 2px 10px rgba(0,0,0,.35)
+  }
+  #secondary.enabled .sidebar-offcanvas {
+    box-shadow:0 2px 10px rgba(0,0,0,.35)
   }
   #secondary.enabled .sidebar-offcanvas-container {
     display: block;
@@ -248,11 +255,12 @@ body {
 @media (min-width: 992px) {
   #primary {
     width: 75%;
-    padding:20px;
+    padding: 20px 0 20px 20px;
   }
   #primary #content {
     border-top-left-radius:3px;
     border-top-right-radius:3px;
+    box-shadow: 0 0 0 1px #dadada;
   }
   .site-info {
     border-bottom-left-radius:3px;

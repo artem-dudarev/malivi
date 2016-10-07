@@ -12,8 +12,7 @@
 
 .tribe-events-event-image {
     float: left;
-    /*padding: 0 20px 0 0;*/
-    margin: 0 20px 0 0 !important;
+    margin: 0 20px 20px 0 !important;
 }
 
 .tribe-events-list-event-description {
@@ -319,9 +318,8 @@
 }
 
 .tribe-events-meta-group {
-	display: inline-block;
-	margin: 10px 0 0 0;
-	padding: 0;
+	display: table-cell;
+	padding: 10px;
 	text-align: left;
 	vertical-align: top;
 }
@@ -359,7 +357,14 @@
   	zoom:1
 }
 
-.tribe-events-venue-map.events-list-ymap {
+.tribe-events-meta-group-map. {
+    min-width: 200px;
+    width: 100%;
+    height: 400px;
+    background-color: grey;
+    float: none;
+}
+.tribe-events-meta-group-map.tribe-events-ymap {
     min-width: 200px;
     width: 100%;
     height: 400px;
