@@ -249,21 +249,15 @@
 		remove_filter( 'posts_where', 'sf_content_filter' );
 		if( $query->have_posts() ) {
 			$content = '';
+			
 			while( $query->have_posts() ) {
 				$query->the_post();
-				$post_id = get_the_ID();
-				
-				$content .= '<a class="events-list-row" href="' . get_the_permalink() . '" postid="' . get_the_ID() .'" >';
 				ob_start();
-				include( SF_DIR . 'includes/item-'. $post_type .'.php' );
-				$content .= ob_get_contents();
-				ob_end_clean();
-				$content .= '</a>';
-				/* ------------------------------------ start layouts output ------------------------------------ */
-
-				
+				tribe_get_template_part( 'list/row');
+				$content .= ob_get_clean();
 				
 			} // end while( $query->have_posts() )
+			
 		}
 		//wp_reset_postdata();
 		/*
@@ -330,12 +324,13 @@
 
 	function do_get_post_page( ) {
 		$post_id = $_POST['post_id'];
+		global $wpdb;
 		global $post;
 		$post = get_post($post_id);
 		setup_postdata($post);
-		//get_template_part( 'content', get_post_format() );
-		$template = get_events_page_template( $post->post_type );
-		include($template);
+		//$template = get_events_page_template( $post->post_type );
+		//include($template);
+		tribe_get_template_part( 'page/single', get_post_type() );
 	}
 
 	function get_events_page_template($post_type) {

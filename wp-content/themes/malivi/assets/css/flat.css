@@ -78,6 +78,8 @@ body {
     height: 100%;
     float: left;
     width: 25%;
+    padding: 20px 0;
+    padding-top: 142px;
   }
 }
 #secondary a {
@@ -136,6 +138,13 @@ body {
     top: 0;
     width: 100%;
 }
+@media (min-width: 992px) {
+  #masthead {
+    top: 20px;
+    border-top-left-radius:3px;
+    border-top-right-radius:3px;
+  }
+}
 #masthead .hgroup {
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
@@ -166,6 +175,12 @@ body {
 }
 .sidebar-offcanvas {
   min-height: 100%;
+}
+@media (min-width: 992px) {
+  .sidebar-offcanvas {
+    border-bottom-left-radius:3px;
+    border-bottom-right-radius:3px;
+  }
 }
 @media (max-width: 991px) {
   #secondary {
@@ -209,7 +224,6 @@ body {
 }
 
 #primary {
-  background: #fff;
   padding: 0;
   height: 100%;
   overflow-y: auto; 
@@ -225,6 +239,7 @@ body {
           flex-direction: column;
 }
 #primary #content {
+    background: #fff;
     -webkit-box-flex: 1;
     -webkit-flex: 1;
         -ms-flex: 1;
@@ -233,9 +248,16 @@ body {
 @media (min-width: 992px) {
   #primary {
     width: 75%;
-    
+    padding:20px;
   }
-  
+  #primary #content {
+    border-top-left-radius:3px;
+    border-top-right-radius:3px;
+  }
+  .site-info {
+    border-bottom-left-radius:3px;
+    border-bottom-right-radius:3px;
+  }
 }
 @media (max-width: 991px) {
   #primary.no-scroll-blocked-mobile {
@@ -244,7 +266,6 @@ body {
     -webkit-overflow-scrolling: auto !important;
   }
   #primary .page-title {
-
     padding: 20px 60px;
   }
 }
@@ -420,8 +441,6 @@ body {
 .hentry .entry-title {
   margin: 0;
   text-align: center;
-  font-size: 44px;
-  line-height: 2em;
 }
 @media (max-width: 767px) {
   .hentry .entry-title {
