@@ -127,6 +127,8 @@ var isPopupOpen = false;
 var current_request_id = 1;
 // Айди запроса, с которого начался новый сеанс(новый фильтр), все предыдущие запросы нужно игнорировать
 var min_acceptable_request_id = 1;
+// Статус выполняется ли запрос на сервер
+var isQueryInProgress = false;
 
 function GetFilterResults( is_append ) {
 	var wrapper = jQuery( '.sf-wrapper' );
@@ -141,6 +143,8 @@ function GetFilterResults( is_append ) {
 		current_page = 1;
 		min_acceptable_request_id = current_request_id;
 	}
+ 	isQueryInProgress = true;
+	
 	var loading_indicator = jQuery('#list_loader');
 	loading_indicator.show();
 	var request_data = {
@@ -161,6 +165,7 @@ function GetFilterResults( is_append ) {
 		done( function (response_data) {
 			loading_indicator.hide();
 			var response = JSON.parse(response_data);
+			isQueryInProgress = false;
 			console.debug("response_id: " + response.request_id + ", local_id=" + request_id);
 			if ( response.request_id < min_acceptable_request_id) {
 				console.debug("response is outdated");
@@ -403,7 +408,8 @@ jQuery( document ).ready( function() {
 		var content_height = jQuery('.site-content').height();
 		var container_height = jQuery(this).height();
 		var required_scroll = content_height - container_height*5/4;
-		if (jQuery(this).scrollTop() > required_scroll) {
+		//jQuery('.site-description').html('required_scroll='+required_scroll+' current='+jQuery(this).scrollTop());
+		if (!isQueryInProgress && jQuery(this).scrollTop() > required_scroll) {
 			//$('#loading').show();
 			GetFilterResults(true);
 		}
