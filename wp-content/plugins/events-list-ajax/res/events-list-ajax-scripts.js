@@ -1,5 +1,5 @@
 
-function CollectData( wrapper, ignore_search_id = false ) {
+function CollectData( wrapper, ignore_search_id ) {
 	var data = {};
 	wrapper.find('select').each( function(){
 		var select = jQuery( this );
@@ -132,7 +132,7 @@ var isQueryInProgress = false;
 
 function GetFilterResults( is_append ) {
 	var wrapper = jQuery( '.sf-wrapper' );
-	var filters_data = CollectData( wrapper );
+	var filters_data = CollectData( wrapper, false );
 	
 	if (is_append) {
 		if (current_page == pages_count) {
@@ -194,7 +194,7 @@ function GetFilterResults( is_append ) {
 		});
 }
 
-function OpenPopup(post_id, shouldPushState = true) {
+function OpenPopup(post_id, shouldPushState) {
 	if (isPopupOpen) {
 		return;
 	}
@@ -377,7 +377,7 @@ jQuery( document ).ready( function() {
 			event.preventDefault();
 			ClosePopup();
 			var post_id = jQuery( this ).attr( 'postid' );
-			OpenPopup(post_id);
+			OpenPopup(post_id, true);
 		}				
 	});
 

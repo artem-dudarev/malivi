@@ -2292,7 +2292,8 @@ function ToggleSidebar() {
 	'use strict';
   
   $(document).ready(function() {
-    if(jQuery.browser.mobile) {
+    // Если поддерживается тач, то включим открытие меню на свайп
+    if('ontouchstart' in document.documentElement) {
       jQuery(window).swiperight( function(e) {
         if (!jQuery('#secondary').hasClass('active')) {
           ToggleSidebar();
