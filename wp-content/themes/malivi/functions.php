@@ -117,7 +117,6 @@ if ( ! function_exists( 'flat_scripts_styles' ) ) :
 		wp_enqueue_script('jquery');
 		//wp_enqueue_style( 'flat-fonts', flat_fonts_url(), array(), null ); # Web fonts
 		wp_enqueue_style( 'flat-basics', get_template_directory_uri() . '/assets/css/basics.css'); # Flat's styling
-		wp_enqueue_style( 'flat-theme', get_template_directory_uri() . '/assets/css/flat.css'); # Flat's styling
 		wp_enqueue_script( 'flat-js', get_template_directory_uri() . '/assets/js/flat.js'); # Flat's scripting
 		wp_enqueue_style( 'flat-style', get_stylesheet_uri() ); # Load main stylesheet, for child theme supports
 

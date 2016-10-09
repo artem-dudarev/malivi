@@ -26,29 +26,26 @@ if ( ! defined( 'ABSPATH' ) ) {
 <div id="tribe-events-content" class="tribe-events-single tribe-events-organizer">
 	<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 		<header class="entry-header">
-			<?php do_action( 'tribe_events_single_venue_before_title' ) ?>
 			<h1 class="entry-title" itemprop="name"><?php the_title(); ?></h1>
-			<?php do_action( 'tribe_events_single_venue_after_title' ) ?>
 		</header>
 		<div class="entry-content" itemprop="articleBody">
 			<?php flat_hook_entry_top(); ?>
-			<div class="tribe-events-venue-meta tribe-clearfix">
-				<div class="tribe-events-list-event-description">
-					<!-- Event featured image, but exclude link -->
-					<?php echo tribe_event_featured_image( $event_id, 'full', false ); ?>
+			<div class="tribe-events-list-event-description">
+				<!-- Event featured image, but exclude link -->
+				<?php echo tribe_event_featured_image( $event_id, 'medium', false ); ?>
 
-					<!-- Event content -->
-					<?php do_action( 'tribe_events_single_event_before_the_content' ) ?>
-					<div class="tribe-event-description tribe-events-content">
-						<?php the_content(); ?>
-					</div>
+				<!-- Event content -->
+				<div class="tribe-event-description tribe-events-content">
+					<?php the_content(); ?>
 				</div>
+			</div>
+			<div class = "tribe-events-list-event-meta">
 				<!-- Organizer Meta -->
 				<?php do_action( 'tribe_events_single_organizer_before_the_meta' ); ?>
 				<?php echo tribe_get_meta_group( 'tribe_event_organizer' ) ?>
 				<?php do_action( 'tribe_events_single_organizer_after_the_meta' ) ?>
+				<!-- .tribe-events-organizer-meta -->
 			</div>
-			<!-- .tribe-events-organizer-meta -->
 		<?php do_action( 'tribe_events_single_organizer_after_organizer' ) ?>
 
 		<!-- Upcoming event list -->
