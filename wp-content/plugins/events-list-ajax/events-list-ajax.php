@@ -54,6 +54,8 @@
 
 		wp_register_style( 'events-list-ajax-style', SF_URL . 'res/sf-style.css' );
 		wp_enqueue_style( 'events-list-ajax-style' );	
+		wp_register_style( 'events-list-style', SF_URL . 'style.css' );
+		wp_enqueue_style( 'events-list-style' );	
 		
 		
 		//wp_enqueue_script('jquery');

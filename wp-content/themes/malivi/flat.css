@@ -1,3 +1,14 @@
+/*
+ Theme Name:   Malivi
+ Description:  My custom theme based on flat-sky
+ 
+ Author:       Ilia Dudarev
+ Author URI:   https://malivi.ru
+ 
+ Version:      1.0.0
+ License:      GNU General Public License version 2
+ License URI:  license.txt
+*/
 html {
   font-family: "Roboto Condensed";
   -ms-text-size-adjust: 100%;
@@ -7,6 +18,7 @@ html {
   height: 100%;
   -ms-overflow-style: -ms-autohiding-scrollbar;
   -webkit-overflow-scrolling: touch;
+  word-wrap: break-word;
 }
 body {
   margin: 0;
@@ -245,7 +257,8 @@ body {
       -ms-flex-direction: column;
           flex-direction: column;
 }
-#primary #content {
+#primary #content,
+#signup-content {
     background: #fff;
     -webkit-box-flex: 1;
     -webkit-flex: 1;
