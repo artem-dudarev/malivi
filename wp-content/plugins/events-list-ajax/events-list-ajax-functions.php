@@ -43,16 +43,7 @@
 		echo json_encode( $data );
 		die();
 	}
-	
-	add_action('wp_ajax_sf-search', 'sf_ajax_search');
-	add_action('wp_ajax_nopriv_sf-search', 'sf_ajax_search');
-	function sf_ajax_search(){	
-		error_reporting( 0 );
-		echo json_encode( sf_do_search() );
-		die();	
-	}
-	
-	
+
 	/* trim excerpt to custom size */
 	function event_list_custom_excerpt ($limit, $ignore_more_tag) {
 		global $more;
@@ -68,26 +59,33 @@
 		$excerpt = preg_replace('`\[[^\]]*\]`','',$excerpt);
 		return $excerpt;
 	}
+	
+	add_action('wp_ajax_sf-search', 'sf_ajax_search');
+	add_action('wp_ajax_nopriv_sf-search', 'sf_ajax_search');
+	function sf_ajax_search(){	
+		error_reporting( 0 );
+		echo json_encode( sf_do_search() );
+		die();	
+	}
+	
+	function sf_do_search() {
+		$response = sf_get_posts($_POST['page'], $_POST['data']['search-id'], $_POST['data']);
+		$response['request_id'] = $_POST['request_id'];
+		return $response;
+	}
 
-	function sf_do_search(){
+	function sf_get_posts($page, $search_id, $filters) {
 		global $wpdb;
-		$response = array();
-		if( !isset( $_POST['page'] ) || $_POST['page'] == 1 ) {
-			$_SESSION['sf'] = $_POST['data'];
-		}
 		
-		
-		if( isset( $_POST['data']['wpml'] ) ) {
-			global $sitepress;
-			$sitepress->switch_lang( $_POST['data']['wpml'], true );
-			unset( $_POST['data']['wpml'] );
+		if( !isset( $page ) || $page == 1 ) {
+			$_SESSION['sf'] = $page;
 		}
 		
 		$fulltext = "";
 		$fields = get_option( 'sf-fields' );
 		$found = false;
 		foreach( $fields as $field ) {
-			if( $field['name'] == $_POST['data']['search-id'] ) {
+			if( $field['name'] == $search_id ) {
 				$found = true;
 				break;
 			}
@@ -114,20 +112,21 @@
 
 			
 		$request_parameters = array();
-		foreach( $_POST['data'] as $key => $val ) {
-			if( $val == '' || empty( $val ) ) {
-				continue;
-			}
-				
-			$key = explode( '|', $key );
-			if( !isset( $key[1] ) ) {
-				$request_parameters[ $key[0] ]['val'] = $val;
-			}
-			if( isset( $key[1] ) ) {
-				$request_parameters[ $key[0] ][ $key[1] ] = $val;
+		if (isset($filters)) {
+			foreach( $filters as $key => $val ) {
+				if( $val == '' || empty( $val ) ) {
+					continue;
+				}
+					
+				$key = explode( '|', $key );
+				if( !isset( $key[1] ) ) {
+					$request_parameters[ $key[0] ]['val'] = $val;
+				}
+				if( isset( $key[1] ) ) {
+					$request_parameters[ $key[0] ][ $key[1] ] = $val;
+				}
 			}
 		}		
-		
 		
 		$operator = array( 'like' => 'LIKE', 'between' => 'BETWEEN', 'equal' => '=', 'bt' => '>', 'st' => '<', 'bte' => '>=', 'ste' => '<=' );
 		foreach( $field['fields'] as $key => $val ):
@@ -231,8 +230,8 @@
 		endforeach;
 		
 		
-		if( isset( $_POST['page'] ) ) {
-			$args['paged'] = (int) $_POST['page']['val'];
+		if( isset( $page ) ) {
+			$args['paged'] = (int) $page['val'];
 			$content = '';
 		} else {
 			$content = '<div>Ничего не найдено, попробуйте изменить настройки фильтров.</div>';
@@ -249,7 +248,6 @@
 		remove_filter( 'posts_where', 'sf_content_filter' );
 		if( $query->have_posts() ) {
 			$content = '';
-			
 			while( $query->have_posts() ) {
 				$query->the_post();
 				ob_start();
@@ -259,56 +257,9 @@
 			} // end while( $query->have_posts() )
 			
 		}
-		//wp_reset_postdata();
-		/*
-		if( defined( 'ICL_LANGUAGE_CODE' )  ):
-			global $sitepress;
-			$num_of_posts = sf_count_posts( $sitepress->get_current_language(), $field['posttype'] );
-		else:
-			$num_of_posts = 0;
-			if( is_array( $field['posttype'] ) ):
-				foreach( $field['posttype'] as $posttype )
-					$num_of_posts += wp_count_posts( $posttype )->publish;
-			else:
-					$num_of_posts += wp_count_posts( $field['posttype'] )->publish;
-			endif;
-		endif;
 		
-		$content .= sprintf( __( '<span class="sf-foundcount">%d results</span> out of <span class="sf-totalcount">%d posts</span>', 'sf' ), $query->found_posts, $num_of_posts );
-		*/	
-		
-		/*if( $query->max_num_pages > 1 ) {
-			$pages_around_result = 4;
-			if( !isset( $_POST['data']['page'] ) ) {
-				$paged = 1;
-			} else {
-				$paged = (int) $_POST['data']['page']['val'];
-			}
-			$i = 0;
-			
-			if( $paged > 1 ) {
-				$content .= '<li><span class="sf-nav-click sf-nav-left-arrow" data-href="' . ( $paged - 1 ) . '">&laquo;</span></li>';
-			}
-			while( $i < $query->max_num_pages ) {
-				$i++;
-				if( $i == 1 || ( $i > $paged - $pages_around_result && $i < $paged + $pages_around_result ) || $i == $query->max_num_pages ){
-					if( $i != $paged ) {
-						$content .= '<li><span class="sf-nav-click" data-href="' . ( $i ) . '">' . $i . '</span></li>';
-					} else {
-						$content .= '<li><span class="sf-nav-current">' . $i . '</span></li>';
-					}
-				} else if( ( $i == $paged - $pages_around_result || $i == $paged + $pages_around_result )  ) {
-					$content .= '<li><span class="sf-nav-three-points">...</span></li>';
-				}
-			}
-			if( $paged < $query->max_num_pages ) {
-				$content .= '<li><span class="sf-nav-click sf-nav-right-arrow" data-href="' . ( $paged + 1 ) . '">&raquo;</span></li>';
-			}		
-			
-		}*/
-		
+		$response = array();
 		$response['html'] = $content;
-		$response['request_id'] = $_POST['request_id'];
 		$response['pages_count'] = $query->max_num_pages;
 		return $response;
 	}

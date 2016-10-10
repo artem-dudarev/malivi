@@ -53,7 +53,7 @@
 		
 
 		wp_register_style( 'events-list-ajax-style', SF_URL . 'res/sf-style.css' );
-		wp_enqueue_style( 'events-list-ajax-style' );	
+		
 		wp_register_style( 'events-list-style', SF_URL . 'style.css' );
 		wp_enqueue_style( 'events-list-style' );	
 		
@@ -75,7 +75,7 @@
 	}
 	
 	add_shortcode( 'search-form', 'sf_init_searchform' );
-	function sf_init_searchform( $attr ){
+	function sf_init_searchform( $attr, $content ){
 		ob_start();
 		require( SF_DIR . 'includes/shortcode.php' );
 		$output_string=ob_get_contents();
