@@ -1,9 +1,20 @@
 <?php
+	wp_enqueue_style( 'events-list-ajax-style' );
+
 	$fields = get_option( 'sf-fields' );
-	foreach( $fields as $field )
-		if( $field['name'] == $attr['id'] )
+	foreach( $fields as $field ) {
+		if( $field['name'] == $attr['id'] ) {
 			break;
-			
+		}
+	}
+	$filters = array();
+	foreach( $field['fields'] as $key => $element) {
+		$filter_name = 'f' . $key;
+		if (isset($_REQUEST[$filter_name])) {
+			$filters[$key] = explode(',', $_REQUEST[$filter_name]);
+		}
+	}
+	$posts_data = sf_get_posts(0, $field['name'], $filters);
 ?>
 
 <!-- Search Filter: <?php echo $attr['id']; ?>-->
@@ -203,7 +214,6 @@
 				$max_value = 1000;//get_max_value($key);
 			?>
 				<div class="sf-range-wrapper">
-					
 					<input type="date"  name="<?php echo $key; ?>" />
 				</div>
 			<?php
@@ -215,14 +225,15 @@
 		<?php
 		endforeach; ?>
 	</div>
-</div>
+</div><!-- sf-wrapper -->
 
 <!-- Контейнер для получаемых с сервера элементов -->
-<div class="events-list-table">
+<div class="events-list-table" pages-count="<?php echo $posts_data['pages_count'] ?>">
+	<?php echo $posts_data['html'] ?>
 </div>
 
 <!-- Появляющаяся в списке полоска загрузки -->
-<div id="list_loader" >
+<div id="list_loader" style="display:none" >
 	<div class="back">
 		<div class="loader_pr">
 			<div class="pr_bt"></div>

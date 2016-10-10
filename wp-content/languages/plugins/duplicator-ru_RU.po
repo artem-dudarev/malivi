@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Duplicator - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2016-09-18 13:02:00+0000\n"
+"PO-Revision-Date: 2016-10-09 14:26:20+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -10,6 +10,22 @@ msgstr ""
 "X-Generator: GlotPress/2.3.0-alpha\n"
 "Language: ru\n"
 "Project-Id-Version: Plugins - Duplicator - Stable (latest release)\n"
+
+#: views/tools/diagnostics.php:172
+msgid "Process"
+msgstr "Процесс"
+
+#: views/packages/main/new2.scan.php:475
+msgid "Yes.  Continue with the build process!"
+msgstr "Да, продолжить процесс построения!"
+
+#: views/packages/main/new1.setup.php:148
+msgid "The root WordPress path [%s] is currently not writable by PHP."
+msgstr "PHP не имеет возможности записи в корневую папку WordPress [%s] "
+
+#: views/packages/main/new1.setup.php:145
+msgid "If Duplicator does not have enough permissions then you will need to manually create the paths above. &nbsp; "
+msgstr "Если у Duplicator будет недостаточноо привилений, то Вам придется вручную создать пути выше.  &nbsp;"
 
 #: views/packages/main/new1.inc.form.php:296
 msgid "All values in this section are"
@@ -19,31 +35,31 @@ msgstr "Все значения в этом разделе"
 msgid "optional"
 msgstr "опционально"
 
-#: views/packages/main/new2.scan.php:578
+#: views/packages/main/new2.scan.php:584
 msgid "1. Go back and create a root path directory filter to validate the site is scan-able."
 msgstr "1. Перейдите назад и создайте фильтр пути корневой папки чтобы проверить что сайт сканируется"
 
-#: views/packages/main/new2.scan.php:579
+#: views/packages/main/new2.scan.php:585
 msgid "2. Continue to add/remove filters to isolate which path is causing issues."
 msgstr "2. Продолжайте добавлять/удалять фильтры чтобы изолировать путь создающий проблемы"
 
-#: views/packages/main/new2.scan.php:580
+#: views/packages/main/new2.scan.php:586
 msgid "3. This message will go away once the correct filters are applied."
 msgstr "3. Это сообщение изчезнет как только будут определены корректные фильтры."
 
-#: views/packages/main/new2.scan.php:583
+#: views/packages/main/new2.scan.php:589
 msgid "- On some budget hosts scanning over 30k files can lead to timeout/gateway issues. Consider scanning only your main WordPress site and avoid trying to backup other external directories."
 msgstr "- На некоторых недорогих хостингах проверка более 30000 файлов может приводить к таймаутам/проблемам шлюза. Используйте сканирование только основного сайта WordPress и избегайте включения внешних папок."
 
-#: views/packages/main/new2.scan.php:577
+#: views/packages/main/new2.scan.php:583
 msgid "Unable to perform a full scan, please try the following actions:"
 msgstr "Невозможно провести полное сканирование, попробуйте следующие действия:"
 
-#: views/packages/main/new2.scan.php:582
+#: views/packages/main/new2.scan.php:588
 msgid "Common Issues:"
 msgstr "Обычные проблемы:"
 
-#: views/packages/main/new2.scan.php:584
+#: views/packages/main/new2.scan.php:590
 msgid "- Symbolic link recursion can cause timeouts.  Ask your server admin if any are present in the scan path.  If they are add the full path as a filter and try running the scan again."
 msgstr "- Рекурсивные символические ссылки могут вызывать таймауты. Проконсультируйтесь с технической поддержкой хостинга имеются ли такие по пути сканирования. Если да, добавьте полный путь в фильтр и попробуйте сканировать еще раз."
 
@@ -103,45 +119,9 @@ msgstr "50% скидка от обычной цены!"
 msgid "Get Great Deals and Amazing Products!"
 msgstr "Получите отличные сделки и великолепные продукты!"
 
-#: duplicator.php:213 views/help/perks.php:33
+#: views/help/perks.php:33
 msgid "Perks"
 msgstr "Возможности"
-
-#: classes/ui.php:164
-msgid "Snag 'em with Optinmonster!"
-msgstr "Пригвоздите их Optinmonster!"
-
-#: classes/ui.php:163
-msgid "Visitors leaving too quickly?"
-msgstr "Посетители быстро уходят?"
-
-#: classes/ui.php:160
-msgid "Get Ninja Forms!"
-msgstr "Поставьте Ninja Forms!"
-
-#: classes/ui.php:154
-msgid "Slow site?"
-msgstr "Медленно работает сайт?"
-
-#: classes/ui.php:147
-msgid "Change to an Elegant Theme and get 10% off today!"
-msgstr "Переключитесь на Elegant Theme и получите скидку 10% сегодня!"
-
-#: classes/ui.php:146
-msgid "Have a cheesy theme?"
-msgstr "Дрянная тема?"
-
-#: classes/ui.php:142
-msgid "On a bad host?"
-msgstr "Плохой хостинг?"
-
-#: classes/ui.php:139
-msgid "Get Bluehost Hosting for 50% off today!"
-msgstr "Закажите BlueHost хостинг со скидкой 50% сегодня!"
-
-#: classes/ui.php:138
-msgid "Need a new host?"
-msgstr "Нужен новый хостинг?"
 
 #: views/tools/cleanup.php:81
 msgid "Does not exist or unable to remove archive file."
@@ -155,16 +135,16 @@ msgstr "Успешно удалено"
 msgid "for reliable access to mysqldump"
 msgstr "для надежного доступа к mysqldump"
 
-#: views/settings/general.php:172 views/tools/logging.php:164
+#: views/settings/general.php:172 views/tools/logging.php:167
 msgid "Duplicator recommends "
 msgstr "Duplicator рекомендует"
 
 #: views/help/perks.php:47 views/settings/general.php:173
-#: views/tools/logging.php:165
+#: views/tools/logging.php:168
 msgid "Bluehost"
 msgstr "Bluehost"
 
-#: views/settings/general.php:167 views/tools/logging.php:159
+#: views/settings/general.php:167 views/tools/logging.php:162
 msgid "Host Recommendation:"
 msgstr "Рекомендации хостинга:"
 
@@ -196,7 +176,7 @@ msgstr "Настройки:"
 msgid "Overview:"
 msgstr "Обзор:"
 
-#: views/packages/main/new1.setup.php:188
+#: views/packages/main/new1.setup.php:189
 msgid "None of the reserved files where found from a previous install.  This means you are clear to create a new package."
 msgstr "Никакие зарезервированные файлы предыдущей установки не были найдены. Это значит что ничего не мешает создать новый пакет."
 
@@ -224,11 +204,11 @@ msgstr "Файл удален"
 msgid "File Found"
 msgstr "Файл найден"
 
-#: views/packages/main/packages.php:169
+#: views/packages/main/packages.php:170
 msgid "Error Processing"
 msgstr "Обработка ошибок"
 
-#: views/packages/main/packages.php:142 views/packages/main/packages.php:171
+#: views/packages/main/packages.php:143 views/packages/main/packages.php:172
 msgid "Package Details"
 msgstr "Детали пакета"
 
@@ -541,123 +521,123 @@ msgstr "http://www.lifeinthegrid.com/duplicator/"
 msgid "Duplicator"
 msgstr "Duplicator"
 
-#: views/tools/logging.php:188
+#: views/tools/logging.php:191
 msgid "Last 20 Logs"
 msgstr "Последние 20 логов"
 
-#: views/tools/logging.php:182
+#: views/tools/logging.php:185
 msgid "Auto Refresh"
 msgstr "Обновить автоматически"
 
-#: views/tools/logging.php:177
+#: views/tools/logging.php:180
 msgid "Refresh"
 msgstr "Обновить"
 
-#: views/tools/logging.php:170 views/tools/logging.php:175
+#: views/tools/logging.php:173 views/tools/logging.php:178
 msgid "Options"
 msgstr "Параметры"
 
-#: views/tools/logging.php:148
+#: views/tools/logging.php:151
 msgid "The process that PHP runs under does not have enough permissions to create files.  Please contact your hosting provider for more details"
 msgstr "Процесс PHP не имеет достаточно прав чтобы создавать файлы. Обратитесь в техподдержку хостинга."
 
-#: views/tools/logging.php:147
+#: views/tools/logging.php:150
 msgid "The snapshots directory does not have the correct permissions to write files.  Try setting the permissions to 755"
 msgstr "Папка снапшотов имеет неверные права для записи. Попробуйте установить права 755"
 
-#: views/tools/logging.php:146
+#: views/tools/logging.php:149
 msgid "The web server does not support returning .log file extentions"
 msgstr "Веб сервер не поддерживает возврат файлов с расширением .log"
 
-#: views/tools/logging.php:145
+#: views/tools/logging.php:148
 msgid "Reasons for log file not showing"
 msgstr "Причины почему лог файл не отображается"
 
-#: views/tools/logging.php:143
+#: views/tools/logging.php:146
 msgid "Try to create a package, since no log files were found in the snapshots directory with the extension *.log"
 msgstr "Попробуйте создать пакет, так как файлы журнала с расширением *.log не были найдены в папке для снапшотов."
 
-#: views/tools/logging.php:141
+#: views/tools/logging.php:144
 msgid "Log file not found or unreadable"
 msgstr "Файл лога не найден или недоступен"
 
-#: views/tools/diagnostics.php:304
+#: views/tools/diagnostics.php:308
 msgid "Delete this option value"
 msgstr "Удалить это значение настройки"
 
-#: views/tools/diagnostics.php:285
+#: views/tools/diagnostics.php:289
 msgid "PHP Information"
 msgstr "Информация о PHP"
 
-#: views/tools/diagnostics.php:252
+#: views/tools/diagnostics.php:256
 msgid "Options Values"
 msgstr "Значения настроек"
 
-#: views/tools/diagnostics.php:247
+#: views/tools/diagnostics.php:251
 msgid "Stored Data"
 msgstr "Сохраненные данные"
 
-#: views/tools/diagnostics.php:231
+#: views/tools/diagnostics.php:235
 msgid "On shared hosts check your control panel for the 'TRUE' disk space quota value."
 msgstr "На виртуальном хостинге проверьте панель управления для \"НАСТОЯЩЕГО\" лимита места на диске."
 
-#: views/tools/diagnostics.php:230
+#: views/tools/diagnostics.php:234
 msgid "Note: This value is the physical servers hard-drive allocation."
 msgstr "Примечание: Это значение жесткого диска на физических серверах."
 
-#: views/tools/diagnostics.php:227
+#: views/tools/diagnostics.php:231
 msgid "Free space"
 msgstr "Свободное место"
 
-#: views/tools/diagnostics.php:224
+#: views/tools/diagnostics.php:228
 msgid "Server Disk"
 msgstr "Диск сервера"
 
-#: views/tools/diagnostics.php:220
+#: views/tools/diagnostics.php:224
 msgid "msyqldump Path"
 msgstr "Путь к mysqldump"
 
-#: views/tools/diagnostics.php:216
+#: views/tools/diagnostics.php:220
 msgid "Max Allowed Packets"
 msgstr "Максимально разрешенное кол-во пакетов"
 
-#: views/tools/diagnostics.php:212
+#: views/tools/diagnostics.php:216
 msgid "Wait Timeout"
 msgstr "Время ожидания"
 
-#: views/tools/diagnostics.php:197
+#: views/tools/diagnostics.php:201
 msgid "Shell Exec Zip"
 msgstr "Shell Exec Zip"
 
-#: views/tools/diagnostics.php:194 views/tools/diagnostics.php:198
+#: views/tools/diagnostics.php:198 views/tools/diagnostics.php:202
 msgid "Not Supported"
 msgstr "Не поддерживается"
 
-#: views/tools/diagnostics.php:194 views/tools/diagnostics.php:198
+#: views/tools/diagnostics.php:198 views/tools/diagnostics.php:202
 msgid "Is Supported"
 msgstr "Поддерживается"
 
-#: views/tools/diagnostics.php:193
+#: views/tools/diagnostics.php:197
 msgid "Shell Exec"
 msgstr "Shell Exec"
 
-#: views/tools/diagnostics.php:185
+#: views/tools/diagnostics.php:189
 msgid "Memory In Use"
 msgstr "Использовано памяти"
 
-#: views/tools/diagnostics.php:181
+#: views/tools/diagnostics.php:185
 msgid "Memory Limit"
 msgstr "Лимит памяти"
 
-#: views/tools/diagnostics.php:176
+#: views/tools/diagnostics.php:180
 msgid "Off"
 msgstr "Выкл"
 
-#: views/tools/diagnostics.php:176
+#: views/tools/diagnostics.php:180
 msgid "On"
 msgstr "Вкл"
 
-#: views/tools/diagnostics.php:172
+#: views/tools/diagnostics.php:176
 msgid "Safe Mode"
 msgstr "Безопасный режим (Safe mode)"
 
@@ -669,7 +649,7 @@ msgstr "Макс."
 msgid "Memory Limit "
 msgstr "Лимит памяти"
 
-#: views/tools/diagnostics.php:149 views/tools/diagnostics.php:208
+#: views/tools/diagnostics.php:149 views/tools/diagnostics.php:212
 msgid "Charset"
 msgstr "Кодировка"
 
@@ -1025,63 +1005,63 @@ msgstr "Создание Пакета"
 msgid "Step 3: Build Package"
 msgstr "Шаг 3: Создать Пакет"
 
-#: views/packages/main/new2.scan.php:683
+#: views/packages/main/new2.scan.php:689
 msgid "No large files found."
 msgstr "Большие файлы не найдены."
 
-#: views/packages/main/new2.scan.php:677
+#: views/packages/main/new2.scan.php:683
 msgid "No name warning issues found."
 msgstr "Проблем с именами не найдены."
 
-#: views/packages/main/new2.scan.php:674 views/packages/main/new2.scan.php:687
+#: views/packages/main/new2.scan.php:680 views/packages/main/new2.scan.php:693
 msgid "FILE"
 msgstr "ФАЙЛ"
 
-#: views/packages/main/new2.scan.php:668
+#: views/packages/main/new2.scan.php:674
 msgid "DIR"
 msgstr "ДИРЕКТОРИЯ"
 
-#: views/packages/main/new2.scan.php:649
+#: views/packages/main/new2.scan.php:655
 msgid "Unable to report on database stats"
 msgstr "Невозможно дать отчет по статистике базы данных"
 
-#: views/packages/main/new2.scan.php:636
+#: views/packages/main/new2.scan.php:642
 msgid "Unable to report on any tables"
 msgstr "Невозможно дать отчет по таблицам"
 
-#: views/packages/main/new2.scan.php:503
+#: views/packages/main/new2.scan.php:509
 msgid "Rescan"
 msgstr "Пересканировать"
 
-#: views/packages/main/new2.scan.php:502
+#: views/packages/main/new2.scan.php:508
 msgid "Back"
 msgstr "Назад"
 
-#: views/packages/main/new2.scan.php:495 views/packages/main/new3.build.php:118
+#: views/packages/main/new2.scan.php:501 views/packages/main/new3.build.php:118
 msgid "Error Message:"
 msgstr "Сообщение про ошибку:"
 
-#: views/packages/main/new2.scan.php:492 views/packages/main/new3.build.php:114
+#: views/packages/main/new2.scan.php:498 views/packages/main/new3.build.php:114
 msgid "Server Status:"
 msgstr "Статус сервера:"
 
-#: views/packages/main/new2.scan.php:490
+#: views/packages/main/new2.scan.php:496
 msgid "Please try again!"
 msgstr "Пожалуйста, попробуйте еще раз!"
 
-#: views/packages/main/new2.scan.php:489
+#: views/packages/main/new2.scan.php:495
 msgid "Scan Error"
 msgstr "Ошибка сканирования"
 
-#: views/packages/main/new2.scan.php:477
+#: views/packages/main/new2.scan.php:483
 msgid "Please review the details for each warning by clicking on the detail link."
 msgstr "Просмотрите детальную информацию о предупреждениях пройдя по ссылке."
 
-#: views/packages/main/new2.scan.php:475
+#: views/packages/main/new2.scan.php:481
 msgid "Scan checks are not required to pass, however they could cause issues on some systems."
 msgstr "Некоторые проверки не требуют прохождения, но на некоторых серверах они могут вызывать проблемы."
 
-#: views/packages/main/new2.scan.php:470
+#: views/packages/main/new2.scan.php:471
 msgid "A warning status was detected, are you sure you want to continue?"
 msgstr "Обнаружены предупреждения, точно хотите продолжить?"
 
@@ -1221,7 +1201,7 @@ msgstr "Заметка: таймаут может быть установлен 
 msgid "Issues might occur for larger packages when the [max_execution_time] value in the php.ini is too low.  The minimum recommended timeout is \"%1$s\" seconds or higher. An attempt is made to override this value if the server allows it.  A value of 0 (recommended) indicates that PHP has no time limits."
 msgstr "Могут быть проблемы для больших пакетов при маленьком значении  [max_execution_time] в php.ini. Рекомендуется \"%1$s\" секунд или больше. Если сервер допускает это, будет предпринята попытка переопределить это значение. Можно установить на 0 (рекомендуется) для полного снятия ограничения на время выполнения PHP."
 
-#: views/packages/main/new2.scan.php:168 views/tools/diagnostics.php:189
+#: views/packages/main/new2.scan.php:168 views/tools/diagnostics.php:193
 msgid "Max Execution Time"
 msgstr "Максимальное время выполнения"
 
@@ -1473,49 +1453,41 @@ msgstr "Хранилище"
 msgid "Create a new default name"
 msgstr "Создайте новое название по-умолчанию"
 
-#: views/packages/main/new1.setup.php:205
+#: views/packages/main/new1.setup.php:206
 msgid "For additional help please see the "
 msgstr "Для дополнительной информации, пожалуйста, посмотрите "
 
-#: views/packages/main/new1.setup.php:196
+#: views/packages/main/new1.setup.php:197
 msgid "Remove Files Now"
 msgstr "Удалить файлы сейчас"
 
-#: views/packages/main/new1.setup.php:183
+#: views/packages/main/new1.setup.php:184
 msgid "Reserved Files"
 msgstr "Зарезервированные файлы"
 
-#: views/packages/main/new1.setup.php:174 views/tools/cleanup.php:118
+#: views/packages/main/new1.setup.php:175 views/tools/cleanup.php:118
 msgid "more info"
 msgstr "больше информации"
 
-#: views/packages/main/new1.setup.php:173
+#: views/packages/main/new1.setup.php:174
 msgid "MySQL version 5.0+ or better is required and the PHP MySQLi extension (note the trailing 'i') is also required.  Contact your server administrator and request that mysqli extension and MySQL Server 5.0+ be installed. Please note in future versions support for other databases and extensions will be added."
 msgstr "Требуется как минимум MySQL версии 5.0+ и расширение PHP mysqli (не mysql, а именно mysqli). Обратитесь в техподдержку хостинга и требуйте включения mysqli и СУБД MySQL 5.0+. В будущих версиях также может быть добавлена поддержка других СУБД и расширений."
 
-#: views/packages/main/new1.setup.php:167
+#: views/packages/main/new1.setup.php:168
 msgid "MySQLi Support"
 msgstr "Поддержка MySQLi"
 
-#: views/packages/main/new1.setup.php:163
+#: views/packages/main/new1.setup.php:164
 msgid "MySQL Version"
 msgstr "Версия MySQL"
 
-#: views/packages/main/new1.setup.php:157
+#: views/packages/main/new1.setup.php:158
 msgid "Server Support"
 msgstr "Поддержка сервера"
 
-#: views/packages/main/new1.setup.php:149
-msgid "Permissions can be difficult to resolve on some systems. If the plugin can not read the above paths here are a few things to try. 1) Set the above paths to have permissions of 755 for directories and 644 for files. You can temporarily try 777 however, be sure you don’t leave them this way. 2) Check the owner/group settings for both files and directories. The PHP script owner and the process owner are different. The script owner owns the PHP script but the process owner is the user the script is running as, thus determining its capabilities/privileges in the file system. For more details contact your host or server administrator or visit the 'Help' menu under Duplicator for additional online resources."
-msgstr "Права доступа могут быть проблемой на некоторых системах. Если плагин не может прочитать по путям ниже, можно попробовать 1) установить на эти пути права 755 для папок и 644 для файлов. Можете даже временно попробовать 777, но не оставляйте это в таком виде навсегда. 2) проверьте владельца/группу для файлов и папок, процесс PHP и владелец файлов могут быть от разных аккаунтов. Владелец скрипта имеет права на файл, но аккаунт от которого работает процесс PHP определяет права доступа к файлам и другие возможности и привилегии на сервере. Вы можете обратиться в техподдержку хостинга за помощью или посетить меню помощи Duplicator для дополнительной информации"
-
-#: views/packages/main/new1.setup.php:138
+#: views/packages/main/new1.setup.php:135
 msgid "Required Paths"
 msgstr "Необходимые пути"
-
-#: views/packages/main/new1.setup.php:135
-msgid "Permissions"
-msgstr "Разрешения"
 
 #: views/packages/main/new1.setup.php:114
 #: views/packages/main/new1.setup.php:118
@@ -1552,7 +1524,7 @@ msgid "Step 1: Package Setup"
 msgstr "Шаг 1: Создание пакета"
 
 #: views/packages/main/new1.setup.php:57 views/packages/main/new2.scan.php:87
-#: views/packages/main/new2.scan.php:504 views/packages/main/new3.build.php:38
+#: views/packages/main/new2.scan.php:510 views/packages/main/new3.build.php:38
 msgid "Build"
 msgstr "Создание"
 
@@ -1590,15 +1562,15 @@ msgstr "БАЗА ДАННЫХ"
 msgid "Package File Links"
 msgstr "Ссылки на пакеты"
 
-#: views/packages/main/packages.php:220
+#: views/packages/main/packages.php:218
 msgid "Are you sure, you want to delete the selected package(s)?"
 msgstr "Точно хотите удалить выбранные пакеты?"
 
-#: views/packages/main/packages.php:216
+#: views/packages/main/packages.php:214
 msgid "Please select at least one package to delete."
 msgstr "Выберите хотя бы один пакет для удаления"
 
-#: views/packages/main/packages.php:208
+#: views/packages/main/packages.php:206
 msgid "Please select an action from the bulk action drop down menu to perform a specific action."
 msgstr "Выберите массовое дкйствие из выпадающего меню"
 
@@ -1615,7 +1587,7 @@ msgid "Download Links"
 msgstr "Ссылки на скачивание"
 
 #: views/packages/main/new2.scan.php:253 views/packages/main/new2.scan.php:377
-#: views/packages/main/packages.php:189
+#: views/packages/main/packages.php:187
 msgid "Total Size"
 msgstr "Общий размер"
 
@@ -1639,40 +1611,40 @@ msgid "User"
 msgstr "Пользователь"
 
 #: views/settings/general.php:86 views/tools/diagnostics.php:141
-#: views/tools/diagnostics.php:160 views/tools/diagnostics.php:204
+#: views/tools/diagnostics.php:160 views/tools/diagnostics.php:208
 msgid "Version"
 msgstr "Версия"
 
 #: views/packages/details/detail.php:122 views/packages/details/detail.php:214
 #: views/packages/main/new1.inc.form.php:112
 #: views/packages/main/new2.scan.php:229 views/packages/main/new3.build.php:86
-#: views/packages/main/packages.php:140
+#: views/packages/main/packages.php:141
 msgid "Archive"
 msgstr "Архив"
 
 #: views/packages/details/detail.php:126 views/packages/details/detail.php:308
 #: views/packages/main/new1.inc.form.php:289
-#: views/packages/main/new3.build.php:82 views/packages/main/packages.php:137
+#: views/packages/main/new3.build.php:82 views/packages/main/packages.php:138
 msgid "Installer"
 msgstr "Установщик"
 
-#: views/packages/main/packages.php:97 views/settings/general.php:117
+#: views/packages/main/packages.php:98 views/settings/general.php:117
 msgid "Package"
 msgstr "Пакет"
 
 #: views/packages/details/detail.php:67 views/packages/details/detail.php:172
 #: views/packages/main/new1.inc.form.php:48
 #: views/packages/main/new1.inc.form.php:72
-#: views/packages/main/new3.build.php:77 views/packages/main/packages.php:95
+#: views/packages/main/new3.build.php:77 views/packages/main/packages.php:96
 msgid "Name"
 msgstr "Имя"
 
 #: views/packages/main/new2.scan.php:256 views/packages/main/new2.scan.php:381
-#: views/packages/main/packages.php:94
+#: views/packages/main/packages.php:95
 msgid "Size"
 msgstr "Размер"
 
-#: views/packages/main/packages.php:93
+#: views/packages/main/packages.php:94
 msgid "Created"
 msgstr "Создан"
 
@@ -1681,51 +1653,55 @@ msgstr "Создан"
 msgid "Details"
 msgstr "Детали"
 
-#: views/packages/main/packages.php:92
+#: views/packages/main/packages.php:93
 msgid "Select all packages"
 msgstr "Выбрать все пакеты"
 
 #: views/packages/main/new1.setup.php:66 views/packages/main/new2.scan.php:96
-#: views/packages/main/new3.build.php:47 views/packages/main/packages.php:61
+#: views/packages/main/new3.build.php:47 views/packages/main/packages.php:62
 msgid "Create New"
 msgstr "Создать новый"
 
 #: views/packages/details/controller.php:47
 #: views/packages/main/new1.setup.php:65 views/packages/main/new2.scan.php:95
 #: views/packages/main/new3.build.php:46 views/packages/main/new3.build.php:93
-#: views/packages/main/packages.php:60
+#: views/packages/main/packages.php:61
 msgid "All Packages"
 msgstr "Все пакеты"
 
-#: views/packages/main/packages.php:57
+#: views/packages/main/packages.php:58
 msgid "Package Logs"
 msgstr "Журнал пакетов"
 
-#: views/packages/main/packages.php:52
+#: views/packages/main/packages.php:55
 msgid "Apply"
 msgstr "Принять"
 
-#: views/packages/main/packages.php:50
+#: views/packages/main/packages.php:53
 msgid "Delete"
 msgstr "Удалить"
 
-#: views/packages/main/packages.php:50
+#: views/packages/main/packages.php:53
 msgid "Delete selected package(s)"
 msgstr "Удалить выбранные пакеты"
 
-#: views/packages/main/packages.php:49
+#: views/packages/main/packages.php:52
 msgid "Bulk Actions"
 msgstr "Массовые действия"
 
-#: views/packages/main/new1.setup.php:205
+#: views/packages/main/packages.php:42
+msgid "Help Support Duplicator"
+msgstr "Помогите с поддержкой Duplicator"
+
+#: views/packages/main/new1.setup.php:206
 msgid "help page"
 msgstr "страница помощи"
 
-#: views/packages/main/packages.php:78
+#: views/packages/main/packages.php:79
 msgid "Click the 'Create New' button to build a package."
 msgstr "Нажмите кнопку \"Создать новый\" для создания пакета."
 
-#: views/packages/main/packages.php:77
+#: views/packages/main/packages.php:78
 msgid "No Packages Found."
 msgstr "Пакеты не найдены."
 
@@ -1833,33 +1809,25 @@ msgstr "Резервные копии файлов и базы данных"
 msgid "The simplicity of Duplicator"
 msgstr "Простота Duplicator-а"
 
-#: views/help/about.php:131
+#: views/help/about.php:117
 msgid "Get More Great Tools"
 msgstr "Получите больше отличных инструментов"
 
-#: views/help/about.php:114
+#: views/help/about.php:100
 msgid "Rapid WordPress Duplication by LifeInTheGrid.com"
 msgstr "Быстрое клонирование WordPress от LifeInTheGrid.com"
 
-#: views/help/about.php:113
+#: views/help/about.php:99
 msgid "Duplicate Your WordPress"
 msgstr "Duplicate Ваш WordPress"
 
-#: views/help/about.php:107
+#: views/help/about.php:93
 msgid "Spread the Word"
 msgstr "Рассказать другим"
 
-#: views/help/about.php:90
+#: views/help/about.php:80
 msgid "Leave 5 Stars"
 msgstr "Поставьте 5 звезд"
-
-#: views/help/about.php:83
-msgid "Keep Active and Online"
-msgstr "Будьте активны онлайн"
-
-#: views/help/about.php:71
-msgid "Partner with Us"
-msgstr "Наши партнеры"
 
 #: views/help/about.php:64
 msgid "Support Duplicator"
@@ -1885,7 +1853,7 @@ msgstr "Инструменты"
 msgid "Settings"
 msgstr "Настройки"
 
-#: duplicator.php:189 views/packages/main/packages.php:188
+#: duplicator.php:189 views/packages/main/packages.php:186
 msgid "Packages"
 msgstr "Пакеты"
 

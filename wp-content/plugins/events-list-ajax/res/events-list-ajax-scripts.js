@@ -1,4 +1,12 @@
 
+function GetFilterName(filter) {
+	var name = filter.attr( 'name' );
+	if (name.substr( name.length - 2, 2 ) == '[]') {
+		name = name.substr( 0, name.length - 2 );
+	}
+	return name;
+}
+
 function CollectData( wrapper, ignore_search_id ) {
 	var data = {};
 	wrapper.find('select').each( function(){
@@ -14,7 +22,7 @@ function CollectData( wrapper, ignore_search_id ) {
 	wrapper.find('input').each( function() {
 		var input = jQuery( this );
 		var name = input.attr( 'name' );
-		var is_array = name.substr( name.length - 2, 2 ) == '[]' 
+		var is_array = name.substr( name.length - 2, 2 ) == '[]'; 
 		
 		if( typeof( name ) == 'undefined') {
 			return;
@@ -26,7 +34,7 @@ function CollectData( wrapper, ignore_search_id ) {
 			if( input.val() == '' ) {
 				return;
 			}
-			if( input.attr( 'type' ) == 'radio' && !input.prop( 'checked' )  == true) {
+			if( input.attr( 'type' ) == 'radio' && input.prop( 'checked' )  != true) {
 				return;
 			}
 			if( !is_array ){
@@ -55,14 +63,30 @@ function CollectData( wrapper, ignore_search_id ) {
 	return data;
 }
 
-function SetUrlParameter(key, value, create_history_entry) {
-	//key = encodeURI(key);
-	//value = encodeURI(value);
+function SetUrlHash(key, value, create_history_entry) {
+	SetUrlParameter(key, value, create_history_entry, '#');
+}
+
+function SetUrlSearch(key, value, create_history_entry) {
+	SetUrlParameter(key, value, create_history_entry, '?');
+}
+
+function SetUrlParameter(key, value, create_history_entry, type) {
+	if (typeof( key ) == 'undefined') {
+		console.error("SetUrlParameter: key is undefined");
+		return;
+	}
+	if (typeof( value ) == 'undefined') {
+		value = '';
+	}
+	key = encodeURIComponent(key);
+	value = encodeURIComponent(value);
 	var parameters = [];
-	var hash = location.hash.substr(1);
+	var hash = type == '#' ? location.hash.substr(1) : location.search.substr(1);
 	if (hash.length > 0) {
 		parameters = hash.split('&');
 	}
+	
 	var i = 0;
 	for (; i <parameters.length; i++) {
 		var split = parameters[i].split('=');
@@ -80,9 +104,9 @@ function SetUrlParameter(key, value, create_history_entry) {
 	if (i == parameters.length && value.length > 0) {
 		parameters[i] = [key,value].join('=');
 	}
-	var address = '#';
+	var address = type;
 	if (parameters.length > 0) {
-		address = '#' + parameters.join('&');
+		address += parameters.join('&');
 	}
 	if (create_history_entry) {
 		window.history.pushState('forward', null, address);
@@ -91,11 +115,18 @@ function SetUrlParameter(key, value, create_history_entry) {
 	}
 }
 
-function GetUrlParameter(key) {
+function GetSearchUrlParameter(key) {
+	return GetUrlParameter(key, location.search);
+}
+
+function GetHashUrlParameter(key) {
+	return GetUrlParameter(key, location.hash);
+}
+
+function GetUrlParameter(key, url) {
 	var result = '';
-	var hash = location.hash.substr(1);
-	if (hash.length > 0) {
-		var parameters = hash.split('&');
+	if (url.length > 1) {
+		var parameters = url.substr(1).split('&');
 		for (var i in parameters) {
 			var split = parameters[i].split('=');
 			if (split[0] == key) {
@@ -120,7 +151,7 @@ function SetPageScrollEnabled(is_enabled) {
 // Текущая страница отфильтрованных событий
 var current_page = 1;
 // Количество доступных страниц результатов
-var pages_count = 0;
+var pages_count = -1;
 // Статус открыт ли всплывающий диалог
 var isPopupOpen = false;
 // Счетчик запросов для использования в качестве айдишника и определения ответа
@@ -133,8 +164,12 @@ var isQueryInProgress = false;
 function GetFilterResults( is_append ) {
 	var wrapper = jQuery( '.sf-wrapper' );
 	var filters_data = CollectData( wrapper, false );
-	
+	var events_list_container = jQuery('.events-list-table');
+
 	if (is_append) {
+		if (pages_count == -1) {
+			pages_count = events_list_container.attr('pages-count');
+		}
 		if (current_page == pages_count) {
 			return;
 		}
@@ -156,7 +191,7 @@ function GetFilterResults( is_append ) {
 
 	var request_id = current_request_id;
 	current_request_id++;
-	var events_list_container = jQuery('.events-list-table');
+	
 	if (!is_append) {
 		events_list_container.html('');
 	}
@@ -165,14 +200,16 @@ function GetFilterResults( is_append ) {
 		done( function (response_data) {
 			loading_indicator.hide();
 			var response = JSON.parse(response_data);
-			isQueryInProgress = false;
+			
 			console.debug("response_id: " + response.request_id + ", local_id=" + request_id);
 			if ( response.request_id < min_acceptable_request_id) {
 				console.debug("response is outdated");
+				isQueryInProgress = false;
 				return;
 			}
 			if( response.request_id != request_id) {
 				console.error("invalid response received");
+				isQueryInProgress = false;
 				return;
 			}
 			//wrapper.css({opacity:1});
@@ -184,6 +221,7 @@ function GetFilterResults( is_append ) {
 				pages_count = response.pages_count;
 				events_list_container.html(response.html);
 			}
+			isQueryInProgress = false;
 		}).fail( function() {
 			loading_indicator.hide();
 			if(is_append) {
@@ -191,6 +229,7 @@ function GetFilterResults( is_append ) {
 				ShowConnectionError();
 			}
 			ShowConnectionError();
+			isQueryInProgress = false;
 		});
 }
 
@@ -205,7 +244,7 @@ function OpenPopup(post_id, shouldPushState) {
 	var body = jQuery('body')
 	SetPageScrollEnabled(false);
 	if (shouldPushState) {
-		SetUrlParameter('show', post_id, true);
+		SetUrlHash('show', post_id, true);
 		//window.history.pushState('forward', null, '#show=' + post_id);
 		 //document.location.search = 'show=' + post_id;
 	}
@@ -222,7 +261,7 @@ function OpenPopup(post_id, shouldPushState) {
 				body.append(popup);
 				jQuery('.popup-dialog-wrapper').click(function(e) {
 					event.preventDefault();
-					SetUrlParameter('show', '', true);
+					SetUrlHash('show', '', true);
 					ClosePopup();
 				});
 
@@ -253,39 +292,43 @@ function ClosePopup() {
 	SetPageScrollEnabled(true);
 }
 
-function CheckCurrentPageParameters() {
+function CheckCurrentPageParameters(do_request_data) {
 	// Если загрузилась страница с указанием фильтров, применим эти фильтры
-	var post_id_string = GetUrlParameter('show');
+	var post_id_string = GetHashUrlParameter('show');
 	if( post_id_string.length > 0) {
 		var post_id = parseInt(post_id_string, 10);
 		OpenPopup(post_id, false);
 		//return;
 	}
 	// Если загрузилась страница с указанием фильтров, применим эти фильтры
-	var filters_string = GetUrlParameter('filter');
-	if( filters_string.length > 0 ) {
-		ParseFilters(filters_string);
-	}
-	// После загрузки страницы - вызываем поиск
-	GetFilterResults(false);
+	ParseFilters(do_request_data);
 }
 
 
 // Парсит строку адреса и выставляет фильтрам указанные в строке данные
-function ParseFilters(filter_string) {
+function ParseFilters(do_request_data) {
 	//console.debug("apply filters: " + filter_string);
-	var range_max = '';
-	var range_min = '';
-	var	hash = JSON.parse( filter_string );
+	var was_changes = false;
 	jQuery('fieldset .sf-element input').each( function() {
 		var fieldset_id = jQuery(this).attr('name');
 		fieldset_id = fieldset_id.substr(0, fieldset_id.length-2);
-		var fieldset_parameters = hash[fieldset_id];
-		var field_id = jQuery(this).attr("value")
+		var fieldset_parameters_string = GetSearchUrlParameter('f' + fieldset_id);
+		if (fieldset_parameters_string.length = 0) {
+			return;
+		}
+		var fieldset_parameters = decodeURIComponent(fieldset_parameters_string).split(',');
+		var field_id = jQuery(this).attr('value')
 		var checked = fieldset_parameters != undefined && fieldset_parameters.includes(field_id);
 		//console.debug("fieldset="+fieldset_id + ", field_id="+field_id + ", checked=" + checked);
+		if (jQuery(this).prop('checked') != checked) {
+			was_changes = true;
+		} 
 		jQuery(this).prop('checked', checked);
 	});
+	// После загрузки страницы - не вызываем поиск, начальные данные должны были прийти с сервера
+	if (do_request_data && was_changes) {
+		GetFilterResults(false);
+	}
 }
 
 function ParseFiltersBak(filter_string) {
@@ -342,6 +385,38 @@ function ParseFiltersBak(filter_string) {
 	}
 }
 
+function HandleFiltersChange() {
+	var changed = jQuery(this);
+	var possible_cond_key = changed.closest( '.sf-element' ).attr( 'data-id' );
+	var possible_cond_val = changed.val();
+	if( ( changed.attr('type') == 'checkbox' || changed.attr('type') == 'radio' ) && !changed.prop( 'checked' ) ) {
+		possible_cond_val = -2;
+	}
+	jQuery( '.sf-element-hide' ).each( function() {
+		if( changed.attr( 'data-condkey' ) == possible_cond_key ) {
+			if( possible_cond_val == changed.attr( 'data-condval' ) ) {
+				changed.fadeIn();
+				changed.addClass( 'sf-element' );
+				changed.find( 'input, select' ).attr( 'disabled', false );
+			} else {
+				changed.hide();
+				changed.removeClass( 'sf-element' );
+				changed.find( 'input, select' ).attr( 'disabled', true );
+			}
+		}
+	});
+	var wrapper = jQuery( '.sf-wrapper' );
+	var filters_data = CollectData( wrapper, true );
+	//var parameters_string = JSON.stringify( filters_data );
+	/*for(var key in filters_data) { 
+		var value = filters_data[key];
+		SetUrlSearch(key, value); 
+	}*/
+	var name = GetFilterName(changed);
+	SetUrlSearch('f' + name, filters_data[name]);
+	GetFilterResults(false);
+}
+
 jQuery( document ).ready( function() {
 	var win = jQuery(window);
 	// Всплывающий бокс загрузки
@@ -360,7 +435,7 @@ jQuery( document ).ready( function() {
 	win.keydown(function(e) {
 		if (isPopupOpen && e.keyCode == 27) { // escape key maps to keycode `27`
 			event.preventDefault();
-			SetUrlParameter('show', '', true);
+			SetUrlHash('show', '', true);
 			ClosePopup();
 		}
 	});
@@ -369,7 +444,7 @@ jQuery( document ).ready( function() {
 		if (isPopupOpen) {
 			ClosePopup();
 		}
-		CheckCurrentPageParameters();
+		CheckCurrentPageParameters(true);
 	});
 
 	jQuery( document ).on('click', '.events-list-row', function( event ){
@@ -417,36 +492,7 @@ jQuery( document ).ready( function() {
 	
 		
 	// Отслеживаем изменения фильтров и вызываем поиск после каждого изменения
-	jQuery( document ).on( 'change', '.sf-filter input, .sf-filter select', function() {
-		var possible_cond_key = jQuery( this ).closest( '.sf-element' ).attr( 'data-id' );
-		var possible_cond_val = jQuery( this ).val();
-		if( ( jQuery( this ).attr('type') == 'checkbox' || jQuery( this ).attr('type') == 'radio' ) && !jQuery( this ).prop( 'checked' ) ) {
-			possible_cond_val = -2;
-		}
-		jQuery( '.sf-element-hide' ).each( function() {
-			if( jQuery( this ).attr( 'data-condkey' ) == possible_cond_key ) {
-				if( possible_cond_val == jQuery( this ).attr( 'data-condval' ) ) {
-					jQuery( this ).fadeIn();
-					jQuery( this ).addClass( 'sf-element' );
-					jQuery( this ).find( 'input, select' ).attr( 'disabled', false );
-				} else {
-					jQuery( this ).hide();
-					jQuery( this ).removeClass( 'sf-element' );
-					jQuery( this ).find( 'input, select' ).attr( 'disabled', true );
-				}
-			}
-		});
-		var wrapper = jQuery( '.sf-wrapper' );
-		var filters_data = CollectData( wrapper, true );
-		var parameters_string = JSON.stringify( filters_data );
-		
-		if (parameters_string.length > 2) {
-			SetUrlParameter('filter', parameters_string, false);
-		} else {
-			SetUrlParameter('filter', '', false);
-		}
-		GetFilterResults(false);
-	});
+	jQuery( document ).on( 'change', '.sf-filter input, .sf-filter select', HandleFiltersChange);
 
-	CheckCurrentPageParameters();
+	CheckCurrentPageParameters(false);
 });
