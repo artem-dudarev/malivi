@@ -98,15 +98,6 @@
 							<?php endforeach; ?>
 						</select>
 					</section>
-					<section>
-						<label for="sf_debug"><?php _e( 'Debug Mode', 'sf' ); ?>:</label>
-						<select id="sf_debug" name="sf[debug]">
-							<option <?php if( !isset( $field['debug'] ) || 0 == $field['debug'] ) echo 'selected="selected"'; ?> value="0"><?php _e( 'Off', 'sf' ); ?></option>
-							<option <?php if( isset( $field['debug'] ) && 1 == $field['debug'] ) echo 'selected="selected"'; ?> value="1"><?php _e( 'On', 'sf' ); ?></option>
-						</select>
-						
-						<small><?php _e( 'Turn this mode on, in order to get additional data on the WP_Query like the args or the SQL statement. Please turn it off in live mode', 'sf' ); ?></small>
-					</section>
 					<hr />
 					<input class="button" type="submit" value="<?php _e( 'Update', 'sf' ); ?>" />
 				</fieldset>

@@ -77,10 +77,6 @@
 	function sf_get_posts($page, $search_id, $filters) {
 		global $wpdb;
 		
-		if( !isset( $page ) || $page == 1 ) {
-			$_SESSION['sf'] = $page;
-		}
-		
 		$fulltext = "";
 		$fields = get_option( 'sf-fields' );
 		$found = false;
@@ -231,23 +227,16 @@
 		
 		
 		if( isset( $page ) ) {
-			$args['paged'] = (int) $page['val'];
-			$content = '';
-		} else {
-			$content = '<div>Ничего не найдено, попробуйте изменить настройки фильтров.</div>';
+			$args['paged'] = (int) $page;
 		}
 		
 		$args = apply_filters( 'sf-filter-args', $args );
 		$wpdb->query( 'SET OPTION SQL_BIG_SELECTS = 1' );
 		$query = new WP_Query( $args );
-		if( isset( $field['debug'] ) && $field['debug'] == 1 ):
-			$response['args'] = $args;
-			$response['query'] = $query;
-		endif;
 		remove_filter( 'posts_join_paged', 'sf_content_filter_join' );
 		remove_filter( 'posts_where', 'sf_content_filter' );
+		$content = '';
 		if( $query->have_posts() ) {
-			$content = '';
 			while( $query->have_posts() ) {
 				$query->the_post();
 				ob_start();
@@ -256,6 +245,8 @@
 				
 			} // end while( $query->have_posts() )
 			
+		} else if( !isset( $page ) ) {
+			$content = '<div>Ничего не найдено, попробуйте изменить настройки фильтров.</div>';
 		}
 		
 		$response = array();
