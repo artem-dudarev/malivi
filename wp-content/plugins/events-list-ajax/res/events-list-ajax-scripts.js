@@ -165,7 +165,6 @@ function GetFilterResults( is_append ) {
 	var wrapper = jQuery( '.sf-wrapper' );
 	var filters_data = CollectData( wrapper, false );
 	var events_list_container = jQuery('.events-list-table');
-
 	if (is_append) {
 		if (pages_count == -1) {
 			pages_count = events_list_container.attr('pages-count');
@@ -212,9 +211,6 @@ function GetFilterResults( is_append ) {
 				isQueryInProgress = false;
 				return;
 			}
-			//wrapper.css({opacity:1});
-			events_list_container.finish();
-			events_list_container.css({opacity:1});
 			if(is_append) {
 				events_list_container.append(response.html);
 			} else {
