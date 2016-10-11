@@ -127,7 +127,8 @@ function nelioefi_save_url( $post_id ) {
 
 	$attachment_id = get_post_thumbnail_id($post_id);
 	if ($attachment_id > 0) {
-		$old_url = get_content($attachment_id);
+		;
+		$old_url = get_post($attachment_id)->post_content;
 		if ($old_url == $url) {
 			return;
 		}
