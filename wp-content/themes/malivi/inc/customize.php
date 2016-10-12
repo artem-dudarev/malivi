@@ -77,18 +77,7 @@ function flat_customize_register( $wp_customize ) {
 			'title' => __( 'Design', 'flat' )
 		) );
 			
-		// Color
-		$wp_customize->add_setting( 'flat_theme_options[sidebar_background_color]', array(
-			'capability' => 'edit_theme_options',
-			'type' => 'option',
-			'default' => '#333',
-			'sanitize_callback' => 'sanitize_hex_color'
-		) );
-		$wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, 'sidebar_background_color', array(
-			'label' => __( 'Sidebar Background Color', 'flat' ),
-			'section' => 'colors',
-			'settings' => 'flat_theme_options[sidebar_background_color]',
-		) ) );
+		
 
 		// Background Size
 		$wp_customize->add_setting( 'flat_theme_options[background_size]', array(
@@ -111,19 +100,7 @@ function flat_customize_register( $wp_customize ) {
 
 	else:
 
-		// Color
-		$wp_customize->add_setting( 'flat_theme_options[sidebar_background_color]', array(
-			'capability' => 'edit_theme_options',
-			'type' => 'option',
-			'default' => '#333',
-			'sanitize_callback' => 'sanitize_hex_color',
-		) );
-		$wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, 'sidebar_background_color', array(
-			'label' => __( 'Sidebar Background Color', 'flat' ),
-			'section' => 'colors',
-			'settings' => 'flat_theme_options[sidebar_background_color]',
-		) ) );
-
+	
 		// Background Size
 		$wp_customize->add_setting( 'flat_theme_options[background_size]', array(
 			'default' => 'cover',
@@ -301,13 +278,7 @@ add_action( 'wp_head', 'flat_favicon' );
 function flat_custom_css() {
 	echo '<style type="text/css">';
 	$custom_style = '';
-	$sidebar_background_color = flat_get_theme_option( 'sidebar_background_color' );
-
-	if ( ! empty( $sidebar_background_color ) ) {
-		$custom_style .= '#page:before, .secondary-panel { background-color: ' . $sidebar_background_color . '; }';
-		$custom_style .= '@media (max-width: 1199px) { #page > .container { background-color: ' . $sidebar_background_color . '; } }';
-	}
-
+	
 	$background_size = flat_get_theme_option( 'background_size' );
 
 	if ( ! empty( $background_size ) ) {

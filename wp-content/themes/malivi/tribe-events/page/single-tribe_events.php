@@ -1,21 +1,11 @@
 <?php
-/**
- * Day View Single Event
- * This file contains one event in the day view
- *
- * Override this template in your own theme by creating a file at [your-theme]/tribe-events/day/single-event.php
- *
- * @package TribeEventsCalendar
- *
- */
-
 if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 ?>
 <div id="tribe-events-content" class="tribe-events-single">
 	<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
-		<header class="entry-header">
+		<header class="entry-header group-element">
 			<h1 class="entry-title" itemprop="name"><?php the_title(); ?></h1>
 		</header>
 		<!-- Notices -->
@@ -28,9 +18,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 			</div>
 		<?php endif; ?>
 		<div class="entry-content" itemprop="articleBody">
-			<div class="tribe-events-list-event-description">
+			<div class="tribe-events-list-event-description group-element">
 				<!-- Event featured image, but exclude link -->
-				<?php echo tribe_event_featured_image( $event_id, 'medium', false ); ?>
+				<?php echo tribe_event_featured_image( $event_id, 'full', false ); ?>
 
 				<!-- Event content -->
 				<div class="tribe-event-description tribe-events-content">

@@ -18,7 +18,7 @@ $set_venue_apart = apply_filters( 'tribe_events_single_event_the_meta_group_venu
 ?>
 
 <?php if ( $not_skeleton ) : ?>
-	<div class="tribe-events-single-section tribe-events-event-meta primary tribe-clearfix">
+	<div class="tribe-events-single-section tribe-events-event-meta primary group-element tribe-clearfix">
 <?php endif; ?>
 
 <?php
@@ -55,7 +55,7 @@ do_action( 'tribe_events_single_event_meta_primary_section_end' );
 
 <?php if ( $set_venue_apart ) : ?>
 	<?php if ( $not_skeleton ) : ?>
-		<div class="tribe-events-single-section tribe-events-event-meta secondary tribe-clearfix">
+		<div class="tribe-events-single-section tribe-events-event-meta secondary group-element tribe-clearfix">
 	<?php endif; ?>
 	<?php
 	do_action( 'tribe_events_single_event_meta_secondary_section_start' );

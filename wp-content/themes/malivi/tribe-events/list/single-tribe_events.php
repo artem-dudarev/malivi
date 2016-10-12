@@ -73,14 +73,12 @@ if (empty($thumbnail) || $thumbnail == false) {
 	<?php echo $image_content;?>
 </div>
 
-<div class="events-list-cell events-list-post-text-cell" >
-	<div class="events-list-post-text" >
-		<div class="events-list-post-text-header">
-			<?php echo $title; ?>
-		</div>
+<div class="events-list-post-text-cell events-list-post-text" >
+	<div class="events-list-post-text-header">
+		<?php echo $title; ?>
+	</div>
 
-		<div class="events-list-post-text-content">
-			<?php echo event_list_custom_excerpt('25', 'true'); ?>
-		</div>
+	<div class="events-list-post-text-content">
+		<?php echo event_list_custom_excerpt('25', 'true'); ?>
 	</div>
 </div>
