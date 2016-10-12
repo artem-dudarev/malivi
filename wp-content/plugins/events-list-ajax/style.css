@@ -10,8 +10,12 @@
  License URI:  license.txt
 */
 
-.tribe-events-event-image {
-    max-height: 400px;
+.tribe-events-event-image img{
+    display: block;
+    max-height: 500px;
+    margin: 0 auto;
+    width: auto;
+    height: auto;
 }
 
 .tribe-events-list-event-description {
@@ -205,6 +209,9 @@ a.events-list-row {
     width: 100px;
     height: 100px;
     opacity: 0.95;
+    border-left: solid 1px #eee;
+    border-right: solid 1px #eee;
+    box-sizing: content-box;
 }
 
 @media (max-width: 767px) {
