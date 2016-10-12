@@ -1821,13 +1821,6 @@ hr {
 pre {
   overflow: auto;
 }
-code,
-kbd,
-pre,
-samp {
-  font-family: monospace, monospace;
-  font-size: 1em;
-}
 button,
 input,
 optgroup,
@@ -2005,6 +1998,7 @@ a:hover,
 a:focus {
   color: #1d70a8;
   text-decoration: underline;
+  border-color: #1d70a8;
 }
 a:focus {
   outline: thin dotted;
@@ -2029,7 +2023,6 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: "Roboto Slab";
   font-weight: 300;
   line-height: 1.2;
   color: inherit;
@@ -2145,12 +2138,6 @@ address {
   margin-bottom: 26px;
   font-style: normal;
   line-height: 1.625;
-}
-code,
-kbd,
-pre,
-samp {
-  font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
 }
 code {
   padding: 2px 4px;
@@ -5442,7 +5429,6 @@ a.thumbnail.active {
   z-index: 1070;
   display: block;
   visibility: visible;
-  font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 12px;
   font-weight: normal;
   line-height: 1.4;
@@ -5549,7 +5535,6 @@ a.thumbnail.active {
   display: none;
   max-width: 276px;
   padding: 1px;
-  font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 16px;
   font-weight: normal;
   line-height: 1.625;
@@ -5806,7 +5791,6 @@ a.thumbnail.active {
   height: 20px;
   margin-top: -10px;
   line-height: 1;
-  font-family: serif;
 }
 .carousel-control .icon-prev:before {
   content: '\2039';
@@ -6784,7 +6768,6 @@ input#submit.active {
   }
 }
 #comments .comment .fn {
-  font-family: "Roboto Slab";
   font-size: 20px;
 }
 #comments .comment .says {

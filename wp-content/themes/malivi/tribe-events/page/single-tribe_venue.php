@@ -1,41 +1,21 @@
 <?php
-/**
- * Single Venue Template
- * The template for a venue. By default it displays venue information and lists
- * events that occur at the specified venue.
- *
- * This view contains the filters required to create an effective single venue view.
- *
- * You can recreate an ENTIRELY new single venue view by doing a template override, and placing
- * a single-venue.php file in a tribe-events/pro/ directory within your theme directory, which
- * will override the /views/pro/single-venue.php.
- *
- * You can use any or all filters included in this file or create your own filters in
- * your functions.php. In order to modify or extend a single filter, please see our
- * readme on templates hooks and filters (TO-DO)
- *
- * @package TribeEventsCalendarPro
- *
- */
-
 if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
-
 $venue_id = get_the_ID();
 ?>
 
 <div id="tribe-events-content" class="tribe-events-single tribe-events-venue">
 
 	<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
-		<header class="entry-header">
+		<header class="entry-header group-element">
 			<h1 class="entry-title" itemprop="name"><?php the_title(); ?></h1>
 		</header>
 
 		<div class="entry-content" itemprop="articleBody">
 			<div class="tribe-events-list-event-description">
 				<!-- Venue Featured Image -->
-				<?php echo tribe_event_featured_image( null, 'medium' ) ?>
+				<?php echo tribe_event_featured_image( null, 'full' ) ?>
 				<!-- Venue Description -->
 				<div class="tribe-venue-description tribe-events-content">
 					<?php the_content(); ?>
