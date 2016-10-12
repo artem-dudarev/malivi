@@ -176,7 +176,7 @@ a.events-list-row {
 }
 @media (max-width: 767px) {
     .events-list-post-date-thumbnail-title {
-        font-size: 2em;
+        font-size: 1.8em;
         line-height: 1em;
         margin-top: 15px;
     }
