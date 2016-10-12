@@ -473,7 +473,7 @@ jQuery( document ).ready( function() {
 
 	// Добавим автоподгрузку на скрол
 	// Each time the user scrolls
-	jQuery('#primary').scroll(function() {
+	jQuery(document).scroll(function() {
 		//$events_list_container = jQuery('.entry-content').prepend('<div>' + win.scrollTop() + '</div>');
 		// End of the document reached?
 		var content_height = jQuery('.site-content').height();
