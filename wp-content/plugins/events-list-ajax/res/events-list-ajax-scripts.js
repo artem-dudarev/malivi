@@ -474,11 +474,10 @@ jQuery( document ).ready( function() {
 	// Добавим автоподгрузку на скрол
 	// Each time the user scrolls
 	jQuery(document).scroll(function() {
-		//$events_list_container = jQuery('.entry-content').prepend('<div>' + win.scrollTop() + '</div>');
 		// End of the document reached?
 		var content_height = jQuery('.site-content').height();
-		var container_height = jQuery(this).height();
-		var required_scroll = content_height - container_height*5/4;
+		var container_height = jQuery('body').height();
+		var required_scroll = content_height - container_height*3/2;
 		//jQuery('.site-description').html('required_scroll='+required_scroll+' current='+jQuery(this).scrollTop());
 		if (!isQueryInProgress && jQuery(this).scrollTop() > required_scroll) {
 			//$('#loading').show();
