@@ -451,14 +451,28 @@ body {
   }
 }
 .hentry {
-  padding: 0px 25px;
-  position: relative;
+  padding: 0;
+}
+#comments {
+  margin-top: 20px;
 }
 @media (max-width: 991px) {
   .hentry {
-    padding: 5px 5px;
+    padding: 20px 10px 10px 10px;
+  }
+  #comments {
+    margin: 10px;
   }
 }
+@media (max-width: 767px) {
+  .hentry {
+    padding: 5px;
+  }
+  #comments {
+    margin: 5px;
+  }
+}
+
 .hentry .entry-thumbnail,
 .hentry .entry-media {
   margin: 30px 0 0;
