@@ -13,7 +13,7 @@ $venue_id = get_the_ID();
 		</header>
 
 		<div class="entry-content" itemprop="articleBody">
-			<div class="tribe-events-list-event-description">
+			<div class="tribe-events-list-event-description group-element">
 				<!-- Venue Featured Image -->
 				<?php echo tribe_event_featured_image( null, 'full' ) ?>
 				<!-- Venue Description -->

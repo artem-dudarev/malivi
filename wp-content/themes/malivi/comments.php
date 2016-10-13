@@ -2,7 +2,7 @@
 
 <?php flat_hook_comments_before(); ?>
 
-<div id="comments" class="comments-area hentry">
+<div id="comments" class="comments-area">
 	<div class ="comments-content group-element">
 		<?php flat_hook_comments_top(); ?>
 
