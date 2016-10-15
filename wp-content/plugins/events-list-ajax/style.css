@@ -212,10 +212,12 @@ a.events-list-row {
 .events-list-post-date-thumbnail-title-small {
     font-size: 1.8em;
     line-height: 1em;
+    margin-top: 15px;
 }
 @media (max-width: 767px) {
     .events-list-post-date-thumbnail-title-small {
         font-size: 1.6em;
+        margin-top: 5px;
     }
 }
 
