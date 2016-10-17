@@ -22,7 +22,7 @@ $more = false;
 <div class="events-list-table">
 
 	<?php while ( have_posts() ) : the_post(); ?>
-		<?php tribe_get_template_part( 'list/row' ) ?>
+		<?php tribe_get_template_part( 'list/single', get_post_type() ) ?>
 	<?php endwhile; ?>
 
 </div><!-- .tribe-events-loop -->

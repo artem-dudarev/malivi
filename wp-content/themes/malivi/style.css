@@ -194,7 +194,6 @@ body {
 }
 @media (max-width: 991px) {
   #secondary {
-    background: none;
     position: fixed;
     margin-top: -40px;
     left: 0;
@@ -558,7 +557,11 @@ body {
 }
 
 .coloring-for-group {
-  border-top: 6px solid #8bd623;
-  color: #8bd623;
+  border-top: 6px solid #44a2bf;
+  color: #44a2bf;
   box-sizing: content-box;
+}
+.coloring-for-group-weekend {
+  border-color: #8d6fcf;
+  color: #8d6fcf;
 }

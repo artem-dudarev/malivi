@@ -161,6 +161,8 @@ var min_acceptable_request_id = 1;
 // Статус выполняется ли запрос на сервер
 var isQueryInProgress = false;
 
+var lastDate = -1;
+
 function GetFilterResults( is_append ) {
 	var wrapper = jQuery( '.sf-wrapper' );
 	var filters_data = CollectData( wrapper, false );
@@ -172,9 +174,13 @@ function GetFilterResults( is_append ) {
 		if (current_page == pages_count) {
 			return;
 		}
+		if (lastDate == -1) {
+			lastDate = events_list_container.attr('last-date');
+		}
 		current_page++;
 	} else {
 		current_page = 1;
+		lastDate = -1;
 		min_acceptable_request_id = current_request_id;
 	}
  	isQueryInProgress = true;
@@ -185,7 +191,8 @@ function GetFilterResults( is_append ) {
 		action		:	'sf-search',
 		data		:	filters_data,
 		request_id	: 	current_request_id,
-		page		: 	current_page
+		page		: 	current_page,
+		last_date	:	lastDate
 	};
 
 	var request_id = current_request_id;
@@ -211,6 +218,7 @@ function GetFilterResults( is_append ) {
 				isQueryInProgress = false;
 				return;
 			}
+			lastDate = response.last_date;
 			if(is_append) {
 				events_list_container.append(response.html);
 			} else {

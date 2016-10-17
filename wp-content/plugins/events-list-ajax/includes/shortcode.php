@@ -228,7 +228,7 @@
 </div><!-- sf-wrapper -->
 
 <!-- Контейнер для получаемых с сервера элементов -->
-<div class="events-list-table" pages-count="<?php echo $posts_data['pages_count'] ?>">
+<div class="events-list-table" pages-count="<?php echo $posts_data['pages_count']?>" last-date="<?php echo $posts_data['last_date']?>">
 	<?php echo $posts_data['html'] ?>
 </div>
 

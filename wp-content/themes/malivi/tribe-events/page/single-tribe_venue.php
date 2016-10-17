@@ -17,7 +17,7 @@ $venue_id = get_the_ID();
 				<!-- Venue Featured Image -->
 				<?php echo tribe_event_featured_image( null, 'full' ) ?>
 				<!-- Venue Description -->
-				<div class="tribe-venue-description tribe-events-content">
+				<div class="tribe-event-description tribe-events-content">
 					<?php the_content(); ?>
 				</div>
 			</div>

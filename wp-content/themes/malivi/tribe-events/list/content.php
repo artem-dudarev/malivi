@@ -43,6 +43,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<?php do_action( 'tribe_events_before_loop' ); ?>
 		<?php tribe_get_template_part( 'list/loop' ) ?>
 		<?php do_action( 'tribe_events_after_loop' ); ?>
+		<?php wp_reset_postdata() ?>
 	<?php endif; ?>
 
 	<!-- List Footer -->
