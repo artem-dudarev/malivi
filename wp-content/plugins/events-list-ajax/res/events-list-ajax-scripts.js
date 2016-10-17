@@ -142,9 +142,9 @@ function GetUrlParameter(key, url) {
 
 function SetPageScrollEnabled(is_enabled) {
 	if (is_enabled) {
-		jQuery('#page').removeClass('no-scroll');
+		jQuery('body').removeClass('no-scroll');
 	} else {
-		jQuery('#page').addClass('no-scroll');
+		jQuery('body').addClass('no-scroll');
 	}
 }
 
