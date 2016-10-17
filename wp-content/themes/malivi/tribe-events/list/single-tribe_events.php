@@ -64,13 +64,21 @@ $row_class = '';
 if (Tribe__Date_Utils::is_weekend($event_date)) {
 	$row_class = 'coloring-for-group-weekend';
 }
-global $events_list_last_date;
 
+global $events_list_last_date;
 if (isset($events_list_last_date) && $events_list_last_date != -1 && $events_list_last_date != $event_date) {
-	echo '<div class="events-list-days-divider"><span class="events-list-days-divider-label">' . $thumbnail_subtitle . '</span></div>';
+	$divider = date_i18n('d M. ( l )', $event_date);
 }
 $events_list_last_date = $event_date;
 ?>
+
+<?php if (isset($divider)) : ?>
+<div class="events-list-days-divider">
+	<span class="events-list-days-divider-label">
+		<?php echo $divider?>
+	</span>
+</div>
+<?endif?>
 
 <a class="events-list-row group-element coloring-for-group <?php echo $row_class ?>" href="<?php the_permalink() ?>" postid="<?php the_ID() ?>" >
 	<?php if ($is_event_free) : ?>
