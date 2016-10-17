@@ -356,6 +356,13 @@ a.events-list-row {
     -webkit-transform: rotate(330deg);
     transform: rotate(330deg);
 }
+@media (max-width: 767px) {
+    .events-list-post-free-overlay {
+        font-size: 0.7em;
+        right: -68px;
+        bottom: 13px;
+    }
+}
 
 .events-list-days-divider {
     margin: 40px 0 45px 0;
