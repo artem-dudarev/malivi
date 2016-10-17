@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		</header>
 		<div class="entry-content" itemprop="articleBody">
 			<?php flat_hook_entry_top(); ?>
-			<div class="tribe-events-list-event-description">
+			<div class="tribe-events-list-event-description group-element">
 				<!-- Event featured image, but exclude link -->
 				<?php echo tribe_event_featured_image( $event_id, 'full', false ); ?>
 

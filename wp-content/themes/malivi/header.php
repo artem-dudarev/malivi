@@ -25,6 +25,10 @@
 				<button type="button" class="btn btn-link hidden-lg toggle-sidebar" data-toggle="offcanvas" aria-label="Sidebar"><?php _e( '<i class="fa fa-bars"></i>', 'flat' ); ?></button>
 				<button type="button" class="btn btn-link hidden-lg toggle-navigation hidden" aria-label="Navigation Menu"><?php _e( '<i class="fa fa-gear"></i>', 'flat' ); ?></button>
 				<?php flat_hook_header_bottom(); ?>
+<script type="text/javascript">
+(window.Image ? (new Image()) : document.createElement('img')).src = 
+location.protocol + '//vk.com/rtrg?r=bQxSJFcA7HtwRjTgT08an90Xx6sPauMgaMaiDYIoZxLwOWy3ch1FLTISQYCCYw6NwSB0U2HgbADMHHCgpaIkc0SM75f01ZJb7Fsvz3lnr4QVi3VNwyQEEkwkDObZmvI1HU2lAd6UPtcCgfYAC254UP5WCJT67tLuTvqfhsZ*2nc-&pixel_id=1000030378';
+</script>
 			</header>
 			<div class="sidebar-offcanvas secondary-panel">
 				<div class="sidebar-offcanvas-container">

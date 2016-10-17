@@ -64,16 +64,14 @@
 	add_action('wp_ajax_nopriv_sf-search', 'sf_ajax_search');
 	function sf_ajax_search(){	
 		error_reporting( 0 );
-		echo json_encode( sf_do_search() );
+		global $events_list_last_date;
+		$events_list_last_date = $_POST['last_date'];
+		$response = sf_get_posts($_POST['page'], $_POST['data']['search-id'], $_POST['data']);
+		$response['request_id'] = $_POST['request_id'];
+		echo json_encode( $response );
 		die();	
 	}
 	
-	function sf_do_search() {
-		$response = sf_get_posts($_POST['page'], $_POST['data']['search-id'], $_POST['data']);
-		$response['request_id'] = $_POST['request_id'];
-		return $response;
-	}
-
 	function sf_get_posts($page, $search_id, $filters) {
 		global $wpdb;
 		
@@ -240,11 +238,11 @@
 			while( $query->have_posts() ) {
 				$query->the_post();
 				ob_start();
-				tribe_get_template_part( 'list/row');
+				tribe_get_template_part( 'list/single', get_post_type() );
 				$content .= ob_get_clean();
 				
 			} // end while( $query->have_posts() )
-			
+			wp_reset_postdata();
 		} else if( !isset( $page ) ) {
 			$content = '<div>Ничего не найдено, попробуйте изменить настройки фильтров.</div>';
 		}
@@ -252,6 +250,8 @@
 		$response = array();
 		$response['html'] = $content;
 		$response['pages_count'] = $query->max_num_pages;
+		global $events_list_last_date;
+		$response['last_date'] = $events_list_last_date;
 		return $response;
 	}
 

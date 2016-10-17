@@ -156,6 +156,7 @@ h2.tribe-events-page-title {
 a.events-list-row {
     overflow: hidden;
     display: block;
+    position: relative;
     width: 100%;
     margin-bottom: 16px;
     height: 100px;
@@ -341,18 +342,49 @@ a.events-list-row {
     }
 }
 
+/* -------------------------- overlay -------------------------- */
+.events-list-post-free-overlay {
+    width: 200px;
+    text-align: center;
+    color: #ea3c36;
+    background-color: #fff;
+    position: absolute;
+    bottom: 17px;
+    right: -55px;
+    border: 1px solid;
+    -ms-transform: rotate(330deg);
+    -webkit-transform: rotate(330deg);
+    transform: rotate(330deg);
+}
+
+.events-list-days-divider {
+    margin: 40px 0 45px 0;
+    color: #aaa;
+    border-bottom: solid 1px;
+    text-align: center;
+    height: 0.65em;
+}
+@media (max-width: 767px) {
+    .events-list-days-divider {
+        margin: 20px 0 25px 0;
+    }
+}
+
+.events-list-days-divider-label {
+    padding: 0 10px;
+    background: rgb(236, 240, 245);
+}
+
 /* -------------------------- end of shortcodes styles -------------------------- */
 
 /* Затемнение заднего фона, во время появления всплывающего диалога */
 .popup-dialog-shadow {
-	
 	width: 100%;
 	height: 100%;
 	position: fixed;
 	top: 0;
 	left: 0;
 	z-index: 100;
-    
 }
 
 /* Врапер для всплывающего диалога, внутри которого происходит скрол диалога */

@@ -26,16 +26,18 @@ if (empty($thumbnail) || $thumbnail == false) {
 			
 ?>
 
-<div class="events-list-post-image-thumbnail events-list-cell" >
-	<?php echo $image_content;?>
-</div>
-
-<div class="events-list-post-text-cell events-list-post-text" >
-	<div class="events-list-post-text-header">
-		<?php echo $title; ?>
+<a class="events-list-row group-element coloring-for-group" href="<?php the_permalink() ?>" postid="<?php the_ID() ?>" >
+	<div class="events-list-post-image-thumbnail events-list-cell" >
+		<?php echo $image_content;?>
 	</div>
 
-	<div class="events-list-post-text-content">
-		<?php echo event_list_custom_excerpt('25', 'true'); ?>
+	<div class="events-list-post-text-cell events-list-post-text" >
+		<div class="events-list-post-text-header">
+			<?php echo $title; ?>
+		</div>
+
+		<div class="events-list-post-text-content">
+			<?php echo event_list_custom_excerpt('25', 'true'); ?>
+		</div>
 	</div>
-</div>
+</a>

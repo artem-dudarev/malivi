@@ -97,7 +97,7 @@
 		//delete_metadata( 'post', $event_id, '_EventIsForChildren' );
 	}
 
-	add_action( 'get_the_date', 'return_event_date_instead_of_publish_date', 10, 3 );
+	//add_action( 'get_the_date', 'return_event_date_instead_of_publish_date', 10, 3 );
 	function return_event_date_instead_of_publish_date( $the_date, $d, $post ) {
 		if ( is_int( $post) ) {
 			$post_id = $post;
@@ -155,6 +155,20 @@
 	// include our view class
 	//add_action( 'template_redirect', 'events_handle_template_redirect' );
 	function events_handle_template_redirect() {
+	}
+
+	function el_get_event_time($post_id) {
+		if (!isset($post_id)) {
+			$post_id = get_the_ID();
+		}
+		return get_post_meta( $post_id, '_EventStartDate', true );
+	}
+
+	function el_get_event_time_f($post_id, $date_format) {
+		if (!isset($post_id)) {
+			$post_id = get_the_ID();
+		}
+		return date_i18n( $date_format, strtotime(get_post_meta( $post_id, '_EventStartDate', true ) ) );
 	}
 
 ?>
