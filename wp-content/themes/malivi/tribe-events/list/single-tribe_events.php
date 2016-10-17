@@ -78,7 +78,7 @@ $events_list_last_date = $event_date;
 		<?php echo $divider?>
 	</span>
 </div>
-<?endif?>
+<?php endif?>
 
 <a class="events-list-row group-element coloring-for-group <?php echo $row_class ?>" href="<?php the_permalink() ?>" postid="<?php the_ID() ?>" >
 	<?php if ($is_event_free) : ?>
