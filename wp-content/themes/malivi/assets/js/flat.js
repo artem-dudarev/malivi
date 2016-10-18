@@ -2276,36 +2276,158 @@
 
 }(jQuery);
 
+function SetPageScrollEnabled(is_enabled) {
+	if (is_enabled) {
+		jQuery('body').removeClass('no-scroll');
+	} else {
+		jQuery('body').addClass('no-scroll');
+	}
+}
+
+var sidebar;
+
+var isSidebarActive = false;
 function ToggleSidebar() {
-  jQuery('#secondary').toggleClass('active');
+  SetSidebarActive(!isSidebarActive);
+}
+
+function SetSidebarActive(active) {
+  if (isSidebarActive == active) {
+    return;
+  }
+  isSidebarActive = active;
+  SetPageScrollEnabled(!active);
+  sidebar.toggleClass('active');
   jQuery('#primary').toggleClass('no-scroll-blocked-mobile');
-  if (jQuery('#secondary').hasClass('active')) {
-    jQuery('#secondary').toggleClass('enabled');
+  if (sidebar.hasClass('active')) {
+    sidebar.toggleClass('enabled');
   } else {
     setTimeout(function() {
-      jQuery('#secondary').toggleClass('enabled');
+      sidebar.toggleClass('enabled');
     }, 250);
   }
 }
+
+function scrollGetY() {
+  return window.pageYOffset || document.documentElement.scrollTop;
+}
+
+var sidebarScrollDisabled = true;
+var sidebarIsFixed = false;
+var lastScroll = 0;
+var topOffset = 0;
+
+function OnBodyScroll() {
+  if (sidebarScrollDisabled) {
+    lastScroll = scroll;
+    return;
+  }
+  var windowHeight = jQuery(window).height();
+  var barHeight = sidebar.outerHeight();
+
+  var scroll = scrollGetY();//, barHeight - windowHeight);
+  var styles = {};
+
+  /* ,
+      pl = ge('page_layout'), head = ge('page_header_wrap'), headH = vk.staticheader ? Math.max(0, getSize(head)[1] - st) : getSize(head)[1],
+      barMT = floatval(getStyle(barBlock, 'marginTop')), barH = getSize(bar)[1] - (sidebarIsFixed ? barMT : 0),
+      pageH = getSize(wideCol)[1], pagePos = getXY(wideCol)[1], tooBig = barH >= pageH - barMT,
+      barBottom = st + wh - pageH - pagePos - barMT,
+      barPB = Math.max(0, barBottom), barPT = pagePos - headH,
+      barPos = getXY(bar)[1] + (sidebarIsFixed ? barMT : 0),
+      lastSt = cur.lastSt || 0, lastStyles = cur.lastStyles || {},
+      ;
+*/
+  var needFix; 
+  if (scroll > lastScroll) {
+    if (!sidebarIsFixed && scroll + windowHeight > topOffset + barHeight) {
+      console.log("case1");
+      sidebar.css("margin-top", "");
+      sidebar.css("top", "");
+      sidebar.css("bottom", "0");
+      needFix = true;
+    } else if(sidebarIsFixed && scroll + windowHeight < topOffset + barHeight) {
+      console.log("case2");
+      sidebar.css("top", "");
+      sidebar.css("bottom", "");
+      sidebar.css("margin-top", lastScroll);
+      topOffset = lastScroll;
+      needFix = false;
+    }
+  } else {
+    if(sidebarIsFixed && scroll > topOffset) {
+      console.log("case3");
+      sidebar.css("top", "");
+      sidebar.css("bottom", "");
+      sidebar.css("margin-top", lastScroll - barHeight + windowHeight);
+      topOffset = lastScroll - barHeight + windowHeight;
+      needFix = false;
+    } else if (!sidebarIsFixed && scroll < topOffset) {
+      console.log("case4");
+      sidebar.css("margin-top", "");
+      sidebar.css("bottom", "");
+      sidebar.css("top", "0");
+      needFix = true;
+    }
+  }
+  
+  if (needFix != undefined && needFix != sidebarIsFixed) {
+    sidebarIsFixed = needFix;
+    sidebar.toggleClass('fixed', needFix);
+  }
+  lastScroll = scroll;
+}
+
+function OnBodyResize() {
+  if(window.innerWidth < 992) {
+    sidebar.css("margin-top", "");
+    sidebar.css("bottom", "");
+    sidebar.css("top", "");
+    sidebar.toggleClass('fixed', false);
+    sidebarScrollDisabled = true;
+    return;
+  }
+  SetSidebarActive(false);
+  var windowHeight = jQuery('body').height();
+  var barHeight = sidebar.outerHeight();
+  if (barHeight < windowHeight) {
+    sidebarScrollDisabled = true;
+    sidebar.toggleClass('fixed', true);
+    sidebarIsFixed = true;
+    sidebar.css("top", "0");
+  } else {
+    if (sidebarScrollDisabled) {
+      sidebar.toggleClass('fixed', true);
+      sidebarIsFixed = true;
+      sidebar.css("top", "0");
+    }
+    sidebarScrollDisabled = false;
+  }
+}
+
 
 ;(function($){
 	'use strict';
   
   $(document).ready(function() {
+    sidebar = jQuery('#secondary');
+    if(sidebar.length == 0) {
+      return;
+    }
     // Если поддерживается тач, то включим открытие меню на свайп
     if('ontouchstart' in document.documentElement) {
       jQuery(window).swiperight( function(e) {
-        if (!jQuery('#secondary').hasClass('active')) {
+        if (!sidebar.hasClass('active')) {
           ToggleSidebar();
         }
       });
       jQuery(window).swipeleft( function(e) {
-        if (jQuery('#secondary').hasClass('active')) {
+        if (sidebar.hasClass('active')) {
           ToggleSidebar();
         }
       });
     }
-    $('#secondary').click(function(e) {
+    sidebar.click(function(e) {
       if (e.target == this) {
         ToggleSidebar();
       }
@@ -2318,12 +2440,17 @@ function ToggleSidebar() {
     });*/
 
     var win = jQuery(window);
+    win.resize(OnBodyResize);
+    win.scroll(OnBodyScroll);
     win.keydown(function(e) {
-      if (jQuery('#secondary').hasClass('active') && e.keyCode == 27) { // escape key maps to keycode `27`
+      if (sidebar.hasClass('active') && e.keyCode == 27) { // escape key maps to keycode `27`
         event.preventDefault();
         ToggleSidebar();
       }
     });
+
+    sidebar.resize(OnBodyResize);
+    OnBodyResize();
     
 
 

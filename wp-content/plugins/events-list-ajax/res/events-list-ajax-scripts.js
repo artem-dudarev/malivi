@@ -478,6 +478,7 @@ jQuery( document ).ready( function() {
 		return;
 	}
 	wrapper.prependTo(anchor);
+	jQuery('#secondary').trigger('resize');
 
 	// Добавим автоподгрузку на скрол
 	// Each time the user scrolls

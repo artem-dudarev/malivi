@@ -66,8 +66,11 @@ if (Tribe__Date_Utils::is_weekend($event_date)) {
 }
 
 global $events_list_last_date;
-if (isset($events_list_last_date) && $events_list_last_date != -1 && $events_list_last_date != $event_date) {
-	$divider = date_i18n('d M. ( l )', $event_date);
+if ($events_list_last_date != $event_date) {
+	$divider = date_i18n('d M, l ', $event_date);
+	if ($event_date == $current_date) {
+		$divider = 'Сейчас ' . current_time('H:i, ') . $divider;
+	}
 }
 $events_list_last_date = $event_date;
 ?>
