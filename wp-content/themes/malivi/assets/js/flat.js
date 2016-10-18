@@ -2319,7 +2319,6 @@ var topOffset = 0;
 
 function OnBodyScroll() {
   if (sidebarScrollDisabled) {
-    lastScroll = scroll;
     return;
   }
   var windowHeight = jQuery(window).height();
@@ -2375,16 +2374,19 @@ function OnBodyScroll() {
     sidebarIsFixed = needFix;
     sidebar.toggleClass('fixed', needFix);
   }
+  
   lastScroll = scroll;
 }
 
 function OnBodyResize() {
   if(window.innerWidth < 992) {
-    sidebar.css("margin-top", "");
-    sidebar.css("bottom", "");
-    sidebar.css("top", "");
-    sidebar.toggleClass('fixed', false);
-    sidebarScrollDisabled = true;
+    if (!sidebarScrollDisabled) {
+      sidebar.css("margin-top", "");
+      sidebar.css("bottom", "");
+      sidebar.css("top", "");
+      sidebar.toggleClass('fixed', false);
+      sidebarScrollDisabled = true;
+    }
     return;
   }
   SetSidebarActive(false);
@@ -2402,6 +2404,8 @@ function OnBodyResize() {
       sidebar.css("top", "0");
     }
     sidebarScrollDisabled = false;
+    lastScroll = scrollGetY();
+    topOffset = lastScroll;
   }
 }
 
