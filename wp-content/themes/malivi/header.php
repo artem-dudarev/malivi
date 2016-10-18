@@ -18,11 +18,11 @@
 		<div id="secondary">
 			<?php flat_hook_header_before(); ?>
 			<header id="masthead" class="site-header secondary-panel" role="banner">
+				<button type="button" class="btn btn-link hidden-lg toggle-sidebar" data-toggle="offcanvas" aria-label="Sidebar"><?php _e( '<i class="fa fa-bars"></i>', 'flat' ); ?></button>
 				<?php flat_hook_header_top(); ?>
 				<div class="hgroup">
 					<?php flat_logo(); ?>
 				</div>
-				<button type="button" class="btn btn-link hidden-lg toggle-sidebar" data-toggle="offcanvas" aria-label="Sidebar"><?php _e( '<i class="fa fa-bars"></i>', 'flat' ); ?></button>
 				<button type="button" class="btn btn-link hidden-lg toggle-navigation hidden" aria-label="Navigation Menu"><?php _e( '<i class="fa fa-gear"></i>', 'flat' ); ?></button>
 				<?php flat_hook_header_bottom(); ?>
 <script type="text/javascript">
