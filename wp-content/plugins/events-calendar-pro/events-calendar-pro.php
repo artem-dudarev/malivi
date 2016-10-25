@@ -38,7 +38,6 @@ function Tribe_ECP_Load() {
 
 	if ( apply_filters( 'tribe_ecp_to_run_or_not_to_run', $version_ok ) ) {
 		add_filter( 'tribe_tec_addons', 'tribe_init_ecp_addon' );
-		new Tribe__Events__Pro__PUE( __FILE__ );
 		Tribe__Events__Pro__Main::instance();
 	} else {
 		/**

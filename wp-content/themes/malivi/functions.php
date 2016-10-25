@@ -61,6 +61,7 @@ if ( ! function_exists( 'flat_setup' ) ) :
 
 		# Flat has one navigation menu; register it with WordPress
 		register_nav_menu( 'primary', __( 'Navigation Menu', 'flat' ) );
+		register_nav_menu( 'editors', __( 'Editors Menu', 'flat' ) );
 
 		# Add filters
 		add_filter( 'comments_popup_link_attributes', function() { return ' itemprop="discussionUrl"'; } ); # schema.org property on comments links

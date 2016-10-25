@@ -744,7 +744,7 @@ class Tribe__Events__Linked_Posts {
 
 		$post_type_object = get_post_type_object( $post_type );
 
-		if ( current_user_can( $post_type_object->cap->edit_others_posts ) ) {
+		if ( $current_user->has_cap( $post_type_object->cap->read_private_posts ) ) {
 			$linked_posts = $this->get_linked_post_info(
 				$post_type,
 				array(
@@ -758,13 +758,13 @@ class Tribe__Events__Linked_Posts {
 				)
 			);
 		} else {
-			$linked_posts = $this->get_linked_post_info(
+			/*$linked_posts = $this->get_linked_post_info(
 				$post_type,
 				array(
 					'post_status'  => 'publish',
 					'post__not_in' => $my_linked_post_ids,
 				)
-			);
+			);*/
 		}
 
 		$plural_name = $this->linked_post_types[ $post_type ]['name'];
@@ -774,13 +774,14 @@ class Tribe__Events__Linked_Posts {
 		if ( $linked_posts || $my_linked_posts ) {
 			$linked_post_pto = get_post_type_object( $post_type );
 			echo '<select class="chosen linked-post-dropdown" name="' . esc_attr( $name ) . '" id="saved_' . esc_attr( $post_type ) . '">';
-			if (
+			/*if (
 				! empty( $linked_post_pto->cap->create_posts )
 				&& current_user_can( $linked_post_pto->cap->create_posts )
 				&& ! empty( $this->linked_post_types[ $post_type ]['allow_creation'] )
 			) {
 				echo '<option value="0">' . sprintf( esc_html__( 'Use New %s', 'the-events-calendar' ), $singular_name ) . '</option>';
-			}
+			}*/
+			echo '<option>' . '</option>';
 
 			if ( $my_linked_posts ) {
 				$my_optgroup_name = sprintf( esc_html__( 'My %s', 'the-events-calendar' ), $plural_name );

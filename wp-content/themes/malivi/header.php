@@ -33,7 +33,12 @@ location.protocol + '//vk.com/rtrg?r=bQxSJFcA7HtwRjTgT08an90Xx6sPauMgaMaiDYIoZxL
 			<div class="sidebar-offcanvas secondary-panel">
 				<div class="sidebar-offcanvas-container">
 					<nav id="site-navigation" class="navigation main-navigation" role="navigation">
-						<?php wp_nav_menu( array( 'theme_location' => 'primary', 'menu_class' => 'nav-menu', 'container' => false ) ); ?>
+						<?php 
+						wp_nav_menu( array( 'theme_location' => 'primary', 'menu_class' => 'nav-menu', 'container' => false ) );
+						if (apply_filters('check_user_is_writer', false)) {
+							wp_nav_menu( array( 'theme_location' => 'editors', 'menu_class' => 'nav-menu', 'container' => false ) );
+						} 
+						?>
 					</nav>
 					<?php get_sidebar(); ?>
 				</div>

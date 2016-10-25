@@ -23,11 +23,19 @@
 		return $variants;
 	}
 
-	add_action( 'init', 'register_events_directions' );
-	function register_events_directions() {
+	
+	add_action( 'init', 'register_events_extensions' );
+	function register_events_extensions() {
 		if ( !class_exists( 'Tribe__Events__Main' ) ) {
 			return;
 		}
+
+		$roles = array ('administrator', 'editor', 'author', 'contributor');
+		foreach ($roles as $role) {
+			$role = get_role($role);
+			$role->add_cap('read_private_tribe_venues');
+		}
+		
 		// Дополнительные категории для событий
 		register_taxonomy(
 			'events_directions',
@@ -71,7 +79,7 @@
 		add_post_type_support(Tribe__Events__Organizer::POSTTYPE, array('thumbnail', 'author', 'revisions'));
 	}
 
-	add_action( 'tribe_events_eventform_top', 'event_config_extension', 10, 1 );
+	//add_action( 'tribe_events_eventform_top', 'event_config_extension', 10, 1 );
 	function event_config_extension($event_id) {
 		$fields_data = array();
 		$debug_log = '';
@@ -87,7 +95,7 @@
 		include( SF_DIR . 'templates/event_config.php' );
 	}
 
-	add_action ('tribe_events_event_save', 'save_event_extensions', 10, 1);
+	//add_action ('tribe_events_event_save', 'save_event_extensions', 10, 1);
 	function save_event_extensions($event_id) {
 		foreach (get_malivi_custom_fields() as $custom_field_name => $default_value) {
 			$value = isset($_POST[$custom_field_name]) ? $_POST[$custom_field_name] : $default_value;
@@ -169,6 +177,19 @@
 			$post_id = get_the_ID();
 		}
 		return date_i18n( $date_format, strtotime(get_post_meta( $post_id, '_EventStartDate', true ) ) );
+	}
+
+
+	add_filter( 'term_link', 'override_category_link', 10, 3);
+
+	function override_category_link($termlink, $term, $taxonomy) {
+		return '#';
+	}
+
+	add_filter( 'check_user_is_writer', 'check_user_is_writer', 10, 1);
+
+	function check_user_is_writer($value) {
+		return $value || current_user_can('edit_posts');
 	}
 
 ?>

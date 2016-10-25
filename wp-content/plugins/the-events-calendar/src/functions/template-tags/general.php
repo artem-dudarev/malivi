@@ -354,7 +354,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 *
 	 * @return string HTML string of taxonomy terms
 	 */
-	function tribe_get_event_taxonomy( $post_id = null, $args = array() ) {
+	function tribe_get_event_taxonomy( $post_id = null, &$args) {
 		$post_id   = Tribe__Events__Main::postIdHelper( $post_id );
 		$tribe_ecp = Tribe__Events__Main::instance();
 		$defaults  = array(
@@ -363,11 +363,16 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 			'sep'      => '</li><li>',
 			'after'    => '</li>',
 		);
+		
 		$args      = wp_parse_args( $args, $defaults );
 		extract( $args, EXTR_SKIP );
-		$taxonomy = get_the_term_list( $post_id, $taxonomy, $before, $sep, $after );
-
-		return apply_filters( 'tribe_get_event_taxonomy', $taxonomy, $post_id, $args );
+		if ( null === $args[ 'label' ] ) {
+			$tax = get_taxonomy($taxonomy);
+			$args[ 'label' ] = $tax->label;
+		}
+		$taxonomy_list = get_the_term_list( $post_id, $taxonomy, $before, $sep, $after );
+		
+		return apply_filters( 'tribe_get_event_taxonomy', $taxonomy_list, $post_id, $args );
 	}
 
 	/**
@@ -554,7 +559,6 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		$before = wpautop( $before );
 		$before = do_shortcode( stripslashes( shortcode_unautop( $before ) ) );
 		$before = '<div class="tribe-events-before-html">' . $before . '</div>';
-		$before = $before . '<span class="tribe-events-ajax-loading"><img class="tribe-events-spinner-medium" src="' . tribe_events_resource_url( 'images/tribe-loading.gif' ) . '" alt="' . sprintf( esc_html__( 'Loading %s', 'the-events-calendar' ), $events_label_plural ) . '" /></span>';
 
 		echo apply_filters( 'tribe_events_before_html', $before );
 	}

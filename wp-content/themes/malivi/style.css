@@ -237,8 +237,6 @@ body {
 
 #primary {
   padding: 0;
-  overflow-y: auto; 
-
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -279,6 +277,11 @@ body {
     padding: 20px 30px;
   }
 }
+
+.site-content {
+  margin-bottom: 10px;
+}
+
 #site-navigation {
   padding: 0;
   border-top: none;
@@ -530,6 +533,7 @@ body {
   border-radius: 3px;
   background: #fff;
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.13);
+  /*box-shadow: 0 1px 0 0 #d7d8db, 0 0 0 1px #e3e4e8;*/
 }
 
 .coloring-for-group {

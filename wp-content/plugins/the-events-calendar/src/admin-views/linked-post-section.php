@@ -28,7 +28,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		if ( Tribe__Events__Organizer::POSTTYPE === $linked_post_type ) {
 			do_action( 'tribe_organizer_table_top', $event->ID );
 		} elseif ( Tribe__Events__Venue::POSTTYPE === $linked_post_type ) {
-			do_action( 'tribe_location_table_top', $event->ID );
+			do_action( 'tribe_venue_table_top', $event->ID );
 		}
 		do_action( 'tribe_linked_post_table_top', $event->ID, $linked_post_type );
 		?>

@@ -309,10 +309,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			require_once $this->plugin_path . 'src/functions/advanced-functions/linked-posts.php';
 			require_once $this->plugin_path . 'src/functions/utils/array.php';
 
-			// Load Deprecated Template Tags
-			if ( ! defined( 'TRIBE_DISABLE_DEPRECATED_TAGS' ) ) {
-				require_once $this->plugin_path . 'src/functions/template-tags/deprecated.php';
-			}
 		}
 
 		/**
@@ -359,11 +355,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			$tec = self::instance();
 
-			$data_attributes = array(
-				'live_ajax'         => tribe_get_option( 'liveFiltersUpdate', true ) ? 1 : 0,
-				'datepicker_format' => tribe_get_option( 'datepickerFormat' ),
-				'category'          => is_tax( $tec->get_event_taxonomy() ) ? get_query_var( 'term' ) : '',
-			);
+			$data_attributes = array();
 			// allow data attributes to be filtered before display
 			$data_attributes = (array) apply_filters( 'tribe_events_view_data_attributes', $data_attributes );
 
@@ -379,7 +371,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			$this->show_data_wrapper['before'] = false;
 
 			// return filtered html
-			return apply_filters( 'tribe_events_view_before_html_data_wrapper', sprintf( '<div id="tribe-events" class="tribe-no-js" %s>%s', implode( ' ', $attribute_html ), $html ), $data_attributes, $html );
+			return apply_filters( 'tribe_events_view_before_html_data_wrapper', '<div id="tribe-events" class="group-element events-list-content">', $data_attributes, $html );
 		}
 
 		/**
@@ -480,8 +472,12 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			// Load organizer and venue editors
 			add_action( 'admin_menu', array( $this, 'addVenueAndOrganizerEditor' ) );
-			add_action( 'tribe_venue_table_top', array( $this, 'displayEventVenueDropdown' ) );
-			add_action( 'tribe_venue_table_top', array( $this, 'display_rich_snippets_helper' ), 5 );
+			//add_action( 'tribe_venue_table_top', array( $this, 'displayEventVenueDropdown' ) );
+			//add_action( 'tribe_venue_table_top', array( $this, 'display_rich_snippets_helper' ), 5 );
+
+			//add_action( 'tribe_organizer_table_top', array( $this, 'displayEventOrganizerDropdown' ) );
+			//add_action( 'tribe_organizer_table_top', array( $this, 'display_rich_snippets_helper' ), 5 );
+
 
 			add_action( 'template_redirect', array( $this, 'template_redirect' ) );
 
@@ -1607,139 +1603,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			add_submenu_page( 'edit.php?post_type=' . self::POSTTYPE, __( $this->plural_organizer_label, 'the-events-calendar' ), __( $this->plural_organizer_label, 'the-events-calendar' ), 'edit_tribe_organizers', 'edit.php?post_type=' . self::ORGANIZER_POST_TYPE );
 			add_submenu_page( 'edit.php?post_type=' . self::VENUE_POST_TYPE, sprintf( esc_html__( 'Add New %s', 'the-events-calendar' ), $this->singular_venue_label ), sprintf( esc_html__( 'Add New %s', 'the-events-calendar' ), $this->singular_venue_label ), 'edit_tribe_venues', 'post-new.php?post_type=' . self::VENUE_POST_TYPE );
 			add_submenu_page( 'edit.php?post_type=' . self::ORGANIZER_POST_TYPE, sprintf( esc_html__( 'Add New %s', 'the-events-calendar' ), $this->singular_organizer_label ), sprintf( esc_html__( 'Add New %s', 'the-events-calendar' ), $this->singular_organizer_label ), 'edit_tribe_organizers', 'post-new.php?post_type=' . self::ORGANIZER_POST_TYPE );
-		}
-
-		/**
-		 * displays the saved venue dropdown in the event metabox
-		 * Used to be a PRO only feature, but as of 3.0, it is part of Core.
-		 *
-		 * @param int $post_id the event ID for which to create the dropdown
-		 */
-		public function displayEventVenueDropdown( $post_id ) {
-			$venue_id = get_post_meta( $post_id, '_EventVenueID', true );
-
-			// Strange but true: the following func lives in core so is safe to call without a func_exists check
-			$new_community_post = tribe_is_community_edit_event_page() && ! $post_id;
-			$new_admin_post     = 'auto-draft' === get_post_status( $post_id );
-
-			if ( ! $venue_id && ( $new_admin_post || $new_community_post ) ) {
-				$venue_id = $this->defaults()->venue_id();
-			}
-
-			$venue_id = apply_filters( 'tribe_display_event_venue_dropdown_id', $venue_id );
-			?>
-			<tr class="saved-linked-post">
-				<td style="width:170px"><?php printf( __( 'Use Saved %s:', 'the-events-calendar' ), $this->singular_venue_label ); ?></td>
-				<td>
-					<?php
-					Tribe__Events__Linked_Posts::instance()->saved_linked_post_dropdown( Tribe__Events__Venue::POSTTYPE, $venue_id );
-					$venue_pto = get_post_type_object( self::VENUE_POST_TYPE );
-					if ( current_user_can( $venue_pto->cap->edit_posts ) ) {
-						//Use Admin Link Unless on Community Events Editor then use Front End Link to Edit
-						$edit_link = admin_url( sprintf( 'post.php?action=edit&post=%s', $venue_id ) );
-						if ( tribe_is_community_edit_event_page() ) {
-							$edit_link = Tribe__Events__Community__Main::instance()->getUrl( 'edit', $venue_id, null, self::VENUE_POST_TYPE );
-						}
-						?>
-						<div class="edit-venue-link" <?php if ( empty( $venue_id ) ) { ?>style="display:none;"<?php } ?>>
-							<a data-admin-url="<?php echo esc_url( admin_url( 'post.php?action=edit&post=' ) ); ?>" href="<?php echo esc_url( $edit_link ); ?>" target="_blank">
-								<?php echo esc_html( sprintf( __( 'Edit %s', 'the-events-calendar' ), $this->singular_venue_label ) ); ?>
-							</a>
-						</div>
-						<?php
-					}//end if
-					?>
-				</td>
-			</tr>
-		<?php
-		}
-
-		/**
-		 * Display a helper for the user, about the location and microdata for rich snippets
-		 * @param int $postId the event ID to see if the helper is needed
-		 */
-		public function display_rich_snippets_helper( $post_id ) {
-			// Avoid showing this message if we are on the Front End
-			if ( ! is_admin() ) {
-				return;
-			}
-
-			$venue_id = get_post_meta( $post_id, '_EventVenueID', true );
-			if (
-				( ! $post_id || get_post_status( $post_id ) == 'auto-draft' ) &&
-				! $venue_id &&
-				tribe_is_community_edit_event_page()
-			) {
-				$venue_id = $this->defaults()->venue_id();
-			}
-			$venue_id = apply_filters( 'tribe_display_event_venue_dropdown_id', $venue_id );
-
-			// If there is a Venue of some sorts, don't display this message
-			if ( $venue_id ) {
-				return;
-			}
-			?>
-			<tr class="">
-				<td colspan="2"><?php printf( esc_html__( 'Without a defined location your event will not display a %sGoogle Rich Snippet%s on the search results.', 'the-events-calendar' ), '<a href="https://support.google.com/webmasters/answer/164506" target="_blank">', '</a>' ) ?></td>
-			</tr>
-			<?php
-		}
-
-		/**
-		 * displays the saved organizer dropdown in the event metabox
-		 * Used to be a PRO only feature, but as of 3.0, it is part of Core.
-		 *
-		 * @param int $post_id the event ID for which to create the dropdown
-		 *
-		 */
-		public function displayEventOrganizerDropdown( $post_id ) {
-			$current_organizer = get_post_meta( $post_id, '_EventOrganizerID', true );
-
-			if (
-				( ! $post_id || get_post_status( $post_id ) === 'auto-draft' ) &&
-				! $current_organizer &&
-				tribe_is_community_edit_event_page()
-			) {
-				$current_organizer = $this->defaults()->organizer_id();
-			}
-			$current_organizer = apply_filters( 'tribe_display_event_organizer_dropdown_id', $current_organizer );
-
-			?>
-			<tr class="">
-				<td style="width:170px">
-					<label for="saved_organizer"><?php printf( esc_html__( 'Use Saved %s:', 'the-events-calendar' ), $this->singular_organizer_label ); ?></label>
-				</td>
-				<td><?php $this->saved_organizers_dropdown( $current_organizer ); ?> <div class="edit-organizer-link"<?php if ( empty( $current_organizer ) ) { ?> style="display:none;"<?php } ?>><a data-admin-url="<?php echo esc_url( admin_url( 'post.php?action=edit&post=' ) ); ?>" href="<?php echo esc_url( admin_url( sprintf( 'post.php?action=edit&post=%s', $current_organizer ) ) ); ?>" target="_blank"><?php echo esc_html( sprintf( __( 'Edit %s', 'the-events-calendar' ), $this->singular_organizer_label ) ); ?></a></div></td>
-			</tr>
-		<?php
-		}
-
-		/**
-		 * helper function for displaying the saved venue dropdown
-		 * Used to be a PRO only feature, but as of 3.0, it is part of Core.
-		 *
-		 * @deprecated 4.2
-		 *
-		 * @param mixed  $current the current saved venue
-		 * @param string $name    the name value for the field
-		 */
-		public function saved_venues_dropdown( $current = null, $name = 'venue[VenueID]' ) {
-			_deprecated_function( __METHOD__, '4.2', 'Tribe__Events__Linked_Posts::saved_linked_post_dropdown' );
-			Tribe__Events__Linked_Posts::instance()->saved_linked_post_dropdown( Tribe__Events__Venue::POSTTYPE, $current );
-		}
-
-		/**
-		 * helper function for displaying the saved organizer dropdown
-		 * Used to be a PRO only feature, but as of 3.0, it is part of Core.
-		 *
-		 * @deprecated 4.2
-		 *
-		 * @param mixed  $current the current saved venue
-		 * @param string $name    the name value for the field
-		 */
-		public function saved_organizers_dropdown( $current = null, $name = 'organizer[OrganizerID]' ) {
-			_deprecated_function( __METHOD__, '4.2', 'Tribe__Events__Linked_Posts::saved_linked_post_dropdown' );
-			Tribe__Events__Linked_Posts::instance()->saved_linked_post_dropdown( Tribe__Events__Organizer::POSTTYPE, $current );
 		}
 
 		/**

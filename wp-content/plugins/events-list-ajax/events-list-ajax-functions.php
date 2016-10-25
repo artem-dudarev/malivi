@@ -240,7 +240,6 @@
 				ob_start();
 				tribe_get_template_part( 'list/single', get_post_type() );
 				$content .= ob_get_clean();
-				
 			} // end while( $query->have_posts() )
 			wp_reset_postdata();
 		} else if( !isset( $page ) ) {

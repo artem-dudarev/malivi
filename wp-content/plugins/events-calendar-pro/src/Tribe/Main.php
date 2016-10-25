@@ -67,11 +67,6 @@
 				require_once( $this->pluginPath . 'src/functions/template-tags/widgets.php' );
 				require_once( $this->pluginPath . 'src/functions/template-tags/ical.php' );
 
-				// Load Deprecated Template Tags
-				if ( ! defined( 'TRIBE_DISABLE_DEPRECATED_TAGS' ) ) {
-					require_once $this->pluginPath . 'src/functions/template-tags/deprecated.php';
-				}
-
 				add_action( 'admin_init', array( $this, 'run_updates' ), 10, 0 );
 
 				// Tribe common resources

@@ -1832,6 +1832,7 @@ textarea {
 }
 button {
   overflow: visible;
+  padding: 5px;
 }
 button,
 select {
@@ -2215,14 +2216,6 @@ th {
   vertical-align: bottom;
   border-bottom: 2px solid #dddddd;
 }
-.table > caption + thead > tr:first-child > th,
-.table > colgroup + thead > tr:first-child > th,
-.table > thead:first-child > tr:first-child > th,
-.table > caption + thead > tr:first-child > td,
-.table > colgroup + thead > tr:first-child > td,
-.table > thead:first-child > tr:first-child > td {
-  border-top: 0;
-}
 .table > tbody + tbody {
   border-top: 2px solid #dddddd;
 }
@@ -2399,6 +2392,7 @@ legend {
 label {
   display: inline-block;
   width: 100%;
+  line-height: 30px;
   margin-bottom: 5px;
   font-weight: bold;
 }
@@ -2437,7 +2431,7 @@ output {
 .form-control {
   display: block;
   width: 100%;
-  height: 40px;
+  height: 30px;
   padding: 6px 12px;
   font-size: 16px;
   line-height: 1.625;
@@ -2486,7 +2480,7 @@ input[type="search"] {
   input[type="time"],
   input[type="datetime-local"],
   input[type="month"] {
-    line-height: 40px;
+    line-height: 30px;
   }
   input[type="date"].input-sm,
   input[type="time"].input-sm,
@@ -6163,7 +6157,6 @@ table {
   width: 100%;
   max-width: 100%;
   margin-bottom: 26px;
-  border: 1px solid #dddddd;
 }
 table > thead > tr > th,
 table > tbody > tr > th,
@@ -6174,22 +6167,9 @@ table > tfoot > tr > td {
   padding: 8px;
   line-height: 1.625;
   vertical-align: top;
-  border-top: 1px solid #dddddd;
 }
 table > thead > tr > th {
   vertical-align: bottom;
-  border-bottom: 2px solid #dddddd;
-}
-table > caption + thead > tr:first-child > th,
-table > colgroup + thead > tr:first-child > th,
-table > thead:first-child > tr:first-child > th,
-table > caption + thead > tr:first-child > td,
-table > colgroup + thead > tr:first-child > td,
-table > thead:first-child > tr:first-child > td {
-  border-top: 0;
-}
-table > tbody + tbody {
-  border-top: 2px solid #dddddd;
 }
 table .table {
   background-color: #ffffff;
@@ -6206,14 +6186,8 @@ table > thead > tr > th,
 table > thead > tr > td {
   border-bottom-width: 2px;
 }
-table th {
-  border-bottom-width: 1px !important;
-  background: #eeeeee;
-}
 select {
-  display: block;
-  width: 100%;
-  height: 40px;
+  height: 30px;
   padding: 6px 12px;
   font-size: 16px;
   line-height: 1.625;
@@ -6279,9 +6253,7 @@ input[type="url"],
 input[type="search"],
 input[type="tel"],
 input[type="color"] {
-  display: block;
-  width: 100%;
-  height: 40px;
+  height: 30px;
   padding: 6px 12px;
   font-size: 16px;
   line-height: 1.625;
@@ -6297,8 +6269,7 @@ input[type="color"] {
   transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
   -webkit-box-shadow: none !important;
           box-shadow: none !important;
-  border-color: #eeeeee;
-  min-height: 40px;
+  min-height: 30px;
   font-size: 14px;
   -webkit-appearance: none;
 }
@@ -6485,21 +6456,20 @@ input#submit {
   -ms-touch-action: manipulation;
       touch-action: manipulation;
   cursor: pointer;
-  background-image: none;
   border: 1px solid transparent;
   white-space: nowrap;
   padding: 6px 12px;
   font-size: 16px;
   line-height: 1.625;
-  border-radius: 3px;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
   outline: none !important;
   color: #ffffff;
-  background-color: #3699dc;
-  border-color: #3699dc;
+  background-color: #7ccd8c;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.13);
+  border-radius:3px;
 }
 input#submit:focus,
 input#submit:active:focus,
@@ -6541,8 +6511,7 @@ input#submit:active,
 input#submit.active,
 .open > .dropdown-toggleinput#submit {
   color: #ffffff;
-  background-color: #217fbe;
-  border-color: #2079b5;
+  background-color: #5cad6c;
 }
 input#submit:active,
 input#submit.active,
@@ -6580,8 +6549,7 @@ input#submit:active,
 input#submit.active,
 .open .dropdown-toggleinput#submit {
   color: #ffffff;
-  background-color: #4ca4e0;
-  border-color: #4ca4e0;
+  background-color: #5cad6c;
 }
 input#submit:active,
 input#submit.active {
