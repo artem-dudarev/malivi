@@ -2,7 +2,6 @@
 	$fields = get_option( 'sf-fields' );
 ?>
 <div id="wrap">
-	<a href="http://www.profisearchform.com" target="_blank" title="Profi Search Form"><img class="sf-logo" src="<?php echo SF_URL; ?>res/admin/logo.png" alt="" /></a>
 	<h2><?php _e( 'Search Filter', 'sf' ); ?> 
 	</h2>
 	<a class="button" href="?page=search-filter-new"><?php _e( 'Create new search filter', 'sf' ); ?></a>

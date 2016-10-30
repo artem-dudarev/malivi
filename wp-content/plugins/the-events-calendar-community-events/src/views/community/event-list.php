@@ -24,6 +24,8 @@ $event_type_object = get_post_type_object(Tribe__Events__Main::POSTTYPE);
 $venue_type_object = get_post_type_object(Tribe__Events__Main::VENUE_POST_TYPE);
 $organizer_type_object = get_post_type_object(Tribe__Events__Main::ORGANIZER_POST_TYPE);
 
+$is_past_events = !empty( $_GET['eventDisplay'] ) && 'past' === $_GET['eventDisplay'];
+
 // List "Add New" Button
 do_action( 'tribe_ce_before_event_list_top_buttons' ); ?>
 
@@ -68,7 +70,11 @@ $current_user = wp_get_current_user(); ?>
 
 <?php // list pagination
 if ( ! $events->have_posts() ) {
-	$this->enqueueOutputMessage( sprintf( __( 'There are no upcoming %s in your queue.', 'tribe-events-community' ), strtolower( $events_label_plural ) ) );
+	if ($is_past_events) {
+		$this->enqueueOutputMessage( esc_html__( 'You have no past events.', 'tribe-events-community' ) );
+	} else {
+		$this->enqueueOutputMessage( esc_html__( 'You have no upcoming events.', 'tribe-events-community' ) );
+	}
 }
 echo tribe_community_events_get_messages();
 $tbody = '';
@@ -80,13 +86,13 @@ $tbody = '';
 	$link = get_pagenum_link( 1 );
 	$link = remove_query_arg( 'eventDisplay', $link );
 
-	if ( empty( $_GET['eventDisplay'] ) || 'past' !== $_GET['eventDisplay'] ) {
+	if ( $is_past_events ) {
 		?>
-		<a href="<?php echo esc_url( $link . '?eventDisplay=past' ); ?>"><?php echo esc_html__( 'View past events', 'tribe-events-community' ); ?></a>
+		<a href="<?php echo esc_url( $link . '?eventDisplay=list' ); ?>"><?php echo esc_html__( 'View upcoming events', 'tribe-events-community' ); ?></a>
 		<?php
 	} else {
 		?>
-		<a href="<?php echo esc_url( $link . '?eventDisplay=list' ); ?>"><?php echo esc_html__( 'View upcoming events', 'tribe-events-community' ); ?></a>
+		<a href="<?php echo esc_url( $link . '?eventDisplay=past' ); ?>"><?php echo esc_html__( 'View past events', 'tribe-events-community' ); ?></a>
 		<?php
 	}
 	?>

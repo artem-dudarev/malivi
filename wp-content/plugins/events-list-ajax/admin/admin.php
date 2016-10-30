@@ -106,11 +106,14 @@
 		
         wp_dequeue_script('sf-script');
 	}
+	
 	add_action( 'admin_menu', 'wp_sf_adminpage' );
 	function wp_sf_adminpage() {
-		add_menu_page( __( 'Search Filter', 'sf' ), 'Search Filter', 'edit_posts', 'search-filter', 'sf_admin_output_index', SF_URL . 'res/admin/search-filter-icon.png' );		
-		add_submenu_page( 'search-filter', __( 'New Filter', 'sf' ), __( 'New Filter', 'sf' ), 'edit_posts', 'search-filter-new', 'sf_admin_output_new' );
-		add_submenu_page( null, __( 'Edit Filter', 'sf' ), __( 'Edit Filter', 'sf' ), 'edit_posts', 'search-filter-edit', 'sf_admin_output_edit' );
+		if (is_admin() && current_user_can('administrator')) {
+			add_menu_page( __( 'Search Filter', 'sf' ), 'Search Filter', 'edit_posts', 'search-filter', 'sf_admin_output_index', SF_URL . 'res/admin/search-filter-icon.png' );		
+			add_submenu_page( 'search-filter', __( 'New Filter', 'sf' ), __( 'New Filter', 'sf' ), 'edit_posts', 'search-filter-new', 'sf_admin_output_new' );
+			add_submenu_page( null, __( 'Edit Filter', 'sf' ), __( 'Edit Filter', 'sf' ), 'edit_posts', 'search-filter-edit', 'sf_admin_output_edit' );
+		}
 	}
 	
 	function sf_admin_output_index(){

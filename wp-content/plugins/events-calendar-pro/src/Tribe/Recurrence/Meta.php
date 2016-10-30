@@ -1094,8 +1094,8 @@ class Tribe__Events__Pro__Recurrence__Meta {
 		$is_custom = false;
 		$same_time = true;
 		$year_filtered = false;
-		$rule['type'] = str_replace( ' ', '-', strtolower( $rule['type'] ) );
-		$rule['end-type'] = str_replace( ' ', '-', strtolower( $rule['end-type'] ) );
+		$rule['type'] = str_replace( ' ', '-', mb_strtolower( $rule['type'] ) );
+		$rule['end-type'] = str_replace( ' ', '-', mb_strtolower( $rule['end-type'] ) );
 
 		$formatted_end = _x( 'an unspecified date', 'An unspecified end date', 'tribe-events-calendar-pro' );
 		if ( ! empty( $rule['end'] ) ) {

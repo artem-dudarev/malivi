@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: The Events Calendar: Community Events\n"
-"POT-Creation-Date: 2016-10-29 20:56+0200\n"
+"POT-Creation-Date: 2016-10-31 00:44+0200\n"
 "PO-Revision-Date: 2015-12-02 13:01-0500\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -57,7 +57,7 @@ msgid "Get your Secret Key at %s"
 msgstr ""
 
 #: src/Tribe/Main.php:495 src/Tribe/Main.php:1580
-#: src/views/community/event-list.php:156
+#: src/views/community/event-list.php:162
 msgid "Edit"
 msgstr ""
 
@@ -201,7 +201,7 @@ msgid ""
 "The file you attempted to upload exceeded the maximum file size of %1$s."
 msgstr ""
 
-#: src/Tribe/Main.php:1574 src/views/community/event-list.php:150
+#: src/Tribe/Main.php:1574 src/views/community/event-list.php:156
 msgid "View"
 msgstr ""
 
@@ -254,28 +254,28 @@ msgstr ""
 msgid "There was a problem submitting your %s, please try again."
 msgstr ""
 
-#: src/Tribe/Submission_Handler.php:152
+#: src/Tribe/Submission_Handler.php:150
 msgid "Not all fields are set"
 msgstr ""
 
-#: src/Tribe/Submission_Handler.php:271
+#: src/Tribe/Submission_Handler.php:269
 #, php-format
 msgid "Invalid value for %s"
 msgstr ""
 
-#: src/Tribe/Submission_Handler.php:283
+#: src/Tribe/Submission_Handler.php:281
 msgid "Images must be png, jpg, or gif"
 msgstr ""
 
-#: src/Tribe/Submission_Handler.php:303
+#: src/Tribe/Submission_Handler.php:301
 msgid "Image exceeded the allowed file size"
 msgstr ""
 
-#: src/Tribe/Submission_Handler.php:308
+#: src/Tribe/Submission_Handler.php:306
 msgid "The image failed to upload successfully"
 msgstr ""
 
-#: src/Tribe/Submission_Handler.php:312
+#: src/Tribe/Submission_Handler.php:310
 msgid "The uploaded image could not be processed"
 msgstr ""
 
@@ -425,7 +425,7 @@ msgid "Default organizer for submitted events"
 msgstr ""
 
 #: src/views/community/edit-tribe_events.php:38
-#: src/views/community/event-list.php:105
+#: src/views/community/event-list.php:111
 msgid "Title"
 msgstr ""
 
@@ -471,72 +471,75 @@ msgstr ""
 msgid "View event"
 msgstr ""
 
-#: src/views/community/event-list.php:31
+#: src/views/community/event-list.php:33
 msgid "Add New Event"
 msgstr ""
 
-#: src/views/community/event-list.php:35
+#: src/views/community/event-list.php:37
 msgid "Add New Venue"
 msgstr ""
 
-#: src/views/community/event-list.php:39
+#: src/views/community/event-list.php:41
 msgid "Add New Organizer"
 msgstr ""
 
-#: src/views/community/event-list.php:45
+#: src/views/community/event-list.php:47
 msgid "Display"
 msgstr ""
 
-#: src/views/community/event-list.php:60
+#: src/views/community/event-list.php:62
 #: src/views/community/modules/delete.php:30
 #: src/views/community/modules/header-links.php:22
 msgid "Not"
 msgstr ""
 
-#: src/views/community/event-list.php:63
+#: src/views/community/event-list.php:65
 #: src/views/community/modules/delete.php:31
 #: src/views/community/modules/header-links.php:22
 msgid "Log Out"
 msgstr ""
 
-#: src/views/community/event-list.php:71
-#, php-format
-msgid "There are no upcoming %s in your queue."
+#: src/views/community/event-list.php:74
+msgid "You have no past events."
 msgstr ""
 
-#: src/views/community/event-list.php:85
-msgid "View past events"
+#: src/views/community/event-list.php:76
+msgid "You have no upcoming events."
 msgstr ""
 
-#: src/views/community/event-list.php:89
+#: src/views/community/event-list.php:91
 msgid "View upcoming events"
 msgstr ""
 
-#: src/views/community/event-list.php:104
+#: src/views/community/event-list.php:95
+msgid "View past events"
+msgstr ""
+
+#: src/views/community/event-list.php:110
 msgid "Status"
 msgstr ""
 
-#: src/views/community/event-list.php:108
+#: src/views/community/event-list.php:114
 msgid "Category"
 msgstr ""
 
-#: src/views/community/event-list.php:111
+#: src/views/community/event-list.php:117
 msgid "Recurring?"
 msgstr ""
 
-#: src/views/community/event-list.php:114
+#: src/views/community/event-list.php:120
 msgid "Start Date"
 msgstr ""
 
-#: src/views/community/event-list.php:115
+#: src/views/community/event-list.php:121
 msgid "End Date"
 msgstr ""
 
-#: src/views/community/event-list.php:201
+#: src/views/community/event-list.php:207
 msgid "Yes"
 msgstr ""
 
-#: src/views/community/event-list.php:203
+#: src/views/community/event-list.php:209
 msgid "No"
 msgstr ""
 
@@ -609,15 +612,15 @@ msgstr ""
 msgid "My %s"
 msgstr ""
 
-#: src/views/community/modules/image.php:31
+#: src/views/community/modules/image.php:32
 msgid "Image"
 msgstr ""
 
-#: src/views/community/modules/image.php:37
+#: src/views/community/modules/image.php:39
 msgid "Upload:"
 msgstr ""
 
-#: src/views/community/modules/image.php:48
+#: src/views/community/modules/image.php:50
 #, php-format
 msgid ""
 "Images that are not png, jpg, or gif will not be uploaded. Images may not "
@@ -625,10 +628,7 @@ msgid ""
 msgstr ""
 
 #: src/views/community/modules/organizer-fields.php:47
-#: src/views/community/modules/organizer.php:33
-#: src/views/community/modules/venue.php:43
-#, php-format
-msgid "%s Details"
+msgid "Details"
 msgstr ""
 
 #: src/views/community/modules/organizer-fields.php:55
@@ -644,6 +644,12 @@ msgstr ""
 
 #: src/views/community/modules/organizer-fields.php:74
 msgid "Email"
+msgstr ""
+
+#: src/views/community/modules/organizer.php:33
+#: src/views/community/modules/venue.php:43
+#, php-format
+msgid "%s Details"
 msgstr ""
 
 #: src/views/community/modules/venue-fields.php:57
