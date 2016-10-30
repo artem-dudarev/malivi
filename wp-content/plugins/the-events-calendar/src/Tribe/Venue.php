@@ -78,8 +78,8 @@ class Tribe__Events__Venue {
 			'new_item'           => sprintf( esc_html__( 'New %s', 'the-events-calendar' ), $this->singular_venue_label ),
 			'view_item'          => sprintf( esc_html__( 'View %s', 'the-events-calendar' ), $this->singular_venue_label ),
 			'search_items'       => sprintf( esc_html__( 'Search %s', 'the-events-calendar' ), $this->plural_venue_label ),
-			'not_found'          => sprintf( esc_html__( 'No %s found', 'the-events-calendar' ), strtolower( $this->plural_venue_label ) ),
-			'not_found_in_trash' => sprintf( esc_html__( 'No %s found in Trash', 'the-events-calendar' ), strtolower( $this->plural_venue_label ) ),
+			'not_found'          => sprintf( esc_html__( 'No %s found', 'the-events-calendar' ), mb_strtolower( $this->plural_venue_label ) ),
+			'not_found_in_trash' => sprintf( esc_html__( 'No %s found in Trash', 'the-events-calendar' ), mb_strtolower( $this->plural_venue_label ) ),
 		) );
 
 		$this->register_post_type();

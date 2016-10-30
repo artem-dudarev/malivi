@@ -3,8 +3,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Community Events\n"
-"POT-Creation-Date: 2016-10-29 20:56+0200\n"
-"PO-Revision-Date: 2016-10-29 21:24+0200\n"
+"POT-Creation-Date: 2016-10-31 00:45+0200\n"
+"PO-Revision-Date: 2016-10-31 00:45+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: ru_RU\n"
@@ -52,7 +52,7 @@ msgid "Get your Secret Key at %s"
 msgstr ""
 
 #: src/Tribe/Main.php:495 src/Tribe/Main.php:1580
-#: src/views/community/event-list.php:156
+#: src/views/community/event-list.php:162
 msgid "Edit"
 msgstr "Редактировать"
 
@@ -204,7 +204,7 @@ msgid ""
 "The file you attempted to upload exceeded the maximum file size of %1$s."
 msgstr "Загружаемый файл превышает максимальный размер %1$s."
 
-#: src/Tribe/Main.php:1574 src/views/community/event-list.php:150
+#: src/Tribe/Main.php:1574 src/views/community/event-list.php:156
 msgid "View"
 msgstr "Просмотр"
 
@@ -257,28 +257,28 @@ msgstr "%s создано."
 msgid "There was a problem submitting your %s, please try again."
 msgstr "Не удалось отправить %s, попробуйте еще раз."
 
-#: src/Tribe/Submission_Handler.php:152
+#: src/Tribe/Submission_Handler.php:150
 msgid "Not all fields are set"
 msgstr "Не все поля заполнены"
 
-#: src/Tribe/Submission_Handler.php:271
+#: src/Tribe/Submission_Handler.php:269
 #, php-format
 msgid "Invalid value for %s"
 msgstr "Недопустимое значение для %s"
 
-#: src/Tribe/Submission_Handler.php:283
+#: src/Tribe/Submission_Handler.php:281
 msgid "Images must be png, jpg, or gif"
 msgstr "Изображения должны быть png, jpg, или gif"
 
-#: src/Tribe/Submission_Handler.php:303
+#: src/Tribe/Submission_Handler.php:301
 msgid "Image exceeded the allowed file size"
 msgstr "Изображение слишком большого размера"
 
-#: src/Tribe/Submission_Handler.php:308
+#: src/Tribe/Submission_Handler.php:306
 msgid "The image failed to upload successfully"
 msgstr "Не удалось загрузить изображение"
 
-#: src/Tribe/Submission_Handler.php:312
+#: src/Tribe/Submission_Handler.php:310
 msgid "The uploaded image could not be processed"
 msgstr "Загруженное изображение повреждено или неверного формата."
 
@@ -344,7 +344,7 @@ msgstr "Использовать визуальный редактор для о
 
 #: src/admin-views/community-options-template.php:111
 msgid "Default status for submitted events"
-msgstr "Стату по умолчанию для представленных мероприятий"
+msgstr "Статус по умолчанию для представленных мероприятий"
 
 #: src/admin-views/community-options-template.php:138
 msgid "Alerts"
@@ -442,7 +442,7 @@ msgid "Default organizer for submitted events"
 msgstr "Организатор мероприятий по умолчанию"
 
 #: src/views/community/edit-tribe_events.php:38
-#: src/views/community/event-list.php:105
+#: src/views/community/event-list.php:111
 msgid "Title"
 msgstr "Название"
 
@@ -488,72 +488,75 @@ msgstr "Проверить событие"
 msgid "View event"
 msgstr "Посмотреть событие"
 
-#: src/views/community/event-list.php:31
+#: src/views/community/event-list.php:33
 msgid "Add New Event"
 msgstr "Добавить событие"
 
-#: src/views/community/event-list.php:35
+#: src/views/community/event-list.php:37
 msgid "Add New Venue"
 msgstr "Добавить место проведения"
 
-#: src/views/community/event-list.php:39
+#: src/views/community/event-list.php:41
 msgid "Add New Organizer"
 msgstr "Добавить организатора"
 
-#: src/views/community/event-list.php:45
+#: src/views/community/event-list.php:47
 msgid "Display"
 msgstr "Настройки отображения"
 
-#: src/views/community/event-list.php:60
+#: src/views/community/event-list.php:62
 #: src/views/community/modules/delete.php:30
 #: src/views/community/modules/header-links.php:22
 msgid "Not"
 msgstr "Не"
 
-#: src/views/community/event-list.php:63
+#: src/views/community/event-list.php:65
 #: src/views/community/modules/delete.php:31
 #: src/views/community/modules/header-links.php:22
 msgid "Log Out"
 msgstr "Выход"
 
-#: src/views/community/event-list.php:71
-#, php-format
-msgid "There are no upcoming %s in your queue."
-msgstr "Нет будущих %s."
+#: src/views/community/event-list.php:74
+msgid "You have no past events."
+msgstr "У вас нет прошедших мероприятий."
 
-#: src/views/community/event-list.php:85
-msgid "View past events"
-msgstr "Посмотреть прошедшие события"
+#: src/views/community/event-list.php:76
+msgid "You have no upcoming events."
+msgstr "У вас нет мероприятий."
 
-#: src/views/community/event-list.php:89
+#: src/views/community/event-list.php:91
 msgid "View upcoming events"
 msgstr "Посмотреть будущие события"
 
-#: src/views/community/event-list.php:104
+#: src/views/community/event-list.php:95
+msgid "View past events"
+msgstr "Посмотреть прошедшие события"
+
+#: src/views/community/event-list.php:110
 msgid "Status"
 msgstr "Статус"
 
-#: src/views/community/event-list.php:108
+#: src/views/community/event-list.php:114
 msgid "Category"
 msgstr "Категория"
 
-#: src/views/community/event-list.php:111
+#: src/views/community/event-list.php:117
 msgid "Recurring?"
 msgstr "Периодическое?"
 
-#: src/views/community/event-list.php:114
+#: src/views/community/event-list.php:120
 msgid "Start Date"
 msgstr "Дата Начала"
 
-#: src/views/community/event-list.php:115
+#: src/views/community/event-list.php:121
 msgid "End Date"
 msgstr "Дата Завершения"
 
-#: src/views/community/event-list.php:201
+#: src/views/community/event-list.php:207
 msgid "Yes"
 msgstr "Да"
 
-#: src/views/community/event-list.php:203
+#: src/views/community/event-list.php:209
 msgid "No"
 msgstr "Нет"
 
@@ -598,6 +601,8 @@ msgid ""
 "update all future events.  If you did not mean to change all events, then "
 "please refresh the page."
 msgstr ""
+"Вы изменили правила повторения. Сохранение изменит все будущие события. Если "
+"вы не хотите менять их все, то просто обновите страницу."
 
 #: src/views/community/modules/datepickers.php:54
 msgid "All day"
@@ -626,15 +631,15 @@ msgstr "Добавить Новое"
 msgid "My %s"
 msgstr "Мои %s"
 
-#: src/views/community/modules/image.php:31
+#: src/views/community/modules/image.php:32
 msgid "Image"
 msgstr "Изображение"
 
-#: src/views/community/modules/image.php:37
+#: src/views/community/modules/image.php:39
 msgid "Upload:"
 msgstr "Загрузить:"
 
-#: src/views/community/modules/image.php:48
+#: src/views/community/modules/image.php:50
 #, php-format
 msgid ""
 "Images that are not png, jpg, or gif will not be uploaded. Images may not "
@@ -642,11 +647,8 @@ msgid ""
 msgstr "Только png, jpg, или gif. Размер не более %1$s."
 
 #: src/views/community/modules/organizer-fields.php:47
-#: src/views/community/modules/organizer.php:33
-#: src/views/community/modules/venue.php:43
-#, php-format
-msgid "%s Details"
-msgstr "%s"
+msgid "Details"
+msgstr "Подробности"
 
 #: src/views/community/modules/organizer-fields.php:55
 #: src/views/community/modules/venue-fields.php:132
@@ -662,6 +664,12 @@ msgstr "Сайт"
 #: src/views/community/modules/organizer-fields.php:74
 msgid "Email"
 msgstr "Почта"
+
+#: src/views/community/modules/organizer.php:33
+#: src/views/community/modules/venue.php:43
+#, php-format
+msgid "%s Details"
+msgstr "%s"
 
 #: src/views/community/modules/venue-fields.php:57
 msgid "Address"
@@ -774,6 +782,12 @@ msgstr ""
 #. Author URI of the plugin/theme
 msgid "http://m.tri.be/21"
 msgstr ""
+
+#~ msgid "There are no upcoming events in your queue."
+#~ msgstr "У вас нет мероприятий."
+
+#~ msgid "There are no upcoming %s in your queue."
+#~ msgstr "Нет будущих %s."
 
 #, fuzzy
 #~ msgid "View %s"

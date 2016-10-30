@@ -71,10 +71,10 @@ class Tribe__Events__Community__Submission_Handler {
 			
 			if ( $saved ) {
 				$this->add_message( sprintf( __( '%s updated. ', 'tribe-events-community' ), $post_label_singular ) . $this->community->get_view_edit_links( $this->event_id ) );
-				$this->add_message( '<a href="' . esc_url( $this->community->getUrl( 'add', null, null, $post_type ) ) . '">' . sprintf( __( 'Submit another %s', 'tribe-events-community' ), strtolower( $post_label_singular ) ) . '</a>' );
+				$this->add_message( '<a href="' . esc_url( $this->community->getUrl( 'add', null, null, $post_type ) ) . '">' . sprintf( __( 'Submit another %s', 'tribe-events-community' ), mb_strtolower( $post_label_singular ) ) . '</a>' );
 				do_action( 'tribe_community_event_updated', $this->event_id );
 			} else {
-				$this->add_message( sprintf( __( 'There was a problem saving your %s, please try again.', 'tribe-events-community' ), strtolower( $post_label_singular ) ), 'error' );
+				$this->add_message( sprintf( __( 'There was a problem saving your %s, please try again.', 'tribe-events-community' ), mb_strtolower ( $post_label_singular ) ), 'error' );
 			}
 		} else {
 			$this->submission['post_status'] = Tribe__Events__Community__Main::instance()->getOption( 'defaultStatus' );
@@ -89,10 +89,10 @@ class Tribe__Events__Community__Submission_Handler {
 			if ( $saved ) {
 				$this->event_id = $saved;
 				$this->add_message( sprintf( __( '%s submitted. ', 'tribe-events-community' ), $post_label_singular ) . $this->community->get_view_edit_links( $this->event_id ) );
-				$this->add_message( '<a href="' . esc_url( $this->community->getUrl( 'add' ) ) . '">' . sprintf( __( 'Submit another %s', 'tribe-events-community' ), strtolower( $post_label_singular ) ) . '</a>' );
+				$this->add_message( '<a href="' . esc_url( $this->community->getUrl( 'add' ) ) . '">' . sprintf( __( 'Submit another %s', 'tribe-events-community' ), mb_strtolower ( $post_label_singular ) ) . '</a>' );
 				do_action( 'tribe_community_event_created', $this->event_id );
 			} else {
-				$this->add_message( sprintf( __( 'There was a problem submitting your %s, please try again.', 'tribe-events-community' ), strtolower( $post_label_singular ) ), 'error' );
+				$this->add_message( sprintf( __( 'There was a problem submitting your %s, please try again.', 'tribe-events-community' ), mb_strtolower( $post_label_singular ) ), 'error' );
 			}
 		}
 		$this->save_submitted_attachment( $this->event_id );

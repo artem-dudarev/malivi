@@ -1429,7 +1429,7 @@ if ( ! class_exists( 'Tribe__Events__Community__Main' ) ) {
 			}
 
 			if ( $tribe_event_id && class_exists( 'Tribe__Events__Pro__Main' ) && tribe_is_recurring_event( $tribe_event_id ) ) {
-				$this->enqueueOutputMessage( sprintf( __( '%sWarning:%s You are editing a recurring %s. All changes will be applied to the entire series.', 'tribe-events-community' ), '<b>', '</b>', strtolower( $events_label_singular ) ), 'error' );
+				$this->enqueueOutputMessage( sprintf( __( '%sWarning:%s You are editing a recurring %s. All changes will be applied to the entire series.', 'tribe-events-community' ), '<b>', '</b>', mb_strtolower( $events_label_singular ) ), 'error' );
 			}
 
 			if ( $edit && $tribe_event_id ) {
@@ -1452,7 +1452,7 @@ if ( ! class_exists( 'Tribe__Events__Community__Main' ) ) {
 
 			// security check
 			if ( $edit && $tribe_event_id && ! current_user_can( 'edit_post', $tribe_event_id ) ) {
-				$output .= '<p>' . sprintf( __( 'You do not have permission to edit this %s.', 'tribe-events-community' ), strtolower( $events_label_singular ) ) . '</p>';
+				$output .= '<p>' . sprintf( __( 'You do not have permission to edit this %s.', 'tribe-events-community' ), mb_strtolower( $events_label_singular ) ) . '</p>';
 				return $output;
 			}
 
