@@ -58,7 +58,7 @@
 
 		register_taxonomy(
 			'venues_types',
-			Tribe__Events__Venue::POSTTYPE,
+			Tribe__Events__Main::VENUE_POST_TYPE,
 			array(
 				'labels' 				=> array(
 					'name'			=> __( 'Категории' ),
@@ -75,8 +75,8 @@
 			)
 		);
 
-		add_post_type_support(Tribe__Events__Venue::POSTTYPE, array('thumbnail', 'author', 'revisions'));
-		add_post_type_support(Tribe__Events__Organizer::POSTTYPE, array('thumbnail', 'author', 'revisions'));
+		add_post_type_support(Tribe__Events__Main::VENUE_POST_TYPE, array('thumbnail', 'author', 'revisions'));
+		add_post_type_support(Tribe__Events__Main::ORGANIZER_POST_TYPE, array('thumbnail', 'author', 'revisions'));
 	}
 
 	//add_action( 'tribe_events_eventform_top', 'event_config_extension', 10, 1 );
@@ -186,10 +186,10 @@
 		return '#';
 	}
 
-	add_filter( 'check_user_is_writer', 'check_user_is_writer', 10, 1);
+	add_filter( 'check_user_is_events_writer', 'check_user_is_events_writer', 10, 1);
 
-	function check_user_is_writer($value) {
-		return $value || current_user_can('edit_posts');
+	function check_user_is_events_writer($value) {
+		return $value || current_user_can('edit_tribe_venues');
 	}
 
 ?>
