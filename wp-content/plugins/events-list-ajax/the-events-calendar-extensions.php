@@ -189,7 +189,7 @@
 	add_filter( 'check_user_is_events_writer', 'check_user_is_events_writer', 10, 1);
 
 	function check_user_is_events_writer($value) {
-		return $value || current_user_can('edit_tribe_venues');
+		return $value || current_user_can('edit_tribe_events');
 	}
 
 ?>
