@@ -44,25 +44,10 @@ if ( ! isset( $event ) ) {
 		<tr>
 			<td colspan="2" class="tribe_sectionheader">
 				<h4><label class="<?php echo tribe_community_events_field_has_error( 'organizer' ) ? 'error' : ''; ?>"><?php
-						printf( __( '%s Details', 'tribe-events-community' ), $organizer_label_singular );
+						esc_html_e( 'Details', 'tribe-events-community' );
 						?></label></h4>
 			</td><!-- .tribe_sectionheader -->
 		</tr>
-
-		<?php tribe_community_events_organizer_select_menu( $event ); ?>
-
-		<?php if ( ! tribe_community_events_is_organizer_edit_screen() ) { ?>
-			<tr class="organizer">
-				<td>
-					<label for="OrganizerOrganizer">
-						<?php printf( __( '%s Name', 'tribe-events-community' ), $organizer_label_singular ); ?>:
-					</label>
-				</td>
-				<td>
-					<input type="text" id="OrganizerOrganizer" name="organizer[Organizer]" size="25"  value="<?php echo esc_attr( $organizer_name ); ?>" />
-				</td>
-			</tr><!-- .organizer -->
-		<?php } ?>
 
 		<tr class="organizer">
 			<td>

@@ -4,14 +4,7 @@
 class Tribe__Events__Community__Event_Form {
 	protected $event = null;
 	protected $event_id = 0;
-	protected $required_fields = array();
 	protected $error_fields = array();
-
-	public function __construct( $event, $required_fields = array(), $error_fields = array() ) {
-		$this->set_event( $event );
-		$this->set_error_fields( $error_fields );
-		$this->set_required_fields( $required_fields );
-	}
 
 	/**
 	 * sets the event for the form
@@ -27,8 +20,8 @@ class Tribe__Events__Community__Event_Form {
 			$this->event_id = $event->ID;
 		} elseif ( is_user_logged_in() ) {
 			// if the event doesn't exist and the user is authenticated, create an auto draft event
-			$this->event_id = wp_insert_post( array( 'post_title' => __( 'Auto Draft' ), 'post_type' => Tribe__Events__Main::POSTTYPE, 'post_status' => 'auto-draft' ) );
-			$this->event = get_post( $this->event_id );
+			//$this->event_id = wp_insert_post( array( 'post_title' => __( 'Auto Draft' ), 'post_type' => Tribe__Events__Main::POSTTYPE, 'post_status' => 'auto-draft' ) );
+			//$this->event = get_post( $this->event_id );
 		}
 	}//end set_event
 
@@ -40,31 +33,22 @@ class Tribe__Events__Community__Event_Form {
 	}//end set_error_fields
 
 	/**
-	 * sets the required fields for the form
-	 */
-	public function set_required_fields( $required_fields = array() ) {
-		$this->required_fields = $required_fields;
-	}//end set_required_fields
-
-	/**
 	 * Returns the event id for the event form
 	 */
 	public function get_event_id() {
 		return $this->event_id;
 	}//end get_event_id
 
-	public function render() {
-		$edit_template = $this->get_template_path();
+	public function render($event, $error_fields, $post_type) {
+		$this->set_event( $event );
+		$this->set_error_fields( $error_fields );
+		$edit_template = Tribe__Events__Templates::getTemplateHierarchy( 'community/edit-'.$post_type, array( 'disable_view_check' => true ) );
 		$this->setup_hooks();
 		ob_start();
 		do_action( 'tribe_events_community_form', $this->event_id, $this->event, $edit_template );
 		$output = ob_get_clean();
 		$this->clear_hooks();
 		return $output;
-	}
-
-	protected function get_template_path() {
-		return Tribe__Events__Templates::getTemplateHierarchy( 'community/edit-event', array( 'disable_view_check' => true ) );
 	}
 
 	protected function setup_hooks() {

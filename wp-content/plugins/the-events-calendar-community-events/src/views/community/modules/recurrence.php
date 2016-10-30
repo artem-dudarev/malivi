@@ -22,7 +22,7 @@ $post_id = isset( $post->ID ) ? $post->ID : null;
 
 
 if ( ! empty( $_POST['recurrence'] ) ) {
-	Tribe__Events__Pro__Recurrence_Meta::output_recurrence_json_data( $post_id, $_POST['recurrence'] );
+	Tribe__Events__Pro__Recurrence__Meta::output_recurrence_json_data( $post_id, $_POST['recurrence'] );
 }
 
 include Tribe__Events__Pro__Main::instance()->pluginPath . '/src/admin-views/event-recurrence.php';

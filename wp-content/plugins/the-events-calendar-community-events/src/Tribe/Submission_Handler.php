@@ -12,14 +12,14 @@ class Tribe__Events__Community__Submission_Handler {
 	protected $valid = null;
 	protected $messages = array();
 	protected $invalid_fields = array();
+	protected $post_type;
 
-	public function __construct( $submission, $event_id ) {
+	public function __construct($post_type, $submission, $event_id ) {
+		$this->post_type = $post_type;
 		$this->community = Tribe__Events__Community__Main::instance();
 		$this->original_submission = $submission;
 		$submission[ 'ID' ] = $event_id;
 		$this->submission = $submission;
-		$scrubber = new Tribe__Events__Community__Submission_Scrubber( $this->submission );
-		$this->submission = $scrubber->scrub();
 		$this->event_id = $event_id;
 	}
 
@@ -27,6 +27,9 @@ class Tribe__Events__Community__Submission_Handler {
 		if ( isset( $this->valid ) ) {
 			return $this->valid;
 		}
+		
+		$scrubber = new Tribe__Events__Community__Submission_Scrubber( $this->submission );
+		$this->submission = $scrubber->scrub();
 
 		$this->valid = true;
 
@@ -56,53 +59,80 @@ class Tribe__Events__Community__Submission_Handler {
 		return $this->submission;
 	}
 
-	public function save() {
-		$events_label_singular = tribe_get_event_label_singular();
+	public function save($post_type) {
+		$post_type_object = get_post_type_object( $post_type );
+		$post_label_singular = $post_type_object->labels->singular_name;
 
 		$event = get_post( $this->event_id );
 
 		// if the post isn't an auto-draft, then we're updating a post. Otherwise, we'll consider it new
-		if ( $this->event_id && 'auto-draft' !== $event->post_status ) {
-			$saved = Tribe__Events__API::updateEvent( $this->event_id, $this->submission );
+		if ( $this->event_id && $event && 'auto-draft' !== $event->post_status ) {
+			$saved = $this->create_or_update_post($event, $post_type);
+			
 			if ( $saved ) {
-				$this->add_message( sprintf( __( '%s updated. ', 'tribe-events-community' ), $events_label_singular ) . $this->community->get_view_edit_links( $this->event_id ) );
-				$this->add_message( '<a href="' . esc_url( $this->community->getUrl( 'add' ) ) . '">' . sprintf( __( 'Submit another %s', 'tribe-events-community' ), strtolower( $events_label_singular ) ) . '</a>' );
+				$this->add_message( sprintf( __( '%s updated. ', 'tribe-events-community' ), $post_label_singular ) . $this->community->get_view_edit_links( $this->event_id ) );
+				$this->add_message( '<a href="' . esc_url( $this->community->getUrl( 'add', null, null, $post_type ) ) . '">' . sprintf( __( 'Submit another %s', 'tribe-events-community' ), strtolower( $post_label_singular ) ) . '</a>' );
 				do_action( 'tribe_community_event_updated', $this->event_id );
 			} else {
-				$this->add_message( sprintf( __( 'There was a problem saving your %s, please try again.', 'tribe-events-community' ), strtolower( $events_label_singular ) ), 'error' );
+				$this->add_message( sprintf( __( 'There was a problem saving your %s, please try again.', 'tribe-events-community' ), strtolower( $post_label_singular ) ), 'error' );
 			}
 		} else {
 			$this->submission['post_status'] = Tribe__Events__Community__Main::instance()->getOption( 'defaultStatus' );
 
 			// if we DO have an event ID, then it is an auto-draft, and thus a new post
-			if ( $this->event_id ) {
-				$saved = Tribe__Events__API::updateEvent( $this->event_id, $this->submission );
+			if ( $this->event_id && $event) {
+				$saved = $this->create_or_update_post($event, $post_type);
 			} else {
-				$saved = Tribe__Events__API::createEvent( $this->submission );
+				$saved = $this->create_or_update_post($event, $post_type);
 			}
 
 			if ( $saved ) {
 				$this->event_id = $saved;
-				$this->add_message( sprintf( __( '%s submitted. ', 'tribe-events-community' ), $events_label_singular ) . $this->community->get_view_edit_links( $this->event_id ) );
-				$this->add_message( '<a href="' . esc_url( $this->community->getUrl( 'add' ) ) . '">' . sprintf( __( 'Submit another %s', 'tribe-events-community' ), strtolower( $events_label_singular ) ) . '</a>' );
+				$this->add_message( sprintf( __( '%s submitted. ', 'tribe-events-community' ), $post_label_singular ) . $this->community->get_view_edit_links( $this->event_id ) );
+				$this->add_message( '<a href="' . esc_url( $this->community->getUrl( 'add' ) ) . '">' . sprintf( __( 'Submit another %s', 'tribe-events-community' ), strtolower( $post_label_singular ) ) . '</a>' );
 				do_action( 'tribe_community_event_created', $this->event_id );
 			} else {
-				$this->add_message( sprintf( __( 'There was a problem submitting your %s, please try again.', 'tribe-events-community' ), strtolower( $events_label_singular ) ), 'error' );
+				$this->add_message( sprintf( __( 'There was a problem submitting your %s, please try again.', 'tribe-events-community' ), strtolower( $post_label_singular ) ), 'error' );
 			}
 		}
 		$this->save_submitted_attachment( $this->event_id );
 
 		// Logged out or underprivileged users will not have terms automatically added during wp_insert_post
-		if ( isset( $this->submission['tax_input'] ) ) {
+		/*if ( isset( $this->submission['tax_input'] ) ) {
 			foreach ( (array) $this->submission['tax_input'] as $taxonomy => $terms ) {
 				$taxonomy_obj = get_taxonomy( $taxonomy );
 				if ( ! current_user_can( $taxonomy_obj->cap->assign_terms ) ) {
 					wp_set_post_terms( $this->event_id, $terms, $taxonomy, true );
 				}
 			}
-		}
+		}*/
 		return $this->event_id;
 	}
+
+	protected function create_or_update_post($post, $post_type) {
+		if($this->event_id && $post) {
+			if ($post->post_type == Tribe__Events__Main::POSTTYPE) {
+				return Tribe__Events__API::updateEvent( $post->ID, $this->submission );
+			}
+			if ($post->post_type == Tribe__Events__Main::VENUE_POST_TYPE) {
+				return Tribe__Events__API::updateVenue( $post->ID, $this->submission );
+			}
+			if ($post->post_type == Tribe__Events__Main::ORGANIZER_POST_TYPE) {
+				return Tribe__Events__API::updateOrganizer( $post->ID, $this->submission );
+			}
+		} else {
+			if ($post_type == Tribe__Events__Main::POSTTYPE) {
+				return Tribe__Events__API::createEvent( $this->submission );
+			}
+			if ($post_type == Tribe__Events__Main::VENUE_POST_TYPE) {
+				return Tribe__Events__API::createVenue( $this->submission );
+			}
+			if ($post_type == Tribe__Events__Main::ORGANIZER_POST_TYPE) {
+				return Tribe__Events__API::createOrganizer( $this->submission );
+			}
+		}
+	}
+
 
 	protected function save_submitted_attachment( $parent_id ) {
 		// TODO: we still have to use the global here for now
@@ -116,9 +146,11 @@ class Tribe__Events__Community__Submission_Handler {
 		$valid = true;
 		foreach ( $this->community->required_fields_for_submission() as $key ) {
 			if ( ! $this->submission_has_value_for_key( $submission, $key ) ) {
-				$message = __( '%s is required', 'tribe-events-community' );
-				$message = sprintf( $message, $this->get_field_label( $key ) );
-				$this->add_message( $message, 'error' );
+				if ($valid) {
+					$message = __( 'Not all fields are set', 'tribe-events-community' );
+					$this->add_message( $message, 'error' );
+				}
+				
 				$valid = false;
 				$this->invalid_fields[] = $key;
 			}
@@ -126,29 +158,45 @@ class Tribe__Events__Community__Submission_Handler {
 		return $valid;
 	}
 
-	protected function submission_has_value_for_key( $submission, $key ) {
+	protected function submission_has_value_for_key( $submission, &$key ) {
+		if (substr($key, 0, strlen('taxonomy_')) == 'taxonomy_') {
+			$key = substr($key, strlen('taxonomy_'));
+			if (empty($submission['tax_input'])) {
+				return false;
+			}
+			return $this->is_array_valid($submission['tax_input'][$key]);
+		}
 		switch ( $key ) {
 			case 'venue':
 				if ( empty( $submission['Venue'] ) ) {
 					return false;
 				}
-				if ( ! empty( $submission['Venue']['VenueID'] ) ) {
-					return true;
+				if ( empty( $submission['Venue']['VenueID'] ) ) {
+					return false;
 				}
-				if ( ! empty( $submission['Venue']['Venue'] ) ) {
-					return true;
+				if ( is_array($submission['Venue']['VenueID']) ) {
+					return $this->is_array_valid($submission['Venue']['VenueID']);
+				} else {
+					if ( $submission['Venue']['VenueID'] == 0 ) {
+						return false;
+					}
 				}
-				return false;
+				return true;
 			case 'organizer':
 				if ( empty( $submission['Organizer'] ) ) {
 					return false;
 				}
-
-				foreach ( $submission['Organizer'] as $organizer ) {
-					if ( ! empty( $organizer['OrganizerID'] ) || ! empty( $organizer['Organizer'] ) ) {
-						return true;
+				if ( empty( $submission['Organizer']['OrganizerID'] ) ) {
+					return false;
+				}
+				if ( is_array($submission['Organizer']['OrganizerID']) ) {
+					return $this->is_array_valid($submission['Organizer']['OrganizerID']);
+				} else {
+					if ( $submission['Organizer']['OrganizerID'] == 0 ) {
+						return false;
 					}
 				}
+				return true;
 
 				return false;
 			case 'event_image':
@@ -162,22 +210,22 @@ class Tribe__Events__Community__Submission_Handler {
 		}
 	}
 
+	protected function is_array_valid($array) {
+		if (empty($array)) {
+			return false;
+		}
+		foreach ($array as $key => $value) {
+			if ($value == 0) {
+				return false;
+			}
+		}
+		return true;
+	}
+
 	protected function get_field_label( $field ) {
 		$events_label_singular = tribe_get_event_label_singular();
 
 		switch ( $field ) {
-			case 'post_title':
-				$label = sprintf( __( '%s Title', 'tribe-events-community' ), $events_label_singular );
-				break;
-			case 'post_content':
-				$label = sprintf( __( '%s Description', 'tribe-events-community' ), $events_label_singular );
-				break;
-			case 'venue':
-				$label = tribe_get_venue_label_singular();
-				break;
-			case 'organizer':
-				$label = tribe_get_organizer_label_singular();
-				break;
 			default:
 				if ( strpos( $field, '_ecp_custom_' ) === 0 ) {
 					$label = $this->get_custom_field_label( $field );

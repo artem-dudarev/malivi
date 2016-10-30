@@ -28,20 +28,21 @@ $size_format = size_format( wp_max_upload_size() );
 		<table class="tribe-community-event-info" cellspacing="0" cellpadding="0">
 			<tr>
 				<td colspan="2" class="tribe_sectionheader">
-					<h4 class="event-time"><?php printf( esc_html__( '%s Image', 'tribe-events-community' ), tribe_get_event_label_singular() ); ?></h4>
+					<h4 class="event-time">
+					<?php tribe_community_events_field_label( 'event_image', __( 'Image', 'tribe-events-community' ) ); ?>
+					</h4>
 				</td>
 			</tr>
 			<tr>
 				<td>
 					<label for="EventImage" class="<?php echo esc_attr( $upload_error ? 'error' : '' ); ?>">
-						<?php tribe_community_events_field_label( 'event_image', __( 'Upload:', 'tribe-events-community' ) ); ?>
+						<?php esc_html_e( 'Upload:', 'tribe-events-community' ); ?>
 					</label>
 				</td>
 				<td>
 					<?php if ( get_post() && has_post_thumbnail() ) { ?>
 						<div class="tribe-community-events-preview-image">
 							<?php the_post_thumbnail( 'medium' ); ?>
-							<?php tribe_community_events_form_image_delete(); ?>
 						</div>
 					<?php }	?>
 

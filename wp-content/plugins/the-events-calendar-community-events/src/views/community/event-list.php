@@ -20,10 +20,24 @@ $organizer_label_singular = tribe_get_organizer_label_singular();
 $venue_label_singular = tribe_get_venue_label_singular();
 $events_label_plural = tribe_get_event_label_plural();
 
+$event_type_object = get_post_type_object(Tribe__Events__Main::POSTTYPE);
+$venue_type_object = get_post_type_object(Tribe__Events__Main::VENUE_POST_TYPE);
+$organizer_type_object = get_post_type_object(Tribe__Events__Main::ORGANIZER_POST_TYPE);
+
 // List "Add New" Button
 do_action( 'tribe_ce_before_event_list_top_buttons' ); ?>
 
-<div id="add-new"><a href="<?php echo esc_url( tribe_community_events_add_event_link() ); ?>" class="button"><?php echo apply_filters( 'tribe_ce_add_event_button_text', __( 'Add New', 'tribe-events-community' ) ); ?></a></div>
+<?php if(current_user_can($event_type_object->cap->publish_posts)) : ?>
+<div id="add-new-event"><a href="<?php echo esc_url( tribe_community_events_add_event_link() ); ?>" class="button"><?php echo  __( 'Add New Event', 'tribe-events-community' ); ?></a></div>
+<?php endif; ?>
+
+<?php if(current_user_can($venue_type_object->cap->publish_posts)) : ?>
+	<div id="add-new=place"><a href="<?php echo esc_url( tribe_community_events_add_venue_link() ); ?>" class="button"><?php echo  __( 'Add New Venue', 'tribe-events-community' ); ?></a></div>
+<?php endif; ?>
+
+<?php if(current_user_can($organizer_type_object->cap->publish_posts)) : ?>
+<div id="add-new-organizer"><a href="<?php echo esc_url( tribe_community_events_add_organizer_link() ); ?>" class="button"><?php echo  __( 'Add New Organizer', 'tribe-events-community' ); ?></a></div>
+<?php endif; ?>
 
 <div class="table-menu-wrapper">
 

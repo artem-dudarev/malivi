@@ -101,8 +101,24 @@ function tribe_community_events_form_currency_symbol() {
  * Return URL for adding a new event.
  */
 function tribe_community_events_add_event_link() {
-	$url = Tribe__Events__Community__Main::instance()->getUrl( 'add' );
+	$url = Tribe__Events__Community__Main::instance()->getUrl( 'add', null, null, Tribe__Events__Main::POSTTYPE );
 	return apply_filters( 'tribe-community-events-add-event-link', $url );
+}
+
+/**
+ * Return URL for adding a new venue.
+ */
+function tribe_community_events_add_venue_link() {
+	$url = Tribe__Events__Community__Main::instance()->getUrl( 'add', null, null, Tribe__Events__Main::VENUE_POST_TYPE);
+	return apply_filters( 'tribe-community-events-add-venue-link', $url );
+}
+
+/**
+ * Return URL for adding a new organizer.
+ */
+function tribe_community_events_add_organizer_link() {
+	$url = Tribe__Events__Community__Main::instance()->getUrl( 'add', null, null, Tribe__Events__Main::ORGANIZER_POST_TYPE );
+	return apply_filters( 'tribe-community-events-add-organizer-link', $url );
 }
 
 /**

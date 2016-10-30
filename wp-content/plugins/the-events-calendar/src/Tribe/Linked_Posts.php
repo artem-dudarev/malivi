@@ -702,6 +702,12 @@ class Tribe__Events__Linked_Posts {
 		}
 	}
 
+	public function get_linked_post_dropdown_name($post_type) {
+		$linked_post_type_container = $this->get_post_type_container( $post_type );
+		$linked_post_type_id_field  = $this->get_post_type_id_field_index( $post_type );
+		return "{$linked_post_type_container}[{$linked_post_type_id_field}][]";
+	}
+
 	/**
 	 * Helper function for displaying dropdowns for linked post types
 	 *
@@ -709,9 +715,7 @@ class Tribe__Events__Linked_Posts {
 	 * @param mixed  $current the current saved linked post item
 	 */
 	public function saved_linked_post_dropdown( $post_type, $current = null ) {
-		$linked_post_type_container = $this->get_post_type_container( $post_type );
-		$linked_post_type_id_field  = $this->get_post_type_id_field_index( $post_type );
-		$name                       = "{$linked_post_type_container}[{$linked_post_type_id_field}][]";
+		$name                       = $this->get_linked_post_dropdown_name($post_type);
 		$my_linked_post_ids         = array();
 		$current_user               = wp_get_current_user();
 		$my_linked_posts            = false;
@@ -781,7 +785,9 @@ class Tribe__Events__Linked_Posts {
 			) {
 				echo '<option value="0">' . sprintf( esc_html__( 'Use New %s', 'the-events-calendar' ), $singular_name ) . '</option>';
 			}*/
-			echo '<option>' . '</option>';
+			if (current_user_can($post_type_object->cap->read_private_posts)) {
+				echo '<option>' . '</option>';
+			}
 
 			if ( $my_linked_posts ) {
 				$my_optgroup_name = sprintf( esc_html__( 'My %s', 'the-events-calendar' ), $plural_name );

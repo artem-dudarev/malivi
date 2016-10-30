@@ -68,22 +68,10 @@ if ( ! class_exists( 'Tribe__Events__Community__Main' ) ) {
 		public $pluginSlug;
 
 		/**
-		 * tribe url (used for calling the mothership)
-		 * @var string
-		 */
-		public static $tribeUrl = 'http://tri.be/';
-
-		/**
 		 * default event status
 		 * @var string
 		 */
 		public $defaultStatus;
-
-		/**
-		 * setting to allow anonymous submissions
-		 * @var bool
-		 */
-		public $allowAnonymousSubmissions;
 
 		/**
 		 * setting to allow editing of submisisons
@@ -230,7 +218,6 @@ if ( ! class_exists( 'Tribe__Events__Community__Main' ) ) {
 
 			// get options
 			$this->defaultStatus                 = $this->getOption( 'defaultStatus' );
-			$this->allowAnonymousSubmissions     = $this->getOption( 'allowAnonymousSubmissions' );
 			$this->allowUsersToEditSubmissions   = $this->getOption( 'allowUsersToEditSubmissions' );
 			$this->allowUsersToDeleteSubmissions = $this->getOption( 'allowUsersToDeleteSubmissions' );
 			$this->trashItemsVsDelete            = $this->getOption( 'trashItemsVsDelete' );
@@ -289,12 +276,8 @@ if ( ! class_exists( 'Tribe__Events__Community__Main' ) ) {
 
 			add_action( 'admin_init', array( $this, 'maybeFlushRewriteRules' ) );
 
-			add_action( 'wp_before_admin_bar_render', array( $this, 'addCommunityToolbarItems' ), 20 );
-
 			// Tribe common resources
 			TribeCommonLibraries::register( 'wp-router', '0.3', $this->pluginPath . 'vendor/wp-router/wp-router.php' );
-
-			add_action( 'tribe_settings_save_field_allowAnonymousSubmissions', array( $this, 'flushRewriteOnAnonymous' ), 10, 2 );
 
 			add_filter( 'query_vars', array( $this, 'communityEventQueryVars' ) );
 
@@ -316,7 +299,6 @@ if ( ! class_exists( 'Tribe__Events__Community__Main' ) ) {
 			add_action( 'plugin_action_links_' . trailingslashit( $this->pluginDir ) . 'Main.php', array( $this, 'addLinksToPluginActions' ) );
 
 			add_action( 'tribe_community_before_event_page', array( $this, 'maybe_delete_featured_image' ), 10, 1 );
-			add_filter( 'tribe_help_tab_forums_url', array( $this, 'helpTabForumsLink' ), 100 );
 
 			add_action( 'save_post', array( $this, 'flushPageIdTransient' ), 10, 1 );
 
@@ -334,13 +316,7 @@ if ( ! class_exists( 'Tribe__Events__Community__Main' ) ) {
 		 */
 		public function event_form() {
 			if ( ! $this->form ) {
-				$event = null;
-
-				if ( ! empty( $_GET['event_id'] ) ) {
-					$event = get_post( absint( $_GET['event_id'] ) );
-				}
-
-				$this->form = new Tribe__Events__Community__Event_Form( $event );
+				$this->form = new Tribe__Events__Community__Event_Form( );
 			}
 
 			return $this->form;
@@ -445,9 +421,28 @@ if ( ! class_exists( 'Tribe__Events__Community__Main' ) ) {
 
 			$template_name = apply_filters( 'tribe_events_community_template', $template_name );
 
+			/*
+			// edit event
+			$router->add_route( 'ce-edit-event-route', array(
+				'path' => '^' . $this->getCommunityRewriteSlug() . '/' . $this->rewriteSlugs['edit'] . '/' . $this->rewriteSlugs['event'] . '/(\d+/?)$',
+				'query_vars' => array(
+					 'tribe_community_event_id' => 1,
+				),
+				'page_callback' => array(
+					 get_class(),
+					'editCallback',
+				),
+				'page_arguments' => array(
+					 'tribe_community_event_id'
+				),
+				'access_callback' => array(__CLASS__, 'check_access'),
+				'title' => __( 'Edit an Event', 'tribe-events-community' ),
+				'template' => $template_name,
+			) );
+
 			// edit venue
 			$router->add_route( 'ce-edit-venue-route', array(
-				 'path' => '^' . $this->getCommunityRewriteSlug() . '/' . $this->rewriteSlugs['edit'] . '/' . $this->rewriteSlugs['venue'].'/(\d+)$',
+				'path' => '^' . $this->getCommunityRewriteSlug() . '/' . $this->rewriteSlugs['edit'] . '/' . $this->rewriteSlugs['venue'].'/(\d+)$',
 				'query_vars' => array(
 					 'tribe_event_id' => 1,
 				),
@@ -466,7 +461,7 @@ if ( ! class_exists( 'Tribe__Events__Community__Main' ) ) {
 
 			// edit organizer
 			$router->add_route( 'ce-edit-organizer-route', array(
-				 'path' => '^' . $this->getCommunityRewriteSlug() . '/' . $this->rewriteSlugs['edit'] . '/' . $this->rewriteSlugs['organizer'] . '/(\d+)$',
+				'path' => '^' . $this->getCommunityRewriteSlug() . '/' . $this->rewriteSlugs['edit'] . '/' . $this->rewriteSlugs['organizer'] . '/(\d+)$',
 				'query_vars' => array(
 					 'tribe_event_id' => 1,
 				),
@@ -481,70 +476,79 @@ if ( ! class_exists( 'Tribe__Events__Community__Main' ) ) {
 				'title' => __( 'Edit an Organizer', 'tribe-events-community' ),
 				'template' => $template_name,
 			) );
+			*/
 
-			// edit event
-			$router->add_route( 'ce-edit-route', array(
-				 'path' => '^' . $this->getCommunityRewriteSlug() . '/' . $this->rewriteSlugs['edit'] . '/' . $this->rewriteSlugs['event'] . '/(\d+/?)$',
+			// edit redirect
+			$router->add_route( 'ce-edit-any-route', array(
+				'path' => '^' . $this->getCommunityRewriteSlug() . '/' . $this->rewriteSlugs['edit'] . '/(\d+)$',
 				'query_vars' => array(
-					 'tribe_community_event_id' => 1,
+					 'tribe_id' => 1,
 				),
 				'page_callback' => array(
 					 get_class(),
 					'editCallback',
 				),
 				'page_arguments' => array(
-					 'tribe_community_event_id'
-				),
-				'access_callback' => array(__CLASS__, 'check_access'),
-				'title' => apply_filters( 'tribe_ce_edit_event_page_title', __( 'Edit an Event', 'tribe-events-community' ) ),
-				'template' => $template_name,
-			) );
-
-
-			// edit redirect
-			$router->add_route( 'ce-edit-redirect-route', array(
-				 'path' => '^' . $this->getCommunityRewriteSlug() . '/' . $this->rewriteSlugs['edit'] . '/(\d+)$',
-				'query_vars' => array(
-					 'tribe_id' => 1,
-				),
-				'page_callback' => array(
-					 get_class(),
-					'redirectCallback',
-				),
-				'page_arguments' => array(
 					 'tribe_id'
 				),
 				'access_callback' => array(__CLASS__, 'check_access'),
-				'title' => __( 'Redirect', 'tribe-events-community' ),
+				'title' => __( 'Edit', 'tribe-events-community' ),
 				'template' => $template_name,
 			) );
 
 
 			// add event
-			$router->add_route( 'ce-add-route', array(
-				 'path' => '^' . $this->getCommunityRewriteSlug() . '/' . $this->rewriteSlugs['add'] . '$',
+			$router->add_route( 'ce-add-event-route', array(
+				'path' => '^' . $this->getCommunityRewriteSlug() . '/' . $this->rewriteSlugs['add'] . '/' . $this->rewriteSlugs['event'] . '$',
 				'query_vars' => array(),
 				'page_callback' => array(
 					 get_class(),
-					'addCallback',
+					'addEventCallback',
 				),
 				'page_arguments' => array(),
 				'access_callback' => array(__CLASS__, 'check_access'),
-				'title' => apply_filters( 'tribe_ce_submit_event_page_title', __( 'Submit an Event', 'tribe-events-community' ) ),
+				'title' => __( 'Submit Event', 'tribe-events-community' ),
+				'template' => $template_name,
+			) );
+			// add venue
+			$router->add_route( 'ce-add-venue-route', array(
+				'path' => '^' . $this->getCommunityRewriteSlug() . '/' . $this->rewriteSlugs['add'] . '/' . $this->rewriteSlugs['venue'] . '$',
+				'query_vars' => array(),
+				'page_callback' => array(
+					 get_class(),
+					'addVenueCallback',
+				),
+				'page_arguments' => array(),
+				'access_callback' => array(__CLASS__, 'check_access'),
+				'title' => __( 'Submit Venue', 'tribe-events-community' ),
+				'template' => $template_name,
+			) );
+			// add organizer
+			$router->add_route( 'ce-add-organizer-route', array(
+				'path' => '^' . $this->getCommunityRewriteSlug() . '/' . $this->rewriteSlugs['add'] . '/' . $this->rewriteSlugs['organizer'] . '$',
+				'query_vars' => array(),
+				'page_callback' => array(
+					 get_class(),
+					'addOrganizerCallback',
+				),
+				'page_arguments' => array(),
+				'access_callback' => array(__CLASS__, 'check_access'),
+				'title' => __( 'Submit Organizer', 'tribe-events-community' ),
 				'template' => $template_name,
 			) );
 
-			$router->add_route( 'ce-redirect-to-add-route', array(
-				'path' => $this->getCommunityRewriteSlug() . '/?$',
+			/*// add redirect
+			$router->add_route( 'ce-redirect-to-list', array(
+				'path' => '^' . $this->getCommunityRewriteSlug() . '/?$',
 				'page_callback' => 'wp_redirect',
-				'page_arguments' => array( home_url( $this->getCommunityRewriteSlug() . '/' . $this->rewriteSlugs['add'] ), 301 ),
+				'page_arguments' => array( home_url( $this->getCommunityRewriteSlug() . '/' . $this->rewriteSlugs['list']), 301 ),
 				'template' => false,
 				'access_callback' => array(__CLASS__, 'check_access'),
-			) );
+			) );*/
 
 			// delete event
 			$router->add_route( 'ce-delete-route', array(
-				 'path' => '^' . $this->getCommunityRewriteSlug() . '/' . $this->rewriteSlugs['delete'] . '/(\d+)$',
+				'path' => '^' . $this->getCommunityRewriteSlug() . '/' . $this->rewriteSlugs['delete'] . '/(\d+)$',
 				'query_vars' => array(
 					 'tribe_event_id' => 1,
 				),
@@ -556,13 +560,13 @@ if ( ! class_exists( 'Tribe__Events__Community__Main' ) ) {
 					 'tribe_event_id'
 				),
 				'access_callback' => array(__CLASS__, 'check_access'),
-				'title' => apply_filters( 'tribe_ce_remove_event_page_title', __( 'Remove an Event', 'tribe-events-community' ) ),
+				'title' => __( 'Delete', 'tribe-events-community' ),
 				'template' => $template_name,
 			) );
 
 			// list events
 			$router->add_route( 'ce-list-route', array(
-				 'path' => '^' . $this->getCommunityRewriteSlug() . '/' . $this->rewriteSlugs['list'] . '(/page/(\d+))?/?$',
+				'path' => '^' . $this->getCommunityRewriteSlug() . '/' . $this->rewriteSlugs['list'] . '(/page/(\d+))?/?$',
 				'query_vars' => array(
 					'page' => 2,
 				),
@@ -572,14 +576,14 @@ if ( ! class_exists( 'Tribe__Events__Community__Main' ) ) {
 				),
 				'page_arguments' => array( 'page' ),
 				'access_callback' => array(__CLASS__, 'check_access'),
-				'title' => apply_filters( 'tribe_ce_event_list_page_title', __( 'My Events', 'tribe-events-community' ) ),
+				'title' => __( 'My Events', 'tribe-events-community' ),
 				'template' => $template_name,
 			) );
 
 		}
 
 		function check_access() {
-			return apply_filters('check_user_is_writer', false);
+			return apply_filters('check_user_is_events_writer', false);
 		} 
 
 		/**
@@ -614,6 +618,12 @@ if ( ! class_exists( 'Tribe__Events__Community__Main' ) ) {
 		 * @since 1.0
 		 */
 		public static function redirectCallback( $tribe_id ) {
+			if (!$tribe_id || !intval($tribe_id)) {
+				wp_safe_redirect( esc_url_raw( $tce->getUrl( 'list' ) ) );
+				exit;
+			}
+
+			$post = get_post( intval($event_id) );
 
 			$tce = self::instance();
 
@@ -650,21 +660,9 @@ if ( ! class_exists( 'Tribe__Events__Community__Main' ) ) {
 			$tce->default_template_compatibility();
 
 			if ( ! isset( $context['post_type'] ) ) {
-				return __( 'Not found.', 'tribe-events-community' );
+				wp_safe_redirect( esc_url_raw( $tce->getUrl( 'list' ) ) );
 			}
-
-			if ( $context['post_type'] == Tribe__Events__Main::VENUE_POST_TYPE ) {
-				return $tce->doVenueForm( $tribe_id );
-			}
-
-			if ( $context['post_type'] == Tribe__Events__Main::ORGANIZER_POST_TYPE ) {
-				return $tce->doOrganizerForm( $tribe_id );
-			}
-
-			if ( $context['post_type'] == Tribe__Events__Main::POSTTYPE ) {
-				return $tce->doEventForm( $tribe_id );
-			}
-
+			return $tce->doPostForm( $context['post_type'], $tribe_id );
 		}
 
 		/**
@@ -691,7 +689,7 @@ if ( ! class_exists( 'Tribe__Events__Community__Main' ) ) {
 		 * @author Nick Ciske
 		 * @since 1.0
 		 */
-		public static function addCallback() {
+		public static function addEventCallback() {
 
 			$tce = self::instance();
 
@@ -699,8 +697,51 @@ if ( ! class_exists( 'Tribe__Events__Community__Main' ) ) {
 			add_filter( 'edit_post_link', array( $tce, 'removeEditPostLink' ) );
 
 			$tce->removeFilters();
+
 			$tce->default_template_compatibility();
-			echo $tce->doEventForm();
+			return $tce->doPostForm(Tribe__Events__Main::POSTTYPE );
+		}
+
+		/**
+		 * Display event adding.
+		 *
+		 * @return void
+		 * @author Nick Ciske
+		 * @since 1.0
+		 */
+		public static function addVenueCallback() {
+
+			$tce = self::instance();
+
+			$tce->isEditPage = true;
+			add_filter( 'edit_post_link', array( $tce, 'removeEditPostLink' ) );
+
+			$tce->removeFilters();
+
+			$tce->default_template_compatibility();
+			
+			return $tce->doPostForm( Tribe__Events__Main::VENUE_POST_TYPE );
+		}
+
+		/**
+		 * Display event adding.
+		 *
+		 * @return void
+		 * @author Nick Ciske
+		 * @since 1.0
+		 */
+		public static function addOrganizerCallback() {
+
+			$tce = self::instance();
+
+			$tce->isEditPage = true;
+			add_filter( 'edit_post_link', array( $tce, 'removeEditPostLink' ) );
+
+			$tce->removeFilters();
+
+			$tce->default_template_compatibility();
+
+			return $tce->doPostForm( Tribe__Events__Main::ORGANIZER_POST_TYPE );
 		}
 
 		/**
@@ -776,7 +817,7 @@ if ( ! class_exists( 'Tribe__Events__Community__Main' ) ) {
 				add_filter( 'the_title', 'do_shortcode' );
 
 				if ( $this->isTcePage() ) {
-					$url = $this->getUrl( 'add' );
+					$url = $this->getUrl( 'add', null, null, Tribe__Events__Main::POSTTYPE );
 				}
 
 				// redirect ugly link URLs to pretty permalinks
@@ -842,23 +883,23 @@ if ( ! class_exists( 'Tribe__Events__Community__Main' ) ) {
 				return add_query_arg( $args, get_permalink( $this->get_community_page_id() ) );
 			} else {
 				if ( $id ) {
-					if ( $post_type ) {
-						if ( $post_type == Tribe__Events__Main::POSTTYPE )
-							return home_url() . '/' . $this->getCommunityRewriteSlug() . '/' . $this->rewriteSlugs[ $action ] . '/' . $this->rewriteSlugs['event'] . '/' . $id . '/';
-
-						if ( $post_type == Tribe__Events__Main::ORGANIZER_POST_TYPE )
-							return home_url() . '/' . $this->getCommunityRewriteSlug() . '/' . $this->rewriteSlugs[ $action ] . '/' . $this->rewriteSlugs['organizer'] . '/' . $id . '/';
-
-						if ( $post_type == Tribe__Events__Main::VENUE_POST_TYPE )
-							return home_url() . '/' . $this->getCommunityRewriteSlug() . '/' . $this->rewriteSlugs[ $action ] . '/' . $this->rewriteSlugs['venue'] . '/' . $id . '/';
-					} else {
-						return home_url() . '/' . $this->getCommunityRewriteSlug() . '/' . $this->rewriteSlugs[ $action ] . '/' . $id . '/';
-					}
+					return home_url() . '/' . $this->getCommunityRewriteSlug() . '/' . $this->rewriteSlugs[ $action ] . '/' . $id . '/';
 				} else {
 					if ( $page ) {
 						return home_url() . '/' . $this->getCommunityRewriteSlug() . '/' . $this->rewriteSlugs[ $action ] . '/page/' . $page . '/';
 					} else {
-						return home_url() . '/' . $this->getCommunityRewriteSlug() . '/' . $this->rewriteSlugs[ $action ];
+						if ( $post_type ) {
+							if ( $post_type == Tribe__Events__Main::POSTTYPE )
+								return home_url() . '/' . $this->getCommunityRewriteSlug() . '/' . $this->rewriteSlugs[ $action ] . '/' . $this->rewriteSlugs['event'];
+
+							if ( $post_type == Tribe__Events__Main::ORGANIZER_POST_TYPE )
+								return home_url() . '/' . $this->getCommunityRewriteSlug() . '/' . $this->rewriteSlugs[ $action ] . '/' . $this->rewriteSlugs['organizer'];
+
+							if ( $post_type == Tribe__Events__Main::VENUE_POST_TYPE )
+								return home_url() . '/' . $this->getCommunityRewriteSlug() . '/' . $this->rewriteSlugs[ $action ] . '/' . $this->rewriteSlugs['venue'];
+						} else {
+							return home_url() . '/' . $this->getCommunityRewriteSlug() . '/' . $this->rewriteSlugs[ $action ];
+						}
 					}
 				}
 			}
@@ -920,7 +961,7 @@ if ( ! class_exists( 'Tribe__Events__Community__Main' ) ) {
 			}
 
 			$output  = $before . '<a  rel="nofollow" href="';
-			$output .= esc_url( $this->getUrl( 'edit', $event->ID, null, Tribe__Events__Main::POSTTYPE ) );
+			$output .= esc_url( $this->getUrl( 'edit', $event->ID, null ) );
 			$output .= '"> ' . $label . '</a>' . $after;
 			return $output;
 
@@ -1129,18 +1170,7 @@ if ( ! class_exists( 'Tribe__Events__Community__Main' ) ) {
 			switch ( $context['action'] ) {
 
 				case 'edit':
-
-					if ( $context['post_type'] == Tribe__Events__Main::VENUE_POST_TYPE ) {
-						return $this->doVenueForm( $context['id'] );
-					}
-
-					if ( $context['post_type'] == Tribe__Events__Main::ORGANIZER_POST_TYPE ) {
-						return $this->doOrganizerForm( $context['id'] );
-					}
-
-					if ( $context['post_type'] == Tribe__Events__Main::POSTTYPE ) {
-						return $this->doEventForm( $context['id'] );
-					}
+					return $tce->doPostForm( $context['post_type'], $context['id'] );
 
 				break;
 
@@ -1158,8 +1188,7 @@ if ( ! class_exists( 'Tribe__Events__Community__Main' ) ) {
 
 				case 'add':
 				default:
-
-					return $this->doEventForm();
+					return $tce->doPostForm( $context['post_type']);
 			}
 		}
 
@@ -1375,14 +1404,14 @@ if ( ! class_exists( 'Tribe__Events__Community__Main' ) ) {
 		}
 
 		/**
-		 * Event editing form.
+		 * post editing form.
 		 *
 		 * @param int $id the event's ID.
 		 * @return string The editing view markup.
 		 * @author Nick Ciske
 		 * @since 1.0
 		 */
-		public function doEventForm( $id = null ) {
+		public function doPostForm($post_type, $id = null ) {
 			do_action( 'tribe_community_before_event_page', $id );
 			$events_label_singular = tribe_get_event_label_singular();
 			$events_label_plural = tribe_get_event_label_plural();
@@ -1393,7 +1422,7 @@ if ( ! class_exists( 'Tribe__Events__Community__Main' ) ) {
 
 			if ( $id ) {
 				$edit = true;
-				$tribe_event_id = $id = intval( $id );
+				$tribe_event_id = intval( $id );
 			} else {
 				$edit = false;
 				$tribe_event_id = null;
@@ -1404,18 +1433,18 @@ if ( ! class_exists( 'Tribe__Events__Community__Main' ) ) {
 			}
 
 			if ( $edit && $tribe_event_id ) {
-				$event = get_post( intval( $tribe_event_id ) );
+				$event = get_post( $tribe_event_id );
 			}
 
 			// TODO: Not entirely sure this check is necessary. -- jbrinley
 			if ( $edit && ( ! $tribe_event_id || ! isset( $event->ID ) ) ) {
 				$this->enqueueOutputMessage( sprintf( __( '%s not found.', 'tribe-events-community' ), $events_label_singular ), 'error' );
-				$output = $this->outputMessage( null, false );
+				$output .= $this->outputMessage( null, false );
 				$show_form         = false;
 			}
 
 			// login check
-			if ( ( ! $this->allowAnonymousSubmissions && ! is_user_logged_in() ) || ( $edit && $tribe_event_id && ! is_user_logged_in() ) ) {
+			if ( !is_user_logged_in() ) {
 				do_action( 'tribe_ce_event_submission_login_form' );
 				$output .= $this->login_form( __( 'Please log in first.', 'tribe-events-community' ) );
 				return $output;
@@ -1433,72 +1462,73 @@ if ( ! class_exists( 'Tribe__Events__Community__Main' ) ) {
 			}
 
 			$this->loadScripts = true;
-			do_action( 'tribe_ce_before_event_submission_page' );
-			$output .= '<div id="tribe-community-events" class="form">';
+			$output .= '<div id="tribe-community-events" class="form ' . $object_type_name . '">';
 
-			if ( $this->allowAnonymousSubmissions || is_user_logged_in() ) {
-				$errors = array();
-				$submission = $this->get_submitted_event();
+			$errors = array();
+			$submission = $this->get_submitted_event();
+			/*echo 'submission:<br>';
+			print_r($submission);
+			echo '<br>';*/
+			if ( ! empty( $submission ) ) {
+				if ( isset( $submission['post_ID'] ) ) {
+					$tribe_event_id = absint( $submission['post_ID'] );
+				}//end if
 
-				if ( ! empty( $submission ) ) {
-					if ( isset( $submission['post_ID'] ) ) {
-						$tribe_event_id = absint( $submission['post_ID'] );
-					}//end if
+				$handler = new Tribe__Events__Community__Submission_Handler($post_type, $submission, $tribe_event_id );
 
-					$handler = new Tribe__Events__Community__Submission_Handler( $submission, $tribe_event_id );
+				if ( $handler->validate() ) {
+					add_filter( 'tribe-post-origin', array( $this, 'filterPostOrigin' ) );
+					$tribe_event_id = $handler->save($post_type);
+					remove_filter( 'tribe-post-origin', array( $this, 'filterPostOrigin' ) );
+					delete_transient( 'tribe_community_events_today_page' ); //clear cache
 
-					if ( $handler->validate() ) {
-						add_filter( 'tribe-post-origin', array( $this, 'filterPostOrigin' ) );
-						$tribe_event_id = $handler->save();
-						remove_filter( 'tribe-post-origin', array( $this, 'filterPostOrigin' ) );
-						delete_transient( 'tribe_community_events_today_page' ); //clear cache
-
-						// email alerts
-						if ( $this->emailAlertsEnabled ) {
-							$this->sendEmailAlerts( $tribe_event_id );
-						}
-					} else {
-						$event = $this->create_event_object_from_submission( $handler->get_submission() );
-						$errors = $handler->get_invalid_fields();
+					// email alerts
+					if ( $this->emailAlertsEnabled ) {
+						$this->sendEmailAlerts( $tribe_event_id );
 					}
-					$messages = $handler->get_messages();
-					foreach ( $messages as $m ) {
-						$this->enqueueOutputMessage( $m->message, $m->type );
-					}
+				} else {
+					$event = $this->create_event_object_from_submission( $handler->get_submission() );
+					$errors = $handler->get_invalid_fields();
 				}
+				$messages = $handler->get_messages();
+				foreach ( $messages as $m ) {
+					$this->enqueueOutputMessage( $m->message, $m->type );
+				}
+			}
 
+			if (empty( $event )) {
 				if ( isset( $tribe_event_id ) && $edit ) {
-					$event = get_post( intval( $tribe_event_id ) );
-				} elseif ( empty( $event ) ) {
+					$event = get_post( $tribe_event_id );
+				} else {
 					$event = new stdClass();
 				}
-				$GLOBALS['post'] = $event;
+			}
 
-				$show_form = apply_filters( 'tribe_community_events_show_form', $show_form );
+			
+			$GLOBALS['post'] = $event;
 
-				if ( $show_form ) {
+			$show_form = apply_filters( 'tribe_community_events_show_form', $show_form );
+
+			if ( $show_form ) {
+				ob_start();
+				tribe_events_before_html();
+				$output .= ob_get_clean();
+
+				do_action( 'tribe_ce_before_event_submission_page_template' );
+
+				if ( empty( $submission ) || $this->messageType == 'error' ) {
+					// on open form or error
+					$output .= $this->event_form()->render($event, $errors, $post_type);
+				} else {
+					// on successfull submit
 					ob_start();
-					tribe_events_before_html();
-					$output .= ob_get_clean();
-
-					do_action( 'tribe_ce_before_event_submission_page_template' );
-
-					if ( empty( $submission ) || $this->messageType == 'error' ) {
-						$required = $this->required_fields_for_submission();
-						$this->event_form()->set_event( $event );
-						$this->event_form()->set_required_fields( $required );
-						$this->event_form()->set_error_fields( $errors );
-						$output .= $this->event_form()->render();
-					} else {
-						ob_start();
-						include Tribe__Events__Templates::getTemplateHierarchy( 'community/modules/header-links' );
-						$output .= ob_get_clean();
-					}
-
-					ob_start();
-					tribe_events_after_html();
+					include Tribe__Events__Templates::getTemplateHierarchy( 'community/modules/header-links' );
 					$output .= ob_get_clean();
 				}
+
+				ob_start();
+				tribe_events_after_html();
+				$output .= ob_get_clean();
 			}
 			$output .= '</div>';
 
@@ -1573,7 +1603,14 @@ if ( ! class_exists( 'Tribe__Events__Community__Main' ) ) {
 		}
 
 		public function required_fields_for_submission() {
-			return apply_filters( 'tribe_events_community_required_fields', array( 'post_content', 'post_title' ) );
+			return array( 
+				'post_content',
+				'post_title',
+				'event_image',
+				'venue',
+				'organizer',
+				'taxonomy_' . Tribe__Events__Main::TAXONOMY,
+				'taxonomy_' . 'events_directions' );
 		}
 
 		public function login_form( $caption = '' ) {
@@ -1584,169 +1621,6 @@ if ( ! class_exists( 'Tribe__Events__Community__Main' ) ) {
 			return ob_get_clean();
 		}
 
-		/**
-		 * Main form for events.
-		 *
-		 * @param int $tribe_venue_id The event's venue ID.
-		 * @return string The form.
-		 * @author Nick Ciske
-		 * @since 1.0
-		 */
-		public function doVenueForm( $tribe_venue_id ) {
-			$tribe_venue_id = intval( $tribe_venue_id );
-
-			$output = '';
-
-			add_filter( 'tribe-post-origin', array( $this, 'filterPostOrigin' ) );
-
-			if ( empty( $tribe_venue_id ) ) {
-				$output .= '<p>' . __( 'Venue not found.', 'tribe-events-community' ) . '</p>';
-				return $output;
-			}
-
-			if ( ! is_user_logged_in() ) {
-				return $this->login_form( __( 'Please log in to edit this venue', 'tribe-events-community' ) );
-			}
-
-			if ( ! current_user_can( 'edit_post', $tribe_venue_id ) ) {
-				$output .= '<p>' . __( 'You do not have permission to edit this venue.', 'tribe-events-community' ) . '</p>';
-				return $output;
-			}
-
-			$this->loadScripts = true;
-			$output .= '<div id="tribe-community-events" class="form venue">';
-
-			if ( ( isset( $_POST[ 'community-event' ] ) && $_POST[ 'community-event' ] ) && check_admin_referer( 'ecp_venue_submission' ) ) {
-				if ( isset( $_POST[ 'post_title' ] ) && $_POST[ 'post_title' ] ) {
-					$_POST['ID'] = $tribe_venue_id;
-					$scrubber = new Tribe__Events__Community__Venue_Submission_Scrubber( $_POST );
-					$_POST = $scrubber->scrub();
-
-					remove_action( 'save_post_'.Tribe__Events__Main::VENUE_POST_TYPE, array( Tribe__Events__Main::instance(), 'save_venue_data' ), 16, 2 );
-
-					wp_update_post( array(
-						'post_title' => $_POST[ 'post_title' ],
-						'ID' => $tribe_venue_id,
-						'post_content' => $_POST[ 'post_content' ],
-					) );
-
-					Tribe__Events__API::updateVenue( $tribe_venue_id, $_POST['venue'] );
-
-					$this->enqueueOutputMessage( __( 'Venue updated.', 'tribe-events-community' ) );
-						/*
-						// how it should work, but updateVenue does not return a boolean
-						if ( Tribe__Events__API::updateVenue($tribe_venue_id, $_POST) ) {
-						$this->enqueueOutputMessage( __("Venue updated.",'tribe-events-community') );
-						}else{
-						$this->enqueueOutputMessage( __("There was a problem saving your venue, please try again.",'tribe-events-community'), 'error' );
-						}
-						*/
-				} else {
-					$this->enqueueOutputMessage( __( 'Venue name cannot be blank.', 'tribe-events-community' ), 'error' );
-				}
-			} else {
-				if ( isset( $_POST[ 'community-event' ] ) ) {
-					$this->enqueueOutputMessage( __( 'There was a problem updating your venue, please try again.', 'tribe-events-community' ), 'error' );
-				}
-			}
-
-			global $post;
-			$post = get_post( intval( $tribe_venue_id ) );
-
-			ob_start();
-			include Tribe__Events__Templates::getTemplateHierarchy( 'community/edit-venue' );
-
-			$output .= ob_get_clean();
-
-			wp_reset_query();
-
-			$output .= '</div>';
-
-			remove_filter( 'tribe-post-origin', array( $this, 'filterPostOrigin' ) );
-			return $output;
-
-		}
-
-		/**
-		 * Organizer form for events.
-		 *
-		 * @param int $tribe_organizer_id The organizer's ID.
-		 * @return string The form.
-		 * @author Nick Ciske
-		 * @since 1.0
-		 */
-		public function doOrganizerForm( $tribe_organizer_id ) {
-			$tribe_organizer_id = intval( $tribe_organizer_id );
-
-			add_filter( 'tribe-post-origin', array( $this, 'filterPostOrigin' ) );
-
-			$output = '';
-
-			if ( empty( $tribe_organizer_id ) ) {
-				return '<p>' . __( 'Organizer not found.', 'tribe-events-community' ) . '</p>';
-			}
-
-			if ( ! is_user_logged_in() ) {
-				return $this->login_form( __( 'Please log in to edit this organizer', 'tribe-events-community' ) );
-			}
-
-			if (  ! current_user_can( 'edit_post', $tribe_organizer_id ) ) {
-				$output .= '<p>' . __( 'You do not have permission to edit this organizer.', 'tribe-events-community' ) . '</p>';
-				return $output;
-			}
-
-			$this->loadScripts = true;
-			$output .= '<div id="tribe-community-events" class="form organizer">';
-
-			if ( ( isset( $_POST[ 'community-event' ] ) && $_POST[ 'community-event' ] ) && check_admin_referer( 'ecp_organizer_submission' ) ) {
-				if ( isset( $_POST[ 'post_title' ] ) && $_POST[ 'post_title' ] ) {
-					$_POST['ID'] = $tribe_organizer_id;
-					$scrubber = new Tribe__Events__Community__Organizer_Submission_Scrubber( $_POST );
-					$_POST = $scrubber->scrub();
-
-					remove_action( 'save_post_'.Tribe__Events__Main::ORGANIZER_POST_TYPE, array( Tribe__Events__Main::instance(), 'save_organizer_data' ), 16, 2 );
-
-					wp_update_post( array(
-						'post_title' => $_POST[ 'post_title' ],
-						'ID' => $tribe_organizer_id,
-						'post_content' => $_POST[ 'post_content' ],
-					) );
-
-					Tribe__Events__API::updateOrganizer( $tribe_organizer_id, $_POST['organizer'] );
-					$this->enqueueOutputMessage( __( 'Organizer updated.', 'tribe-events-community' ) );
-
-						/*
-						// how it should work, but updateOrganizer does not return a boolean
-						if ( Tribe__Events__API::updateOrganizer($tribe_organizer_id, $_POST) ) {
-							$this->enqueueOutputMessage( __("Organizer updated.",'tribe-events-community') );
-						}else{
-							$this->enqueueOutputMessage( __("There was a problem saving your organizer, please try again.",'tribe-events-community'), 'error' );
-						}
-						*/
-				} else {
-					$this->enqueueOutputMessage( __( 'Organizer name cannot be blank.', 'tribe-events-community' ), 'error' );
-				}
-			} else {
-				if ( isset( $_POST[ 'community-event' ] ) ) {
-					$this->enqueueOutputMessage( __( 'There was a problem updating this organizer, please try again.', 'tribe-events-community' ), 'error' );
-				}
-			}
-
-			global $post;
-			$post = get_post( intval( $tribe_organizer_id ) );
-
-			ob_start();
-			include Tribe__Events__Templates::getTemplateHierarchy( 'community/edit-organizer' );
-
-			$output .= ob_get_clean();
-
-			$output .= '</div>';
-
-			remove_filter( 'tribe-post-origin', array( $this, 'filterPostOrigin' ) );
-
-			return $output;
-
-		}
 
 		/**
 		 * Show the current user's events.
@@ -2012,7 +1886,7 @@ if ( ! class_exists( 'Tribe__Events__Community__Main' ) ) {
 					$args = array(
 						'checked_ontop' => false,
 						'popular_cats' => true,
-						'selected_cats' => ! empty( $_POST['tax_input']['tribe_events_cat'] ) ? $_POST['tax_input']['tribe_events_cat'] : true,
+						'selected_cats' => ! empty( $_POST['tax_input'][$taxonomy_name] ) ? $_POST['tax_input'][$taxonomy_name] : true,
 						'taxonomy' => $taxonomy_name,
 						'walker' => $walker,
 					);
@@ -2555,47 +2429,6 @@ if ( ! class_exists( 'Tribe__Events__Community__Main' ) ) {
 		}
 
 		/**
-		 * Add the communiy events toolbar items.
-		 *
-		 * @return void
-		 * @author Paul Hughes
-		 * @since 1.0.1
-		 */
-		public function addCommunityToolbarItems() {
-			global $wp_admin_bar;
-
-			$wp_admin_bar->add_group( array(
-				'id' => 'tribe-community-events-group',
-				'parent' => 'tribe-events-add-ons-group',
-			) );
-
-			$wp_admin_bar->add_menu( array(
-				'id' => 'tribe-community-events-submit',
-				'title' => sprintf( __( 'Community: Submit %s', 'tribe-events-community' ), tribe_get_event_label_singular() ),
-				'href' => esc_url( $this->getUrl( 'add' ) ),
-				'parent' => 'tribe-community-events-group',
-			) );
-
-			if ( is_user_logged_in() ) {
-				$wp_admin_bar->add_menu( array(
-					'id' => 'tribe-community-events-my-events',
-					'title' => sprintf( __( 'Community: My %s', 'tribe-events-community' ), tribe_get_event_label_plural() ),
-					'href' => esc_url( $this->getUrl( 'list' ) ),
-					'parent' => 'tribe-community-events-group',
-				) );
-			}
-
-			if ( current_user_can( 'manage_options' ) ) {
-				$wp_admin_bar->add_menu( array(
-					'id' => 'tribe-community-events-settings-sub',
-					'title' => __( 'Community Events', 'tribe-events-community' ),
-					'href' => Tribe__Settings::instance()->get_url( array( 'tab' => 'community' ) ),
-					'parent' => 'tribe-events-settings',
-				) );
-			}
-		}
-
-		/**
 		 * Return additional action for the plugin on the plugins page.
 		 *
 		 * @param array $actions
@@ -2726,19 +2559,6 @@ if ( ! class_exists( 'Tribe__Events__Community__Main' ) ) {
 		public function removeEditPostLink( $content ) {
 			$content = '';
 			return $content;
-		}
-
-		/**
-		 * Return the forums link as it should appear in the help tab.
-		 *
-		 * @param string $content
-		 * @return string
-		 * @author Paul Hughes
-		 * @since 1.0.3
-		 */
-		public function helpTabForumsLink( $content ) {
-			$promo_suffix = '?utm_source=helptab&utm_medium=plugin-community&utm_campaign=in-app';
-			return ( isset( Tribe__Events__Main::$tecUrl ) ? Tribe__Events__Main::$tecUrl : Tribe__Events__Main::$tribeUrl ) . 'support/forums/' . $promo_suffix;
 		}
 
 		/**

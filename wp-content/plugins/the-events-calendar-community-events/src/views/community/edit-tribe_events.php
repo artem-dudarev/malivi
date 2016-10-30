@@ -35,7 +35,7 @@ $events_label_singular = tribe_get_event_label_singular();
 	<?php do_action( 'tribe_events_community_before_the_event_title' ) ?>
 
 	<div class="events-community-post-title">
-		<?php tribe_community_events_field_label( 'post_title', sprintf( __( '%s Title:', 'tribe-events-community' ), $events_label_singular ) ); ?>
+		<?php tribe_community_events_field_label( 'post_title', __( 'Title', 'tribe-events-community' ) ); ?>
 		<?php tribe_community_events_form_title(); ?>
 	</div><!-- .events-community-post-title -->
 
@@ -46,28 +46,33 @@ $events_label_singular = tribe_get_event_label_singular();
 	<?php do_action( 'tribe_events_community_before_the_content' ); ?>
 
 	<div class="events-community-post-content">
-		<?php tribe_community_events_field_label( 'post_content', sprintf( __( '%s Description:', 'tribe-events-community' ), $events_label_singular ) ); ?>
+		<?php tribe_community_events_field_label( 'post_content', __( 'Description', 'tribe-events-community' ) ); ?>
 		<?php tribe_community_events_form_content(); ?>
 	</div><!-- .tribe-events-community-post-content -->
 
 	<?php do_action( 'tribe_events_community_after_the_content' ); ?>
 
-
-	<?php tribe_get_template_part( 'community/modules/taxonomy' ); ?>
+	
+	<?php
+	tribe_get_template_part( 'community/modules/taxonomy', null, array('taxonomy_name' => Tribe__Events__Main::TAXONOMY) );
+	
+	tribe_get_template_part( 'community/modules/taxonomy', null, array('taxonomy_name' => 'events_directions') ); 
+	?>
 
 	<?php tribe_get_template_part( 'community/modules/image' ); ?>
 
 	<?php tribe_get_template_part( 'community/modules/datepickers' ); ?>
-
-	<?php tribe_get_template_part( 'community/modules/venue' ); ?>
-
-	<?php tribe_get_template_part( 'community/modules/organizer' ); ?>
+	
+	<?php tribe_get_template_part( 'community/modules/cost' ); ?>
 
 	<?php tribe_get_template_part( 'community/modules/website' ); ?>
 
 	<?php tribe_get_template_part( 'community/modules/custom' ); ?>
 
-	<?php tribe_get_template_part( 'community/modules/cost' ); ?>
+	<?php tribe_get_template_part( 'community/modules/venue' ); ?>
+
+	<?php tribe_get_template_part( 'community/modules/organizer' ); ?>
+
 
 	<!-- Spam Control -->
 	<?php Tribe__Events__Community__Main::instance()->formSpamControl(); ?>
@@ -75,14 +80,12 @@ $events_label_singular = tribe_get_event_label_singular();
 	<!-- Form Submit -->
 	<?php do_action( 'tribe_events_community_before_form_submit' ); ?>
 	<div class="tribe-events-community-footer">
-		<input type="submit" id="post" class="button submit events-community-submit" value="<?php
-
-			if ( isset( $post_id ) && $post_id ) {
+		<input type="submit" id="submit" class="button submit events-community-submit" value="<?php
+			if ( isset( $tribe_event_id ) && $tribe_event_id ) {
 				echo apply_filters( 'tribe_ce_event_update_button_text', sprintf( __( 'Update %s', 'tribe-events-community' ), $events_label_singular ) );
 			} else {
 				echo apply_filters( 'tribe_ce_event_submit_button_text', sprintf( __( 'Submit %s', 'tribe-events-community' ), $events_label_singular ) );
 			}
-
 			?>" name="community-event" />
 	</div><!-- .tribe-events-community-footer -->
 	<?php do_action( 'tribe_events_community_after_form_submit' ); ?>

@@ -38,6 +38,7 @@ class Tribe__Events__Community__Submission_Scrubber {
 	protected $allowed_venue_fields = array( // filter these with 'tribe_events_community_allowed_venue_fields'
 		'VenueID',
 		'Venue',
+		'tax_input',
 		'Address',
 		'City',
 		'Country',
@@ -130,25 +131,35 @@ class Tribe__Events__Community__Submission_Scrubber {
 
 	protected function filter_venue_data( $venue_data ) {
 		if ( ! empty( $venue_data['VenueID'] ) ) {
-			$venue_data = array( 'VenueID' => intval( $venue_data['VenueID'] ) );
-		} else {
-			$fields = array(
-				'Venue',
-				'Address',
-				'City',
-				'Country',
-				'Province',
-				'State',
-				'Zip',
-				'Phone',
-			);
-			foreach ( $fields  as $field ) {
-				if ( isset( $venue_data[ $field ] ) ) {
-					$venue_data[ $field ] = $this->filter_string( $venue_data[ $field ] );
+			$data = $venue_data['VenueID'];
+			if ( is_array($data) ) {
+				$array = array();
+				foreach ($data as $venue) {
+					$array[] = intval( $venue );
 				}
+				$data = $array;
+			} else {
+				$data = intval( $data );
+			}
+			return array( 'VenueID' => $data );
+		} 
+		$fields = array(
+			'Venue',
+			'Address',
+			'City',
+			'Country',
+			'Province',
+			'State',
+			'Zip',
+			'Phone',
+		);
+		$result = array();
+		foreach ( $fields  as $field ) {
+			if ( isset( $venue_data[ $field ] ) ) {
+				$result[ $field ] = $this->filter_string( $venue_data[ $field ] );
 			}
 		}
-		return $venue_data;
+		return $result;
 	}
 
 	protected function set_organizer() {
@@ -157,9 +168,37 @@ class Tribe__Events__Community__Submission_Scrubber {
 			return;
 		}
 		$this->submission['Organizer'] = stripslashes_deep( $this->submission['organizer'] );
-		$this->submission['Organizer'] = Tribe__Events__Main::instance()->normalize_organizer_submission( $this->submission['Organizer'] );
+		$this->submission['Organizer'] = $this->filter_organizer_data( $this->submission['Organizer'] );
 		unset( $this->submission['organizer'] );
 	}
+
+	protected function filter_organizer_data( $organizer_data ) {
+			//$organizer_pto = get_post_type_object( self::ORGANIZER_POST_TYPE );
+
+			if ( ! empty( $organizer_data['OrganizerID'] ) ) {
+				$data = $organizer_data['OrganizerID'];
+				if ( is_array($data) ) {
+					$array = array();
+					foreach ($data as $organizer) {
+						$array[] = intval( $organizer );
+					}
+					$data = $array;
+				} else {
+					$data = intval( $data );
+				}
+				return array( 'OrganizerID' => $data );
+			}
+			$fields = array(
+				'Organizer', 'Phone', 'Website', 'Email'
+			);
+			$result = array();
+			foreach ( $fields  as $field ) {
+				if ( isset( $organizer_data[ $field ] ) ) {
+					$result[ $field ] = $this->filter_string( $organizer_data[ $field ] );
+				}
+			}
+			return result;
+		}
 
 	protected function remove_unexpected_fields() {
 		$allowed_fields = $this->get_allowed_event_fields();

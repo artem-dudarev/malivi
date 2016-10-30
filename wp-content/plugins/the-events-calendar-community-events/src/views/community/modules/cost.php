@@ -24,6 +24,14 @@ global $post;
 if ( $post instanceof WP_Post ) {
 	$_EventCurrencyPosition = get_post_meta( $post->ID, '_EventCurrencyPosition', true );
 }
+if ( ! $_POST ) {
+	$event_cost = get_post_meta( $post->ID, '_EventCost', '' );
+	if (is_array($event_cost)) {
+		$event_cost = $event_cost[0];
+	}
+} else {
+	$event_cost = isset( $_POST['EventCost'] ) ? esc_attr( $_POST['EventCost'] ) : '';
+}
 ?>
 
 <!-- Event Cost -->
@@ -36,43 +44,18 @@ if ( apply_filters( 'tribe_events_community_display_cost_section', true ) ) {
 		<table class="tribe-community-event-info" cellspacing="0" cellpadding="0">
 			<tr>
 				<td colspan="2" class="tribe_sectionheader">
-					<h4><?php printf( esc_html__( '%s Cost', 'tribe-events-community' ), $events_label_singular ); ?></h4>
+					<h4><?php esc_html_e( 'Cost', 'tribe-events-community' ); ?></h4>
 				</td><!-- .tribe_sectionheader -->
-			</tr>
-			<tr>
-				<td>
-					<?php tribe_community_events_field_label( 'EventCurrencySymbol', __( 'Currency Symbol:', 'tribe-events-community' ) ); ?>
-				</td>
-				<td>
-					<input type="text" id="EventCurrencySymbol" name="EventCurrencySymbol" size="2" value="<?php echo esc_attr( isset( $_POST['EventCurrencySymbol'] ) ? $_POST['EventCurrencySymbol'] : tribe_community_events_form_currency_symbol() ); ?>" />
-					<select id="EventCurrencyPosition" name="EventCurrencyPosition">
-						<?php
-						if ( isset( $_EventCurrencyPosition ) && 'suffix' === $_EventCurrencyPosition ) {
-							$suffix = true;
-						} elseif ( isset( $_EventCurrencyPosition ) && 'prefix' === $_EventCurrencyPosition ) {
-							$suffix = false;
-						} elseif ( true === tribe_get_option( 'reverseCurrencyPosition', false ) ) {
-							$suffix = true;
-						} else {
-							$suffix = false;
-						}
-						?>
-						<option value="prefix"> <?php _ex( 'Before cost', 'Currency symbol position', 'tribe-events-community' ) ?> </option>
-						<option value="suffix"<?php if ( $suffix ) {
-							echo ' selected="selected"';
-						} ?>><?php _ex( 'After cost', 'Currency symbol position', 'tribe-events-community' ) ?></option>
-					</select>
-				</td>
 			</tr>
 			<tr>
 				<td>
 					<?php tribe_community_events_field_label( 'EventCost', __( 'Cost:', 'tribe-events-community' ) ); ?>
 				</td>
-				<td><input type="text" id="EventCost" name="EventCost" size="6" value="<?php echo esc_attr( isset( $_POST['EventCost'] ) ? $_POST['EventCost'] : tribe_get_cost() ); ?>" /></td>
+				<td><input type="text" id="EventCost" name="EventCost" size="25" value="<?php echo esc_attr( $event_cost ); ?>" /></td>
 			</tr>
 			<tr>
 				<td></td>
-				<td><small><?php printf( __( 'Leave blank to hide the field. Enter a 0 for %s that are free.', 'tribe-events-community' ), strtolower( $events_label_plural ) ); ?></small></td>
+				<td><small><?php esc_html_e( 'Leave blank to hide the field. Enter a 0 for events that are free.', 'tribe-events-community' ); ?></small></td>
 			</tr>
 		</table><!-- #event_cost -->
 	</div><!-- .tribe-events-community-details -->

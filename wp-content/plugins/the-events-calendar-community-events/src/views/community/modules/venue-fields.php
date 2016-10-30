@@ -51,29 +51,6 @@ if ( ! isset( $event ) ) {
 
 	<table class="tribe-community-event-info" cellspacing="0" cellpadding="0">
 
-		<tr>
-			<td colspan="2" class="tribe_sectionheader">
-				<h4><label class="<?php echo tribe_community_events_field_has_error( 'venue' ) ? 'error' : ''; ?>"><?php
-					printf( __( '%s Details', 'tribe-events-community' ), $venue_label_singular );
-				?></label></h4>
-			</td><!-- .tribe_sectionheader -->
-		</tr>
-
-		<?php tribe_community_events_venue_select_menu( $event ); ?>
-
-		<?php if ( ! tribe_community_events_is_venue_edit_screen() ) { ?>
-		<tr class="venue">
-			<td>
-				<label for="VenueVenue" <?php if ( $event && $_POST && empty( $venue_name ) ) echo 'class="error"'; ?>>
-					<?php printf( __( '%s Name', 'tribe-events-community' ), $venue_label_singular ); ?>:
-				</label>
-			</td>
-			<td>
-				<input type="text" id="VenueVenue" name="venue[Venue]" size="25"  value="<?php esc_attr_e( $venue_name ); ?>" />
-			</td>
-		</tr><!-- .venue -->
-		<?php } ?>
-
 		<tr class="venue">
 			<td>
 				<label for="VenueAddress">

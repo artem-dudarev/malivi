@@ -34,7 +34,7 @@ if ( ! $_POST ) {
 
 		<tr>
 			<td colspan="2" class="tribe_sectionheader">
-				<h4><?php printf( __( '%s Website', 'tribe-events-community' ), tribe_get_event_label_singular() ); ?></h4>
+				<h4><?php esc_html_e( 'Website', 'tribe-events-community' ); ?></h4>
 			</td><!-- .tribe_sectionheader -->
 		</tr>
 

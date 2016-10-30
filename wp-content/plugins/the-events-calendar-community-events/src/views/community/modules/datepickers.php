@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
-if ( get_post() ) {
+if ( ! $_POST ) {
 	$all_day = tribe_community_events_is_all_day();
 	$start_date = tribe_community_events_get_start_date();
 	$end_date = tribe_community_events_get_end_date();
@@ -40,18 +40,18 @@ $events_label_plural = tribe_get_event_label_plural();
 
 		<tr>
 			<td colspan="2" class="tribe_sectionheader">
-				<h4 class="event-time"><?php printf( __( '%s Time &amp; Date', 'tribe-events-community' ), $events_label_singular ); ?></h4>
+				<h4 class="event-time"><?php echo esc_html__( 'Time &amp; Date', 'tribe-events-community' ); ?></h4>
 			</td><!-- .tribe_sectionheader -->
 		</tr>
 
 		<tr id="recurrence-changed-row">
 			<td colspan="2">
-				<?php printf( __( 'You have changed the recurrence rules of this %1$s. Saving the %1$s will update all future %2$s.  If you did not mean to change all %2$s, then please refresh the page.', 'tribe-events-community' ), strtolower( $events_label_singular ), strtolower( $events_label_plural ) ); ?>
+				<?php esc_html__( 'You have changed the recurrence rules of this event. Saving event will update all future events.  If you did not mean to change all events, then please refresh the page.', 'tribe-events-community' ); ?>
 			</td>
 		</tr><!-- #recurrence-changed-row -->
 
 		<tr>
-			<td><?php printf( __( 'All day %s?', 'tribe-events-community' ), strtolower( $events_label_singular ) ); ?></td>
+			<td><?php esc_html__( 'All day', 'tribe-events-community' ); ?></td>
 			<td>
 				<input type="checkbox" id="allDayCheckbox" name="EventAllDay" value="yes" <?php echo ( $all_day ) ? 'checked' : ''; ?> />
 			</td>
@@ -83,18 +83,6 @@ $events_label_plural = tribe_get_event_label_plural();
 			</td>
 		</tr>
 
-		<?php if ( class_exists( 'Tribe__Events__Timezones' ) ): ?>
-			<tr>
-				<td>
-					<?php tribe_community_events_field_label( 'EventTimezone', __( 'Timezone:', 'tribe-events-community' ) ); ?>
-				</td>
-				<td>
-					<select tabindex="<?php tribe_events_tab_index(); ?>" name="EventTimezone" id="event-timezone" class="chosen">
-						<?php echo wp_timezone_choice( Tribe__Events__Timezones::get_event_timezone_string() ); ?>
-					</select>
-				</td>
-			</tr>
-		<?php endif ?>
 
 		<?php do_action( 'tribe_events_date_display', null, true ); ?>
 

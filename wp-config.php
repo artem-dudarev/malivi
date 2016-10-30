@@ -18,6 +18,7 @@
  * @package WordPress
  */
 
+/** On some browsers posts editor is not working without this line */
 define('CONCATENATE_SCRIPTS', false);
 
 // ** MySQL settings - You can get this info from your web host ** //

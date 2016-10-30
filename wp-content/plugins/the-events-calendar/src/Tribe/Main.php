@@ -2834,43 +2834,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			$event_meta->maybe_save();
 		}
 
-		public function normalize_organizer_submission( $submission ) {
-			$organizer_pto = get_post_type_object( self::ORGANIZER_POST_TYPE );
-			$organizers = array();
-			if ( ! isset( $submission['OrganizerID'] ) ) {
-				return $organizers; // not a valid submission
-			}
-
-			if ( is_array( $submission['OrganizerID'] ) ) {
-				foreach ( $submission['OrganizerID'] as $key => $organizer_id ) {
-					if ( ! empty( $organizer_id ) ) {
-						$organizers[] = array( 'OrganizerID' => intval( $organizer_id ) );
-					} elseif (
-						! empty( $organizer_pto->cap->create_posts )
-						&& current_user_can( $organizer_pto->cap->create_posts )
-					) {
-						$o = array();
-						foreach ( array( 'Organizer', 'Phone', 'Website', 'Email' ) as $field_name ) {
-							$o[ $field_name ] = isset( $submission[ $field_name ][ $key ] ) ? $submission[ $field_name ][ $key ] : '';
-						}
-						$organizers[] = $o;
-					}
-				}
-				return $organizers;
-			}
-
-			// old style with single organizer fields
-			if ( current_user_can( $organizer_pto->cap->create_posts ) ) {
-				$o = array();
-				foreach ( array( 'Organizer', 'Phone', 'Website', 'Email' ) as $field_name ) {
-					$o[ $field_name ] = isset( $submission[ $field_name ] ) ? $submission[ $field_name ] : '';
-				}
-				$organizers[] = $o;
-				$o[ $field_name ] = isset( $submission[ $field_name ] ) ? $submission[ $field_name ] : '';
-			}
-			return $organizers;
-		}
-
 		/**
 		 * Adds the '_<posttype>Origin' meta field for a newly inserted events-calendar post.
 		 *

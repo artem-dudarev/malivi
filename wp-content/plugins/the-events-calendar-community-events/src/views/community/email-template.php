@@ -26,10 +26,10 @@ $events_label_singular = tribe_get_event_label_singular();
 
 		<hr />
 
-		<h3><?php printf( __( '%s Organizer', 'tribe-events-community' ), $events_label_singular ); ?></h3>
+		<h3><?php esc_html_e( 'Organizer', 'tribe-events-community' ); ?></h3>
 		<p><?php echo tribe_get_organizer( tribe_get_event_meta( $post->ID, '_EventOrganizerID', true ) ); ?></p>
 
-		<h3><?php printf( __( '%s Venue', 'tribe-events-community' ), $events_label_singular ); ?></h3>
+		<h3><?php esc_html_e( 'Venue', 'tribe-events-community' ); ?></h3>
 		<p><?php echo tribe_get_venue( tribe_get_event_meta( $post->ID, '_EventVenueID', true ) ); ?></p>
 
 		<h3><?php esc_html_e( 'Description', 'tribe-events-community' ); ?></h3>
@@ -38,9 +38,9 @@ $events_label_singular = tribe_get_event_label_singular();
 		<hr />
 
 		<h4><?php
-		echo $this->getEditButton( $post, sprintf( __( 'Review %s', 'tribe-events-community' ), $events_label_singular ) );
+		echo $this->getEditButton( $post, esc_html_e( 'Review event', 'tribe-events-community' ) );
 		if ( 'publish' == $post->post_status ) {
-			?> | <a href="<?php echo esc_url( get_permalink( $tribe_event_id ) ); ?>"><?php printf( __( 'View %s', 'tribe-events-community' ), $events_label_singular ); ?></a><?php
+			?> | <a href="<?php echo esc_url( get_permalink( $tribe_event_id ) ); ?>"><?php esc_html__( 'View event', 'tribe-events-community' ); ?></a><?php
 		}
 		?></h4>
 	</body>

@@ -35,7 +35,7 @@ location.protocol + '//vk.com/rtrg?r=bQxSJFcA7HtwRjTgT08an90Xx6sPauMgaMaiDYIoZxL
 					<nav id="site-navigation" class="navigation main-navigation" role="navigation">
 						<?php 
 						wp_nav_menu( array( 'theme_location' => 'primary', 'menu_class' => 'nav-menu', 'container' => false ) );
-						if (apply_filters('check_user_is_writer', false)) {
+						if (apply_filters('check_user_is_events_writer', false)) {
 							wp_nav_menu( array( 'theme_location' => 'editors', 'menu_class' => 'nav-menu', 'container' => false ) );
 						} 
 						?>

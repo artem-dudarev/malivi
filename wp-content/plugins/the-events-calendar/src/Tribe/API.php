@@ -62,9 +62,8 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 
 			if ( wp_update_post( $args ) ) {
 				self::saveEventMeta( $eventId, $args, get_post( $eventId ) );
+				return $eventId;
 			}
-
-			return $eventId;
 		}
 
 		/**
@@ -95,9 +94,6 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 			if ( empty( $data['EventHideFromUpcoming'] ) ) {
 				delete_metadata( 'post', $event_id, '_EventHideFromUpcoming' );
 			}
-
-			update_metadata( 'post', $event_id, '_EventShowMapLink', isset( $data['venue']['EventShowMapLink'] ) );
-			update_metadata( 'post', $event_id, '_EventShowMap', isset( $data['venue']['EventShowMap'] ) );
 
 			if ( isset( $data['post_status'] ) ) {
 				$post_status = $data['post_status'];
@@ -294,7 +290,7 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 		 * @param WP_Post $post        The venue object.
 		 * @param string  $post_status The intended post status.
 		 *
-		 * @return mixed.
+		 * @return mixed
 		 */
 		private static function saveEventVenue( $data, $post = null, $post_status = 'publish' ) {
 			$venue_id = ! empty( $data['VenueID'] ) ? $data['VenueID'] : null;
@@ -344,7 +340,8 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 		 *
 		 */
 		public static function updateOrganizer( $organizer_id, $data ) {
-			return Tribe__Events__Organizer::instance()->update( $organizer_id, $data );
+			Tribe__Events__Organizer::instance()->update( $organizer_id, $data );
+			return $organizer_id;
 		}
 
 		/**
@@ -389,7 +386,8 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 		 *
 		 */
 		public static function updateVenue( $venue_id, $data ) {
-			return Tribe__Events__Venue::instance()->update( $venue_id, $data );
+			Tribe__Events__Venue::instance()->update( $venue_id, $data );
+			return $venue_id;
 		}
 
 		/**

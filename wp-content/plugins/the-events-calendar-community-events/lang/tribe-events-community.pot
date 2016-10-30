@@ -3,14 +3,14 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: The Events Calendar: Community Events\n"
-"POT-Creation-Date: 2015-12-02 13:02-0500\n"
+"POT-Creation-Date: 2016-10-29 20:56+0200\n"
 "PO-Revision-Date: 2015-12-02 13:01-0500\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.6\n"
+"X-Generator: Poedit 1.8.11\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-WPHeader: tribe-community-events.php\n"
 "X-Poedit-SourceCharset: UTF-8\n"
@@ -56,335 +56,226 @@ msgstr ""
 msgid "Get your Secret Key at %s"
 msgstr ""
 
-#: src/Tribe/Event_Form.php:30
-msgid "Auto Draft"
+#: src/Tribe/Main.php:495 src/Tribe/Main.php:1580
+#: src/views/community/event-list.php:156
+msgid "Edit"
 msgstr ""
 
-#: src/Tribe/Main.php:461 src/Tribe/Main.php:968
-msgid "Edit a Venue"
+#: src/Tribe/Main.php:510
+msgid "Submit Event"
 msgstr ""
 
-#: src/Tribe/Main.php:480 src/Tribe/Main.php:969
-msgid "Edit an Organizer"
+#: src/Tribe/Main.php:523
+msgid "Submit Venue"
 msgstr ""
 
-#: src/Tribe/Main.php:498 src/Tribe/Main.php:967
-msgid "Edit an Event"
+#: src/Tribe/Main.php:536
+msgid "Submit Organizer"
 msgstr ""
 
-#: src/Tribe/Main.php:517
-msgid "Redirect"
+#: src/Tribe/Main.php:563 src/Tribe/Main.php:929
+msgid "Delete"
 msgstr ""
 
-#: src/Tribe/Main.php:532 src/Tribe/Main.php:1078
-msgid "Submit an Event"
-msgstr ""
-
-#: src/Tribe/Main.php:558 src/Tribe/Main.php:960
-msgid "Remove an Event"
-msgstr ""
-
-#: src/Tribe/Main.php:574 src/Tribe/Main.php:1056
+#: src/Tribe/Main.php:579 src/Tribe/Main.php:1103
 #: src/admin-views/community-options-template.php:195
 msgid "My Events"
 msgstr ""
 
-#: src/Tribe/Main.php:648
-msgid "Not found."
-msgstr ""
-
-#: src/Tribe/Main.php:798
+#: src/Tribe/Main.php:844
 msgid ""
 "Community Events requires non-default (pretty) permalinks to be enabled or "
 "the [tribe_community_events] shortcode to exist on a page."
 msgstr ""
 
-#: src/Tribe/Main.php:882
-msgid "Delete"
-msgstr ""
-
-#: src/Tribe/Main.php:883
+#: src/Tribe/Main.php:930
 msgid "Are you sure?"
 msgstr ""
 
-#: src/Tribe/Main.php:886
+#: src/Tribe/Main.php:933
 msgid "Delete All"
 msgstr ""
 
-#: src/Tribe/Main.php:887
+#: src/Tribe/Main.php:934
 msgid ""
 "Are you sure you want to permanently delete all instances of this recurring "
 "event?"
 msgstr ""
 
-#: src/Tribe/Main.php:889
+#: src/Tribe/Main.php:936
 msgid ""
 "Are you sure you want to permanently delete this instance of a recurring "
 "event?"
 msgstr ""
 
-#: src/Tribe/Main.php:946
+#: src/Tribe/Main.php:993
 msgid "Delete Image"
 msgstr ""
 
-#: src/Tribe/Main.php:961
+#: src/Tribe/Main.php:1007
+msgid "Remove an Event"
+msgstr ""
+
+#: src/Tribe/Main.php:1008
 msgid "Remove a Venue"
 msgstr ""
 
-#: src/Tribe/Main.php:962
+#: src/Tribe/Main.php:1009
 msgid "Remove an Organizer"
 msgstr ""
 
-#: src/Tribe/Main.php:963 src/Tribe/Main.php:970
+#: src/Tribe/Main.php:1010 src/Tribe/Main.php:1017
 msgid "Unknown Post Type"
 msgstr ""
 
-#: src/Tribe/Main.php:1116
+#: src/Tribe/Main.php:1014
+msgid "Edit an Event"
+msgstr ""
+
+#: src/Tribe/Main.php:1015
+msgid "Edit a Venue"
+msgstr ""
+
+#: src/Tribe/Main.php:1016
+msgid "Edit an Organizer"
+msgstr ""
+
+#: src/Tribe/Main.php:1125
+msgid "Submit an Event"
+msgstr ""
+
+#: src/Tribe/Main.php:1163
 msgid "This shortcode can only be used in pages."
 msgstr ""
 
-#: src/Tribe/Main.php:1251
+#: src/Tribe/Main.php:1286
 msgid "Community Events Submission"
 msgstr ""
 
-#: src/Tribe/Main.php:1343
+#: src/Tribe/Main.php:1378
 msgid "Trashed Event #"
 msgstr ""
 
-#: src/Tribe/Main.php:1346
+#: src/Tribe/Main.php:1381
 msgid "Deleted Event #"
 msgstr ""
 
-#: src/Tribe/Main.php:1349
+#: src/Tribe/Main.php:1384
 #, php-format
 msgid "This event (#%s) does not appear to exist."
 msgstr ""
 
-#: src/Tribe/Main.php:1352
+#: src/Tribe/Main.php:1387
 msgid "You do not have permission to delete this event."
 msgstr ""
 
-#: src/Tribe/Main.php:1363
+#: src/Tribe/Main.php:1398
 msgctxt "As in \"go back to previous page\""
 msgid "Back"
 msgstr ""
 
-#: src/Tribe/Main.php:1397
+#: src/Tribe/Main.php:1432
 #, php-format
 msgid ""
 "%sWarning:%s You are editing a recurring %s. All changes will be applied to "
 "the entire series."
 msgstr ""
 
-#: src/Tribe/Main.php:1406
+#: src/Tribe/Main.php:1441
 #, php-format
 msgid "%s not found."
 msgstr ""
 
-#: src/Tribe/Main.php:1414
+#: src/Tribe/Main.php:1449
 msgid "Please log in first."
 msgstr ""
 
-#: src/Tribe/Main.php:1420
+#: src/Tribe/Main.php:1455
 #, php-format
 msgid "You do not have permission to edit this %s."
 msgstr ""
 
-#: src/Tribe/Main.php:1426
+#: src/Tribe/Main.php:1461
 #, php-format
 msgid ""
 "The file you attempted to upload exceeded the maximum file size of %1$s."
 msgstr ""
 
-#: src/Tribe/Main.php:1535 src/views/community/event-list.php:136
+#: src/Tribe/Main.php:1574 src/views/community/event-list.php:150
 msgid "View"
 msgstr ""
 
-#: src/Tribe/Main.php:1539 src/views/community/event-list.php:142
-msgid "Edit"
-msgstr ""
-
-#: src/Tribe/Main.php:1587
-msgid "Venue not found."
-msgstr ""
-
-#: src/Tribe/Main.php:1592
-msgid "Please log in to edit this venue"
-msgstr ""
-
-#: src/Tribe/Main.php:1596
-msgid "You do not have permission to edit this venue."
-msgstr ""
-
-#: src/Tribe/Main.php:1619
-msgid "Venue updated."
-msgstr ""
-
-#: src/Tribe/Main.php:1629
-msgid "Venue name cannot be blank."
-msgstr ""
-
-#: src/Tribe/Main.php:1633
-msgid "There was a problem updating your venue, please try again."
-msgstr ""
-
-#: src/Tribe/Main.php:1670
-msgid "Organizer not found."
-msgstr ""
-
-#: src/Tribe/Main.php:1674
-msgid "Please log in to edit this organizer"
-msgstr ""
-
-#: src/Tribe/Main.php:1678
-msgid "You do not have permission to edit this organizer."
-msgstr ""
-
-#: src/Tribe/Main.php:1700
-msgid "Organizer updated."
-msgstr ""
-
-#: src/Tribe/Main.php:1711
-msgid "Organizer name cannot be blank."
-msgstr ""
-
-#: src/Tribe/Main.php:1715
-msgid "There was a problem updating this organizer, please try again."
-msgstr ""
-
-#: src/Tribe/Main.php:1790
+#: src/Tribe/Main.php:1680
 msgid "Please log in to view your events"
 msgstr ""
 
-#: src/Tribe/Main.php:1866
+#: src/Tribe/Main.php:1756
 msgid "Fake Title"
 msgstr ""
 
-#: src/Tribe/Main.php:1994
-msgid "more"
-msgstr ""
-
-#: src/Tribe/Main.php:2014
-#, php-format
-msgid "Show all categories ( %d )"
-msgstr ""
-
-#: src/Tribe/Main.php:2088
+#: src/Tribe/Main.php:1972
 msgid "The requested page number was not found."
 msgstr ""
 
-#: src/Tribe/Main.php:2332
+#: src/Tribe/Main.php:2216
 msgid "Community"
 msgstr ""
 
-#: src/Tribe/Main.php:2349
+#: src/Tribe/Main.php:2233
 msgid "This template is also used for Community Events."
 msgstr ""
 
-#: src/Tribe/Main.php:2564
-#, php-format
-msgid "Community: Submit %s"
-msgstr ""
-
-#: src/Tribe/Main.php:2572
-#, php-format
-msgid "Community: My %s"
-msgstr ""
-
-#: src/Tribe/Main.php:2581
-msgid "Community Events"
-msgstr ""
-
-#: src/Tribe/Main.php:2597
+#: src/Tribe/Main.php:2440
 msgid "Settings"
 msgstr ""
 
-#: src/Tribe/Main.php:2622
-msgid "edit"
-msgstr ""
-
-#: src/Tribe/Main.php:2623
-msgid "add"
-msgstr ""
-
-#: src/Tribe/Main.php:2624
-msgid "delete"
-msgstr ""
-
-#: src/Tribe/Main.php:2625
-msgid "list"
-msgstr ""
-
-#: src/Tribe/Main.php:2627
-msgid "venue"
-msgstr ""
-
-#: src/Tribe/Main.php:2628
-msgid "organizer"
-msgstr ""
-
-#: src/Tribe/Main.php:2629
-msgid "event"
-msgstr ""
-
-#: src/Tribe/Submission_Handler.php:68
+#: src/Tribe/Submission_Handler.php:73
 #, php-format
-msgid "%s updated."
+msgid "%s updated. "
 msgstr ""
 
-#: src/Tribe/Submission_Handler.php:69 src/Tribe/Submission_Handler.php:87
+#: src/Tribe/Submission_Handler.php:74 src/Tribe/Submission_Handler.php:92
 #, php-format
 msgid "Submit another %s"
 msgstr ""
 
-#: src/Tribe/Submission_Handler.php:72
+#: src/Tribe/Submission_Handler.php:77
 #, php-format
 msgid "There was a problem saving your %s, please try again."
 msgstr ""
 
-#: src/Tribe/Submission_Handler.php:86
+#: src/Tribe/Submission_Handler.php:91
 #, php-format
-msgid "%s submitted."
+msgid "%s submitted. "
 msgstr ""
 
-#: src/Tribe/Submission_Handler.php:90
+#: src/Tribe/Submission_Handler.php:95
 #, php-format
 msgid "There was a problem submitting your %s, please try again."
 msgstr ""
 
-#: src/Tribe/Submission_Handler.php:119
-#, php-format
-msgid "%s is required"
+#: src/Tribe/Submission_Handler.php:152
+msgid "Not all fields are set"
 msgstr ""
 
-#: src/Tribe/Submission_Handler.php:170
-#, php-format
-msgid "%s Title"
-msgstr ""
-
-#: src/Tribe/Submission_Handler.php:173
-#, php-format
-msgid "%s Description"
-msgstr ""
-
-#: src/Tribe/Submission_Handler.php:221
+#: src/Tribe/Submission_Handler.php:271
 #, php-format
 msgid "Invalid value for %s"
 msgstr ""
 
-#: src/Tribe/Submission_Handler.php:233
+#: src/Tribe/Submission_Handler.php:283
 msgid "Images must be png, jpg, or gif"
 msgstr ""
 
-#: src/Tribe/Submission_Handler.php:253
+#: src/Tribe/Submission_Handler.php:303
 msgid "Image exceeded the allowed file size"
 msgstr ""
 
-#: src/Tribe/Submission_Handler.php:258
+#: src/Tribe/Submission_Handler.php:308
 msgid "The image failed to upload successfully"
 msgstr ""
 
-#: src/Tribe/Submission_Handler.php:262
+#: src/Tribe/Submission_Handler.php:312
 msgid "The uploaded image could not be processed"
 msgstr ""
 
@@ -440,16 +331,6 @@ msgstr ""
 
 #: src/admin-views/community-options-template.php:111
 msgid "Default status for submitted events"
-msgstr ""
-
-#: src/admin-views/community-options-template.php:121
-msgid "Community rewrite slug"
-msgstr ""
-
-#: src/admin-views/community-options-template.php:125
-msgid ""
-"The slug used for building the community events URL - it is appended to the "
-"main events slug. Your current community events URLs are"
 msgstr ""
 
 #: src/admin-views/community-options-template.php:138
@@ -543,131 +424,119 @@ msgstr ""
 msgid "Default organizer for submitted events"
 msgstr ""
 
-#: src/functions/template-tags.php:492
-#: src/views/community/edit-organizer.php:33
-#: src/views/community/edit-venue.php:33
-msgid "(required)"
+#: src/views/community/edit-tribe_events.php:38
+#: src/views/community/event-list.php:105
+msgid "Title"
 msgstr ""
 
-#: src/views/community/edit-event.php:38
-#, php-format
-msgid "%s Title:"
-msgstr ""
-
-#: src/views/community/edit-event.php:49
-#: src/views/community/edit-organizer.php:43
-#: src/views/community/edit-venue.php:43
-#, php-format
-msgid "%s Description:"
-msgstr ""
-
-#: src/views/community/edit-event.php:81
-#: src/views/community/edit-organizer.php:69
-#: src/views/community/edit-venue.php:69
-#, php-format
-msgid "Update %s"
-msgstr ""
-
-#: src/views/community/edit-event.php:83
-#: src/views/community/edit-organizer.php:69
-#: src/views/community/edit-venue.php:69
-#, php-format
-msgid "Submit %s"
-msgstr ""
-
-#: src/views/community/edit-organizer.php:32
-#: src/views/community/edit-venue.php:32
-#, php-format
-msgid "%s Name:"
-msgstr ""
-
-#: src/views/community/email-template.php:29
-#, php-format
-msgid "%s Organizer"
-msgstr ""
-
-#: src/views/community/email-template.php:32
-#, php-format
-msgid "%s Venue"
-msgstr ""
-
+#: src/views/community/edit-tribe_events.php:49
+#: src/views/community/edit-tribe_organizer.php:42
+#: src/views/community/edit-tribe_venue.php:42
 #: src/views/community/email-template.php:35
 msgid "Description"
 msgstr ""
 
-#: src/views/community/email-template.php:41
+#: src/views/community/edit-tribe_events.php:85
+#: src/views/community/edit-tribe_organizer.php:71
+#: src/views/community/edit-tribe_venue.php:71
 #, php-format
-msgid "Review %s"
+msgid "Update %s"
+msgstr ""
+
+#: src/views/community/edit-tribe_events.php:87
+#: src/views/community/edit-tribe_organizer.php:73
+#: src/views/community/edit-tribe_venue.php:73
+#, php-format
+msgid "Submit %s"
+msgstr ""
+
+#: src/views/community/edit-tribe_organizer.php:32
+#: src/views/community/edit-tribe_venue.php:32
+msgid "Name"
+msgstr ""
+
+#: src/views/community/email-template.php:29
+msgid "Organizer"
+msgstr ""
+
+#: src/views/community/email-template.php:32
+msgid "Venue"
+msgstr ""
+
+#: src/views/community/email-template.php:41
+msgid "Review event"
 msgstr ""
 
 #: src/views/community/email-template.php:43
-#, php-format
-msgid "View %s"
-msgstr ""
-
-#: src/views/community/event-list.php:26
-#: src/views/community/modules/delete.php:22
-msgid "Add New"
+msgid "View event"
 msgstr ""
 
 #: src/views/community/event-list.php:31
+msgid "Add New Event"
+msgstr ""
+
+#: src/views/community/event-list.php:35
+msgid "Add New Venue"
+msgstr ""
+
+#: src/views/community/event-list.php:39
+msgid "Add New Organizer"
+msgstr ""
+
+#: src/views/community/event-list.php:45
 msgid "Display"
 msgstr ""
 
-#: src/views/community/event-list.php:46
+#: src/views/community/event-list.php:60
 #: src/views/community/modules/delete.php:30
 #: src/views/community/modules/header-links.php:22
 msgid "Not"
 msgstr ""
 
-#: src/views/community/event-list.php:49
+#: src/views/community/event-list.php:63
 #: src/views/community/modules/delete.php:31
 #: src/views/community/modules/header-links.php:22
 msgid "Log Out"
 msgstr ""
 
-#: src/views/community/event-list.php:57
+#: src/views/community/event-list.php:71
 #, php-format
 msgid "There are no upcoming %s in your queue."
 msgstr ""
 
-#: src/views/community/event-list.php:71
+#: src/views/community/event-list.php:85
 msgid "View past events"
 msgstr ""
 
-#: src/views/community/event-list.php:75
+#: src/views/community/event-list.php:89
 msgid "View upcoming events"
 msgstr ""
 
-#: src/views/community/event-list.php:90
+#: src/views/community/event-list.php:104
 msgid "Status"
 msgstr ""
 
-#: src/views/community/event-list.php:91
-msgid "Title"
-msgstr ""
-
-#: src/views/community/event-list.php:94
+#: src/views/community/event-list.php:108
 msgid "Category"
 msgstr ""
 
-#: src/views/community/event-list.php:97
+#: src/views/community/event-list.php:111
 msgid "Recurring?"
 msgstr ""
 
-#: src/views/community/event-list.php:100
+#: src/views/community/event-list.php:114
 msgid "Start Date"
 msgstr ""
 
-#: src/views/community/event-list.php:101
+#: src/views/community/event-list.php:115
 msgid "End Date"
 msgstr ""
 
-#: src/views/community/event-list.php:187
+#: src/views/community/event-list.php:201
 msgid "Yes"
 msgstr ""
 
-#: src/views/community/event-list.php:189
+#: src/views/community/event-list.php:203
 msgid "No"
 msgstr ""
 
@@ -675,32 +544,16 @@ msgstr ""
 msgid "Anti-Spam Check"
 msgstr ""
 
-#: src/views/community/modules/cost.php:39
-#, php-format
-msgid "%s Cost"
+#: src/views/community/modules/cost.php:47
+msgid "Cost"
 msgstr ""
 
-#: src/views/community/modules/cost.php:44
-msgid "Currency Symbol:"
-msgstr ""
-
-#: src/views/community/modules/cost.php:60
-msgctxt "Currency symbol position"
-msgid "Before cost"
-msgstr ""
-
-#: src/views/community/modules/cost.php:63
-msgctxt "Currency symbol position"
-msgid "After cost"
-msgstr ""
-
-#: src/views/community/modules/cost.php:69
+#: src/views/community/modules/cost.php:52
 msgid "Cost:"
 msgstr ""
 
-#: src/views/community/modules/cost.php:75
-#, php-format
-msgid "Leave blank to hide the field. Enter a 0 for %s that are free."
+#: src/views/community/modules/cost.php:58
+msgid "Leave blank to hide the field. Enter a 0 for events that are free."
 msgstr ""
 
 #: src/views/community/modules/custom.php:35
@@ -719,21 +572,18 @@ msgid "None"
 msgstr ""
 
 #: src/views/community/modules/datepickers.php:43
-#, php-format
-msgid "%s Time &amp; Date"
+msgid "Time &amp; Date"
 msgstr ""
 
 #: src/views/community/modules/datepickers.php:49
-#, php-format
 msgid ""
-"You have changed the recurrence rules of this %1$s. Saving the %1$s will "
-"update all future %2$s.  If you did not mean to change all %2$s, then please "
-"refresh the page."
+"You have changed the recurrence rules of this event. Saving event will "
+"update all future events.  If you did not mean to change all events, then "
+"please refresh the page."
 msgstr ""
 
 #: src/views/community/modules/datepickers.php:54
-#, php-format
-msgid "All day %s?"
+msgid "All day"
 msgstr ""
 
 #: src/views/community/modules/datepickers.php:62
@@ -749,8 +599,8 @@ msgstr ""
 msgid "End Date / Time:"
 msgstr ""
 
-#: src/views/community/modules/datepickers.php:89
-msgid "Timezone:"
+#: src/views/community/modules/delete.php:22
+msgid "Add New"
 msgstr ""
 
 #: src/views/community/modules/delete.php:26
@@ -760,15 +610,14 @@ msgid "My %s"
 msgstr ""
 
 #: src/views/community/modules/image.php:31
-#, php-format
-msgid "%s Image"
+msgid "Image"
 msgstr ""
 
 #: src/views/community/modules/image.php:37
 msgid "Upload:"
 msgstr ""
 
-#: src/views/community/modules/image.php:49
+#: src/views/community/modules/image.php:48
 #, php-format
 msgid ""
 "Images that are not png, jpg, or gif will not be uploaded. Images may not "
@@ -777,82 +626,67 @@ msgstr ""
 
 #: src/views/community/modules/organizer-fields.php:47
 #: src/views/community/modules/organizer.php:33
-#: src/views/community/modules/venue.php:80
+#: src/views/community/modules/venue.php:43
 #, php-format
 msgid "%s Details"
 msgstr ""
 
-#: src/views/community/modules/organizer-fields.php:59
-#: src/views/community/modules/venue.php:92
-#, php-format
-msgid "%s Name"
-msgstr ""
-
-#: src/views/community/modules/organizer-fields.php:71
-#: src/views/community/modules/venue.php:179
+#: src/views/community/modules/organizer-fields.php:55
+#: src/views/community/modules/venue-fields.php:132
 msgid "Phone"
 msgstr ""
 
-#: src/views/community/modules/organizer-fields.php:81
-#: src/views/community/modules/venue.php:190
+#: src/views/community/modules/organizer-fields.php:65
+#: src/views/community/modules/venue-fields.php:143
+#: src/views/community/modules/website.php:37
 msgid "Website"
 msgstr ""
 
-#: src/views/community/modules/organizer-fields.php:90
+#: src/views/community/modules/organizer-fields.php:74
 msgid "Email"
 msgstr ""
 
-#: src/views/community/modules/taxonomy.php:30
-#, php-format
-msgid "%s Categories:"
-msgstr ""
-
-#: src/views/community/modules/venue.php:104
+#: src/views/community/modules/venue-fields.php:57
 msgid "Address"
 msgstr ""
 
-#: src/views/community/modules/venue.php:115
+#: src/views/community/modules/venue-fields.php:68
 msgid "City"
 msgstr ""
 
-#: src/views/community/modules/venue.php:124
+#: src/views/community/modules/venue-fields.php:77
 msgid "Country"
 msgstr ""
 
-#: src/views/community/modules/venue.php:149
+#: src/views/community/modules/venue-fields.php:102
 msgid "State or Province"
 msgstr ""
 
-#: src/views/community/modules/venue.php:155
+#: src/views/community/modules/venue-fields.php:108
 msgid "Select a State"
 msgstr ""
 
-#: src/views/community/modules/venue.php:168
+#: src/views/community/modules/venue-fields.php:121
 msgid "Postal Code"
 msgstr ""
 
-#: src/views/community/modules/venue.php:204
+#: src/views/community/modules/venue-fields.php:157
 msgid "Show Google Maps Link"
 msgstr ""
 
-#: src/views/community/modules/venue.php:219
+#: src/views/community/modules/venue-fields.php:172
 msgid "Show Google Map"
-msgstr ""
-
-#: src/views/community/modules/website.php:37
-#, php-format
-msgid "%s Website"
 msgstr ""
 
 #: src/views/community/modules/website.php:43
 msgid "URL:"
 msgstr ""
 
-#: tribe-community-events.php:80
+#: tribe-community-events.php:79
 msgid "The Events Calendar"
 msgstr ""
 
-#: tribe-community-events.php:81
+#: tribe-community-events.php:80
 #, php-format
 msgid ""
 "To begin using The Events Calendar: Community Events, please install the "
