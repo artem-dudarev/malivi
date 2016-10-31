@@ -42,8 +42,8 @@
 			Tribe__Events__Main::POSTTYPE,
 			array(
 				'labels' 				=> array(
-					'name'			=> __( 'Направления' ),
-					'singular_name'	=> __( 'Направление' ),
+					'name'			=> __( 'Directions', 'sf'),
+					'singular_name'	=> __( 'Direction', 'sf'),
 				),
 				'rewrite' 				=> array( 
 					'slug' => 'direction',
@@ -61,8 +61,8 @@
 			Tribe__Events__Main::VENUE_POST_TYPE,
 			array(
 				'labels' 				=> array(
-					'name'			=> __( 'Категории' ),
-					'singular_name'	=> __( 'Категория' ),
+					'name'			=> __( 'Categories', 'sf' ),
+					'singular_name'	=> __( 'Category', 'sf' ),
 				),
 				'rewrite' 				=> array( 
 					'slug' => 'category',

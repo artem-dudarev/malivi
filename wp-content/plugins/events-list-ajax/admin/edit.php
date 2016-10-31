@@ -64,7 +64,6 @@
 		<ul>
 			<li><a href="#general-settings"><?php _e( 'General Settings', 'sf' ); ?></a></li>
 			<li><a href="#taxonomies-postmeta"><?php _e( 'Taxonomies & Postmetas' ,'sf' ); ?></a></li>
-			<!--<li><a href="#layout"><?php _e( 'Layout' ,'sf' ); ?></a></li>-->
 			<li><a href="#form-elements"><?php _e( 'Form Elements' ,'sf' ); ?></a></li>
 			<li><a href="#import-export"><?php _e( 'Import & Export', 'sf' ); ?></a></li>
 		</ul>
