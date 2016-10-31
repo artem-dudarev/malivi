@@ -200,3 +200,12 @@ endif;
 function modify_read_more_link() {
 	return '<a class="btn btn-default btn-sm" href="' . esc_url( get_permalink() ) . '">' . sprintf( __( 'Continue reading %s', 'flat' ), '<i class="fa fa-angle-double-right"></i></a>' );
 }
+
+
+add_action('ical_insert_buttons', 'add_post_social_buttons');
+
+function add_post_social_buttons() {
+	echo '<div class="post-social-share-button"><script type="text/javascript">document.write(VK.Share.button());</script></div>';
+}
+
+?>
