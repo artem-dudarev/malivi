@@ -135,6 +135,8 @@ if ( ! function_exists( 'flat_scripts_styles' ) ) :
 			'1.4.5'
 		);
 
+		wp_register_script('vkshare', "//vk.com/js/api/share.js?90");
+		wp_enqueue_script('vkshare');
 
 		# If the `script_loader_tag` filter is unavailable, this script will be added via the `wp_head` hook
 		if ( version_compare( '4.1', $wp_version, '<=' ) ) {

@@ -483,14 +483,7 @@ body {
 .hentry .entry-meta .sep {
   margin: 0 10px;
 }
-.hentry .entry-content,
-.hentry .entry-summary {
-}
-@media (max-width: 767px) {
-  .hentry .entry-content,
-  .hentry .entry-summary {
-  }
-}
+
 .hentry .page-links {
   padding: 30px 0 0;
 }
@@ -548,4 +541,12 @@ body {
 
 .fixed {
   position: fixed !important;
+}
+
+.post-social-share-button {
+  display:inline-block;
+  padding:6px 9px;
+  margin-right: 9px;
+  margin-top: 10px;
+  vertical-align:middle;
 }
