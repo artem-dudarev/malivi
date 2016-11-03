@@ -22,8 +22,6 @@ class Tribe__Events__Community__Submission_Scrubber {
 		'EventEndMinute',
 		'EventEndMeridian',
 		'EventTimezone',
-		'EventShowMapLink',
-		'EventShowMap',
 		'EventURL',
 		'EventCurrencySymbol',
 		'EventCurrencyPosition',

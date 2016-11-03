@@ -237,10 +237,6 @@ class Tribe__Events__Venue {
 				return $data['VenueID'];
 			}
 
-			$show_map            = get_post_meta( $data['VenueID'], '_VenueShowMap', true );
-			$show_map_link       = get_post_meta( $data['VenueID'], '_VenueShowMapLink', true );
-			$data['ShowMap']     = $show_map ? $show_map : 'false';
-			$data['ShowMapLink'] = $show_map_link ? $show_map_link : 'false';
 			$this->update( $data['VenueID'], $data );
 
 			return $data['VenueID'];
@@ -282,11 +278,6 @@ class Tribe__Events__Venue {
 			}
 		}
 
-		update_post_meta( $venue_id, '_EventShowMapLink', isset( $data['EventShowMapLink'] ) );
-		update_post_meta( $venue_id, '_EventShowMap', isset( $data['EventShowMap'] ) );
-		unset( $data['EventShowMapLink'] );
-		unset( $data['EventShowMap'] );
-
 		if ( isset( $data['FeaturedImage'] ) && ! empty( $data['FeaturedImage'] ) ) {
 			update_post_meta( $venue_id, '_thumbnail_id', $data['FeaturedImage'] );
 			unset( $data['FeaturedImage'] );
@@ -321,10 +312,6 @@ class Tribe__Events__Venue {
 			);
 
 			$venue_id = wp_insert_post( $postdata, true );
-
-			// By default, the show map and show map link options should be on
-			$data['ShowMap'] = isset( $data['ShowMap'] ) ? $data['ShowMap'] : 'true';
-			$data['ShowMapLink'] = isset( $data['ShowMapLink'] ) ? $data['ShowMapLink'] : 'true';
 
 			if ( ! is_wp_error( $venue_id ) ) {
 				$this->save_meta( $venue_id, $data );
@@ -363,9 +350,6 @@ class Tribe__Events__Venue {
 	 *
 	 */
 	public function update( $venue_id, $data ) {
-		$data['ShowMap']     = isset( $data['ShowMap'] ) ? $data['ShowMap'] : 'false';
-		$data['ShowMapLink'] = isset( $data['ShowMapLink'] ) ? $data['ShowMapLink'] : 'false';
-
 		$this->save_meta( $venue_id, $data );
 		do_action( 'tribe_events_venue_updated', $venue_id, $data );
 	}

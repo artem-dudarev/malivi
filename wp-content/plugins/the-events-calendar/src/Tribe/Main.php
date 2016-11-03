@@ -148,8 +148,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			'_EventEndDateUTC',
 			'_EventDuration',
 			'_EventVenueID',
-			'_EventShowMapLink',
-			'_EventShowMap',
 			'_EventCurrencySymbol',
 			'_EventCurrencyPosition',
 			'_EventCost',

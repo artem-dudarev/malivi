@@ -12,7 +12,7 @@ class Tribe__Events__iCal {
 	 */
 	public static function init() {
 		add_action( 'tribe_events_after_footer', array( __CLASS__, 'maybe_add_link' ), 10, 1 );
-		add_action( 'tribe_events_single_event_after_the_content', array( __CLASS__, 'single_event_links' ) );
+		//add_action( 'tribe_events_single_event_after_the_content', array( __CLASS__, 'single_event_links' ) );
 		add_action( 'tribe_tec_template_chooser', array( __CLASS__, 'do_ical_template' ) );
 		add_filter( 'tribe_get_ical_link', array( __CLASS__, 'day_view_ical_link' ), 20, 1 );
 		add_action( 'wp_head', array( __CLASS__, 'set_feed_link' ), 2, 0 );
@@ -72,8 +72,8 @@ class Tribe__Events__iCal {
 		if ( is_single() && post_password_required() ) {
 			return;
 		}
-		echo '<a class="tribe-events-gcal tribe-events-button post-share-button" href="' . Tribe__Events__Main::instance()->esc_gcal_url( tribe_get_gcal_link() ) . '" title="' . esc_attr__( 'Add to Google Calendar', 'the-events-calendar' ) . '">' . esc_html__( 'Google Calendar', 'the-events-calendar' ).'</a>';
-		//echo '<a class="tribe-events-ical tribe-events-button" href="' . esc_url( tribe_get_single_ical_link() ) . '" title="' . esc_attr__( 'Download .ics file', 'the-events-calendar' ) . '" >+ ' . esc_html__( 'iCal Export', 'the-events-calendar' ) . '</a>';
+		
+		echo '<a class="tribe-events-ical tribe-events-button" href="' . esc_url( tribe_get_single_ical_link() ) . '" title="' . esc_attr__( 'Download .ics file', 'the-events-calendar' ) . '" >+ ' . esc_html__( 'iCal Export', 'the-events-calendar' ) . '</a>';
 	}
 
 	/**

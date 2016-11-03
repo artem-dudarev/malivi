@@ -29,8 +29,6 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * - EventEndMinute string - Event end minute (01 - 60).
 	 * - EventEndMeridian string - Event end meridian (am or pm).
 	 * - EventHideFromUpcoming bool - Set to true to hide this Event from the upcoming list view.
-	 * - EventShowMapLink bool - Set to true to display a link to the map in the Event view.
-	 * - EventShowMap bool - Set to true to embed the map in the Event view.
 	 * - EventCost string - Default cost of the Event.
 	 * - Venue array - Array of data to create or update an Venue to be associated with the Event. {@link tribe_create_venue}.
 	 * - Organizer array - Array of data to create or update an Organizer to be associated with the Event. {@link tribe_create_organizer}.
