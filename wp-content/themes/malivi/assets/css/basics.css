@@ -1,3 +1,5 @@
+@charset "UTF-8";
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic,500,700italic,500italic,700&subset=latin,cyrillic);
 /* FONT PATH
  * -------------------------- */
 @font-face {
@@ -6234,7 +6236,7 @@ img {
   height: auto;
 }
 .btn {
-  outline: none !important;
+  outline: none;
 }
 input#submit {
   display: inline-block;
@@ -6254,9 +6256,9 @@ input#submit {
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-  outline: none !important;
+  outline: none;
   color: #ffffff;
-  background-color: #7ccd8c;
+  background-color: #44a2bf;
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.13);
   border-radius:3px;
 }
@@ -6300,7 +6302,7 @@ input#submit:active,
 input#submit.active,
 .open > .dropdown-toggleinput#submit {
   color: #ffffff;
-  background-color: #5cad6c;
+  background-color: #3492af;
 }
 input#submit:active,
 input#submit.active,
@@ -6325,8 +6327,8 @@ fieldset[disabled] input#submit:active,
 input#submit.disabled.active,
 input#submit[disabled].active,
 fieldset[disabled] input#submit.active {
-  background-color: #3699dc;
-  border-color: #3699dc;
+  background-color: #3492af;
+  border-color: #3492af;
 }
 input#submit .badge {
   color: #3699dc;
@@ -6338,7 +6340,7 @@ input#submit:active,
 input#submit.active,
 .open .dropdown-toggleinput#submit {
   color: #ffffff;
-  background-color: #5cad6c;
+  background-color: #3492af;
 }
 input#submit:active,
 input#submit.active {

@@ -5,27 +5,36 @@ if ( ! defined( 'ABSPATH' ) ) {
 ?>
 <div id="tribe-events-content" class="tribe-events-single tribe-events-organizer">
 	<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
-		<header class="entry-header group-element">
-			<h1 class="entry-title" itemprop="name"><?php the_title(); ?></h1>
-		</header>
-		<div class="entry-content" itemprop="articleBody">
-			<?php flat_hook_entry_top(); ?>
-			<div class="tribe-events-list-event-description group-element">
-				<!-- Event featured image, but exclude link -->
-				<?php echo tribe_event_featured_image( $event_id, 'full', false ); ?>
+		<div class="group-element">
+			<header class="entry-header">
+				<h1 class="entry-title" itemprop="name"><?php the_title(); ?></h1>
+			</header>
+			<div class="entry-content" itemprop="articleBody">
+				<?php flat_hook_entry_top(); ?>
+				<div class="tribe-events-list-event-description">
+					<!-- Event featured image, but exclude link -->
+					<?php echo tribe_event_featured_image( $event_id, 'full', false ); ?>
 
-				<!-- Event content -->
-				<div class="tribe-event-description tribe-events-content">
-					<?php the_content(); ?>
+					<!-- Event content -->
+					<div class="tribe-event-description tribe-events-content">
+						<?php the_content(); ?>
+					</div>
+					<div class="post-social-buttons-group">
+						<?php do_action('post_social_like_buttons') ?>
+					</div>
 				</div>
 			</div>
-			<div class = "tribe-events-list-event-meta">
-				<!-- Organizer Meta -->
-				<?php do_action( 'tribe_events_single_organizer_before_the_meta' ); ?>
-				<?php echo tribe_get_meta_group( 'tribe_event_organizer' ) ?>
-				<?php do_action( 'tribe_events_single_organizer_after_the_meta' ) ?>
-				<!-- .tribe-events-organizer-meta -->
-			</div>
+		</div>
+
+		<!-- Organizer Meta -->
+		<?php do_action( 'tribe_events_single_organizer_before_the_meta' ); ?>
+		<div class="tribe-events-single-section tribe-events-event-meta primary group-element tribe-clearfix">
+		<div class="tribe-events-meta-group tribe-events-meta-group-details">
+		<?php echo tribe_get_meta_group( 'tribe_event_organizer' ) ?>
+		</div>
+		</div>
+		<?php do_action( 'tribe_events_single_organizer_after_the_meta' ) ?>
+
 		<?php do_action( 'tribe_events_single_organizer_after_organizer' ) ?>
 
 		<!-- Upcoming event list -->
@@ -37,7 +46,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 		<?php do_action( 'tribe_events_single_organizer_after_upcoming_events' ) ?>
 
-		</div><!-- .tribe-events-organizer -->
+		
 	</article>
 </div>
 <?php

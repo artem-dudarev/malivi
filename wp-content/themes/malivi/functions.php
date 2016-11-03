@@ -128,16 +128,25 @@ if ( ! function_exists( 'flat_scripts_styles' ) ) :
 			'1.4.5'
 		);
 		//wp_enqueue_script( 'jquery-mobile');
-		wp_enqueue_style(
+		/*wp_enqueue_style(
 			'jqm_css',
 			'http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css',
 			'',
 			'1.4.5'
-		);
+		);*/
 
 		wp_register_script('vkshare', "//vk.com/js/api/share.js?90");
 		wp_enqueue_script('vkshare');
 
+		wp_register_script('vkwidgets', "//vk.com/js/api/openapi.js?136");
+		wp_enqueue_script('vkwidgets');
+
+		wp_register_script('fbconnect', "//connect.facebook.net/ru_RU/sdk.js#&version=v2.8");
+		wp_enqueue_script('fbconnect');
+
+		wp_register_script('yandexshare', "//yastatic.net/share2/share.js");
+		wp_enqueue_script('yandexshare');
+		
 		# If the `script_loader_tag` filter is unavailable, this script will be added via the `wp_head` hook
 		if ( version_compare( '4.1', $wp_version, '<=' ) ) {
 			wp_enqueue_script( 'html5shiv', get_template_directory_uri() . '/assets/js/html5shiv.js', array(), '3.7.2', false );
@@ -202,10 +211,39 @@ function modify_read_more_link() {
 }
 
 
-add_action('ical_insert_buttons', 'add_post_social_buttons');
+add_action('post_social_like_buttons', 'add_post_social_like_buttons');
 
-function add_post_social_buttons() {
-	echo '<div class="post-social-share-button"><script type="text/javascript">document.write(VK.Share.button());</script></div>';
+function add_post_social_like_buttons() {
+	$vk_like_button_id = 'vk_like_button_'.get_the_ID();
+	echo '<div class="post-share-button"id="'.$vk_like_button_id.'">';
+	echo '<script type="text/javascript">VK.Widgets.Like("'.$vk_like_button_id.'", {type: "button", height: 30, pageUrl: "'.get_permalink().'"});</script>';
+	echo '</div>';
+
+	$fb_button_id = 'fb_like_button_'.get_the_ID(); 
+	echo '<div class="post-share-button" id="'.$fb_button_id.'">';
+	echo '<div class="fb-like" data-href="'. get_permalink() .'" data-layout="button_count" data-action="like" data-size="large" data-show-faces="false" data-share="false"></div><script type="text/javascript">FB.XFBML.parse(document.getElementById("'.$fb_button_id.'"));</script>';
+	echo '</div>';
 }
+
+add_action('tribe_events_single_event_after_the_content', 'add_post_social_share_buttons');
+
+function add_post_social_share_buttons() {
+	$ya_button_id = "ya_share_button_".get_the_ID();
+	echo '<div id="'.$ya_button_id.'" class="post-share-button"></div>';
+	echo '<script type="text/javascript">Ya.share2("'.$ya_button_id.'", { content: { url: "'.get_permalink().'"}, theme : {services: "vkontakte,facebook,odnoklassniki,moimir,gplus,twitter"} });</script>';
+}
+
+add_action('flat_header_before', 'flat_add_body_scripts');
+
+function flat_add_body_scripts() {
+	echo '<script type="text/javascript">';
+  	echo 'VK.init({ apiId: 5702053, onlyWidgets: true });';
+	echo '(window.Image ? (new Image()) : document.createElement("img")).src = location.protocol + "//vk.com/rtrg?r=bQxSJFcA7HtwRjTgT08an90Xx6sPauMgaMaiDYIoZxLwOWy3ch1FLTISQYCCYw6NwSB0U2HgbADMHHCgpaIkc0SM75f01ZJb7Fsvz3lnr4QVi3VNwyQEEkwkDObZmvI1HU2lAd6UPtcCgfYAC254UP5WCJT67tLuTvqfhsZ*2nc-&pixel_id=1000030378";';
+	echo '</script>';
+	echo '<script type="text/javascript">';
+	echo 'FB.init({appId: "182398415550570", xfbml: false, version: "v2.8" });';
+	echo '</script>';
+}
+
 
 ?>

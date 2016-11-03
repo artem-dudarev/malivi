@@ -9,7 +9,7 @@ if (!empty($notices)) {
 ?>
 <div id="tribe-events-content" class="tribe-events-single">
 	<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
-		<div class="group-element">
+		<div class="entry-content group-element">
 			<header class="entry-header">
 				<h1 class="entry-title" itemprop="name"><?php the_title(); ?></h1>
 			</header>
@@ -24,23 +24,19 @@ if (!empty($notices)) {
 				<div class="tribe-event-description tribe-events-content">
 					<?php the_content(); ?>
 				</div>
-				<!--<div class="post-social-share-buttons-group">
-					<script type="text/javascript">
-						document.write(VK.Share.button(true,{type: "custom", text: "<img src=\"https://vk.com/images/share_32.png\" width=\"32\" height=\"32\" />"}));
-					</script>
-				</div>-->
+				<div class="post-social-buttons-group">
+					<?php do_action('post_social_like_buttons') ?>
+				</div>
 			</div>
 		</div>
-		<div class = "tribe-events-list-event-meta"> 
-			<!-- .tribe-events-single-event-description -->
+		<div class="tribe-events-export-links">
 			<?php do_action( 'tribe_events_single_event_after_the_content' ) ?>
-			<!-- Event meta -->
-			<?php do_action( 'tribe_events_single_event_before_the_meta' ) ?>
-			
-			<?php tribe_get_template_part( 'modules/meta' ); ?>
-			<?php //do_action( 'tribe_events_single_event_after_the_meta' ) ?>
-			<?php wp_link_pages( array( 'before' => '<div class="page-links"><span class="page-links-title">' . __( 'Pages:', 'flat' ) . '</span>', 'after' => '</div>', 'link_before' => '<span>', 'link_after' => '</span>' ) ); ?>
-		</div>
+		</div><!-- .tribe-events-export-links -->
+		<!-- Event meta -->
+		<?php do_action( 'tribe_events_single_event_before_the_meta' ) ?>
+		<?php tribe_get_template_part( 'modules/meta' ); ?>
+		<?php //do_action( 'tribe_events_single_event_after_the_meta' ) ?>
+		<?php wp_link_pages( array( 'before' => '<div class="page-links"><span class="page-links-title">' . __( 'Pages:', 'flat' ) . '</span>', 'after' => '</div>', 'link_before' => '<span>', 'link_after' => '</span>' ) ); ?>
 	</article>
 	<?php 
 		if ( tribe_get_option( 'showComments', true ) ) {

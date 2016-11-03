@@ -8,25 +8,31 @@ $venue_id = get_the_ID();
 <div id="tribe-events-content" class="tribe-events-single tribe-events-venue">
 
 	<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
-		<header class="entry-header group-element">
-			<h1 class="entry-title" itemprop="name"><?php the_title(); ?></h1>
-		</header>
+		<div class="entry-content group-element">
+			<header class="entry-header">
+				<h1 class="entry-title" itemprop="name"><?php the_title(); ?></h1>
+			</header>
 
-		<div class="entry-content" itemprop="articleBody">
-			<div class="tribe-events-list-event-description group-element">
-				<!-- Venue Featured Image -->
-				<?php echo tribe_event_featured_image( null, 'full' ) ?>
-				<!-- Venue Description -->
-				<div class="tribe-event-description tribe-events-content">
-					<?php the_content(); ?>
+			<div class="entry-content" itemprop="articleBody">
+				<div class="tribe-events-list-event-description">
+					<!-- Venue Featured Image -->
+					<?php echo tribe_event_featured_image( null, 'full' ) ?>
+					<!-- Venue Description -->
+					<div class="tribe-event-description tribe-events-content">
+						<?php the_content(); ?>
+					</div>
+					<div class="post-social-buttons-group">
+						<?php do_action('post_social_like_buttons') ?>
+					</div>
 				</div>
 			</div>
-			<div class = "tribe-events-list-event-meta">
-				<!-- Venue Meta -->
-				<?php do_action( 'tribe_events_single_venue_before_the_meta' ) ?>
-				<?php tribe_get_template_part( 'modules/meta' ); ?>
-				<?php do_action( 'tribe_events_single_venue_after_the_meta' ) ?>
-			</div>
+		</div>
+
+		<div class = "tribe-events-list-event-meta">
+			<!-- Venue Meta -->
+			<?php do_action( 'tribe_events_single_venue_before_the_meta' ) ?>
+			<?php tribe_get_template_part( 'modules/meta' ); ?>
+			<?php do_action( 'tribe_events_single_venue_after_the_meta' ) ?>
 		</div>
 
 		<!-- Upcoming event list -->
