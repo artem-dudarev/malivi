@@ -28,11 +28,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 		<!-- Organizer Meta -->
 		<?php do_action( 'tribe_events_single_organizer_before_the_meta' ); ?>
-		<div class="tribe-events-single-section tribe-events-event-meta primary group-element tribe-clearfix">
-		<div class="tribe-events-meta-group tribe-events-meta-group-details">
-		<?php echo tribe_get_meta_group( 'tribe_event_organizer' ) ?>
-		</div>
-		</div>
+		<?php tribe_get_template_part( 'modules/meta' ); ?>
 		<?php do_action( 'tribe_events_single_organizer_after_the_meta' ) ?>
 
 		<?php do_action( 'tribe_events_single_organizer_after_organizer' ) ?>
