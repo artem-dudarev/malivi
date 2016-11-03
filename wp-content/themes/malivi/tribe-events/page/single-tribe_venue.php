@@ -28,12 +28,10 @@ $venue_id = get_the_ID();
 			</div>
 		</div>
 
-		<div class = "tribe-events-list-event-meta">
-			<!-- Venue Meta -->
-			<?php do_action( 'tribe_events_single_venue_before_the_meta' ) ?>
-			<?php tribe_get_template_part( 'modules/meta' ); ?>
-			<?php do_action( 'tribe_events_single_venue_after_the_meta' ) ?>
-		</div>
+		<!-- Venue Meta -->
+		<?php do_action( 'tribe_events_single_venue_before_the_meta' ) ?>
+		<?php tribe_get_template_part( 'modules/meta' ); ?>
+		<?php do_action( 'tribe_events_single_venue_after_the_meta' ) ?>
 
 		<!-- Upcoming event list -->
 		<?php do_action( 'tribe_events_single_venue_before_upcoming_events' ) ?>

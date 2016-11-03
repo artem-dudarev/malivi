@@ -10,16 +10,11 @@
 
 do_action( 'tribe_events_single_meta_before' );
 
-// Check for skeleton mode (no outer wrappers per section)
-$not_skeleton = ! apply_filters( 'tribe_events_single_event_the_meta_skeleton', false, get_the_ID() );
-
 // Do we want to group venue meta separately?
 $set_venue_apart = apply_filters( 'tribe_events_single_event_the_meta_group_venue', false, get_the_ID() );
 ?>
 
-<?php if ( $not_skeleton ) : ?>
-	<div class="tribe-events-single-section tribe-events-event-meta primary group-element tribe-clearfix">
-<?php endif; ?>
+<div class="tribe-events-single-section tribe-events-event-meta primary group-element tribe-clearfix">
 
 <?php
 do_action( 'tribe_events_single_event_meta_primary_section_start' );
@@ -45,15 +40,11 @@ if ( tribe_has_organizer() ) {
 do_action( 'tribe_events_single_event_meta_primary_section_end' );
 ?>
 
-<?php if ( $not_skeleton ) : ?>
-	</div>
-<?php endif; ?>
+</div>
 
 
-<?php if ( $set_venue_apart ) : ?>
-	<?php if ( $not_skeleton ) : ?>
-		<div class="tribe-events-single-section tribe-events-event-meta secondary group-element tribe-clearfix">
-	<?php endif; ?>
+<?php if ( $set_venue_apart && get_post_type() == Tribe__Events__Main::POSTTYPE) : ?>
+<div class="tribe-events-single-section tribe-events-event-meta secondary group-element tribe-clearfix">
 	<?php
 	do_action( 'tribe_events_single_event_meta_secondary_section_start' );
 
@@ -62,10 +53,7 @@ do_action( 'tribe_events_single_event_meta_primary_section_end' );
 
 	do_action( 'tribe_events_single_event_meta_secondary_section_end' );
 	?>
-	<?php
-	if ( $not_skeleton ) : ?>
-		</div>
-	<?php endif; ?>
+</div>
 <?php
 endif;
 do_action( 'tribe_events_single_meta_after' );

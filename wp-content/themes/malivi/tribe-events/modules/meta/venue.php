@@ -18,17 +18,24 @@ $website = tribe_get_venue_website_link();
 ?>
 
 <div class="tribe-events-meta-group tribe-events-meta-group-venue">
-	<?php if (get_post_type() != Tribe__Events__Venue::POSTTYPE) : ?>
-	<h3 class="tribe-events-single-section-title"> <?php esc_html_e( tribe_get_venue_label_singular(), 'the-events-calendar' ) ?> </h3>
-	<?php endif; ?>
+	<h3 class="tribe-events-single-section-title">
+		<?php if (get_post_type() == Tribe__Events__Venue::POSTTYPE) : ?>
+			<?php esc_html_e( 'Details', 'the-events-calendar' ) ?>
+			<?php else:; ?>
+			<?php esc_html_e( tribe_get_venue_label_singular(), 'the-events-calendar' ) ?>
+		<?php endif; ?>
+	</h3>
 	<dl>
 		<?php do_action( 'tribe_events_single_meta_venue_section_start' ) ?>
 
 		<?php if (get_post_type() != Tribe__Events__Venue::POSTTYPE) : ?>
-		<dd class="tribe-venue"> <?php echo tribe_get_venue() ?> </dd>
+			<dd class="tribe-venue"> <?php echo tribe_get_venue() ?> </dd>
 		<?php endif; ?>
 
 		<?php if ( tribe_address_exists() ) : ?>
+			<dt>
+				<?php esc_html_e( 'Address:', 'the-events-calendar' ) ?>
+			</dt>
 			<dd class="tribe-venue-location">
 				<address class="tribe-events-address">
 					<?php echo tribe_get_full_address(); ?>
