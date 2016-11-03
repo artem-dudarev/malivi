@@ -17,7 +17,13 @@ $website = tribe_get_organizer_website_link();
 ?>
 
 <div class="tribe-events-meta-group tribe-events-meta-group-organizer">
-	<h3 class="tribe-events-single-section-title"><?php echo tribe_get_organizer_label( ! $multiple ); ?></h3>
+	<h3 class="tribe-events-single-section-title">
+		<?php if (get_post_type() == Tribe__Events__Organizer::POSTTYPE) : ?>
+			<?php esc_html_e( 'Details', 'the-events-calendar' ) ?>
+		<?php else:; ?>
+			<?php echo tribe_get_organizer_label( ! $multiple ); ?>
+		<?php endif; ?>
+	</h3>
 	<dl>
 		<?php
 		do_action( 'tribe_events_single_meta_organizer_section_start' );
@@ -28,10 +34,11 @@ $website = tribe_get_organizer_website_link();
 			}
 
 			?>
-			<dt style="display:none;"><?php // This element is just to make sure we have a valid HTML ?></dt>
-			<dd class="tribe-organizer">
-				<?php echo tribe_get_organizer_link( $organizer ) ?>
-			</dd>
+			<?php if (get_post_type() != Tribe__Events__Organizer::POSTTYPE) : ?>
+				<dd class="tribe-organizer">
+					<?php echo tribe_get_organizer_link( $organizer ) ?>
+				</dd>
+			<?php endif; ?>
 			<?php
 		}
 
