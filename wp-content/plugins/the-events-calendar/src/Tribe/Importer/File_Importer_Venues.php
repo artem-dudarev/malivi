@@ -39,8 +39,6 @@ class Tribe__Events__Importer__File_Importer_Venues extends Tribe__Events__Impor
 			'Zip'           => $this->get_value_by_key( $record, 'venue_zip' ),
 			'Phone'         => $this->get_value_by_key( $record, 'venue_phone' ),
 			'URL'           => $this->get_value_by_key( $record, 'venue_url' ),
-			'ShowMap'       => $venue_id ? get_post_meta( $venue_id, '_VenueShowMap', true ) : 'true',
-			'ShowMapLink'   => $venue_id ? get_post_meta( $venue_id, '_VenueShowMapLink', true ) : 'true',
 			'FeaturedImage' => $this->get_featured_image( $venue_id, $record ),
 		);
 		

@@ -32,10 +32,6 @@ $website = tribe_get_venue_website_link();
 			<dd class="tribe-venue-location">
 				<address class="tribe-events-address">
 					<?php echo tribe_get_full_address(); ?>
-
-					<?php if ( tribe_show_google_map_link() ) : ?>
-						<?php echo tribe_get_map_link_html(); ?>
-					<?php endif; ?>
 				</address>
 			</dd>
 		<?php endif; ?>

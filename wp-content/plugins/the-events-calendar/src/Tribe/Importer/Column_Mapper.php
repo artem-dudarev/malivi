@@ -72,8 +72,6 @@ class Tribe__Events__Importer__Column_Mapper {
 			'event_sticky'            => esc_html__( 'Event Sticky in Month View', 'the-events-calendar' ),
 			'event_venue_name'        => esc_html__( 'Event Venue Name', 'the-events-calendar' ),
 			'event_organizer_name'    => esc_html__( 'Event Organizer Name(s) or ID(s)', 'the-events-calendar' ),
-			'event_show_map_link'     => esc_html__( 'Event Show Map Link', 'the-events-calendar' ),
-			'event_show_map'          => esc_html__( 'Event Show Map', 'the-events-calendar' ),
 			'event_cost'              => esc_html__( 'Event Cost', 'the-events-calendar' ),
 			'event_currency_symbol'   => esc_html__( 'Event Currency Symbol', 'the-events-calendar' ),
 			'event_currency_position' => esc_html__( 'Event Currency Position', 'the-events-calendar' ),

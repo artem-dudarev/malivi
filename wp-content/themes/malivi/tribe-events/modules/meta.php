@@ -28,10 +28,7 @@ if (get_post_type() == Tribe__Events__Main::POSTTYPE) {
 	// Always include the main event details in this first section
 	tribe_get_template_part( 'modules/meta/details' );
 }
-// If we have no map to embed and no need to keep the venue separate...
-if ( ! $set_venue_apart && ! tribe_embed_google_map() ) {
-	tribe_get_template_part( 'modules/meta/venue' );
-} elseif ( ! $set_venue_apart && ! tribe_has_organizer() && tribe_embed_google_map() ) {
+if ( ! $set_venue_apart && ! tribe_has_organizer() ) {
 	// If we have no organizer, no need to separate the venue but we have a map to embed...
 	tribe_get_template_part( 'modules/meta/venue' );
 	tribe_get_template_part( 'modules/meta/map' );

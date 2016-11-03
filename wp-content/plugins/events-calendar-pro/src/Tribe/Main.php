@@ -65,7 +65,6 @@
 				require_once( $this->pluginPath . 'src/functions/template-tags/week.php' );
 				require_once( $this->pluginPath . 'src/functions/template-tags/venue.php' );
 				require_once( $this->pluginPath . 'src/functions/template-tags/widgets.php' );
-				require_once( $this->pluginPath . 'src/functions/template-tags/ical.php' );
 
 				add_action( 'admin_init', array( $this, 'run_updates' ), 10, 0 );
 
@@ -564,9 +563,7 @@
 											'_EventAllDay',
 											'_EventHideFromUpcoming',
 											'_EventOrigin',
-											'_EventShowMap',
 											'_EventVenueID',
-											'_EventShowMapLink',
 											'_EventCost',
 											'_EventOrganizerID',
 											'_EventRecurrence',

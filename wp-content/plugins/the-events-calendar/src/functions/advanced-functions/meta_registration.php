@@ -311,24 +311,4 @@ if ( class_exists( 'Tribe__Events__Advanced_Functions__Register_Meta' ) ) {
 		)
 	);
 
-	/**
-	 * Register Meta: Venue Map Link
-	 *
-	 * @category Venues
-	 * @group tribe_event_venue
-	 */
-	tribe_register_meta(
-		'tribe_event_venue_gmap_link', array(
-			'wrap'            => array(
-				'before'       => '',
-				'after'        => '',
-				'label_before' => '',
-				'label_after'  => '',
-				'meta_before'  => '',
-				'meta_after'   => '',
-			),
-			'label'           => '',
-			'filter_callback' => 'tribe_get_map_link_html',
-		)
-	);
 }

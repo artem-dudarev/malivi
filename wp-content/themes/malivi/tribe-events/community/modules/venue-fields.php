@@ -32,13 +32,9 @@ if ( ! empty( $_POST ) ) {
 	$venue_state = isset( $_POST['venue']['State'] ) ? esc_attr( $_POST['venue']['State'] ) : '';
 	$venue_country = isset( $_POST['venue']['Country'] ) ? esc_attr( $_POST['venue']['Country'] ) : '';
 	$venue_zip = isset( $_POST['venue']['Zip'] ) ? esc_attr( $_POST['venue']['Zip'] ) : '';
-	$venue_show_map_link = isset( $_POST['EventShowMapLink'] ) ? esc_attr( $_POST['EventShowMapLink'] ) : '';
-	$venue_show_map = isset( $_POST['EventShowMap'] ) ? esc_attr( $_POST['EventShowMap'] ) : '';
 }
 elseif ( $venue_name ) {
 	$postId  = Tribe__Events__Main::postIdHelper();
-	$venue_show_map_link = get_post_meta( $postId, '_EventShowMapLink', true );
-	$venue_show_map = tribe_embed_google_map( $postId );
 }
 
 if ( ! isset( $event ) ) {
@@ -147,40 +143,6 @@ if ( ! isset( $event ) ) {
 				<input type="text" id="EventWebsite" name="venue[URL]" size="14" value="<?php esc_attr_e( $venue_website ); ?>" />
 			</td>
 		</tr><!-- .venue -->
-
-		<?php
-		if ( ! tribe_community_events_is_venue_edit_screen() ) {
-			?>
-			<tr id="google_map_link_toggle">
-				<td>
-					<label for="EventShowMapLink">
-						<?php esc_html_e( 'Show Google Maps Link', 'tribe-events-community' ); ?>:
-					</label>
-				</td>
-				<td>
-					<input type="checkbox" id="EventShowMapLink" name="EventShowMapLink" value="1" <?php checked( $venue_show_map_link ); ?> />
-				</td>
-			</tr><!-- #google_map_link_toggle -->
-
-			<?php
-			if ( tribe_get_option( 'embedGoogleMaps', true ) ) {
-				?>
-
-				<tr id="google_map_toggle">
-					<td>
-						<label for="EventShowMap">
-							<?php esc_html_e( 'Show Google Map', 'tribe-events-community' ); ?>:
-						</label>
-					</td>
-					<td>
-						<input type="checkbox" id="EventShowMap" name="EventShowMap" value="1" <?php checked( $venue_show_map ); ?> />
-					</td>
-				</tr><!-- #google_map_toggle -->
-				<?php
-			}
-		} // if ( tribe_community_events_is_venue_edit_screen() )
-		?>
-
 	</table><!-- #event_venue -->
 
 </div>

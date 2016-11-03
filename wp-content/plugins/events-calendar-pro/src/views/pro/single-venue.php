@@ -38,7 +38,7 @@ $venue_id = get_the_ID();
 		<h2 class="tribe-venue-name"><?php echo tribe_get_venue( $venue_id ); ?></h2>
 		<?php do_action( 'tribe_events_single_venue_after_title' ) ?>
 
-		<?php if ( tribe_embed_google_map() && tribe_address_exists() ) : ?>
+		<?php if ( tribe_address_exists() ) : ?>
 			<!-- Venue Map -->
 			<div class="tribe-events-map-wrap">
 				<?php echo tribe_get_embedded_map( $venue_id, '100%', '200px' ); ?>
@@ -46,12 +46,6 @@ $venue_id = get_the_ID();
 		<?php endif; ?>
 
 		<div class="tribe-events-event-meta">
-
-			<?php if ( tribe_show_google_map_link() && tribe_address_exists() ) : ?>
-				<!-- Google Map Link -->
-				<?php echo tribe_get_meta( 'tribe_event_venue_gmap_link' ); ?>
-			<?php endif; ?>
-
 			<!-- Venue Meta -->
 			<?php do_action( 'tribe_events_single_venue_before_the_meta' ) ?>
 			<?php echo tribe_get_meta_group( 'tribe_event_venue' ) ?>
