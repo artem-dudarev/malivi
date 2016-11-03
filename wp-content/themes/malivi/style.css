@@ -9,7 +9,10 @@
  License:      GNU General Public License version 2
  License URI:  license.txt
 */
+
+
 html {
+   box-sizing: border-box;
   font-family: Roboto,sans-serif;
   font-size: 16px;
   line-height: 1.625;
@@ -21,6 +24,11 @@ html {
   word-wrap: break-word;
   height: 100%;
 }
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
 body {
   margin: 0;
   color: #555555;
