@@ -2444,8 +2444,6 @@ function OnBodyResize() {
     });*/
 
     var win = jQuery(window);
-    win.resize(OnBodyResize);
-    win.scroll(OnBodyScroll);
     win.keydown(function(e) {
       if (sidebar.hasClass('active') && e.keyCode == 27) { // escape key maps to keycode `27`
         event.preventDefault();
@@ -2453,8 +2451,15 @@ function OnBodyResize() {
       }
     });
 
-    sidebar.resize(OnBodyResize);
-    OnBodyResize();
+    var userAgent = navigator.userAgent || navigator.vendor || window.opera;
+    var isiOS = /iPad|iPhone|iPod/.test(userAgent) && !window.MSStream;
+    if (!isiOS) {
+      win.resize(OnBodyResize);
+      win.scroll(OnBodyScroll);
+
+      sidebar.resize(OnBodyResize);
+      OnBodyResize();
+    }
     
 
 
