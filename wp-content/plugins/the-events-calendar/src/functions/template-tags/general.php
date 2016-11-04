@@ -1227,27 +1227,6 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	}
 
 	/**
-	 * Display the Events Calendar promo banner
-	 *
-	 * @category Events
-	 *
-	 * @param bool $echo Whether or not to echo the banner, if false, it's returned
-	 *
-	 * @return string
-	 **/
-	function tribe_events_promo_banner( $echo = true ) {
-		if ( tribe_get_option( 'donate-link', false ) == true && ! tribe_is_bot() ) {
-			$promo = apply_filters( 'tribe_events_promo_banner_message', sprintf( esc_html__( 'Calendar powered by %sThe Events Calendar%s', 'the-events-calendar' ), '<a class="vcard url org fn" href="' . Tribe__Events__Main::$tecUrl . 'product/wordpress-events-calendar/?utm_medium=plugin-tec&utm_source=banner&utm_campaign=in-app">', '</a>' ) );
-			$html  = apply_filters( 'tribe_events_promo_banner', sprintf( '<p class="tribe-events-promo">%s</p>', $promo ), $promo );
-			if ( $echo ) {
-				echo $html;
-			} else {
-				return $html;
-			}
-		}
-	}
-
-	/**
 	 * Return the filters registered in the tribe bar
 	 *
 	 * @category Events

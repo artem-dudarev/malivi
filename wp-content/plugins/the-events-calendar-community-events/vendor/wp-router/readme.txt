@@ -1,6 +1,5 @@
 === WP Router ===
 Contributors: jbrinley
-Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=A69NZPKWGB6H2
 Tags: URL mapping, callback functions
 Requires at least: 3.0
 Tested up to: 3.4

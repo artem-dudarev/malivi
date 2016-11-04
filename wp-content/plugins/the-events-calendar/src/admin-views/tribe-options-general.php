@@ -2,28 +2,6 @@
 
 $tec = Tribe__Events__Main::instance();
 
-$general_tab_fields = Tribe__Main::array_insert_after_key(
-	'info-start',
-	$general_tab_fields,
-	array(
-		// after info-start
-		'upsell-heading'                => array(
-			'type'        => 'heading',
-			'label'       => esc_html__( 'Finding & extending your calendar.', 'the-events-calendar' ),
-			'conditional' => ( ! defined( 'TRIBE_HIDE_UPSELL' ) || ! TRIBE_HIDE_UPSELL ),
-		),
-		'finding-heading'               => array(
-			'type'        => 'heading',
-			'label'       => esc_html__( 'Finding your calendar.', 'the-events-calendar' ),
-			'conditional' => ( defined( 'TRIBE_HIDE_UPSELL' ) && TRIBE_HIDE_UPSELL ),
-		),
-		'view-calendar-link'            => array(
-			'type' => 'html',
-			'html' => '<p>' . esc_html__( 'Where\'s my calendar?', 'the-events-calendar' ) . ' <a href="' . esc_url( Tribe__Events__Main::instance()->getLink() ) . '">' . esc_html__( 'Right here', 'the-events-calendar' ) . '</a>.</p>',
-		),
-	)
-);
-
 $general_tab_fields = Tribe__Main::array_insert_before_key(
 	'debugEvents',
 	$general_tab_fields,
