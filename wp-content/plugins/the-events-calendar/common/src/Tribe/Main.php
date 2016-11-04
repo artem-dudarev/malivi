@@ -166,8 +166,6 @@ class Tribe__Main {
 	 * Adds core hooks
 	 */
 	public function add_hooks() {
-		add_action( 'plugins_loaded', array( 'Tribe__App_Shop', 'instance' ) );
-
 		// Register for the assets to be availble everywhere
 		add_action( 'init', array( $this, 'register_resources' ), 1 );
 		add_action( 'init', array( $this, 'register_vendor' ), 1 );
