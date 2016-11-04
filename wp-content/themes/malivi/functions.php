@@ -76,8 +76,6 @@ if ( ! function_exists( 'flat_setup' ) ) :
 		add_action( 'flat_404_content', 'flat_output_404_content' ); # Outputs a helpful message on 404 pages
 		add_action( 'widgets_init', 'flat_widgets_init' ); # Registers Flat's sidebar
 		add_action( 'wp_enqueue_scripts', 'flat_scripts_styles' ); # Enqueue's Flat's scripts & styles
-		
-		add_action( 'admin_enqueue_scripts', 'flat_admin_styles', 10 );
 	}
 endif;
 add_action( 'after_setup_theme', 'flat_setup' );
@@ -144,6 +142,9 @@ if ( ! function_exists( 'flat_scripts_styles' ) ) :
 		wp_register_script('fbconnect', "//connect.facebook.net/ru_RU/sdk.js#&version=v2.8");
 		wp_enqueue_script('fbconnect');
 
+		wp_register_script('googleplus', "//apis.google.com/js/platform.js");
+		wp_enqueue_script('googleplus');
+
 		wp_register_script('yandexshare', "//yastatic.net/share2/share.js");
 		wp_enqueue_script('yandexshare');
 		
@@ -154,10 +155,6 @@ if ( ! function_exists( 'flat_scripts_styles' ) ) :
 		
 	}
 endif;
-
-function flat_admin_styles() {
-	wp_enqueue_style( 'flat_admin_stylesheet', get_template_directory_uri() . '/assets/css/admin-style.css', array(), '1.1', false );
-}
 
 # The following function uses a filter introduced in WP 4.1
 if ( version_compare( '4.1', $wp_version, '<=' ) ) :
@@ -210,14 +207,18 @@ function modify_read_more_link() {
 	return '<a class="btn btn-default btn-sm" href="' . esc_url( get_permalink() ) . '">' . sprintf( __( 'Continue reading %s', 'flat' ), '<i class="fa fa-angle-double-right"></i></a>' );
 }
 
-
+// В конец содержимого текста добавляем кнопки лайков
 add_action('post_social_like_buttons', 'add_post_social_like_buttons');
-
 function add_post_social_like_buttons() {
 	$page_id = 'site'.get_current_blog_id().'_page'.get_the_ID();
 
+	$google_like_button_id = 'google_like_button_'.get_the_ID();
+	echo '<div class="post-share-button"">';
+	//echo '<div id="'.$google_like_button_id.'"></div><script type="text/javascript">gapi.plusone.render("'.$google_like_button_id.'", {size: "standard"})</script>';
+	echo '</div>';
+
 	$vk_like_button_id = 'vk_like_button_'.get_the_ID();
-	echo '<div class="post-share-button"id="'.$vk_like_button_id.'">';
+	echo '<div class="post-share-button" id="'.$vk_like_button_id.'">';
 	echo '<script type="text/javascript">VK.Widgets.Like("'.$vk_like_button_id.'", {type: "button", height: 30, pageUrl: "'.get_permalink().'"}, "'.$page_id.'");</script>';
 	echo '</div>';
 
@@ -227,8 +228,8 @@ function add_post_social_like_buttons() {
 	echo '</div>';
 }
 
+// После раздела с содержимым поста, вставляем кнопки для отправки страницы в соц-сети
 add_action('tribe_events_single_event_after_the_content', 'add_post_share_buttons');
-
 function add_post_share_buttons() {
 	echo '<a class="tribe-events-gcal tribe-events-button post-share-button" href="' . Tribe__Events__Main::instance()->esc_gcal_url( tribe_get_gcal_link() ) . '" title="' . esc_attr__( 'Add to Google Calendar', 'the-events-calendar' ) . '">' . esc_html__( 'Google Calendar', 'the-events-calendar' ).'</a>';
 	$ya_button_id = "ya_share_button_".get_the_ID();
@@ -236,8 +237,8 @@ function add_post_share_buttons() {
 	echo '<script type="text/javascript">Ya.share2("'.$ya_button_id.'", { content: { url: "'.get_permalink().'"}, theme : {services: "vkontakte,facebook,odnoklassniki,moimir,gplus,twitter"} });</script>';
 }
 
+// Добавляем инициализацию скриптов в заголовок страницы
 add_action('flat_header_before', 'flat_add_body_scripts');
-
 function flat_add_body_scripts() {
 	echo '<script type="text/javascript">';
   	echo 'VK.init({ apiId: 5702053, onlyWidgets: true });';
@@ -246,6 +247,22 @@ function flat_add_body_scripts() {
 	echo '<script type="text/javascript">';
 	echo 'FB.init({appId: "182398415550570", xfbml: false, version: "v2.8" });';
 	echo '</script>';
+}
+
+//Каждую страницу плагина theme-my-login надо обернуть в контейнер
+add_filter('tml_display', 'wrap_theme_my_login_content', 10, 3);
+function wrap_theme_my_login_content($output, $action, $template) {
+	$output = '<div class="tml-form-container group-element">' . $output . '</div>';
+	return $output;
+}
+
+// Добавляем надпись о пользовательском соглашении в форму регистрации
+add_action('register_form', 'add_user_agreement');
+function add_user_agreement() {
+	echo '<p class="tml-agreement" id="reg_agreement">';
+	$agreement_link = '<a href="/agreement" target="_blank">' . __( 'user agreement', 'flat') . '</a>';
+	echo sprintf( __( 'By registering you are accepting %s.', 'flat'), $agreement_link); 
+	echo '</p>';
 }
 
 

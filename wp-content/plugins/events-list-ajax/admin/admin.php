@@ -4,8 +4,6 @@
 		if( !in_array( $hook, array( 'toplevel_page_search-filter', 'admin_page_search-filter-edit','search-filter_page_search-filter-new' ) ) )
 			return;
 			
-		wp_register_style('sf-admin-css', SF_URL . '/res/admin-style.css' ); 
-        wp_enqueue_style('sf-admin-css');
 		wp_enqueue_style( 'font-awesome', '//netdna.bootstrapcdn.com/font-awesome/4.0.1/css/font-awesome.css', null, '4.0.1' );
 		wp_enqueue_media();
 		wp_enqueue_script('jquery-ui-tabs');

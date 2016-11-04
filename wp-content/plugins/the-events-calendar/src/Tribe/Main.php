@@ -385,7 +385,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			}
 
 			$html .= '</div><!-- #tribe-events -->';
-			$html .= tribe_events_promo_banner( false );
 			$this->show_data_wrapper['after'] = false;
 
 			return apply_filters( 'tribe_events_view_after_html_data_wrapper', $html );
@@ -432,8 +431,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			add_filter( 'tribe-events-bar-filters', array( $this, 'setup_date_search_in_bar' ), 1, 1 );
 			add_filter( 'tribe-events-bar-filters', array( $this, 'setup_keyword_search_in_bar' ), 1, 1 );
-
-			add_filter( 'tribe-events-bar-views', array( $this, 'remove_hidden_views' ), 9999, 2 );
 			/* End Setup Tribe Events Bar */
 
 			add_action( 'admin_menu', array( $this, 'addEventBox' ) );
@@ -617,30 +614,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @return void
 		 */
 		public function add_help_section_extra_content( $help ) {
-			if ( ! $help->is_active( array( 'events-calendar-pro', 'event-tickets-plus' ) ) && $help->is_active( 'event-tickets' ) ) {
-
-				$link_tec = '<a href="https://wordpress.org/support/plugin/the-events-calendar/" target="_blank">' . esc_html__( 'The Events Calendar', 'the-events-calendar' ) . '</a>';
-				$link_et = '<a href="https://wordpress.org/support/plugin/event-tickets/" target="_blank">' . esc_html__( 'Events Tickets', 'the-events-calendar' ) . '</a>';
-				$help->add_section_content( 'extra-help', sprintf( __( 'If you have tried the above steps and are still having trouble, you can post a new thread to our WordPress.org forums for %1$s or %2$s. Our support staff monitors these forums once a week and would be happy to assist you there. ', 'the-events-calendar' ), $link_tec, $link_et ), 20 );
-
-				$link = '<a href="http://m.tri.be/4w/" target="_blank">' . esc_html__( 'premium support on our website', 'the-events-calendar' ) . '</a>';
-				$help->add_section_content( 'extra-help', sprintf( __( '<strong>Looking for more immediate support?</strong> We offer %s with the purchase of any of our premium plugins. Pick up a license and you can post there directly and expect a response within 24-48 hours during weekdays', 'the-events-calendar' ), $link ), 20 );
-
-			} elseif ( ! $help->is_active( array( 'events-calendar-pro', 'event-tickets' ) ) ) {
-
-				$link = '<a href="https://wordpress.org/support/plugin/the-events-calendar" target="_blank">' . esc_html__( 'open-source forum on WordPress.org', 'the-events-calendar' ) . '</a>';
-				$help->add_section_content( 'extra-help', sprintf( __( 'If you have tried the above steps and are still having trouble, you can post a new thread to our %s. Our support staff monitors these forums once a week and would be happy to assist you there.', 'the-events-calendar' ), $link ), 20 );
-
-				$link_forum = '<a href="http://m.tri.be/4w/" target="_blank">' . esc_html__( 'premium support on our website', 'the-events-calendar' ) . '</a>';
-				$link_plus = '<a href="http://m.tri.be/18n0" target="_blank">' . esc_html__( 'Events Calendar PRO', 'the-events-calendar' ) . '</a>';
-				$help->add_section_content( 'extra-help', sprintf( __( '<strong>Looking for more immediate support?</strong> We offer %1$s with the purchase of any of our premium plugins (like %2$s). Pick up a license and you can post there directly and expect a response within 24-48 hours during weekdays.', 'the-events-calendar' ), $link_forum, $link_plus ), 20 );
-
-			} else {
-
-				$link = '<a href="http://m.tri.be/4w/" target="_blank">' . esc_html__( 'post a thread', 'the-events-calendar' ) . '</a>';
-				$help->add_section_content( 'extra-help', sprintf( __( 'If you have a valid license for one of our paid plugins, you can %s in our premium support forums. Our support team monitors the forums and will respond to your thread within 24-48 hours (during the week).', 'the-events-calendar' ), $link ), 20 );
-
-			}
+			
 		}
 
 		/**
@@ -4005,32 +3979,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			);
 
 			return $filters;
-		}
-
-		/**
-		 * Removes views that have been deselected in the Template Settings as hidden from the view array.
-		 *
-		 *
-		 * @param array $views The current views array.
-		 * @param bool  $visible
-		 *
-		 * @return array The new views array.
-		 */
-		public function remove_hidden_views( $views, $visible = true ) {
-			$enable_views_defaults = array();
-			foreach ( $views as $view ) {
-				$enable_views_defaults[] = $view['displaying'];
-			}
-			if ( $visible ) {
-				$enable_views = tribe_get_option( 'tribeEnableViews', $enable_views_defaults );
-				foreach ( $views as $index => $view ) {
-					if ( ! in_array( $view['displaying'], $enable_views ) ) {
-						unset( $views[ $index ] );
-					}
-				}
-			}
-
-			return $views;
 		}
 
 		/**

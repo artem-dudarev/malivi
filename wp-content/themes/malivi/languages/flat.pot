@@ -1,79 +1,82 @@
-# Translation of Flat in Russian
-# This file is distributed under the same license as the Flat package.
+#, fuzzy
 msgid ""
 msgstr ""
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: Flat\n"
 "POT-Creation-Date: 2016-11-04 21:20+0200\n"
-"PO-Revision-Date: 2016-11-04 22:49+0200\n"
+"PO-Revision-Date: 2016-03-15 15:32-0400\n"
 "Last-Translator: \n"
 "Language-Team: \n"
-"Language: ru_RU\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Poedit 1.8.11\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-WPHeader: functions.php\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;"
+"_n_noop:1,2;_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
 
 #: 404.php:4
 msgid "Not Found"
-msgstr "Не найдено"
+msgstr ""
 
 #: archive.php:10
 #, php-format
 msgid "About %s"
-msgstr "Об авторе %s"
+msgstr ""
 
 #: archive.php:24 index.php:10 search.php:12
 msgid "<i class=\"fa fa-chevron-left\"></i>"
-msgstr "<i class=\"fa fa-chevron-left\"></i>"
+msgstr ""
 
 #: archive.php:24 index.php:10 search.php:12
 msgid "<i class=\"fa fa-chevron-right\"></i>"
-msgstr "<i class=\"fa fa-chevron-right\"></i>"
+msgstr ""
 
 #: author-bio.php:6
 #, php-format
 msgid "About <span itemprop=\"name\">%s</span>"
-msgstr "Подробнее про <span itemprop=\"name\">%s</span>"
+msgstr ""
 
 #: author-bio.php:11
 #, php-format
 msgid "View all posts by %s <span class=\"meta-nav\">&rarr;</span>"
-msgstr "Посмотреть все записи автора %s <span class=\"meta-nav\">&rarr;</span>"
+msgstr ""
 
 #: class-tgm-plugin-activation.php:333
 msgid "Install Required Plugins"
-msgstr "Установите требуемые подключаемые модули"
+msgstr ""
 
 #: class-tgm-plugin-activation.php:334
 msgid "Install Plugins"
-msgstr "Установить плагины"
+msgstr ""
 
 #: class-tgm-plugin-activation.php:335
 #, php-format
 msgid "Installing Plugin: %s"
-msgstr "Установка плагина: %s"
+msgstr ""
 
 #: class-tgm-plugin-activation.php:336
 msgid "Something went wrong with the plugin API."
-msgstr "Что-то пошло не так с API плагина."
+msgstr ""
 
 #: class-tgm-plugin-activation.php:338
-#, fuzzy, php-format
+#, php-format
 msgid "This theme requires the following plugin: %1$s."
 msgid_plural "This theme requires the following plugins: %1$s."
-msgstr[0] "Эта тема требует следующие плагин: %1$s."
-msgstr[1] "Эта тема требует следующие плагины: %1$s."
-msgstr[2] ""
+msgstr[0] ""
+msgstr[1] ""
 
 #: class-tgm-plugin-activation.php:343
-#, fuzzy, php-format
+#, php-format
 msgid "This theme recommends the following plugin: %1$s."
 msgid_plural "This theme recommends the following plugins: %1$s."
-msgstr[0] "Рекомендуется установка плагина: %1$s."
-msgstr[1] "Рекомендуется установка плагинов: %1$s."
-msgstr[2] ""
+msgstr[0] ""
+msgstr[1] ""
 
 #: class-tgm-plugin-activation.php:348
 #, php-format
@@ -84,14 +87,10 @@ msgid_plural ""
 "Sorry, but you do not have the correct permissions to install the %1$s "
 "plugins."
 msgstr[0] ""
-"Извините, у вас недостаточно полномочий, чтобы устанавливать плагин %1$s."
 msgstr[1] ""
-"Извините, у вас недостаточно полномочий, чтобы устанавливать плагины %1$s."
-msgstr[2] ""
-"Извините, у вас недостаточно полномочий, чтобы устанавливать плагины %1$s."
 
 #: class-tgm-plugin-activation.php:353
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "The following plugin needs to be updated to its latest version to ensure "
 "maximum compatibility with this theme: %1$s."
@@ -99,51 +98,40 @@ msgid_plural ""
 "The following plugins need to be updated to their latest version to ensure "
 "maximum compatibility with this theme: %1$s."
 msgstr[0] ""
-"Следующие плагин должен быть обновлен до своей последней версии для "
-"обеспечения максимальной совместимости с этой темой: %1$s."
 msgstr[1] ""
-"Следующие плагины должны быть обновлены до последней версии их для "
-"обеспечения максимальной совместимости с этой темой: %1$s."
-msgstr[2] ""
 
 #: class-tgm-plugin-activation.php:358
 #, php-format
 msgid "There is an update available for: %1$s."
 msgid_plural "There are updates available for the following plugins: %1$s."
-msgstr[0] "Доступно обновление для %1$s."
-msgstr[1] "Доступны обновления для следующих плагинов: %1$s."
-msgstr[2] "Доступны обновления для следующих плагинов: %1$s."
+msgstr[0] ""
+msgstr[1] ""
 
 #: class-tgm-plugin-activation.php:363
 #, php-format
 msgid ""
-"Sorry, but you do not have the correct permissions to update the %1$s plugin."
+"Sorry, but you do not have the correct permissions to update the %1$s "
+"plugin."
 msgid_plural ""
 "Sorry, but you do not have the correct permissions to update the %1$s "
 "plugins."
 msgstr[0] ""
-"Извините, у вас недостаточно полномочий, чтобы обновлять плагин %1$s."
 msgstr[1] ""
-"Извините, у вас недостаточно полномочий, чтобы обновлять плагины %1$s."
-msgstr[2] ""
-"Извините, у вас недостаточно полномочий, чтобы обновлять плагины %1$s."
 
 #: class-tgm-plugin-activation.php:368
-#, fuzzy, php-format
+#, php-format
 msgid "The following required plugin is currently inactive: %1$s."
 msgid_plural "The following required plugins are currently inactive: %1$s."
-msgstr[0] "Ниже требуется плагин в настоящее время неактивен: %1$s."
-msgstr[1] "Следующие необходимые плагины в настоящее время неактивны: %1$s."
-msgstr[2] ""
+msgstr[0] ""
+msgstr[1] ""
 
 #: class-tgm-plugin-activation.php:373
-#, fuzzy, php-format
+#, php-format
 msgid "The following recommended plugin is currently inactive: %1$s."
-msgid_plural "The following recommended plugins are currently inactive: %1$s."
-msgstr[0] "Следующие рекомендованные плагин в настоящее время неактивен: %1$s."
+msgid_plural ""
+"The following recommended plugins are currently inactive: %1$s."
+msgstr[0] ""
 msgstr[1] ""
-"Следующие рекомендованные плагины в настоящее время неактивны: %1$s."
-msgstr[2] ""
 
 #: class-tgm-plugin-activation.php:378
 #, php-format
@@ -154,57 +142,48 @@ msgid_plural ""
 "Sorry, but you do not have the correct permissions to activate the %1$s "
 "plugins."
 msgstr[0] ""
-"Извините, у вас недостаточно полномочий, чтобы активировать плагин %1$s."
 msgstr[1] ""
-"Извините, у вас недостаточно полномочий, чтобы активировать плагины %1$s."
-msgstr[2] ""
-"Извините, у вас недостаточно полномочий, чтобы активировать плагины %1$s."
 
 #: class-tgm-plugin-activation.php:383
 msgid "Begin installing plugin"
 msgid_plural "Begin installing plugins"
-msgstr[0] "Начать установку плагина"
-msgstr[1] "Начать установку плагинов"
-msgstr[2] ""
+msgstr[0] ""
+msgstr[1] ""
 
 #: class-tgm-plugin-activation.php:388
 msgid "Begin updating plugin"
 msgid_plural "Begin updating plugins"
-msgstr[0] "Начать обновление плагина"
-msgstr[1] "Начать обновление плагинов"
-msgstr[2] "Начать обновление плагинов"
+msgstr[0] ""
+msgstr[1] ""
 
 #: class-tgm-plugin-activation.php:393
 msgid "Begin activating plugin"
 msgid_plural "Begin activating plugins"
-msgstr[0] "Начать активировать плагин"
-msgstr[1] "Начинается активация плагинов"
-msgstr[2] ""
+msgstr[0] ""
+msgstr[1] ""
 
 #: class-tgm-plugin-activation.php:397
 msgid "Return to Required Plugins Installer"
-msgstr "Вернуться на установку подключаемых модулей."
+msgstr ""
 
 #: class-tgm-plugin-activation.php:398
 msgid "Return to the dashboard"
-msgstr "Вернуться на панель управления"
+msgstr ""
 
 #: class-tgm-plugin-activation.php:399 class-tgm-plugin-activation.php:3029
 msgid "Plugin activated successfully."
-msgstr "Плагин успешно активирован."
+msgstr ""
 
 #: class-tgm-plugin-activation.php:400 class-tgm-plugin-activation.php:2832
-#, fuzzy
 msgid "The following plugin was activated successfully:"
 msgid_plural "The following plugins were activated successfully:"
-msgstr[0] "Этот плагин был успешно активирован:"
-msgstr[1] "Этот плагин был успешно активирован:"
-msgstr[2] "Этот плагин был успешно активирован:"
+msgstr[0] ""
+msgstr[1] ""
 
 #: class-tgm-plugin-activation.php:401
 #, php-format
 msgid "No action taken. Plugin %1$s was already active."
-msgstr "Никаких действий не произведено. Плагин %1$s уже активирован."
+msgstr ""
 
 #: class-tgm-plugin-activation.php:402
 #, php-format
@@ -212,171 +191,160 @@ msgid ""
 "Plugin not activated. A higher version of %s is needed for this theme. "
 "Please update the plugin."
 msgstr ""
-"Плагин не активирован. Для этой темы необходима более новая версия %s. "
-"Пожалуйста, обновите плагин."
 
 #: class-tgm-plugin-activation.php:403
 #, php-format
 msgid "All plugins installed and activated successfully. %1$s"
-msgstr "Всеплагины установлены и активированны успешно. %1$s"
+msgstr ""
 
 #: class-tgm-plugin-activation.php:404
 msgid "Dismiss this notice"
-msgstr "Игнорировать это уведомление"
+msgstr ""
 
 #: class-tgm-plugin-activation.php:405
 msgid "Please contact the administrator of this site for help."
-msgstr "Пожалуйста, обратитесь за помощью к администратору сайта."
+msgstr ""
 
 #: class-tgm-plugin-activation.php:520
 msgid "This plugin needs to be updated to be compatible with your theme."
-msgstr "Этот плагин необходимо обновить для совместимости с вашей темой."
+msgstr ""
 
 #: class-tgm-plugin-activation.php:521
 msgid "Update Required"
-msgstr "Необходимо обновление"
+msgstr ""
 
 #: class-tgm-plugin-activation.php:635
 msgid "Set the parent_slug config variable instead."
-msgstr "Используйте переменную parent_slug."
+msgstr ""
 
 #: class-tgm-plugin-activation.php:828 class-tgm-plugin-activation.php:3438
 msgid "Return to the Dashboard"
-msgstr "Вернуться на панель управления"
+msgstr ""
 
 #: class-tgm-plugin-activation.php:935
 msgid ""
 "The remote plugin package does not contain a folder with the desired slug "
 "and renaming did not work."
 msgstr ""
-"Архив плагина не содержит папки нужным именем, и переименование не сработало."
 
 #: class-tgm-plugin-activation.php:935 class-tgm-plugin-activation.php:938
 msgid ""
 "Please contact the plugin provider and ask them to package their plugin "
 "according to the WordPress guidelines."
 msgstr ""
-"Пожалуйста, свяжитесь с поставщиком плагина и попросите его упаковать плагин "
-"в соответствии с рекомендациями WordPress."
 
 #: class-tgm-plugin-activation.php:938
 msgid ""
-"The remote plugin package consists of more than one file, but the files are "
-"not packaged in a folder."
+"The remote plugin package consists of more than one file, but the files "
+"are not packaged in a folder."
 msgstr ""
-"Архив плагина состоит из более чем одного файла, но эти файлы не находятся в "
-"папке."
 
 #: class-tgm-plugin-activation.php:1116 class-tgm-plugin-activation.php:2828
 msgctxt "plugin A *and* plugin B"
 msgid "and"
-msgstr "и"
+msgstr ""
 
 #: class-tgm-plugin-activation.php:1881
 #, php-format
 msgctxt "%s = version number"
 msgid "TGMPA v%s"
-msgstr "TGMPA v%s"
+msgstr ""
 
 #: class-tgm-plugin-activation.php:2167
 msgid "Required"
-msgstr "Обязательно"
+msgstr ""
 
 #: class-tgm-plugin-activation.php:2170
 msgid "Recommended"
-msgstr "Рекомендуемый"
+msgstr ""
 
 #: class-tgm-plugin-activation.php:2186
 msgid "WordPress Repository"
-msgstr "WordPress репозиторий"
+msgstr ""
 
 #: class-tgm-plugin-activation.php:2189
 msgid "External Source"
-msgstr "Внешний источник"
+msgstr ""
 
 #: class-tgm-plugin-activation.php:2192
 msgid "Pre-Packaged"
-msgstr "Предварительно упакованные"
+msgstr ""
 
 #: class-tgm-plugin-activation.php:2209
 msgid "Not Installed"
-msgstr "Не установлен"
+msgstr ""
 
 #: class-tgm-plugin-activation.php:2213
 msgid "Installed But Not Activated"
-msgstr "Установлены, но не активированы"
+msgstr ""
 
 #: class-tgm-plugin-activation.php:2215
 msgid "Active"
-msgstr "Активно"
+msgstr ""
 
 #: class-tgm-plugin-activation.php:2221
 msgid "Required Update not Available"
-msgstr "Необходимое обновление недоступно"
+msgstr ""
 
 #: class-tgm-plugin-activation.php:2224
 msgid "Requires Update"
-msgstr "Необходимо обновление"
+msgstr ""
 
 #: class-tgm-plugin-activation.php:2227
 msgid "Update recommended"
-msgstr "Рекомендуется обновление"
+msgstr ""
 
 #: class-tgm-plugin-activation.php:2235
 #, php-format
 msgctxt "%1$s = install status, %2$s = update status"
 msgid "%1$s, %2$s"
-msgstr "%1$s, %2$s"
+msgstr ""
 
 #: class-tgm-plugin-activation.php:2280
 #, php-format
 msgctxt "plugins"
 msgid "All <span class=\"count\">(%s)</span>"
 msgid_plural "All <span class=\"count\">(%s)</span>"
-msgstr[0] "Все <span class=\"count\">(%s)</span>"
-msgstr[1] "Все <span class=\"count\">(%s)</span>"
-msgstr[2] "Все <span class=\"count\">(%s)</span>"
+msgstr[0] ""
+msgstr[1] ""
 
 #: class-tgm-plugin-activation.php:2283
 #, php-format
 msgid "To Install <span class=\"count\">(%s)</span>"
 msgid_plural "To Install <span class=\"count\">(%s)</span>"
-msgstr[0] "Установить <span class=\"count\">(%s)</span>"
-msgstr[1] "Установить <span class=\"count\">(%s)</span>"
-msgstr[2] "Установить <span class=\"count\">(%s)</span>"
+msgstr[0] ""
+msgstr[1] ""
 
 #: class-tgm-plugin-activation.php:2286
 #, php-format
 msgid "Update Available <span class=\"count\">(%s)</span>"
 msgid_plural "Update Available <span class=\"count\">(%s)</span>"
-msgstr[0] "Доступны обновления <span class=\"count\">(%s)</span>"
-msgstr[1] "Доступны обновления <span class=\"count\">(%s)</span>"
-msgstr[2] "Доступны обновления <span class=\"count\">(%s)</span>"
+msgstr[0] ""
+msgstr[1] ""
 
 #: class-tgm-plugin-activation.php:2289
 #, php-format
 msgid "To Activate <span class=\"count\">(%s)</span>"
 msgid_plural "To Activate <span class=\"count\">(%s)</span>"
-msgstr[0] "Активировать <span class=\"count\">(%s)</span>"
-msgstr[1] "Активировать <span class=\"count\">(%s)</span>"
-msgstr[2] "Активировать <span class=\"count\">(%s)</span>"
+msgstr[0] ""
+msgstr[1] ""
 
 #: class-tgm-plugin-activation.php:2371
 msgctxt "as in: \"version nr unknown\""
 msgid "unknown"
-msgstr "неизвестно"
+msgstr ""
 
 #: class-tgm-plugin-activation.php:2379
 msgid "Installed version:"
-msgstr "Установленная версия:"
+msgstr ""
 
 #: class-tgm-plugin-activation.php:2387
 msgid "Minimum required version:"
-msgstr "Минимальная требуемая версия:"
+msgstr ""
 
 #: class-tgm-plugin-activation.php:2399
 msgid "Available version:"
-msgstr "Доступная версия:"
+msgstr ""
 
 #: class-tgm-plugin-activation.php:2422
 #, php-format
@@ -384,265 +352,254 @@ msgid ""
 "No plugins to install, update or activate. <a href=\"%1$s\">Return to the "
 "Dashboard</a>"
 msgstr ""
-"Нет плагинов для установки, обновления или активации. <a href=\"%1$s"
-"\">Вернуться в консоль</a>"
 
 #: class-tgm-plugin-activation.php:2436
 msgid "Plugin"
-msgstr "Плагин"
+msgstr ""
 
 #: class-tgm-plugin-activation.php:2437
 msgid "Source"
-msgstr "Источник"
+msgstr ""
 
 #: class-tgm-plugin-activation.php:2438
 msgid "Type"
-msgstr "Тип"
+msgstr ""
 
 #: class-tgm-plugin-activation.php:2442
 msgid "Version"
-msgstr "Версия"
+msgstr ""
 
 #: class-tgm-plugin-activation.php:2443
 #: tribe-events/community/event-list.php:97
 msgid "Status"
-msgstr "Статус"
+msgstr ""
 
 #: class-tgm-plugin-activation.php:2491
 #, php-format
 msgctxt "%2$s = plugin name in screen reader markup"
 msgid "Install %2$s"
-msgstr "Установить %2$s"
+msgstr ""
 
 #: class-tgm-plugin-activation.php:2495
 #, php-format
 msgctxt "%2$s = plugin name in screen reader markup"
 msgid "Update %2$s"
-msgstr "Обновить %2$s"
+msgstr ""
 
 #: class-tgm-plugin-activation.php:2500
 #, php-format
 msgctxt "%2$s = plugin name in screen reader markup"
 msgid "Activate %2$s"
-msgstr "Aктивировать %2$s"
+msgstr ""
 
 #: class-tgm-plugin-activation.php:2570
 msgid "Upgrade message from the plugin author:"
-msgstr "Сообщение об обновлении от автора плагина:"
+msgstr ""
 
 #: class-tgm-plugin-activation.php:2603
 msgid "Install"
-msgstr "Установить"
+msgstr ""
 
 #: class-tgm-plugin-activation.php:2609
 msgid "Update"
-msgstr "Обновить"
+msgstr ""
 
 #: class-tgm-plugin-activation.php:2612
 msgid "Activate"
-msgstr "Активировать"
+msgstr ""
 
 #: class-tgm-plugin-activation.php:2643
 msgid "No plugins were selected to be installed. No action taken."
-msgstr "Не выбраны плагины для установки. Никаких действий не произведено."
+msgstr ""
 
 #: class-tgm-plugin-activation.php:2645
 msgid "No plugins were selected to be updated. No action taken."
-msgstr "Не выбраны плагины для обновления. Никаких действий не произведено."
+msgstr ""
 
 #: class-tgm-plugin-activation.php:2681
 msgid "No plugins are available to be installed at this time."
-msgstr "На текущий момент плагины для установки недоступны."
+msgstr ""
 
 #: class-tgm-plugin-activation.php:2683
 msgid "No plugins are available to be updated at this time."
-msgstr "На текущий момент плагины для обновления недоступны."
+msgstr ""
 
 #: class-tgm-plugin-activation.php:2788
 msgid "No plugins were selected to be activated. No action taken."
-msgstr "Не выбраны плагины для активации. Никаких действий не произведено."
+msgstr ""
 
 #: class-tgm-plugin-activation.php:2814
 msgid "No plugins are available to be activated at this time."
-msgstr "На текущий момент плагины для активации недоступны."
+msgstr ""
 
 #: class-tgm-plugin-activation.php:3028
 msgid "Plugin activation failed."
-msgstr "Активация плагина не удалась"
+msgstr ""
 
 #: class-tgm-plugin-activation.php:3362
 #, php-format
 msgid "Updating Plugin %1$s (%2$d/%3$d)"
-msgstr "Обновление плагина %1$s (%2$d/%3$d)"
+msgstr ""
 
 #: class-tgm-plugin-activation.php:3364
 #, php-format
 msgid "An error occurred while installing %1$s: <strong>%2$s</strong>."
-msgstr "Произошла ошибка при установке %1$s: <strong>%2$s</strong>."
+msgstr ""
 
 #: class-tgm-plugin-activation.php:3365
 #, php-format
 msgid "The installation of %1$s failed."
-msgstr "Установка %1$s fehlgeschlagen."
+msgstr ""
 
 #: class-tgm-plugin-activation.php:3369
 msgid ""
-"The installation and activation process is starting. This process may take a "
-"while on some hosts, so please be patient."
+"The installation and activation process is starting. This process may take "
+"a while on some hosts, so please be patient."
 msgstr ""
-"Процесс установки и активации начат. Этот процесс может занять некоторое "
-"время, пожалуйста, будьте терпеливы."
 
 #: class-tgm-plugin-activation.php:3370
 #, php-format
 msgid "%1$s installed and activated successfully."
-msgstr "%1$s установлен и активирован успешно."
+msgstr ""
 
 #: class-tgm-plugin-activation.php:3370 class-tgm-plugin-activation.php:3376
 msgid "Show Details"
-msgstr "Показать детали"
+msgstr ""
 
 #: class-tgm-plugin-activation.php:3370 class-tgm-plugin-activation.php:3376
 msgid "Hide Details"
-msgstr "Скрыть детали"
+msgstr ""
 
 #: class-tgm-plugin-activation.php:3371
 msgid "All installations and activations have been completed."
-msgstr "Все установок и активаций были завершены."
+msgstr ""
 
 #: class-tgm-plugin-activation.php:3372
 #, php-format
 msgid "Installing and Activating Plugin %1$s (%2$d/%3$d)"
-msgstr "Установка и активация плагина %1$s (%2$d/%3$d)"
+msgstr ""
 
 #: class-tgm-plugin-activation.php:3375
 msgid ""
-"The installation process is starting. This process may take a while on some "
-"hosts, so please be patient."
+"The installation process is starting. This process may take a while on "
+"some hosts, so please be patient."
 msgstr ""
-"Процесс установки и активации начат. Этот процесс может занять некоторое "
-"время, пожалуйста, будьте терпеливы."
 
 #: class-tgm-plugin-activation.php:3376
 #, php-format
 msgid "%1$s installed successfully."
-msgstr "%1$s успешно установлен."
+msgstr ""
 
 #: class-tgm-plugin-activation.php:3377
 msgid "All installations have been completed."
-msgstr "Все установки были завершены."
+msgstr ""
 
 #: class-tgm-plugin-activation.php:3378
 #, php-format
 msgid "Installing Plugin %1$s (%2$d/%3$d)"
-msgstr "Установка плагина %1$s (%2$d/%3$d)"
+msgstr ""
 
 #: comments.php:11
 msgid "<span itemprop=\"interactionCount\">0</span> comment"
-msgstr "<span itemprop=\"interactionCount\">0</span> комментариев"
+msgstr ""
 
 #: comments.php:11
 msgid "<span itemprop=\"interactionCount\">1</span> comment"
-msgstr "<span itemprop=\"interactionCount\">1</span> комментарий  "
+msgstr ""
 
 #: comments.php:11
 msgid "<span itemprop=\"interactionCount\">%</span> comments"
-msgstr "<span itemprop=\"interactionCount\">%</span> комментариев"
+msgstr ""
 
 #: comments.php:27
 msgid "Comment navigation"
-msgstr "Навигация по комментариям"
+msgstr ""
 
 #: comments.php:28
 msgid "&larr; Older Comments"
-msgstr "&larr; Предыдущие комментарии"
+msgstr ""
 
 #: comments.php:29
 msgid "Newer Comments &rarr;"
-msgstr "Следующие комментарии &rarr;"
+msgstr ""
 
 #: comments.php:34
 msgid "Comments are closed."
-msgstr "Обсуждение закрыто."
+msgstr ""
 
 #: content-none.php:1
 msgid "Nothing Found"
-msgstr "Ничего не найдено"
+msgstr ""
 
 #: content-none.php:6
 #, php-format
 msgid ""
 "Ready to publish your first post? <a href=\"%1$s\">Get started here</a>."
 msgstr ""
-"Готовы опубликовать свою первую запись? <a href=\"%1$s\">Начните отсюда</a>."
 
 #: content-none.php:10
 msgid ""
 "Sorry, but nothing matched your search terms. Please try again with some "
 "different keywords."
 msgstr ""
-"Извините, по вашему запросу ничего не найдено. Попробуйте другие ключевые "
-"слова."
 
 #: content-none.php:15
 msgid ""
 "It seems we can&rsquo;t find what you&rsquo;re looking for. Perhaps "
 "searching can help."
 msgstr ""
-"Запрошенную информацию найти не удалось. Возможно, будет полезен поиск по "
-"сайту."
 
 #: content-single.php:26 content.php:20
 msgid "Continue reading"
-msgstr "Читать далее"
+msgstr ""
 
 #: content-single.php:33 content.php:21 page.php:15
 #: tribe-events/page/single-tribe_events.php:41
 msgid "Pages:"
-msgstr "Страниц:"
+msgstr ""
 
 #: content-single.php:37
 msgid " "
-msgstr " "
+msgstr ""
 
 #: content.php:4 content.php:13
 #, php-format
 msgid "Permalink to %s"
-msgstr "Постоянная ссылка: %s"
+msgstr ""
 
 #: footer.php:10
 msgid "http://wordpress.org/"
-msgstr "http://wordpress.org/"
+msgstr ""
 
 #: footer.php:10
 msgid "Semantic Personal Publishing Platform"
-msgstr "Современная персональная платформа для публикаций"
+msgstr ""
 
 #: footer.php:10
 #, php-format
 msgid "Proudly powered by %s"
-msgstr "Сайт работает на %s"
+msgstr ""
 
 #: functions.php:63
 msgid "Navigation Menu"
-msgstr "Меню навигации"
+msgstr ""
 
 #: functions.php:64
 msgid "Editors Menu"
-msgstr "Меню редакторов"
+msgstr ""
 
 #: functions.php:90
 msgid "Main Widget Area"
-msgstr "Основная область"
+msgstr ""
 
 #: functions.php:92
 msgid "Appears in the sidebar section of the site"
-msgstr "Появится в разделе боковой панели сайта"
+msgstr ""
 
 #: functions.php:207
 #, php-format
 msgid "Continue reading %s"
-msgstr "Читать далее %s"
+msgstr ""
 
 #: functions.php:235
 msgid "Add to Google Calendar"
@@ -654,283 +611,272 @@ msgstr ""
 
 #: header.php:21
 msgid "<i class=\"fa fa-bars\"></i>"
-msgstr "<i class=\"fa fa-bars\"></i>"
+msgstr ""
 
 #: header.php:26
 msgid "<i class=\"fa fa-gear\"></i>"
-msgstr "<i class=\"fa fa-gear\"></i>"
+msgstr ""
 
 #: inc/customize.php:35 inc/customize.php:54
 msgid "Site Logo"
-msgstr "Логотип"
+msgstr ""
 
 #: inc/customize.php:53
 msgid "Site Title"
-msgstr "Название сайта"
+msgstr ""
 
 #: inc/customize.php:55
 msgid "Both Title &amp; Logo"
-msgstr "Название и логотип"
+msgstr ""
 
 #: inc/customize.php:66
 msgid "Site Favicon"
-msgstr "Иконка сайта"
+msgstr ""
 
 #: inc/customize.php:77
 msgid "Design"
-msgstr "Внешний вид"
+msgstr ""
 
 #: inc/customize.php:91 inc/customize.php:113
 msgid "Background size"
-msgstr "Размер фона"
+msgstr ""
 
 #: inc/customize.php:95 inc/customize.php:117
 msgid "Cover"
-msgstr "Перекрытие"
+msgstr ""
 
 #: inc/customize.php:96 inc/customize.php:118
 msgid "Contain"
-msgstr "Вместить"
+msgstr ""
 
 #: inc/customize.php:97 inc/customize.php:119
 msgid "Initial"
-msgstr "Исходный"
+msgstr ""
 
 #: inc/customize.php:129
 msgid "Single Post"
-msgstr "Одна запись"
+msgstr ""
 
 #: inc/customize.php:141 inc/customize.php:189
 msgid "Hide Featured Image"
-msgstr "Скрыть миниатюру"
+msgstr ""
 
 #: inc/customize.php:155 inc/customize.php:203
 msgid "Hide Metadata"
-msgstr "Скрыть метаданные"
+msgstr ""
 
 #: inc/customize.php:169
 msgid "Hide Author Box"
-msgstr "Скрыть Автора"
+msgstr ""
 
 #: inc/customize.php:177
 msgid "Archive Pages"
-msgstr "Архив страниц"
+msgstr ""
 
 #: inc/customize.php:217
 msgid "Show Post Excerpt"
-msgstr "Показать расширенные настройки записи"
+msgstr ""
 
 #: inc/customize.php:330
 msgid "View Documentation"
-msgstr "Посмотреть документацию"
+msgstr ""
 
 #: inc/customize.php:331
 msgid "Leave us a review(it will help us)"
-msgstr "Напишите нам отзыв (это очень нам поможет)"
+msgstr ""
 
 #: inc/customize.php:332
 msgid "Github"
-msgstr "GitHub"
+msgstr ""
 
 #: inc/customize.php:333
 msgid "Upgrade to pro"
-msgstr "Обновиться до PRO"
+msgstr ""
 
 #: inc/template-tags.php:22
 #, php-format
 msgid ""
 "<span class=\"entry-date\"><a href=\"%1$s\" rel=\"bookmark\"><time class="
-"\"entry-date published\" datetime=\"%2$s\" itemprop=\"datepublished\">%3$s</"
-"time></a></span> by <span class=\"author vcard\"><a class=\"url fn n\" href="
-"\"%4$s\" rel=\"author\" itemprop=\"url\">%5$s</a></span>"
+"\"entry-date published\" datetime=\"%2$s\" itemprop=\"datepublished\">"
+"%3$s</time></a></span> by <span class=\"author vcard\"><a class=\"url fn n"
+"\" href=\"%4$s\" rel=\"author\" itemprop=\"url\">%5$s</a></span>"
 msgstr ""
-"<span class=\"entry-date\"><a href=\"%1$s\" rel=\"bookmark\"><time class="
-"\"entry-date published\" datetime=\"%2$s\" itemprop=\"datepublished\">%3$s</"
-"time></a></span> от <span class=\"author vcard\"><a class=\"url fn n\" href="
-"\"%4$s\" rel=\"author\" itemprop=\"url\">%5$s</a></span>"
 
 #: inc/template-tags.php:31
 #, php-format
 msgid ""
 "<span class=\"entry-date\"><a href=\"%1$s\" rel=\"bookmark\"><time class="
-"\"entry-date published\" datetime=\"%2$s\" itemprop=\"datepublished\">%3$s</"
-"time></a></span> by <span class=\"author vcard\" itemscope itemprop=\"author"
-"\" itemtype=\"http://schema.org/Person\"><a class=\"url fn n\" href=\"%4$s\" "
-"rel=\"author\" itemprop=\"url\"><span itemprop=\"name\">%5$s</span></a></"
-"span>"
+"\"entry-date published\" datetime=\"%2$s\" itemprop=\"datepublished\">"
+"%3$s</time></a></span> by <span class=\"author vcard\" itemscope itemprop="
+"\"author\" itemtype=\"http://schema.org/Person\"><a class=\"url fn n\" "
+"href=\"%4$s\" rel=\"author\" itemprop=\"url\"><span itemprop=\"name\">"
+"%5$s</span></a></span>"
 msgstr ""
-"<span class=\"entry-date\"><a href=\"%1$s\" rel=\"bookmark\"><time class="
-"\"entry-date published\" datetime=\"%2$s\" itemprop=\"datepublished\">%3$s</"
-"time></a></span> от <span class=\"author vcard\" itemscope itemprop=\"author"
-"\" itemtype=\"http://schema.org/Person\"><a class=\"url fn n\" href=\"%4$s\" "
-"rel=\"author\" itemprop=\"url\"><span itemprop=\"name\">%5$s</span></a></"
-"span>"
 
 #: inc/template-tags.php:45
 msgid "0 Comments"
-msgstr "Нет комментариев"
+msgstr ""
 
 #: inc/template-tags.php:45
 msgid "1 Comment"
-msgstr "1 комментарий"
+msgstr ""
 
 #: inc/template-tags.php:45
 msgid "% Comments"
-msgstr "Комментарии (%)"
+msgstr ""
 
 #: inc/template-tags.php:63
 #, php-format
 msgid "Category: %s"
-msgstr "Рубрика: %s"
+msgstr ""
 
 #: inc/template-tags.php:65
 #, php-format
 msgid "Tag: %s"
-msgstr "Метка: %s"
+msgstr ""
 
 #: inc/template-tags.php:67
 #, php-format
 msgid "Author: %s"
-msgstr "Автор: %s"
+msgstr ""
 
 #: inc/template-tags.php:69
 #, php-format
 msgid "Year: %s"
-msgstr "Год: %s"
+msgstr ""
 
 #: inc/template-tags.php:69
 msgctxt "yearly archives date format"
 msgid "Y"
-msgstr "Y"
+msgstr ""
 
 #: inc/template-tags.php:71
 #, php-format
 msgid "Month: %s"
-msgstr "Месяц: %s"
+msgstr ""
 
 #: inc/template-tags.php:71
 msgctxt "monthly archives date format"
 msgid "F Y"
-msgstr "F Y"
+msgstr ""
 
 #: inc/template-tags.php:73
 #, php-format
 msgid "Day: %s"
-msgstr "День: %s"
+msgstr ""
 
 #: inc/template-tags.php:73
 msgctxt "daily archives date format"
 msgid "F j, Y"
-msgstr "d.m.Y"
+msgstr ""
 
 #: inc/template-tags.php:76
 msgctxt "post format archive title"
 msgid "Asides"
-msgstr "Заметки"
+msgstr ""
 
 #: inc/template-tags.php:78
 msgctxt "post format archive title"
 msgid "Galleries"
-msgstr "Галереи"
+msgstr ""
 
 #: inc/template-tags.php:80
 msgctxt "post format archive title"
 msgid "Images"
-msgstr "Изображения"
+msgstr ""
 
 #: inc/template-tags.php:82
 msgctxt "post format archive title"
 msgid "Videos"
-msgstr "Видео"
+msgstr ""
 
 #: inc/template-tags.php:84
 msgctxt "post format archive title"
 msgid "Quotes"
-msgstr "Цитаты"
+msgstr ""
 
 #: inc/template-tags.php:86
 msgctxt "post format archive title"
 msgid "Links"
-msgstr "Ссылки"
+msgstr ""
 
 #: inc/template-tags.php:88
 msgctxt "post format archive title"
 msgid "Statuses"
-msgstr "Статусы"
+msgstr ""
 
 #: inc/template-tags.php:90
 msgctxt "post format archive title"
 msgid "Audio"
-msgstr "Аудио"
+msgstr ""
 
 #: inc/template-tags.php:92
 msgctxt "post format archive title"
 msgid "Chats"
-msgstr "Чаты"
+msgstr ""
 
 #: inc/template-tags.php:95
 #, php-format
 msgid "Archives: %s"
-msgstr "Архивы: %s"
+msgstr ""
 
 #: inc/template-tags.php:99
 #, php-format
 msgid "%1$s: %2$s"
-msgstr "%1$s: %2$s"
+msgstr ""
 
 #: inc/template-tags.php:101 sidebar.php:7
 msgid "Archives"
-msgstr "Архивы"
+msgstr ""
 
 #: inc/template-tags.php:160
 msgid "Post navigation"
-msgstr "Навигация по записям"
+msgstr ""
 
 #: inc/template-tags.php:207 single.php:11
 msgid "Previous"
-msgstr "Назад"
+msgstr ""
 
 #: inc/template-tags.php:208 single.php:8
 msgid "Next"
-msgstr "Далее"
+msgstr ""
 
 #: inc/template-tags.php:209
 msgid "Posts navigation"
-msgstr "Навигация по записям"
+msgstr ""
 
 #: inc/template-tags.php:243
 msgid "It looks like nothing was found at this location. Maybe try a search?"
 msgstr ""
-"По данному адресу ничего не найдено. Попробуйте воспользоваться поиском."
 
 #: page.php:14
 msgid "Continue reading <span class=\"meta-nav\">...</span>"
-msgstr "Продолжить чтение <span class=\"meta-nav\">...</span>"
+msgstr ""
 
 #: search.php:3
 #, php-format
 msgid "Search Results for: %s"
-msgstr "Результаты поиска: %s"
+msgstr ""
 
 #: searchform.php:2 searchform.php:3 searchform.php:4
 msgid "Search"
-msgstr "Поиск"
+msgstr ""
 
 #: sidebar.php:14
 msgid "Meta"
-msgstr "Мета"
+msgstr ""
 
 #: single.php:9
 msgid "Next post:"
-msgstr "Следующая запись:"
+msgstr ""
 
 #: single.php:12
 msgid "Previous post:"
-msgstr "Предыдущая запись:"
+msgstr ""
 
 #: theme-my-login/register-form.php:15
 msgid "Username"
-msgstr "Имя пользователя"
+msgstr ""
 
 #: theme-my-login/register-form.php:21
 msgid "E-mail"
@@ -938,20 +884,20 @@ msgstr ""
 
 #: theme-my-login/register-form.php:28
 msgid "user agreement"
-msgstr "пользовательского соглашения"
+msgstr ""
 
 #: theme-my-login/register-form.php:29
 #, php-format
 msgid "By registering you are accepting %s."
-msgstr "Регистрируясь вы принимаете условия %s."
+msgstr ""
 
 #: theme-my-login/register-form.php:33
 msgid "Registration confirmation will be e-mailed to you."
-msgstr "Подтверждение регистрации отправлено вам на почту."
+msgstr ""
 
 #: theme-my-login/register-form.php:36
 msgid "Register"
-msgstr "Зарегистрироваться"
+msgstr ""
 
 #: tribe-events/community/edit-tribe_events.php:38
 #: tribe-events/community/event-list.php:98
@@ -1334,7 +1280,6 @@ msgid "View %1$s %2$s"
 msgid_plural "View All %1$s %2$s"
 msgstr[0] ""
 msgstr[1] ""
-msgstr[2] ""
 
 #: tribe-events/pro/widgets/this-week/loop-grid-day.php:67
 msgid "No Events Today"
@@ -1358,169 +1303,3 @@ msgstr ""
 #, php-format
 msgid "View All %s"
 msgstr ""
-
-#~ msgid ""
-#~ "Flat is a free Blog Theme designed by YoArts. Works nice for a personal "
-#~ "blog, magazine ,news or review website."
-#~ msgstr "Тема сайта malivi.ru"
-
-#~ msgid "Flat"
-#~ msgstr "Маливи"
-
-#~ msgid "Sidebar position"
-#~ msgstr "Положение боковой панели"
-
-#~ msgid ""
-#~ "Check out the <a href=\"http://themeisle.com/plugins/flat-plus/\">PRO "
-#~ "version</a> for some awesome color schemes!"
-#~ msgstr ""
-#~ "Попробуйте <a href=\"http://themeisle.com/plugins/flat-plus/\">PRO "
-#~ "версию</a> с замечательным набором цветовых схем!"
-
-#~ msgid ""
-#~ "Check out the <a href=\"http://themeisle.com/plugins/flat-plus/\">PRO "
-#~ "version</a> for full control over the sidebar position!"
-#~ msgstr ""
-#~ "Попробуйте <a href=\"http://themeisle.com/plugins/flat-plus/\">PRO "
-#~ "версию</a> для полного контроля положения боковой панели!"
-
-#~ msgid "Custom width"
-#~ msgstr "Пользовательская ширина"
-
-#~ msgid ""
-#~ "Check out the <a href=\"http://themeisle.com/plugins/flat-plus/\">PRO "
-#~ "version</a> for full control over the main content width!"
-#~ msgstr ""
-#~ "Попробуйте <a href=\"http://themeisle.com/plugins/flat-plus/\">PRO "
-#~ "версию</a> для полного контроля ширины основного контента!"
-
-#~ msgid "Infinite scroll"
-#~ msgstr "Бесконечная прокрутка"
-
-#~ msgid ""
-#~ "Check out the <a href=\"http://themeisle.com/plugins/flat-plus/\">PRO "
-#~ "version</a> for full compatibility with Jetpack Infinite Scroll option!"
-#~ msgstr ""
-#~ "Попробуйте <a href=\"http://themeisle.com/plugins/flat-plus/\">PRO "
-#~ "версию</a> для полной совместимости с Jetpack Infinite Scroll "
-#~ "(бесконечная прокрутка) опцией!"
-
-#~ msgid "Footer widgets"
-#~ msgstr "Виджеты в подвале"
-
-#~ msgid "Copyright"
-#~ msgstr "Копирайт"
-
-#~ msgid "WooCoomerce support"
-#~ msgstr "WooCoomerce поддержка"
-
-#~ msgid "Color schemes"
-#~ msgstr "Цветовая схема"
-
-#~ msgid "WooCommerce integration"
-#~ msgstr "WooCommerce интеграция"
-
-#~ msgid ""
-#~ "Check out the <a href=\"http://themeisle.com/plugins/flat-plus/\">PRO "
-#~ "version</a> for full compatibility with WooCommerce!"
-#~ msgstr ""
-#~ "Попробуйте <a href=\"http://themeisle.com/plugins/flat-plus/\">PRO "
-#~ "версию</a> для полной совместимости с WooCommerce!"
-
-#~ msgid ""
-#~ "Check out the <a href=\"http://themeisle.com/plugins/flat-plus/\">PRO "
-#~ "version</a> for full control over the footer area!"
-#~ msgstr ""
-#~ "Попробуйте <a href=\"http://themeisle.com/plugins/flat-plus/\">PRO "
-#~ "версию</a> для полного контроля над футером!"
-
-#~ msgid ""
-#~ "Also, you will be able to remove the footer link \"Powered by WordPress\" "
-#~ "and add your own copyright."
-#~ msgstr ""
-#~ "Так же, вы сможете скрыть ссылку \"Работает на WordPress\" и добавить ваш "
-#~ "собственный копирайт."
-
-#~ msgid "Footer"
-#~ msgstr "Футер"
-
-#~ msgid "Sub-Heading Font Family"
-#~ msgstr "Шрифт подзаголовков"
-
-#~ msgid "Heading Font Family"
-#~ msgstr "Шрифт заголовков"
-
-#~ msgid "Global Font Family"
-#~ msgstr "Основной шрифт"
-
-#~ msgid "Typography"
-#~ msgstr "Типография"
-
-#~ msgid "Sidebar Background Color"
-#~ msgstr "Цвет фона боковой панели"
-
-#~ msgid "Site Title Font Family"
-#~ msgstr "Шрифт заголовка сайта"
-
-#~ msgid "All plugins installed and activated successfully. %s"
-#~ msgstr "Все плагины успешно установлены и активированы. %s"
-
-#~ msgid "Theme: %1$s %2$s by %3$s."
-#~ msgstr "Тема: %1$s %2$s от %3$s."
-
-#~ msgid ""
-#~ "Sorry, but you do not have the correct permissions to update the %s "
-#~ "plugin. Contact the administrator of this site for help on getting the "
-#~ "plugin updated."
-#~ msgid_plural ""
-#~ "Sorry, but you do not have the correct permissions to update the %s "
-#~ "plugins. Contact the administrator of this site for help on getting the "
-#~ "plugins updated."
-#~ msgstr[0] ""
-#~ "Просим прощения, но у вас нет прав для обновления %s плагина.\n"
-#~ "Свяжитесь с администратором для помощи в установке."
-#~ msgstr[1] ""
-#~ "Просим прощения, но у вас нет прав для обновления %s плагинов.\n"
-#~ "Свяжитесь с администратором для помощи в установке."
-#~ msgstr[2] ""
-
-#~ msgid ""
-#~ "Sorry, but you do not have the correct permissions to activate the %s "
-#~ "plugin. Contact the administrator of this site for help on getting the "
-#~ "plugin activated."
-#~ msgid_plural ""
-#~ "Sorry, but you do not have the correct permissions to activate the %s "
-#~ "plugins. Contact the administrator of this site for help on getting the "
-#~ "plugins activated."
-#~ msgstr[0] ""
-#~ "Просим прощения, но у вас нет прав для активации %s плагина.\n"
-#~ "Свяжитесь с администратором для помощи в установке."
-#~ msgstr[1] ""
-#~ "Просим прощения, но у вас нет прав для активации %s плагинов.\n"
-#~ "Свяжитесь с администратором для помощи в установке."
-#~ msgstr[2] ""
-
-#~ msgid ""
-#~ "Sorry, but you do not have the correct permissions to install the %s "
-#~ "plugin. Contact the administrator of this site for help on getting the "
-#~ "plugin installed."
-#~ msgid_plural ""
-#~ "Sorry, but you do not have the correct permissions to install the %s "
-#~ "plugins. Contact the administrator of this site for help on getting the "
-#~ "plugins installed."
-#~ msgstr[0] ""
-#~ "Просим прощения, но у вас нет прав для установки %s плагина.\n"
-#~ "Свяжитесь с администратором для помощи в установке."
-#~ msgstr[1] ""
-#~ "Просим прощения, но у вас нет прав для установки %s плагинов.\n"
-#~ "Свяжитесь с администратором для помощи в установке."
-#~ msgstr[2] ""
-
-#~ msgid "ThemeIsle"
-#~ msgstr "ThemeIsle"
-
-#~ msgid "https://themeisle.com"
-#~ msgstr "https://themeisle.com"
-
-#~ msgid "https://themeisle.com/themes/flat/"
-#~ msgstr "https://themeisle.com/themes/flat/"

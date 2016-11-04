@@ -13,19 +13,21 @@ if (!empty($notices)) {
 			<header class="entry-header">
 				<h1 class="entry-title" itemprop="name"><?php the_title(); ?></h1>
 			</header>
-			<!-- Notices -->
-			<?php echo $notices ?>
+			<div class="entry-content" itemprop="articleBody">
+				<!-- Notices -->
+				<?php echo $notices ?>
 
-			<div class="tribe-events-list-event-description">
-				<!-- Event featured image, but exclude link -->
-				<?php echo tribe_event_featured_image( $event_id, 'full', false ); ?>
+				<div class="tribe-events-list-event-description">
+					<!-- Event featured image, but exclude link -->
+					<?php echo tribe_event_featured_image( $event_id, 'full', false ); ?>
 
-				<!-- Event content -->
-				<div class="tribe-event-description tribe-events-content">
-					<?php the_content(); ?>
-				</div>
-				<div class="post-social-buttons-group">
-					<?php do_action('post_social_like_buttons') ?>
+					<!-- Event content -->
+					<div class="tribe-event-description tribe-events-content">
+						<?php the_content(); ?>
+					</div>
+					<div class="post-social-buttons-group">
+						<?php do_action('post_social_like_buttons') ?>
+					</div>
 				</div>
 			</div>
 		</div>
