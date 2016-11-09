@@ -36,10 +36,10 @@ if ( is_admin() ) {
 }
 
 if ( is_multisite() ) {
-	require_once( THEME_MY_LOGIN_PATH . '/includes/class-theme-my-login-ms-signup.php' );
+	//require_once( THEME_MY_LOGIN_PATH . '/includes/class-theme-my-login-ms-signup.php' );
 
 	// Instantiate Theme_My_Login_MS_Signup singleton
-	Theme_My_Login_MS_Signup::get_object();
+	//Theme_My_Login_MS_Signup::get_object();
 }
 
 if ( ! function_exists( 'theme_my_login' ) ) :

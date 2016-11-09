@@ -769,6 +769,7 @@ class Tribe__Events__Linked_Posts {
 					'post__not_in' => $my_linked_post_ids,
 				)
 			);*/
+			$linked_posts = 0;
 		}
 
 		$plural_name = $this->linked_post_types[ $post_type ]['name'];

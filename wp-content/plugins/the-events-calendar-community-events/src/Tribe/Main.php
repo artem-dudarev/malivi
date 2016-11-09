@@ -289,7 +289,7 @@ if ( ! class_exists( 'Tribe__Events__Community__Main' ) ) {
 			// ensure that we don't include tabindexes in our form fields
 			add_filter( 'tribe_events_tab_index', '__return_null' );
 
-			add_filter( 'tribe_tec_addons', array( __CLASS__, 'init_addon' ) );
+			//add_filter( 'tribe_tec_addons', array( __CLASS__, 'init_addon' ) );
 
 			// options page hook
 			add_action( 'tribe_settings_do_tabs', array( $this, 'doSettings' ), 10, 1 );
@@ -302,7 +302,7 @@ if ( ! class_exists( 'Tribe__Events__Community__Main' ) ) {
 
 			add_action( 'save_post', array( $this, 'flushPageIdTransient' ), 10, 1 );
 
-			add_filter( 'user_has_cap', array( $this, 'filter_user_caps' ), 10, 3 );
+			//add_filter( 'user_has_cap', array( $this, 'filter_user_caps' ), 10, 3 );
 
 			if ( is_multisite() ) {
 				add_action( 'tribe_settings_get_option_value_pre_display', array( $this, 'multisiteDefaultOverride' ), 10, 3 );
@@ -345,7 +345,7 @@ if ( ! class_exists( 'Tribe__Events__Community__Main' ) ) {
 
 				// This comes from Common Lib
 				wp_enqueue_style( 'tribe-jquery-ui-datepicker' );
-
+				
 				// calling our own localization because wp_localize_scripts doesn't support arrays or objects for values, which we need.
 				add_action( 'admin_footer', array( $tec, 'printLocalizedAdmin' ) );
 
@@ -491,7 +491,7 @@ if ( ! class_exists( 'Tribe__Events__Community__Main' ) ) {
 				'page_arguments' => array(
 					 'tribe_id'
 				),
-				'access_callback' => array(__CLASS__, 'check_access'),
+				'access_callback' => array($this, 'check_access'),
 				'title' => __( 'Edit', 'tribe-events-community' ),
 				'template' => $template_name,
 			) );
@@ -506,7 +506,7 @@ if ( ! class_exists( 'Tribe__Events__Community__Main' ) ) {
 					'addEventCallback',
 				),
 				'page_arguments' => array(),
-				'access_callback' => array(__CLASS__, 'check_access'),
+				'access_callback' => array($this, 'check_access'),
 				'title' => __( 'Submit Event', 'tribe-events-community' ),
 				'template' => $template_name,
 			) );
@@ -519,7 +519,7 @@ if ( ! class_exists( 'Tribe__Events__Community__Main' ) ) {
 					'addVenueCallback',
 				),
 				'page_arguments' => array(),
-				'access_callback' => array(__CLASS__, 'check_access'),
+				'access_callback' => array($this, 'check_access'),
 				'title' => __( 'Submit Venue', 'tribe-events-community' ),
 				'template' => $template_name,
 			) );
@@ -532,7 +532,7 @@ if ( ! class_exists( 'Tribe__Events__Community__Main' ) ) {
 					'addOrganizerCallback',
 				),
 				'page_arguments' => array(),
-				'access_callback' => array(__CLASS__, 'check_access'),
+				'access_callback' => array($this, 'check_access'),
 				'title' => __( 'Submit Organizer', 'tribe-events-community' ),
 				'template' => $template_name,
 			) );
@@ -559,7 +559,7 @@ if ( ! class_exists( 'Tribe__Events__Community__Main' ) ) {
 				'page_arguments' => array(
 					 'tribe_event_id'
 				),
-				'access_callback' => array(__CLASS__, 'check_access'),
+				'access_callback' => array($this, 'check_access'),
 				'title' => __( 'Delete', 'tribe-events-community' ),
 				'template' => $template_name,
 			) );
@@ -575,7 +575,7 @@ if ( ! class_exists( 'Tribe__Events__Community__Main' ) ) {
 					'listCallback',
 				),
 				'page_arguments' => array( 'page' ),
-				'access_callback' => array(__CLASS__, 'check_access'),
+				'access_callback' => array($this, 'check_access'),
 				'title' => __( 'My Events', 'tribe-events-community' ),
 				'template' => $template_name,
 			) );
@@ -1462,7 +1462,7 @@ if ( ! class_exists( 'Tribe__Events__Community__Main' ) ) {
 			}
 
 			$this->loadScripts = true;
-			$output .= '<div id="tribe-community-events" class="form ' . $object_type_name . '">';
+			$output .= '<div id="tribe-community-events" class="form ' . $post_type . '">';
 
 			$errors = array();
 			$submission = $this->get_submitted_event();
@@ -1890,29 +1890,13 @@ if ( ! class_exists( 'Tribe__Events__Community__Main' ) ) {
 						'taxonomy' => $taxonomy_name,
 						'walker' => $walker,
 					);
-					add_filter( 'user_has_cap', array( $this, 'assign_terms_cap_filter' ) );
 					wp_terms_checklist( empty( $event->ID ) ? 0 : $event->ID, $args );
-					remove_filter( 'user_has_cap', array( $this, 'assign_terms_cap_filter' ) );
 					?>
 				</ul>
 			</div>
 			<?php
 		}
 
-		/**
-		 * filter on current_user_can to allow anonymous users the ability to assign terms
-		 * Note: this filter is only executed when rendering wp_terms_checklist and the anonymous
-		 * submission feature is enabled
-		 *
-		 * @param array $allcaps All the capabilities of the user
-		 */
-		public function assign_terms_cap_filter( $allcaps ) {
-			if ( $this->allowAnonymousSubmissions ) {
-				$allcaps['edit_tribe_events'] = true;
-			}
-
-			return $allcaps;
-		}//end assign_terms_cap_filter
 
 		/**
 		 * Display status icon.
@@ -2232,21 +2216,6 @@ if ( ! class_exists( 'Tribe__Events__Community__Main' ) ) {
 			}
 			$description = __( 'This template is also used for Community Events.', 'tribe-events-community' );
 			return str_replace( $tooltip, "$tooltip $description ", $text );
-		}
-
-		/**
-		 * If the anonymous submit setting is changed, flush the rewrite rules.
-		 *
-		 * @param string $field The name of the field being saved.
-		 * @param string $value The new value of the field.
-		 * @return void
-		 * @author Paul Hughes
-		 * @since 1.0.1
-		 */
-		public function flushRewriteOnAnonymous( $field, $value ) {
-			if ( $field == 'allowAnonymousSubmissions' && $value != $this->allowAnonymousSubmissions ) {
-				Tribe__Events__Main::flushRewriteRules();
-			}
 		}
 
 		/**

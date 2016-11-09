@@ -31,9 +31,12 @@
 					<nav id="site-navigation" class="navigation main-navigation" role="navigation">
 						<?php 
 						wp_nav_menu( array( 'theme_location' => 'primary', 'menu_class' => 'nav-menu', 'container' => false ) );
+						if (!is_user_logged_in()) {
+							wp_nav_menu( array( 'theme_location' => 'login', 'menu_class' => 'nav-menu', 'container' => false ) );
+						}
 						if (apply_filters('check_user_is_events_writer', false)) {
 							wp_nav_menu( array( 'theme_location' => 'editors', 'menu_class' => 'nav-menu', 'container' => false ) );
-						} 
+						}
 						?>
 					</nav>
 					<?php get_sidebar(); ?>

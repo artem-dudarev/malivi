@@ -61,6 +61,7 @@ if ( ! function_exists( 'flat_setup' ) ) :
 
 		# Flat has one navigation menu; register it with WordPress
 		register_nav_menu( 'primary', __( 'Navigation Menu', 'flat' ) );
+		register_nav_menu( 'login', __( 'Login Menu', 'flat' ) );
 		register_nav_menu( 'editors', __( 'Editors Menu', 'flat' ) );
 
 		# Add filters
@@ -115,9 +116,9 @@ if ( ! function_exists( 'flat_scripts_styles' ) ) :
 
 		wp_enqueue_script('jquery');
 		//wp_enqueue_style( 'flat-fonts', flat_fonts_url(), array(), null ); # Web fonts
-		wp_enqueue_style( 'flat-basics', get_template_directory_uri() . '/assets/css/basics.css'); # Flat's styling
+		wp_enqueue_style( 'flat-basics', get_template_directory_uri() . '/assets/css/basics.css', array(), $version); # Flat's styling
 		wp_enqueue_script( 'flat-js', get_template_directory_uri() . '/assets/js/flat.js'); # Flat's scripting
-		wp_enqueue_style( 'flat-style', get_stylesheet_uri() ); # Load main stylesheet, for child theme supports
+		wp_enqueue_style( 'flat-style', get_stylesheet_uri(), array(), $version); # Load main stylesheet, for child theme supports
 
 		wp_enqueue_script(
 			'jquery-mobile',
@@ -132,6 +133,8 @@ if ( ! function_exists( 'flat_scripts_styles' ) ) :
 			'',
 			'1.4.5'
 		);*/
+
+		//wp_enqueue_style( 'wp-admin' );
 
 		wp_register_script('vkshare', "//vk.com/js/api/share.js?90");
 		wp_enqueue_script('vkshare');

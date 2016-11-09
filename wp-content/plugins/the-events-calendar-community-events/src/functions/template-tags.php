@@ -336,7 +336,7 @@ function tribe_community_events_organizer_select_menu( $event_id = null ) {
 			return;
 		}
 	}
-	$meta_box = new Tribe__Events__Linked_Posts__Chooser_Meta_Box( $event, Tribe__Events__Main::ORGANIZER_POST_TYPE );
+	$meta_box = new Tribe__Events__Linked_Posts__Chooser_Meta_Box( $event_id, Tribe__Events__Main::ORGANIZER_POST_TYPE );
 	$meta_box->render();
 }
 
@@ -420,7 +420,7 @@ function tribe_community_events_venue_select_menu( $event_id = null ) {
 			return;
 		}
 	}
-	$meta_box = new Tribe__Events__Linked_Posts__Chooser_Meta_Box( $event, Tribe__Events__Main::VENUE_POST_TYPE );
+	$meta_box = new Tribe__Events__Linked_Posts__Chooser_Meta_Box( $event_id, Tribe__Events__Main::VENUE_POST_TYPE );
 	$meta_box->render();
 }
 
