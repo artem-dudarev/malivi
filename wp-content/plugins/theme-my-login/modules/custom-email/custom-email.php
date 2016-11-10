@@ -872,8 +872,6 @@ class Theme_My_Login_Custom_Email extends Theme_My_Login_Abstract {
 			$message .= __( 'To set your password, visit the following address:', 'theme-my-login' ) . "\r\n\r\n";
 			$message .= site_url( "wp-login.php?action=rp&key=$key&login=" . rawurlencode( $user->user_login ), 'login' ) . "\r\n\r\n";
 
-			$message .= wp_login_url() . "\r\n";
-
 			$title = sprintf( __( '[%s] Your username and password info', 'theme-my-login' ), $blogname );
 
 			$title   = apply_filters( 'new_user_notification_title',   $title,   $user_id       );
