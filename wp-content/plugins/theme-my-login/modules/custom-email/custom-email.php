@@ -418,8 +418,7 @@ class Theme_My_Login_Custom_Email extends Theme_My_Login_Abstract {
 		if ( ! empty( $_message ) ) {
 			$user = get_userdata( $user_id );
 			$message = Theme_My_Login_Common::replace_vars( $_message, $user_id, array(
-				'%reseturl%' => network_site_url( "wp-login.php?action=rp&key=$key&login=" . rawurlencode( $user->user_login ), 'login' ),
-				'%loginurl%' => site_url( 'wp-login.php', 'login' )
+				'%reseturl%' => site_url( "wp-login.php?action=rp&key=$key&login=" . rawurlencode( $user->user_login ), 'login' )
 			) );
 		}
 		return $message;
@@ -871,7 +870,7 @@ class Theme_My_Login_Custom_Email extends Theme_My_Login_Abstract {
 		if ( apply_filters( 'send_new_user_notification', true ) ) {
 			$message  = sprintf( __( 'Username: %s', 'theme-my-login' ), $user->user_login     ) . "\r\n\r\n";
 			$message .= __( 'To set your password, visit the following address:', 'theme-my-login' ) . "\r\n\r\n";
-			$message .= '<' . network_site_url( "wp-login.php?action=rp&key=$key&login=" . rawurlencode( $user->user_login ), 'login' ) . ">\r\n\r\n";
+			$message .= site_url( "wp-login.php?action=rp&key=$key&login=" . rawurlencode( $user->user_login ), 'login' ) . "\r\n\r\n";
 
 			$message .= wp_login_url() . "\r\n";
 
