@@ -7,11 +7,6 @@
 	margin-bottom: 5px;
 }
 
-.sf-widget input[type="radio"], .sf-widget input[type="checkbox"]{
-	width: 15px;
-}
-
-
 .sf-filter:after{
 	content: '';
 	display: block;
@@ -31,8 +26,7 @@
 }
 
 .sf-legend,
-.sf-element label,
-.sf-element input {
+.sf-element label {
 	cursor: pointer;
 }
 
@@ -84,7 +78,7 @@
 }
 */
 
-.sf-element input {
+.sf-element input[type="text"] {
 	width: 80%;
 }
 .sf-element select{
@@ -96,13 +90,6 @@
 	border: 1px solid #cacaca;
 }
 
-.sf-element input[type="checkbox"],
-.sf-element input[type="radio"]{
-	width: 1em;
-	height: 1em;
-	vertical-align: middle;
-	margin-right: 10px;
-}
 
 .sf-element.map{
 	width: 100%;
