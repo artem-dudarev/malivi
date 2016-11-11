@@ -28,6 +28,7 @@ if (tribe_event_is_all_day($post_id)) {
 	$thumbnail_title_class = "-small";
 } else {
 	$thumbnail_title = el_get_event_time_f($post_id, 'H:i');
+	$thumbnail_title_class = '';
 }
 // Укажем день события
 $show_thumbnail_subtitle = true;
@@ -96,7 +97,7 @@ $events_list_last_date = $event_date;
 
 		<!--
 		<div class="events-list-post-date-thumbnail-subtitle" >
-			<?php echo $thumbnail_subtitle_top; ?>
+			<?php //echo $thumbnail_subtitle_top; ?>
 		</div>
 		-->
 
