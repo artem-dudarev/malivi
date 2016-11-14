@@ -33,7 +33,7 @@
 .sf-filters-header {
 	text-align: left;
 	font-size: 1.5em;
-	border-bottom: 1px solid rgba(255,255,255,0.2);
+	border-bottom: 1px solid rgba(255,255,255,0.1);
 	padding: 10px 25px;
 }
 
@@ -58,11 +58,11 @@
 }
 
 .sf-fieldset {
-	border-bottom: 1px solid rgba(255,255,255,0.2);
+	border-bottom: 1px solid rgba(255,255,255,0.1);
 }
 
 .sf-fieldset-no-title+.sf-fieldset {
-	border-top: 1px solid rgba(255,255,255,0.2);
+	border-top: 1px solid rgba(255,255,255,0.1);
 }
 
 .sf-fieldset-content {
