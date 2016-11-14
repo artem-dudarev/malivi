@@ -5857,8 +5857,9 @@ img {
 .btn {
   outline: none;
 }
+.button,
 input#submit,
-input#wp-submit{
+input#wp-submit {
   display: inline-block;
   margin-bottom: 0;
   font-weight: normal;
@@ -5893,15 +5894,18 @@ input#submit[disabled],
 fieldset[disabled] input#submit,
 input#submit.disabled:hover,
 input#submit[disabled]:hover,
-fieldset[disabled] input#submit:hover,
+fieldset[disabled] input#submit:hover {
   background-color: #555555;
   border-color: #555555;
 }
+
+.button:hover,
 input#submit:hover,
 .open .dropdown-toggleinput#submit {
   color: #ffffff;
   background-color: #3492af;
 }
+
 .screen-reader-text {
   position: absolute;
   width: 1px;
