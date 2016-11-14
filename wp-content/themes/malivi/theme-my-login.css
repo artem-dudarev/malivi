@@ -3,6 +3,11 @@
 	margin-top: 20px;
 }
 
+.tml-profile .wp-pwd,
+.tml-profile .user-pass1-wrap {
+	text-align: left !important;
+}
+
 
 .tml {
 	max-width: 320px;
@@ -206,4 +211,5 @@
 		margin: 0;
 		width: auto;
 	}
+	
 }

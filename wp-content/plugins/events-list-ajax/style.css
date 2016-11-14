@@ -81,23 +81,6 @@
     margin: 5px 0 0 0;
 }
 
-.tribe-events-button {
-    background-color: #44a2bf;
-    border-radius: 3px;
-    color: #fff;
-    cursor: pointer;
-    display: inline-block;
-    font-size: 10px;
-    letter-spacing: 1px;
-    padding: 4px 9px;
-    margin-right: 12px;
-    text-align: center;
-    text-decoration: none;
-    text-transform: uppercase;
-    vertical-align: middle;
-    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.13);
-}
-
 .post-social-buttons-group {
     text-align: right;
     margin-top: 10px;
@@ -123,29 +106,31 @@
     .post-social-buttons-group {
         text-align: left;   
     }
-    .tribe-events-button {
-        margin-left: 12px;
-    }
 }
-
 
 
 .events-list-button {
-    padding: 10px;
-    color: #fff;
-    background-color: #44a2bf;
-    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.13);
-    border-radius:3px;
-    border: none;
-    cursor:pointer;
-    text-align:center;
-    text-decoration:none;
-    text-transform:uppercase;
-    vertical-align:middle;
+  display: inline-block;
+  margin-bottom: 0;
+  font-weight: normal;
+  text-align: center;
+  vertical-align: middle;
+  -ms-touch-action: manipulation;
+      touch-action: manipulation;
+  cursor: pointer;
+  border: 1px solid transparent;
+  white-space: nowrap;
+  padding: 6px 12px;
+  font-size: 16px;
+  line-height: 1.625;
+  color: #ffffff;
+  background-color: #44a2bf;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.13);
+  border-radius:3px;
 }
 
 .events-list-button:hover {
-    background-color: #5cad6c;
+    background-color: #3492af;
 }
 
 .tribe-events-meta-group-map. {

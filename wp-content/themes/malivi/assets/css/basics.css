@@ -5872,38 +5872,10 @@ input#wp-submit{
   padding: 6px 12px;
   font-size: 16px;
   line-height: 1.625;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  outline: none;
   color: #ffffff;
   background-color: #44a2bf;
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.13);
   border-radius:3px;
-}
-input#submit:focus,
-input#submit:active:focus,
-input#submit.active:focus,
-input#submit.focus,
-input#submit:active.focus,
-input#submit.active.focus {
-  outline: thin dotted;
-  outline: 5px auto -webkit-focus-ring-color;
-  outline-offset: -2px;
-}
-input#submit:hover,
-input#submit:focus,
-input#submit.focus {
-  color: #ffffff;
-  text-decoration: none;
-}
-input#submit:active,
-input#submit.active {
-  outline: 0;
-  background-image: none;
-  -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
-  box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
 }
 input#submit.disabled,
 input#submit[disabled],
@@ -5915,56 +5887,20 @@ fieldset[disabled] input#submit {
   -webkit-box-shadow: none;
   box-shadow: none;
 }
-input#submit:hover,
-input#submit:focus,
-input#submit.focus,
-input#submit:active,
-input#submit.active,
-.open > .dropdown-toggleinput#submit {
-  color: #ffffff;
-  background-color: #3492af;
-}
-input#submit:active,
-input#submit.active,
-.open > .dropdown-toggleinput#submit {
-  background-image: none;
-}
+
 input#submit.disabled,
 input#submit[disabled],
 fieldset[disabled] input#submit,
 input#submit.disabled:hover,
 input#submit[disabled]:hover,
 fieldset[disabled] input#submit:hover,
-input#submit.disabled:focus,
-input#submit[disabled]:focus,
-fieldset[disabled] input#submit:focus,
-input#submit.disabled.focus,
-input#submit[disabled].focus,
-fieldset[disabled] input#submit.focus,
-input#submit.disabled:active,
-input#submit[disabled]:active,
-fieldset[disabled] input#submit:active,
-input#submit.disabled.active,
-input#submit[disabled].active,
-fieldset[disabled] input#submit.active {
-  background-color: #3492af;
-  border-color: #3492af;
-}
-input#submit .badge {
-  color: #3699dc;
-  background-color: #ffffff;
+  background-color: #555555;
+  border-color: #555555;
 }
 input#submit:hover,
-input#submit:focus,
-input#submit:active,
-input#submit.active,
 .open .dropdown-toggleinput#submit {
   color: #ffffff;
   background-color: #3492af;
-}
-input#submit:active,
-input#submit.active {
-  background-color: #4ca4e0;
 }
 .screen-reader-text {
   position: absolute;
