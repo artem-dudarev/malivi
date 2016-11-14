@@ -79,17 +79,17 @@ Theme My Login will always look in your theme's directory first, before using th
 			<th><label for="pass1"><?php _e( 'New Password', 'theme-my-login' ); ?></label></th>
 			<td>
 				<input class="hidden" value=" " /><!-- #24364 workaround -->
-				<button type="button" class="events-list-button wp-generate-pw hide-if-no-js"><?php _e( 'Generate Password', 'theme-my-login' ); ?></button>
+				<button type="button" class="button wp-generate-pw hide-if-no-js"><?php _e( 'Generate Password', 'theme-my-login' ); ?></button>
 				<div class="wp-pwd hide-if-js">
 					<span class="password-input-wrapper">
 						<input type="password" name="pass1" id="pass1" class="regular-text" value="" autocomplete="off" data-pw="<?php echo esc_attr( wp_generate_password( 24 ) ); ?>" aria-describedby="pass-strength-result" />
 					</span>
 					<div style="display:none" id="pass-strength-result" aria-live="polite"></div>
-					<button type="button" class="events-list-button wp-hide-pw hide-if-no-js" data-toggle="0" aria-label="<?php esc_attr_e( 'Hide password', 'theme-my-login' ); ?>">
+					<button type="button" class="button wp-hide-pw hide-if-no-js" data-toggle="0" aria-label="<?php esc_attr_e( 'Hide password', 'theme-my-login' ); ?>">
 						<span class="dashicons dashicons-hidden"></span>
 						<span class="text"><?php _e( 'Hide', 'theme-my-login' ); ?></span>
 					</button>
-					<button type="button" class="events-list-button wp-cancel-pw hide-if-no-js" data-toggle="0" aria-label="<?php esc_attr_e( 'Cancel password change', 'theme-my-login' ); ?>">
+					<button type="button" class="button wp-cancel-pw hide-if-no-js" data-toggle="0" aria-label="<?php esc_attr_e( 'Cancel password change', 'theme-my-login' ); ?>">
 						<span class="text"><?php _e( 'Cancel', 'theme-my-login' ); ?></span>
 					</button>
 				</div>
