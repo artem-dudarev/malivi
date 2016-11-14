@@ -241,7 +241,7 @@ function add_post_share_buttons() {
 }
 
 // Добавляем инициализацию скриптов в заголовок страницы
-add_action('flat_header_before', 'flat_add_body_scripts');
+add_action('flat_body_top', 'flat_add_body_scripts');
 function flat_add_body_scripts() {
 	echo '<script type="text/javascript">';
   	echo 'VK.init({ apiId: 5702053, onlyWidgets: true });';
