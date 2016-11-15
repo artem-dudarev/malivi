@@ -2337,15 +2337,16 @@ function OnBodyScroll() {
       lastSt = cur.lastSt || 0, lastStyles = cur.lastStyles || {},
       ;
 */
+  //console.debug("scroll: " + scroll + ", lastScroll=" + lastScroll);
   var needFix; 
-  if (scroll > lastScroll) {
+  if (scroll >= lastScroll) {
     if (!sidebarIsFixed && scroll + windowHeight > topOffset + barHeight) {
-      console.log("case1");
+      //console.log("case1");
       sidebar.css("margin-top", "");
       sidebar.css("bottom", "0");
       needFix = true;
     } else if(sidebarIsFixed && scroll + windowHeight < topOffset + barHeight) {
-      console.log("case2");
+      //console.log("case2");
       sidebar.css("bottom", "");
       sidebar.css("margin-top", lastScroll);
       topOffset = lastScroll;
@@ -2353,13 +2354,13 @@ function OnBodyScroll() {
     }
   } else {
     if(sidebarIsFixed && scroll > topOffset) {
-      console.log("case3");
+      //console.log("case3");
       sidebar.css("bottom", "");
       sidebar.css("margin-top", lastScroll - barHeight + windowHeight);
       topOffset = lastScroll - barHeight + windowHeight;
       needFix = false;
     } else if (!sidebarIsFixed && scroll < topOffset) {
-      console.log("case4");
+      //console.log("case4");
       sidebar.css("margin-top", "");
       sidebar.css("bottom", "");
       needFix = true;
@@ -2388,17 +2389,21 @@ function OnBodyResize() {
   var windowHeight = jQuery('body').height();
   var barHeight = sidebar.outerHeight();
   if (barHeight < windowHeight) {
+    //console.debug("test1");
     sidebarScrollDisabled = true;
     sidebar.toggleClass('fixed', true);
     sidebarIsFixed = true;
   } else {
-    if (sidebarScrollDisabled) {
-      sidebar.toggleClass('fixed', true);
-      sidebarIsFixed = true;
-    }
-    sidebarScrollDisabled = false;
+    //console.debug("test2");
     lastScroll = scrollGetY();
     topOffset = lastScroll;
+    if (sidebarScrollDisabled) {
+      //console.debug("test3");
+      sidebar.toggleClass('fixed', false);
+      sidebarIsFixed = false;
+      sidebar.css("margin-top", lastScroll);
+    }
+    sidebarScrollDisabled = false;
   }
 }
 

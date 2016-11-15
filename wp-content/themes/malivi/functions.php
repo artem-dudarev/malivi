@@ -142,11 +142,15 @@ if ( ! function_exists( 'flat_scripts_styles' ) ) :
 		wp_register_script('vkwidgets', "//vk.com/js/api/openapi.js?136");
 		wp_enqueue_script('vkwidgets');
 
-		wp_register_script('fbconnect', "//connect.facebook.net/ru_RU/sdk.js#&version=v2.8");
+		wp_register_script('fbconnect', "//connect.facebook.net/ru_RU/sdk.js#&version=v2.8&xfbml=1&appId=182398415550570");
 		wp_enqueue_script('fbconnect');
 
-		wp_register_script('googleplus', "//apis.google.com/js/platform.js");
-		wp_enqueue_script('googleplus');
+		//wp_register_script('googleplus', "//apis.google.com/js/platform.js");
+		//wp_enqueue_script('googleplus');
+
+		//wp_register_script('okwidgets', "//connect.ok.ru/connect.js");
+		//wp_enqueue_script('okwidgets');
+		
 
 		wp_register_script('yandexshare', "//yastatic.net/share2/share.js");
 		wp_enqueue_script('yandexshare');
@@ -307,7 +311,7 @@ function flat_add_body_scripts() {
 	echo '(window.Image ? (new Image()) : document.createElement("img")).src = location.protocol + "//vk.com/rtrg?r=bQxSJFcA7HtwRjTgT08an90Xx6sPauMgaMaiDYIoZxLwOWy3ch1FLTISQYCCYw6NwSB0U2HgbADMHHCgpaIkc0SM75f01ZJb7Fsvz3lnr4QVi3VNwyQEEkwkDObZmvI1HU2lAd6UPtcCgfYAC254UP5WCJT67tLuTvqfhsZ*2nc-&pixel_id=1000030378";';
 	echo '</script>';
 	echo '<script type="text/javascript">';
-	echo 'FB.init({appId: "182398415550570", xfbml: false, version: "v2.8" });';
+	echo 'FB.init({appId: "182398415550570", xfbml: true, version: "v2.8" });';
 	echo '</script>';
 }
 
