@@ -210,6 +210,65 @@ function modify_read_more_link() {
 	return '<a class="btn btn-default btn-sm" href="' . esc_url( get_permalink() ) . '">' . sprintf( __( 'Continue reading %s', 'flat' ), '<i class="fa fa-angle-double-right"></i></a>' );
 }
 
+function malivi_can_user_access_admin() {
+	$user_id = get_current_user_id();
+	if (!$user_id || empty( $user_id)) {
+		return false;
+	}
+	if ( is_super_admin( $user_id ) ) {
+		return true;
+	}
+	if ( empty( $user_id ) ) {
+		return array();
+	}
+
+	$user = new WP_User( $user_id );
+	if (!isset( $user->roles ) ) {
+		return false;
+	}
+
+	$allowed_roles = array('administrator', 'editor');
+	// if a user has multiple roles, still let him in if he has a non-blocked role
+	$result = array_intersect( $user->roles, $allowed_roles );
+	if ( empty( $result ) ) {
+		return false;
+	}
+	return true;
+}
+/* // На данный момент это делается плагином theme-my-login
+// Отключим админску панель у всех кроме админа и редактора
+add_action('after_setup_theme', 'malivi_remove_admin_bar');
+function malivi_remove_admin_bar() {
+	if (!is_admin() && !malivi_can_user_access_admin()) {
+		show_admin_bar(false);
+	}
+}
+add_action( 'init', 'malivi_block_roles_from_admin' );
+function malivi_block_roles_from_admin() {
+	// Let WordPress worry about admin access for unauthenticated users
+	if ( ! is_user_logged_in() ) {
+		return;
+	}
+	//If User Cannot Access Admin Hide the Admin Bar
+	if ( ! malivi_can_user_access_admin() ) {
+		add_filter( 'show_admin_bar', '__return_false' );
+	}
+
+	// If it is not an admin request - or if it is an ajax request - then we don't need to interfere
+	if ( ! is_admin() || ( defined( 'DOING_AJAX' ) && DOING_AJAX ) ) {
+		return;
+	}
+
+	// If the user has access privileges then we don't need to interfere
+	if ( malivi_can_user_access_admin() ) {
+		return;
+	}
+
+	// Redirect user to appropriate location
+	wp_safe_redirect( wp_validate_redirect( home_url() ) );
+	exit;
+}*/
+
 // В конец содержимого текста добавляем кнопки лайков
 add_action('post_social_like_buttons', 'add_post_social_like_buttons');
 function add_post_social_like_buttons() {
