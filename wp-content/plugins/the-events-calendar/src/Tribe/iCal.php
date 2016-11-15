@@ -73,7 +73,7 @@ class Tribe__Events__iCal {
 			return;
 		}
 		
-		echo '<a class="tribe-events-ical tribe-events-button" href="' . esc_url( tribe_get_single_ical_link() ) . '" title="' . esc_attr__( 'Download .ics file', 'the-events-calendar' ) . '" >+ ' . esc_html__( 'iCal Export', 'the-events-calendar' ) . '</a>';
+		echo '<a class="tribe-events-ical button" href="' . esc_url( tribe_get_single_ical_link() ) . '" title="' . esc_attr__( 'Download .ics file', 'the-events-calendar' ) . '" >+ ' . esc_html__( 'iCal Export', 'the-events-calendar' ) . '</a>';
 	}
 
 	/**
@@ -117,7 +117,7 @@ class Tribe__Events__iCal {
 
 		$text  = apply_filters( 'tribe_events_ical_export_text', esc_html__( 'Export', 'the-events-calendar' ) . ' ' . $modifier );
 		$title = esc_html__( 'Use this to share calendar data with Google Calendar, Apple iCal and other compatible apps', 'the-events-calendar' );
-		$ical  = '<a class="tribe-events-ical tribe-events-button" title="' . $title . '" href="' . esc_url( tribe_get_ical_link() ) . '">+ ' . $text . '</a>';
+		$ical  = '<a class="tribe-events-ical button" title="' . $title . '" href="' . esc_url( tribe_get_ical_link() ) . '">+ ' . $text . '</a>';
 
 		echo $ical;
 	}

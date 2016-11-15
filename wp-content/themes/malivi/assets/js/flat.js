@@ -2321,7 +2321,7 @@ function OnBodyScroll() {
   if (sidebarScrollDisabled) {
     return;
   }
-  var windowHeight = jQuery(window).height();
+  var windowHeight = jQuery('body').height();
   var barHeight = sidebar.outerHeight();
 
   var scroll = scrollGetY();//, barHeight - windowHeight);
@@ -2342,12 +2342,10 @@ function OnBodyScroll() {
     if (!sidebarIsFixed && scroll + windowHeight > topOffset + barHeight) {
       console.log("case1");
       sidebar.css("margin-top", "");
-      sidebar.css("top", "");
       sidebar.css("bottom", "0");
       needFix = true;
     } else if(sidebarIsFixed && scroll + windowHeight < topOffset + barHeight) {
       console.log("case2");
-      sidebar.css("top", "");
       sidebar.css("bottom", "");
       sidebar.css("margin-top", lastScroll);
       topOffset = lastScroll;
@@ -2356,7 +2354,6 @@ function OnBodyScroll() {
   } else {
     if(sidebarIsFixed && scroll > topOffset) {
       console.log("case3");
-      sidebar.css("top", "");
       sidebar.css("bottom", "");
       sidebar.css("margin-top", lastScroll - barHeight + windowHeight);
       topOffset = lastScroll - barHeight + windowHeight;
@@ -2365,7 +2362,6 @@ function OnBodyScroll() {
       console.log("case4");
       sidebar.css("margin-top", "");
       sidebar.css("bottom", "");
-      sidebar.css("top", "0");
       needFix = true;
     }
   }
@@ -2383,7 +2379,6 @@ function OnBodyResize() {
     if (!sidebarScrollDisabled) {
       sidebar.css("margin-top", "");
       sidebar.css("bottom", "");
-      sidebar.css("top", "");
       sidebar.toggleClass('fixed', false);
       sidebarScrollDisabled = true;
     }
@@ -2396,12 +2391,10 @@ function OnBodyResize() {
     sidebarScrollDisabled = true;
     sidebar.toggleClass('fixed', true);
     sidebarIsFixed = true;
-    sidebar.css("top", "0");
   } else {
     if (sidebarScrollDisabled) {
       sidebar.toggleClass('fixed', true);
       sidebarIsFixed = true;
-      sidebar.css("top", "0");
     }
     sidebarScrollDisabled = false;
     lastScroll = scrollGetY();
