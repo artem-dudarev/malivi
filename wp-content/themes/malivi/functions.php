@@ -293,7 +293,7 @@ function add_post_social_like_buttons() {
 // После раздела с содержимым поста, вставляем кнопки для отправки страницы в соц-сети
 add_action('tribe_events_single_event_after_the_content', 'add_post_share_buttons');
 function add_post_share_buttons() {
-	echo '<a class="tribe-events-gcal tribe-events-button post-share-button" href="' . Tribe__Events__Main::instance()->esc_gcal_url( tribe_get_gcal_link() ) . '" title="' . esc_attr__( 'Add to Google Calendar', 'the-events-calendar' ) . '">' . esc_html__( 'Google Calendar', 'the-events-calendar' ).'</a>';
+	echo '<a class="tribe-events-gcal button post-share-button" href="' . Tribe__Events__Main::instance()->esc_gcal_url( tribe_get_gcal_link() ) . '" title="' . esc_attr__( 'Add to Google Calendar', 'the-events-calendar' ) . '">' . esc_html__( 'Google Calendar', 'the-events-calendar' ).'</a>';
 	$ya_button_id = "ya_share_button_".get_the_ID();
 	echo '<div id="'.$ya_button_id.'" class="post-share-button"></div>';
 	echo '<script type="text/javascript">Ya.share2("'.$ya_button_id.'", { content: { url: "'.get_permalink().'"}, theme : {services: "vkontakte,facebook,odnoklassniki,moimir,gplus,twitter"} });</script>';
