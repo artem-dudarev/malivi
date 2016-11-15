@@ -93,7 +93,7 @@
 }
 
 @media (max-width: 347px) {
-    .tribe-events-button {
+    .tribe-events-ical {
         width: 164px;
         box-sizing: border-box;
     }

@@ -307,7 +307,7 @@ function flat_logo() {
 	$logo = esc_url( flat_get_theme_option( 'logo' ) );
 	$tagline = get_bloginfo( 'description' );
 
-	echo '<h1 class="site-title ' . esc_attr( $header_class ) . '"><a href="' . esc_url( home_url( '/' ) ) . '" title="'. esc_attr( get_bloginfo( 'name', 'display' ) ) . '" rel="home">';
+	echo '<a href="' . esc_url( home_url( '/' ) ) . '" title="'. esc_attr( get_bloginfo( 'name', 'display' ) ) . '" rel="home"><h1 class="site-title ' . esc_attr( $header_class ) . '">';
 
 	if ( 'display-title' !== $header_class ) {
 		echo '<img itemprop="primaryImageofPage" alt="' . esc_attr( get_bloginfo( 'name', 'display' ) ) . '" src="' . esc_attr( $logo ) . '" />';
@@ -316,11 +316,12 @@ function flat_logo() {
 		echo '<span itemprop="name">' . esc_attr( get_bloginfo( 'name' ) ) . '</span>';
 	}
 
-	echo '</a></h1>';
+	echo '</h1>';
 
 	if ( $tagline ) {
 		echo '<h2 itemprop="description" class="site-description">' . esc_attr( $tagline ) . '</h2>';
 	}
+	echo '</a>';
 }
 
 function flat_customizer_registers() {
