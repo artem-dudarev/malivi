@@ -31,14 +31,6 @@
 		$plugin_dir = basename( dirname( __FILE__ ) ) . '/res/lang/';
 		load_plugin_textdomain( 'sf', false, $plugin_dir );
 	}
-	
-
-	add_action('after_setup_theme', 'remove_admin_bar');
-	function remove_admin_bar() {
-		if (!is_admin() && !current_user_can('administrator')) {
-			show_admin_bar(false);
-		}
-	}
 
 	add_action( 'wp_head', 'sf_head', 1 );
 	function sf_head(){
