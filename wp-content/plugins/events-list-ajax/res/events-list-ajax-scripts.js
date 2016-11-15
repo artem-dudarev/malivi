@@ -466,7 +466,7 @@ jQuery( document ).ready( function() {
 	if (wrapper.length == 0) {
 		// Если фильтров нет, то удалим placeholder в боковом меню
 		if (anchor.length > 0) {
-			anchor.parent().parent().hide();
+			//anchor.hide();
 		}
 		return;
 	}
