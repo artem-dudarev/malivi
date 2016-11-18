@@ -395,13 +395,17 @@ body {
 #site-navigation .children .children .children {
   background: rgba(0, 0, 0, 0.5);
 }
+#site-navigation .current-menu-item,
+#site-navigation .current_page_item {
+  background-color: rgba(255, 255, 255, 0.2);
+  border: none;
+}
 #site-navigation .current-menu-item > a,
 #site-navigation .current-menu-parent > a,
 #site-navigation .current-menu-ancestor > a,
 #site-navigation .current_page_item > a,
 #site-navigation .current_page_parent > a,
 #site-navigation .current_page_ancestor > a {
-  
 
 }
 #site-navigation .current-menu-parent > .fa,
