@@ -21,7 +21,6 @@
 	margin: 0;
     padding: 0;
     width: 100%;
-    font-weight: normal;
     color: rgba(255,255,255,0.8);
 }
 
@@ -52,13 +51,20 @@
 	margin-bottom: 10px;
 }
 .sf-element a:hover,
+.sf-element a:active,
 .sf-element label:hover,
-.sf-legend:hover {
-	color: rgba(255,255,255,0.4);
+.sf-element label:active,
+.sf-legend:hover,
+.sf-legend:active {
+	background-color: rgba(255,255,255,0.05);
 }
 
 .sf-fieldset {
 	border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.sf-fieldset-no-title {
+	margin-top: 10px;
 }
 
 .sf-fieldset-no-title+.sf-fieldset {
