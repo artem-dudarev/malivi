@@ -10,9 +10,12 @@
  License URI:  license.txt
 */
 
+* {
+  box-sizing: inherit;
+}
 
 html {
-   box-sizing: border-box;
+  box-sizing: border-box;
   font-family: Roboto,sans-serif;
   font-size: 16px;
   line-height: 1.625;
@@ -20,13 +23,9 @@ html {
   -webkit-text-size-adjust: 100%;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   -ms-overflow-style: -ms-autohiding-scrollbar;
-  -webkit-overflow-scrolling: touch;
   word-wrap: break-word;
+  width: 100%;
   height: 100%;
-}
-
-*, *:before, *:after {
-  box-sizing: inherit;
 }
 
 body {
@@ -38,7 +37,11 @@ body {
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  width: 100%;
   height: 100%;
+  -webkit-overflow-scrolling: touch;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 .container {
@@ -107,10 +110,8 @@ body {
 #secondary .widget {
   padding: 0;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  font-size: 14px;
-}
-#secondary .widget:last-child {
-  border-bottom: none;
+  font-size: 15px;
+  font-weight: lighter;
 }
 #secondary .widget-title {
   text-transform: uppercase;
@@ -323,20 +324,15 @@ body {
 }
 #site-navigation a {
   line-height: 40px;
-  padding: 10px 25px;
+  padding-left: 25px;
   color: #fff;
   font-size: 12px;
   text-transform: uppercase;
-  width: 100%; 
+  display: list-item;
 }
-
-@media (max-width: 991px) {
-  #site-navigation a {
-  }
-}
-#site-navigation a:hover {
-  color: rgba(255, 255, 255, 0.5);
-  
+#site-navigation a:hover,
+#site-navigation a:active {
+  background-color: rgba(255, 255, 255, 0.05);
 }
 #site-navigation .toggle-sidebar {
   float: left;
@@ -457,7 +453,7 @@ body {
 }
 @media (max-width: 991px) {
   .hentry {
-    padding: 20px 10px 10px 10px;
+    padding: 10px;
   }
   #comments {
     margin: 10px;
@@ -590,6 +586,12 @@ body {
 .social-group-panel {
   display: inline-block;
   margin-top: 20px;
+}
+
+.no-scroll {
+  height: 100% !important;
+  overflow: hidden !important;
+  -webkit-overflow-scrolling: auto !important;
 }
 
 
