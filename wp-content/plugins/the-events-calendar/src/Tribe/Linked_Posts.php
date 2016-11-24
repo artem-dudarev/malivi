@@ -778,7 +778,7 @@ class Tribe__Events__Linked_Posts {
 
 		if ( $linked_posts || $my_linked_posts ) {
 			$linked_post_pto = get_post_type_object( $post_type );
-			echo '<select class="chosen linked-post-dropdown" name="' . esc_attr( $name ) . '" id="saved_' . esc_attr( $post_type ) . '">';
+			echo '<select class="select2 linked-post-dropdown" name="' . esc_attr( $name ) . '" id="saved_' . esc_attr( $post_type ) . '">';
 			/*if (
 				! empty( $linked_post_pto->cap->create_posts )
 				&& current_user_can( $linked_post_pto->cap->create_posts )
@@ -787,8 +787,13 @@ class Tribe__Events__Linked_Posts {
 				echo '<option value="0">' . sprintf( esc_html__( 'Use New %s', 'the-events-calendar' ), $singular_name ) . '</option>';
 			}*/
 			if (current_user_can($post_type_object->cap->read_private_posts)) {
+				// Это уберет выбор элемента по умолчанию, 
 				echo '<option>' . '</option>';
 			}
+			/*if ($post_type == Tribe__Events__Main::ORGANIZER_POST_TYPE && current_user_can('publish_tribe_organizers')) {
+				// Добавляем элемент, позволяющий убрать выбранного организатора
+				$my_linked_post_options .= '<option value="0">Пусто</option>';
+			}*/
 
 			if ( $my_linked_posts ) {
 				$my_optgroup_name = sprintf( esc_html__( 'My %s', 'the-events-calendar' ), $plural_name );
