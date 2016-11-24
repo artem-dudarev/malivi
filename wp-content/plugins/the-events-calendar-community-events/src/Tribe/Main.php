@@ -1603,14 +1603,17 @@ if ( ! class_exists( 'Tribe__Events__Community__Main' ) ) {
 		}
 
 		public function required_fields_for_submission() {
-			return array( 
+			$result = array( 
 				'post_content',
 				'post_title',
 				'event_image',
 				'venue',
-				'organizer',
 				'taxonomy_' . Tribe__Events__Main::TAXONOMY,
 				'taxonomy_' . 'events_directions' );
+			if (!current_user_can('publish_tribe_organizers')) {
+				$result[] = 'organizer';
+			}
+			return $result;
 		}
 
 		public function login_form( $caption = '' ) {

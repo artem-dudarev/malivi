@@ -149,7 +149,7 @@ h2.tribe-events-page-title {
 
 
 /*--------------------------------------------------------------
-    Events-list styles
+	Events-list styles
 --------------------------------------------------------------*/
 
 .events-list-table {
@@ -173,8 +173,7 @@ a.events-list-row {
     }
 }
 
-.events-list-row:hover,
-.events-list-row:active {
+.events-list-row:hover {
     /*background-color:black;*/
     opacity: 0.6;
 }
@@ -405,9 +404,9 @@ a.events-list-row {
 .popup-dialog-wrapper {
     position: fixed;
     top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+  	left: 0;
+  	width: 100%;
+  	height: 100%;
 
     overflow-y: scroll;
     -webkit-overflow-scrolling: touch;
@@ -470,10 +469,15 @@ a.events-list-row {
 }
 
 .popup-wrapper-close-button:hover,
-.popup-wrapper-close-button:active,
 .popup-dialog-wrapper:hover .popup-dialog:not(:hover) + .popup-wrapper-close-button {
   opacity: 1;
   text-shadow: 0 0 4px #FFFFFF;
+}
+
+.no-scroll {
+  height: 100% !important;
+  overflow: hidden !important;
+  -webkit-overflow-scrolling: auto !important;
 }
 
 /* -------------------------- page view -------------------------- */

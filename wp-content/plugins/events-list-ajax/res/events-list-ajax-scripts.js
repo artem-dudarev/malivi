@@ -140,6 +140,14 @@ function GetUrlParameter(key, url) {
 	return result;
 }
 
+function SetPageScrollEnabled(is_enabled) {
+	if (is_enabled) {
+		jQuery('body').removeClass('no-scroll');
+	} else {
+		jQuery('body').addClass('no-scroll');
+	}
+}
+
 // Текущая страница отфильтрованных событий
 var current_page = 1;
 // Количество доступных страниц результатов
@@ -237,6 +245,7 @@ function OpenPopup(post_id, shouldPushState) {
 	//var url = jQuery( this ).attr( 'href' );
 	var loading_indicator = jQuery('#box_loader');
 	loading_indicator.show();
+	var body = jQuery('body')
 	SetPageScrollEnabled(false);
 	if (shouldPushState) {
 		SetUrlHash('show', post_id, true);
@@ -252,8 +261,8 @@ function OpenPopup(post_id, shouldPushState) {
 		.done(function( response ) {
 			loading_indicator.hide();
 			if (isPopupOpen) {
-				var popup = '<div class="popup-dialog-wrapper"><div class="popup-dialog">' + response + '</div><div class="popup-wrapper-close-button"/></div>';
-				jQuery('body').append(jQuery(popup));
+				var popup = jQuery('<div class="popup-dialog-wrapper"><div class="popup-dialog">' + response + '</div><div class="popup-wrapper-close-button"/></div>');
+				body.append(popup);
 				jQuery('.popup-dialog-wrapper').click(function(e) {
 					event.preventDefault();
 					SetUrlHash('show', '', true);
