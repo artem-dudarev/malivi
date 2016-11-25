@@ -12,6 +12,7 @@ class Tribe__Events__Venue {
 		'rewrite'             => array( 'slug' => 'venue', 'with_front' => false ),
 		'show_ui'             => true,
 		'show_in_menu'        => 0,
+		'show_in_admin_bar'   => true,
 		'supports'            => array( 'title', 'editor' ),
 		'capability_type'     => array( 'tribe_venue', 'tribe_venues' ),
 		'map_meta_cap'        => true,
