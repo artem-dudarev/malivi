@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: Flat\n"
-"POT-Creation-Date: 2016-11-04 21:20+0200\n"
+"POT-Creation-Date: 2016-11-26 14:05+0200\n"
 "PO-Revision-Date: 2016-03-15 15:32-0400\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -585,35 +585,48 @@ msgid "Navigation Menu"
 msgstr ""
 
 #: functions.php:64
+msgid "Login Menu"
+msgstr ""
+
+#: functions.php:65
 msgid "Editors Menu"
 msgstr ""
 
-#: functions.php:90
+#: functions.php:91
 msgid "Main Widget Area"
 msgstr ""
 
-#: functions.php:92
+#: functions.php:93
 msgid "Appears in the sidebar section of the site"
 msgstr ""
 
-#: functions.php:207
+#: functions.php:215
 #, php-format
 msgid "Continue reading %s"
 msgstr ""
 
-#: functions.php:235
+#: functions.php:301
 msgid "Add to Google Calendar"
 msgstr ""
 
-#: functions.php:235
+#: functions.php:301
 msgid "Google Calendar"
 msgstr ""
 
-#: header.php:21
+#: functions.php:330
+msgid "user agreement"
+msgstr ""
+
+#: functions.php:331
+#, php-format
+msgid "By registering you are accepting %s."
+msgstr ""
+
+#: header.php:19
 msgid "<i class=\"fa fa-bars\"></i>"
 msgstr ""
 
-#: header.php:26
+#: header.php:24
 msgid "<i class=\"fa fa-gear\"></i>"
 msgstr ""
 
@@ -677,19 +690,19 @@ msgstr ""
 msgid "Show Post Excerpt"
 msgstr ""
 
-#: inc/customize.php:330
+#: inc/customize.php:331
 msgid "View Documentation"
 msgstr ""
 
-#: inc/customize.php:331
+#: inc/customize.php:332
 msgid "Leave us a review(it will help us)"
 msgstr ""
 
-#: inc/customize.php:332
+#: inc/customize.php:333
 msgid "Github"
 msgstr ""
 
-#: inc/customize.php:333
+#: inc/customize.php:334
 msgid "Upgrade to pro"
 msgstr ""
 
@@ -874,29 +887,78 @@ msgstr ""
 msgid "Previous post:"
 msgstr ""
 
-#: theme-my-login/register-form.php:15
-msgid "Username"
+#: theme-my-login/profile-form.php:24
+msgid "First Name"
 msgstr ""
 
-#: theme-my-login/register-form.php:21
+#: theme-my-login/profile-form.php:29
+msgid "Last Name"
+msgstr ""
+
+#: theme-my-login/profile-form.php:34
+msgid "Nickname"
+msgstr ""
+
+#: theme-my-login/profile-form.php:41
 msgid "E-mail"
 msgstr ""
 
-#: theme-my-login/register-form.php:28
-msgid "user agreement"
-msgstr ""
-
-#: theme-my-login/register-form.php:29
+#: theme-my-login/profile-form.php:49
 #, php-format
-msgid "By registering you are accepting %s."
+msgid ""
+"There is a pending change of your e-mail to %1$s. <a href=\"%2$s\">Cancel</"
+"a>"
 msgstr ""
 
-#: theme-my-login/register-form.php:33
-msgid "Registration confirmation will be e-mailed to you."
+#: theme-my-login/profile-form.php:58
+#: tribe-events/community/modules/organizer-fields.php:65
+#: tribe-events/community/modules/venue-fields.php:139
+#: tribe-events/community/modules/website.php:37
+msgid "Website"
 msgstr ""
 
-#: theme-my-login/register-form.php:36
-msgid "Register"
+#: theme-my-login/profile-form.php:79
+msgid "New Password"
+msgstr ""
+
+#: theme-my-login/profile-form.php:82
+msgid "Generate Password"
+msgstr ""
+
+#: theme-my-login/profile-form.php:88
+msgid "Hide password"
+msgstr ""
+
+#: theme-my-login/profile-form.php:90
+msgid "Hide"
+msgstr ""
+
+#: theme-my-login/profile-form.php:92
+msgid "Cancel password change"
+msgstr ""
+
+#: theme-my-login/profile-form.php:93
+msgid "Cancel"
+msgstr ""
+
+#: theme-my-login/profile-form.php:99
+msgid "Repeat New Password"
+msgstr ""
+
+#: theme-my-login/profile-form.php:102
+msgid "Type your new password again."
+msgstr ""
+
+#: theme-my-login/profile-form.php:106
+msgid "Confirm Password"
+msgstr ""
+
+#: theme-my-login/profile-form.php:110
+msgid "Confirm use of weak password"
+msgstr ""
+
+#: theme-my-login/profile-form.php:125
+msgid "Update Profile"
 msgstr ""
 
 #: tribe-events/community/edit-tribe_events.php:38
@@ -1103,12 +1165,6 @@ msgstr ""
 msgid "Phone"
 msgstr ""
 
-#: tribe-events/community/modules/organizer-fields.php:65
-#: tribe-events/community/modules/venue-fields.php:139
-#: tribe-events/community/modules/website.php:37
-msgid "Website"
-msgstr ""
-
 #: tribe-events/community/modules/organizer-fields.php:74
 msgid "Email"
 msgstr ""
@@ -1179,6 +1235,10 @@ msgstr ""
 
 #: tribe-events/modules/bar.php:38
 msgid "View As"
+msgstr ""
+
+#: tribe-events/modules/map.php:24
+msgid "Show map"
 msgstr ""
 
 #: tribe-events/modules/meta/details.php:48
