@@ -19,15 +19,20 @@ foreach ( $location_parts as $val ) {
     }
 }
 ?>
-<div id="tribe-events-ymap-<?php the_ID(); ?>" class="tribe-events-meta-group-map tribe-events-ymap">
+<div id="tribe-events-ymap-<?php the_ID();?>" class="tribe-events-meta-group-map tribe-events-ymap">
+    <div id="show-map-button-<?php the_ID();?>" class="show-map-overlay">
+        <?php _e('Show map', 'flat');?>
+    </div>
 </div>
+
 
 <script type="text/javascript">
 if (typeof(ymaps) !== 'undefined') {
     ymaps.ready(function() {
-        var myGeocoder = ymaps.geocode("<?php echo $address;?>");
-        myGeocoder.then(
-            function (res) {
+        jQuery('#show-map-button-<?php the_ID();?>').click( function () {
+            jQuery('#show-map-button-<?php the_ID();?>').remove();
+            var myGeocoder = ymaps.geocode("<?php echo $address;?>");
+            myGeocoder.then(function (res) {
                 // Выбираем первый результат геокодирования.
                 var firstGeoObject = res.geoObjects.get(0);
                 // Координаты геообъекта.
@@ -36,8 +41,8 @@ if (typeof(ymaps) !== 'undefined') {
                 // Создание экземпляра карты и его привязка к контейнеру с заданным id ("map").
                 var map = new ymaps.Map('tribe-events-ymap-<?php the_ID(); ?>', {
                     // При инициализации карты обязательно нужно указать её центр и коэффициент масштабирования.
-                    center: coords, // калининград
-                    zoom: 14
+                    center: coords, 
+                    zoom: 14 // Игнорируется, так как дальше выставляется масштаб
                 });
                 // Добавляем первый найденный геообъект на карту.
                 map.geoObjects.add(firstGeoObject);
@@ -49,9 +54,8 @@ if (typeof(ymaps) !== 'undefined') {
                     // Проверяем наличие тайлов на данном масштабе.
                     checkZoomRange: true
                 });
-                
-            }
-        );
+            });
+        });
     });
 }
 </script>
