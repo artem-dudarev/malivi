@@ -75,8 +75,10 @@
     }
 }
 
-.tribe-events-export-links {
-    margin: 5px 0 0 0;
+@media (max-width: 767px) {
+    .tribe-events-export-links {
+        margin: 5px 0 0 0;
+    }
 }
 
 .post-social-buttons-group {

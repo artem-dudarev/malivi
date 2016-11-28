@@ -238,6 +238,7 @@
 			while( $query->have_posts() ) {
 				$query->the_post();
 				ob_start();
+				do_action('events_list_before_event_view');
 				tribe_get_template_part( 'list/single', get_post_type() );
 				$content .= ob_get_clean();
 			} // end while( $query->have_posts() )
@@ -265,12 +266,14 @@
 
 	function do_get_post_page( ) {
 		$post_id = $_POST['post_id'];
-		global $wpdb;
+		global $wp_query;
+		$wp_query->is_single = $wp_query->is_singular = true;
 		global $post;
 		$post = get_post($post_id);
 		setup_postdata($post);
 		//$template = get_events_page_template( $post->post_type );
 		//include($template);
+		do_action('events_list_before_event_view');
 		tribe_get_template_part( 'page/single', get_post_type() );
 	}
 
