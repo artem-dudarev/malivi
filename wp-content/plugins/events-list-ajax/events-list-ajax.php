@@ -32,8 +32,8 @@
 		load_plugin_textdomain( 'sf', false, $plugin_dir );
 	}
 
-	add_action( 'wp_head', 'sf_head', 1 );
-	function sf_head(){
+	add_action( 'wp_head', 'events_list_head', 1 );
+	function events_list_head(){
 		wp_register_script('yandexMaps', "//api-maps.yandex.ru/2.1/?lang=" . get_bloginfo('language','display'));
 		wp_enqueue_script('yandexMaps');
 
@@ -86,5 +86,7 @@
 			echo '</style>'.PHP_EOL;
 		}
 	}
+
+	add_action('events_list_before_event_view', 'process_postviews');
 	
 ?>
