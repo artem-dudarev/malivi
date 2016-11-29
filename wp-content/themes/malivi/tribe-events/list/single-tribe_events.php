@@ -85,6 +85,7 @@ $events_list_last_date = $event_date;
 <?php endif?>
 
 <a class="events-list-row group-element coloring-for-group <?php echo $row_class ?>" href="<?php the_permalink() ?>" postid="<?php the_ID() ?>" >
+	<?php the_views(); ?>
 	<?php if ($is_event_free) : ?>
 	<div class="events-list-post-free-overlay">
 		<div></div>

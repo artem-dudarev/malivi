@@ -27,6 +27,7 @@ if (empty($thumbnail) || $thumbnail == false) {
 ?>
 
 <a class="events-list-row group-element coloring-for-group" href="<?php the_permalink() ?>" postid="<?php the_ID() ?>" >
+	<?php the_views(); ?>
 	<div class="events-list-post-image-thumbnail events-list-cell" >
 		<?php echo $image_content;?>
 	</div>

@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Duplicator - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2016-10-09 19:33:16+0000\n"
+"PO-Revision-Date: 2016-11-16 04:18:40+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -11,7 +11,7 @@ msgstr ""
 "Language: ru\n"
 "Project-Id-Version: Plugins - Duplicator - Stable (latest release)\n"
 
-#: views/tools/diagnostics.php:172
+#: views/tools/diagnostics.php:243
 msgid "Process"
 msgstr "Процесс"
 
@@ -27,7 +27,7 @@ msgstr "PHP не имеет возможности записи в корнев�
 msgid "If Duplicator does not have enough permissions then you will need to manually create the paths above. &nbsp; "
 msgstr "Если у Duplicator будет недостаточноо привилений, то Вам придется вручную создать пути выше.  &nbsp;"
 
-#: views/help/about.php:71
+#: views/help/about.php:69
 msgid "Rate Duplicator"
 msgstr "оценить Duplicator"
 
@@ -119,6 +119,10 @@ msgstr "InMotion"
 msgid "50% Off Normal Price!"
 msgstr "50% скидка от обычной цены!"
 
+#: views/help/perks.php:39
+msgid "While helping to support Duplicator..."
+msgstr "Помогая поддерживать Duplicator ..."
+
 #: views/help/perks.php:38
 msgid "Get Great Deals and Amazing Products!"
 msgstr "Получите отличные сделки и великолепные продукты!"
@@ -126,6 +130,14 @@ msgstr "Получите отличные сделки и великолепны
 #: views/help/perks.php:33
 msgid "Perks"
 msgstr "Возможности"
+
+#: views/tools/logging.php:169
+msgid "for more reliable conversions"
+msgstr "для более надежных конверсий"
+
+#: views/tools/cleanup.php:92
+msgid "It is recommended to remove your archive file from the root of your WordPress install.  This will need to be done manually"
+msgstr "Рекомендуется удалить файл архива из корня вашей установки WordPress. Это нужно сделать вручную"
 
 #: views/tools/cleanup.php:88
 msgid "Does not exist or unable to remove archive file.  Please validate that an archive file exists."
@@ -152,6 +164,10 @@ msgstr "Duplicator рекомендует"
 msgid "Bluehost"
 msgstr "Bluehost"
 
+#: views/settings/general.php:168 views/tools/logging.php:163
+msgid "Duplicator recommends going with the high performance pro plan or better from Bluehost.com"
+msgstr "Duplicator рекомендует высокопроизводительный тариф pro или лучше от BlueHost.com"
+
 #: views/settings/general.php:167 views/tools/logging.php:162
 msgid "Host Recommendation:"
 msgstr "Рекомендации хостинга:"
@@ -160,9 +176,29 @@ msgstr "Рекомендации хостинга:"
 msgid "Tables:"
 msgstr "Таблицы:"
 
+#: views/packages/main/new2.scan.php:431
+msgid "3. For table name case sensitivity issues either rename the table with lower case characters or be prepared to work with the %1$s system variable setting."
+msgstr "3. Для решения проблем с регистрочувствительностью таблиц, или переименуйте таблицу с нижним регистром или готовьтесь работать с %1$s настройкой системной переменной."
+
 #: views/packages/main/new2.scan.php:430
 msgid "lower_case_table_names"
 msgstr "lower_case_table_names"
+
+#: views/packages/main/new2.scan.php:428
+msgid "2. Remove stale date from tables such as logging, statistical or other non-critical data."
+msgstr "2. Удалите неактуальные данные из таблиц с журналами, статистикой и прочими некритичными данными."
+
+#: views/packages/main/new2.scan.php:426
+msgid "1. Run a %1$s on the table to improve the overall size and performance."
+msgstr "1. Запустите %1$s в таблице чтобы улучшить общий размер и производительность."
+
+#: views/packages/main/new2.scan.php:418
+msgid "The thresholds that trigger warnings for individual tables are %1$s OR %2$s records OR tables names with upper-case characters.  The larger the table the more time it takes to process and execute.  This can cause issues with budget hosts that have cpu/memory limits, and timeout constraints."
+msgstr "Пороги срабатывания предупреждений для отдельных таблиц %1$s ИЛИ %2$s записей ИЛИ таблицы с названиями с символами в верхнем регистре. Чем больше таблица тем больше занимает обработка и исполнение. Это может вызвать проблемы с бюджетными хостингами у которых установлены пределы использования памяти, процессора и таймауты. "
+
+#: views/packages/main/new2.scan.php:401
+msgid "3. Consider removing data from tables that store logging, statistical  or other non-critical information about your site."
+msgstr "3. Подумайте над удалением данных из таблиц с журналами, статистикой и прочей некритичной информацией о сайте."
 
 #: views/packages/main/new2.scan.php:399
 msgid "2. If your server supports shell_exec and mysqldump it is recommended to enable this option from the %1$s menu."
@@ -172,6 +208,10 @@ msgstr "Если ваш сервер поддерживает shell_exec() и my
 msgid "Duplicator Settings"
 msgstr "Настройки Duplicator"
 
+#: views/packages/main/new2.scan.php:396
+msgid "1. Running a %1$s on your database will help to improve the overall size, performance and efficiency of the database."
+msgstr "Запуск %1$s в вашей базе данных поможет улучшить общий размер, производительность и эффективность работы БД."
+
 #: views/packages/main/new2.scan.php:395 views/packages/main/new2.scan.php:425
 msgid "Repair and Optimization"
 msgstr "Ремонт и оптимизация"
@@ -179,6 +219,10 @@ msgstr "Ремонт и оптимизация"
 #: views/packages/main/new2.scan.php:394 views/packages/main/new2.scan.php:424
 msgid "Options:"
 msgstr "Настройки:"
+
+#: views/packages/main/new2.scan.php:388
+msgid "Total size and row count for all database tables are approximate values.  The thresholds that trigger warnings are %1$s OR %2$s records total for the entire database.  The larger the databases the more time it takes to process and execute.  This can cause issues with budget hosts that have cpu/memory limits, and timeout constraints."
+msgstr "Общий размер и число строк в таблицах БД посчитаны приблизительно. Пороги для срабатывания предупреждений - %1$s ИЛИ %2$s записей для всей базы данных. Чем больше размер базы, тем больше времени занимает обработка и исполнение. Это может вызвать проблемы с бюджетными хостингами у которых установлены пределы использования памяти, процессора и таймауты."
 
 #: views/packages/main/new2.scan.php:387 views/packages/main/new2.scan.php:417
 msgid "Overview:"
@@ -569,163 +613,163 @@ msgstr "Попробуйте создать пакет, так как файлы
 msgid "Log file not found or unreadable"
 msgstr "Файл лога не найден или недоступен"
 
-#: views/tools/diagnostics.php:308
+#: views/tools/diagnostics.php:445
 msgid "Delete this option value"
 msgstr "Удалить это значение настройки"
 
-#: views/tools/diagnostics.php:289
+#: views/tools/diagnostics.php:392
 msgid "PHP Information"
 msgstr "Информация о PHP"
 
-#: views/tools/diagnostics.php:256
+#: views/tools/diagnostics.php:327
 msgid "Options Values"
 msgstr "Значения настроек"
 
-#: views/tools/diagnostics.php:251
+#: views/tools/diagnostics.php:322
 msgid "Stored Data"
 msgstr "Сохраненные данные"
 
-#: views/tools/diagnostics.php:235
+#: views/tools/diagnostics.php:306
 msgid "On shared hosts check your control panel for the 'TRUE' disk space quota value."
 msgstr "На виртуальном хостинге проверьте панель управления для \"НАСТОЯЩЕГО\" лимита места на диске."
 
-#: views/tools/diagnostics.php:234
+#: views/tools/diagnostics.php:305
 msgid "Note: This value is the physical servers hard-drive allocation."
 msgstr "Примечание: Это значение жесткого диска на физических серверах."
 
-#: views/tools/diagnostics.php:231
+#: views/tools/diagnostics.php:302
 msgid "Free space"
 msgstr "Свободное место"
 
-#: views/tools/diagnostics.php:228
+#: views/tools/diagnostics.php:299
 msgid "Server Disk"
 msgstr "Диск сервера"
 
-#: views/tools/diagnostics.php:224
+#: views/tools/diagnostics.php:295
 msgid "msyqldump Path"
 msgstr "Путь к mysqldump"
 
-#: views/tools/diagnostics.php:220
+#: views/tools/diagnostics.php:291
 msgid "Max Allowed Packets"
 msgstr "Максимально разрешенное кол-во пакетов"
 
-#: views/tools/diagnostics.php:216
+#: views/tools/diagnostics.php:287
 msgid "Wait Timeout"
 msgstr "Время ожидания"
 
-#: views/tools/diagnostics.php:201
+#: views/tools/diagnostics.php:272
 msgid "Shell Exec Zip"
 msgstr "Shell Exec Zip"
 
-#: views/tools/diagnostics.php:198 views/tools/diagnostics.php:202
+#: views/tools/diagnostics.php:269 views/tools/diagnostics.php:273
 msgid "Not Supported"
 msgstr "Не поддерживается"
 
-#: views/tools/diagnostics.php:198 views/tools/diagnostics.php:202
+#: views/tools/diagnostics.php:269 views/tools/diagnostics.php:273
 msgid "Is Supported"
 msgstr "Поддерживается"
 
-#: views/tools/diagnostics.php:197
+#: views/tools/diagnostics.php:268
 msgid "Shell Exec"
 msgstr "Shell Exec"
 
-#: views/tools/diagnostics.php:189
+#: views/tools/diagnostics.php:260
 msgid "Memory In Use"
 msgstr "Использовано памяти"
 
-#: views/tools/diagnostics.php:185
+#: views/tools/diagnostics.php:256
 msgid "Memory Limit"
 msgstr "Лимит памяти"
 
-#: views/tools/diagnostics.php:180
+#: views/tools/diagnostics.php:251
 msgid "Off"
 msgstr "Выкл"
 
-#: views/tools/diagnostics.php:180
+#: views/tools/diagnostics.php:251
 msgid "On"
 msgstr "Вкл"
 
-#: views/tools/diagnostics.php:176
+#: views/tools/diagnostics.php:247
 msgid "Safe Mode"
 msgstr "Безопасный режим (Safe mode)"
 
-#: views/tools/diagnostics.php:154
+#: views/tools/diagnostics.php:225
 msgid "Max"
 msgstr "Макс."
 
-#: views/tools/diagnostics.php:153
+#: views/tools/diagnostics.php:224
 msgid "Memory Limit "
 msgstr "Лимит памяти"
 
-#: views/tools/diagnostics.php:149 views/tools/diagnostics.php:212
+#: views/tools/diagnostics.php:220 views/tools/diagnostics.php:283
 msgid "Charset"
 msgstr "Кодировка"
 
-#: views/tools/diagnostics.php:145
+#: views/tools/diagnostics.php:216
 msgid "Language"
 msgstr "Язык"
 
-#: views/tools/diagnostics.php:134
+#: views/tools/diagnostics.php:205
 msgid "Client IP"
 msgstr "IP клиента"
 
-#: views/tools/diagnostics.php:130
+#: views/tools/diagnostics.php:201
 msgid "Server IP"
 msgstr "IP сервера"
 
-#: views/tools/diagnostics.php:126
+#: views/tools/diagnostics.php:197
 msgid "Loaded PHP INI"
 msgstr "Загружено PHP INI"
 
-#: views/tools/diagnostics.php:122
+#: views/tools/diagnostics.php:193
 msgid "Plugins Path"
 msgstr "Путь плагинов"
 
-#: views/tools/diagnostics.php:118
+#: views/tools/diagnostics.php:189
 msgid "ABSPATH"
 msgstr "ABSPATH"
 
-#: views/tools/diagnostics.php:114
+#: views/tools/diagnostics.php:185
 msgid "Root Path"
 msgstr "Корневой путь"
 
-#: views/tools/diagnostics.php:110
+#: views/tools/diagnostics.php:181
 msgid "APC Enabled"
 msgstr "APC включено"
 
-#: views/tools/diagnostics.php:102
+#: views/tools/diagnostics.php:173
 msgid "Server Time"
 msgstr "Время сервера"
 
-#: views/tools/diagnostics.php:98
+#: views/tools/diagnostics.php:169
 msgid "Timezone"
 msgstr "Временная зона"
 
-#: views/tools/diagnostics.php:94
+#: views/tools/diagnostics.php:165
 msgid "Operating System"
 msgstr "Операционная система"
 
-#: views/tools/diagnostics.php:90
+#: views/tools/diagnostics.php:161
 msgid "Duplicator Version"
 msgstr "Версия Duplicator-а"
 
-#: views/tools/diagnostics.php:81
+#: views/tools/diagnostics.php:152
 msgid "Server Settings"
 msgstr "Настройки сервера"
 
-#: views/tools/diagnostics.php:41
+#: views/tools/diagnostics.php:112
 msgid "Active package settings reset."
 msgstr "Настройки для активных пакетов сброшены."
 
-#: views/tools/diagnostics.php:40
+#: views/tools/diagnostics.php:111
 msgid "View state settings reset."
 msgstr "Установки просмотра сброшены."
 
-#: views/tools/diagnostics.php:39
+#: views/tools/diagnostics.php:110
 msgid "Plugin settings reset."
 msgstr "Настройки плагина сброшены."
 
-#: views/tools/diagnostics.php:18 views/tools/diagnostics.php:19
+#: views/tools/diagnostics.php:88 views/tools/diagnostics.php:89
 msgid "unknow"
 msgstr "неизвестный"
 
@@ -789,7 +833,7 @@ msgstr "Если файлы установщика не будут удален�
 msgid "Build cache removed."
 msgstr "Кеш сборок удален."
 
-#: views/tools/cleanup.php:32 views/tools/diagnostics.php:44
+#: views/tools/cleanup.php:32 views/tools/diagnostics.php:115
 msgid "Legacy data removed."
 msgstr "Старые данные удалены."
 
@@ -945,7 +989,7 @@ msgstr "Плагин"
 msgid "Settings Saved"
 msgstr "Настройки сохранены"
 
-#: views/packages/details/detail.php:61 views/tools/diagnostics.php:87
+#: views/packages/details/detail.php:61 views/tools/diagnostics.php:158
 msgid "General"
 msgstr "Основные"
 
@@ -1209,7 +1253,7 @@ msgstr "Заметка: таймаут может быть установлен 
 msgid "Issues might occur for larger packages when the [max_execution_time] value in the php.ini is too low.  The minimum recommended timeout is \"%1$s\" seconds or higher. An attempt is made to override this value if the server allows it.  A value of 0 (recommended) indicates that PHP has no time limits."
 msgstr "Могут быть проблемы для больших пакетов при маленьком значении  [max_execution_time] в php.ini. Рекомендуется \"%1$s\" секунд или больше. Если сервер допускает это, будет предпринята попытка переопределить это значение. Можно установить на 0 (рекомендуется) для полного снятия ограничения на время выполнения PHP."
 
-#: views/packages/main/new2.scan.php:168 views/tools/diagnostics.php:193
+#: views/packages/main/new2.scan.php:168 views/tools/diagnostics.php:264
 msgid "Max Execution Time"
 msgstr "Максимальное время выполнения"
 
@@ -1238,7 +1282,7 @@ msgid "Supported web servers:"
 msgstr "Поддерживаемые веб сервера:"
 
 #: views/packages/main/new2.scan.php:137 views/packages/main/new2.scan.php:142
-#: views/tools/diagnostics.php:106
+#: views/tools/diagnostics.php:177
 msgid "Web Server"
 msgstr "Веб сервер"
 
@@ -1614,12 +1658,12 @@ msgid "Hash"
 msgstr "Хеш"
 
 #: views/packages/details/detail.php:101 views/packages/details/detail.php:322
-#: views/packages/main/new1.inc.form.php:318 views/tools/diagnostics.php:168
+#: views/packages/main/new1.inc.form.php:318 views/tools/diagnostics.php:239
 msgid "User"
 msgstr "Пользователь"
 
-#: views/settings/general.php:86 views/tools/diagnostics.php:141
-#: views/tools/diagnostics.php:160 views/tools/diagnostics.php:208
+#: views/settings/general.php:86 views/tools/diagnostics.php:212
+#: views/tools/diagnostics.php:231 views/tools/diagnostics.php:279
 msgid "Version"
 msgstr "Версия"
 
@@ -1714,45 +1758,41 @@ msgstr "Нажмите кнопку \"Создать новый\" для соз�
 msgid "No Packages Found."
 msgstr "Пакеты не найдены."
 
-#: views/help/help.php:111
+#: views/help/help.php:110
 msgid "Pro Solutions!"
 msgstr "Профи решения!"
 
-#: views/help/help.php:108
+#: views/help/help.php:107
 msgid "Other Commercial Resources"
 msgstr "Другие коммерческие ресурсы"
 
-#: views/help/help.php:105
+#: views/help/help.php:104
 msgid "Alternatives"
 msgstr "Альтернативы"
 
-#: views/help/help.php:95
+#: views/help/help.php:94
 msgid "Trusted Providers!"
 msgstr "Доверенные провайдеры!"
 
-#: views/help/help.php:92
+#: views/help/help.php:91
 msgid "Servers That Work With Duplicator"
 msgstr "Сайты работающие с Duplicator"
 
-#: views/help/help.php:89
+#: views/help/help.php:88
 msgid "Approved Hosting"
 msgstr "Подтвержденный хостинг"
 
-#: views/help/help.php:75
+#: views/help/help.php:74
 msgid "Get Support!"
 msgstr "Получить помощь!"
 
-#: views/help/help.php:71
+#: views/help/help.php:70
 msgid "Get Help From IT Professionals"
 msgstr "Получить помощь от IT профессионалов"
 
-#: views/help/help.php:68
+#: views/help/help.php:67
 msgid "Online Support"
 msgstr "Онлайн поддержка"
-
-#: views/help/help.php:59
-msgid "Product Page"
-msgstr "Страница продукта"
 
 #: views/help/help.php:58
 msgid "Change Log"
@@ -1818,67 +1858,63 @@ msgstr "Резервные копии файлов и базы данных"
 msgid "The simplicity of Duplicator"
 msgstr "Простота Duplicator-а"
 
-#: views/help/about.php:117
+#: views/help/about.php:115
 msgid "Get More Great Tools"
 msgstr "Получите больше отличных инструментов"
 
-#: views/help/about.php:100
-msgid "Rapid WordPress Duplication by LifeInTheGrid.com"
-msgstr "Быстрое клонирование WordPress от LifeInTheGrid.com"
-
-#: views/help/about.php:99
+#: views/help/about.php:97
 msgid "Duplicate Your WordPress"
 msgstr "Duplicate Ваш WordPress"
 
-#: views/help/about.php:93
+#: views/help/about.php:91
 msgid "Spread the Word"
 msgstr "Рассказать другим"
 
-#: views/help/about.php:80
+#: views/help/about.php:78
 msgid "Leave 5 Stars"
 msgstr "Поставьте 5 звезд"
 
-#: views/help/about.php:64
+#: views/help/about.php:62
 msgid "Support Duplicator"
 msgstr "Поддержать Duplicator"
 
-#: views/help/about.php:54
+#: views/help/about.php:52
 msgid "Created for Admins, Developers and Designers the Duplicator can streamline your workflows and help you quickly clone a WordPress application.  Migrating a WordPress site manually can be very time consuming.  The Duplicator was made to help you speed up the migration process. Please help us to continue the development effort of this plugin."
 msgstr "Создан для администраторов, разработчиков и дизайнеров, Duplicator упростит вашу работу и легко клонирует вашу установку WordPress. Миграция сайта WordPress вручную может занимать много времени, Duplicator сокращает затраты времени на перенос сайта. Помогите нам продолжать разработку этого плагина."
 
-#: duplicator.php:275
+#: duplicator.php:277
 msgid "Manage"
 msgstr "Управлять"
 
-#: duplicator.php:218
+#: duplicator.php:220
 msgid "Go Pro!"
 msgstr "Становись PRO!"
 
-#: duplicator.php:199 views/tools/controller.php:14
+#: duplicator.php:201 views/tools/controller.php:14
 msgid "Tools"
 msgstr "Инструменты"
 
-#: duplicator.php:194 views/settings/controller.php:19
+#: duplicator.php:196 views/settings/controller.php:19
 msgid "Settings"
 msgstr "Настройки"
 
-#: duplicator.php:189 views/packages/main/packages.php:186
+#: duplicator.php:191 views/packages/main/packages.php:186
 msgid "Packages"
 msgstr "Пакеты"
 
-#: duplicator.php:106 duplicator.php:209 views/help/about.php:41
+#: duplicator.php:108 duplicator.php:211 views/help/about.php:41
 msgid "About"
 msgstr "Про плагин"
 
-#: duplicator.php:106
+#: duplicator.php:108
 msgid "Support the Plugin"
 msgstr "Поддержите плагин"
 
-#: duplicator.php:105 duplicator.php:204 views/help/help.php:29
+#: duplicator.php:107 duplicator.php:206 views/help/help.php:29
 msgid "Help"
 msgstr "Помощь"
 
-#: duplicator.php:105
+#: duplicator.php:107
 msgid "Get Help"
 msgstr "Получить помощь!"
 

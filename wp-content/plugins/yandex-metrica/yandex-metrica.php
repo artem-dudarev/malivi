@@ -4,7 +4,7 @@ Plugin Name: Yandex Metrica
 Plugin URI: http://uysalmustafa.com/plugins/yandex-metrica
 Description: Best metrica plugin for the use Yandex Metrica in your WordPress site.
 Author: Mustafa Uysal
-Version: 1.4.1
+Version: 1.4.2
 Text Domain: yandex-metrica
 Domain Path: /languages/
 Author URI: http://uysalmustafa.com
@@ -207,6 +207,7 @@ class WP_Yandex_Metrica extends WP_Stack_Plugin {
 		$statical_data =  self::$metrica_api->get_counter_statistics( $this->options["counter_id"], $this->start_date, $this->end_date, "data" );
 
 		if ( is_array( $statical_data ) ) {
+			$days = array();
 			foreach ( $statical_data as $key => $row ) {
 				$days[ $key ] = $row['date'];
 			}

@@ -277,6 +277,7 @@ function malivi_block_roles_from_admin() {
 // В конец содержимого текста добавляем кнопки лайков
 add_action('post_social_like_buttons', 'add_post_social_like_buttons');
 function add_post_social_like_buttons() {
+	the_views();
 	$page_id = 'site'.get_current_blog_id().'_page'.get_the_ID();
 
 	$google_like_button_id = 'google_like_button_'.get_the_ID();
@@ -330,6 +331,10 @@ function add_user_agreement() {
 	$agreement_link = '<a href="/agreement" target="_blank">' . __( 'user agreement', 'flat') . '</a>';
 	echo sprintf( __( 'By registering you are accepting %s.', 'flat'), $agreement_link); 
 	echo '</p>';
+}
+
+function get_views_plural($count) {
+	return printf( _n( 'Views: %s', 'Views: %s', $count, 'flat' ), $count);
 }
 
 

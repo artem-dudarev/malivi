@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: Flat\n"
-"POT-Creation-Date: 2016-11-26 14:05+0200\n"
+"POT-Creation-Date: 2016-11-28 01:08+0200\n"
 "PO-Revision-Date: 2016-03-15 15:32-0400\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -622,11 +622,18 @@ msgstr ""
 msgid "By registering you are accepting %s."
 msgstr ""
 
-#: header.php:19
+#: functions.php:336
+#, php-format
+msgid "Views: %s"
+msgid_plural "Views: %s"
+msgstr[0] ""
+msgstr[1] ""
+
+#: header.php:21
 msgid "<i class=\"fa fa-bars\"></i>"
 msgstr ""
 
-#: header.php:24
+#: header.php:26
 msgid "<i class=\"fa fa-gear\"></i>"
 msgstr ""
 
