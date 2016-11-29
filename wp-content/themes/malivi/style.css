@@ -5,7 +5,7 @@
  Author:       Ilia Dudarev
  Author URI:   https://malivi.ru
  
- Version:      1.0.0
+ Version:      1.0.1
  License:      GNU General Public License version 2
  License URI:  license.txt
 */
@@ -563,16 +563,29 @@ body {
   margin-right: 5px;
 }
 
-.post-share-button {
+.post-share-button,
+.post-social-buttons-group .post-views-block {
   display:inline-block;
   vertical-align: middle;
   margin-top: 10px;
 }
 
 @media (max-width: 767px) {
-  .post-share-button {
+  .post-share-button,
+  .post-social-buttons-group .post-views-block {
     margin-top: 5px;
   }
+}
+
+@media (max-width: 450px) {
+  .post-share-button,
+  .post-social-buttons-group .post-views-block {
+    display: block;
+  }
+}
+
+.post-social-buttons-group .post-views-block {
+  padding: 0 10px;
 }
 
 .social-share-frame {

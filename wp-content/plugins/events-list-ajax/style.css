@@ -351,20 +351,20 @@ a.events-list-row {
 .events-list-post-free-overlay {
     width: 200px;
     text-align: center;
-    color: #ea3c36;
-    background-color: #fff;
+    color: #fff;
+    font-size: 0.9em;
+    background-color: #ff6565;
     position: absolute;
     bottom: 17px;
     right: -55px;
-    border: 1px solid;
     -ms-transform: rotate(330deg);
     -webkit-transform: rotate(330deg);
     transform: rotate(330deg);
 }
 @media (max-width: 767px) {
     .events-list-post-free-overlay {
-        font-size: 0.7em;
-        right: -68px;
+        font-size: 0.8em;
+        right: -65px;
         bottom: 13px;
     }
 }
@@ -600,45 +600,16 @@ a.events-list-row {
     right: -20px;
 }
 
-.my-events-table-wrapper {
-    font-size: 0.7em;
+.events-list-row .post-views-block {
+  position: absolute;
+  bottom: 0;
+  right: 5px;
+  background: #fff;
+  font-size: 0.8em;
 }
 
-#tribe-community-events .row-actions {
-    font-size: 85%;
-}
-
-.community-add-new {
-    float: left;
-    margin-bottom: 1em;
-    margin-right: 1em;
-}
-
-.community-user-section {
-    float: right;
-    text-align: right;
-    margin-bottom: 1em;
-    margin-right: 1em;
-}
-
-table.events-community > thead > tr > th,
-table.events-community > tbody > tr > th,
-table.events-community > tfoot > tr > th,
-table.events-community > thead > tr > td,
-table.events-community > tbody > tr > td,
-table.events-community > tfoot > tr > td {
-  padding: 8px;
-  line-height: 1.625;
-  vertical-align: top;
-}
-table.events-community > thead > tr > th {
-  vertical-align: bottom;
-}
-table.events-community > thead > tr > th,
-table.events-community > tbody > tr > th,
-table.events-community > tfoot > tr > th,
-table.events-community > thead > tr > td,
-table.events-community > tbody > tr > td,
-table.events-community > tfoot > tr > td {
-  border: 1px solid #dddddd;
+@media (max-width: 767px) {
+  .events-list-row .post-views-block {
+    font-size: 0.6em;
+  }
 }

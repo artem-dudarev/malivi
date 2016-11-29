@@ -6347,3 +6347,46 @@ input[type="radio"]:focus {
     margin: -3px -5px;
   }
 }
+
+.my-events-table-wrapper {
+    font-size: 0.7em;
+}
+
+#tribe-community-events .row-actions {
+    font-size: 85%;
+}
+
+.community-add-new {
+    float: left;
+    margin-bottom: 1em;
+    margin-right: 1em;
+}
+
+.community-user-section {
+    float: right;
+    text-align: right;
+    margin-bottom: 1em;
+    margin-right: 1em;
+}
+
+table.events-community > thead > tr > th,
+table.events-community > tbody > tr > th,
+table.events-community > tfoot > tr > th,
+table.events-community > thead > tr > td,
+table.events-community > tbody > tr > td,
+table.events-community > tfoot > tr > td {
+  padding: 8px;
+  line-height: 1.625;
+  vertical-align: top;
+}
+table.events-community > thead > tr > th {
+  vertical-align: bottom;
+}
+table.events-community > thead > tr > th,
+table.events-community > tbody > tr > th,
+table.events-community > tfoot > tr > th,
+table.events-community > thead > tr > td,
+table.events-community > tbody > tr > td,
+table.events-community > tfoot > tr > td {
+  border: 1px solid #dddddd;
+}
