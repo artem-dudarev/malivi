@@ -3,7 +3,7 @@
  * Plugin Name: Multisite Store Viewer
  * Plugin URI: http://cedcommerce.com
  * Description: This plugin list all the sites of a multisite wordpress on a single page.
- * Version: 1.0.6
+ * Version: 1.0.7
  * Author: CedCommerce
  * Author URI: http://cedcommerce.com
  * Requires at least: 3.5
