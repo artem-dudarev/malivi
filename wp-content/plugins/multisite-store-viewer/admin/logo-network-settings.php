@@ -56,13 +56,10 @@ else{
    			<td width="30%" style="text-align:center;"><b><?php _e('Logo', 'ced-multisite-list')?></b></td>
 		</tr>
 		
-		Gebruik de routeplanner om ons te bereiken met openbaar vervoer. (<a href="https://www.delijn.be/nl/routeplanner">https://www.delijn.be/nl/routeplanner/</a>)
-		
    		<?php 
    		if(isset($ced_sites))
    		{
    			$checkbox_value =  get_site_option('hidesite');
-   			print_r($checkbox_value);
    			foreach($ced_sites as $key=>$val)
    			{
    				$blog_id = $val['blog_id'];

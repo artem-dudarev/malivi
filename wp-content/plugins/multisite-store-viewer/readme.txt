@@ -5,7 +5,7 @@ Donate link: http://cedcommerce.com
 Tags: multisite, list sites, multistore, multistore-viewer, multisite-list, list-multisite, multisite shortcode, shortcode, blog, blogid, blogname, blogimage, search, filter, wordpress, woocommerce
 Requires at least: 3.5
 Tested up to: 4.5.3
-Stable tag: 1.0.6
+Stable tag: 1.0.7
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -82,6 +82,9 @@ There are the following main features :
 
 == Changelog ==
 
+= 1.0.7 =
+* Remove the unwanted line written in a file
+
 = 1.0.6 =
 * Exclude Site from Listing according to selected value in attribute
 
@@ -106,6 +109,9 @@ There are the following main features :
 * Add setting to upload logo for each site
 
 == Upgrade Notice ==
+
+= 1.0.7 =
+* Remove the unwanted line written in a file
 
 = 1.0.6 =
 * Exclude Site from Listing according to selected value in attribute
