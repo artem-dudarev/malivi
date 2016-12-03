@@ -21,18 +21,40 @@
 /** On some browsers posts editor is not working without this line */
 define('CONCATENATE_SCRIPTS', false);
 
-// ** MySQL settings - You can get this info from your web host ** //
-/** The name of the database for WordPress */
-define('DB_NAME', 'wordpress_prod');
+if (getenv('db_host')) { /* production settings */
+	// ** MySQL settings - You can get this info from your web host ** //
+	/** The name of the database for WordPress */
+	define('DB_NAME', getenv('db_name') );
+	/** MySQL database username */
+	define('DB_USER', getenv('db_user') );
+	/** MySQL database password */
+	define('DB_PASSWORD', getenv('db_pass') );
+	/** MySQL hostname */
+	define('DB_HOST', getenv('db_host') );
 
-/** MySQL database username */
-define('DB_USER', 'root');
+	define('WP_ALLOW_MULTISITE', true);
+	define('MULTISITE', true);
+	define('SUBDOMAIN_INSTALL', false);
+	define('DOMAIN_CURRENT_SITE', 'malivi.ru');
+	define('PATH_CURRENT_SITE', '/');
+	define('SITE_ID_CURRENT_SITE', 1);
+	define('BLOG_ID_CURRENT_SITE', 1);
+} else { /* local test settings */
+	// ** MySQL settings - You can get this info from your web host ** //
+	/** The name of the database for WordPress */
+	define('DB_NAME', 'wordpress_prod');
+	/** MySQL database username */
+	define('DB_USER', 'root');
+	/** MySQL database password */
+	define('DB_PASSWORD', 'u8IJolv6FElxNrEo');
+	/** MySQL hostname */
+	define('DB_HOST', 'localhost');
 
-/** MySQL database password */
-define('DB_PASSWORD', 'u8IJolv6FElxNrEo');
+	define('WP_HOME','http://' . $_SERVER['HTTP_HOST']);
+	define('WP_SITEURL', 'http://' . $_SERVER['HTTP_HOST']);
+}
 
-/** MySQL hostname */
-define('DB_HOST', 'localhost');
+
 
 /** Database Charset to use in creating database tables. */
 define('DB_CHARSET', 'utf8mb4');
@@ -81,15 +103,6 @@ $table_prefix  = 'wp_';
  * @link https://codex.wordpress.org/Debugging_in_WordPress
  */
 define('WP_DEBUG', false);
-
-define('WP_ALLOW_MULTISITE', true);
-
-define('MULTISITE', true);
-define('SUBDOMAIN_INSTALL', false);
-define('DOMAIN_CURRENT_SITE', 'malivi.ru');
-define('PATH_CURRENT_SITE', '/');
-define('SITE_ID_CURRENT_SITE', 1);
-define('BLOG_ID_CURRENT_SITE', 1);
 
 define( 'DISALLOW_FILE_EDIT', true );
 
