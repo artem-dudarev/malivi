@@ -2,10 +2,6 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
-$notices = tribe_the_notices(false);
-if (!empty($notices)) {
-	$notices = '<div class="entry-header group-element">' . $notices . '</div>';
-}
 ?>
 <div id="tribe-events-content" class="tribe-events-single">
 	<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
@@ -15,7 +11,7 @@ if (!empty($notices)) {
 			</header>
 			<div class="entry-content" itemprop="articleBody">
 				<!-- Notices -->
-				<?php echo $notices ?>
+				<?php tribe_the_notices() ?>
 
 				<div class="tribe-events-list-event-description">
 					<!-- Event featured image, but exclude link -->

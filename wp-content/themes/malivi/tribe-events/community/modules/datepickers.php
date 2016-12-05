@@ -40,18 +40,18 @@ $events_label_plural = tribe_get_event_label_plural();
 
 		<tr>
 			<td colspan="2" class="tribe_sectionheader">
-				<h4 class="event-time"><?php echo esc_html__( 'Time &amp; Date', 'tribe-events-community' ); ?></h4>
+				<h4 class="event-time"><?php esc_html_e( 'Time &amp; Date', 'tribe-events-community' ); ?></h4>
 			</td><!-- .tribe_sectionheader -->
 		</tr>
 
 		<tr id="recurrence-changed-row">
 			<td colspan="2">
-				<?php esc_html__( 'You have changed the recurrence rules of this event. Saving event will update all future events.  If you did not mean to change all events, then please refresh the page.', 'tribe-events-community' ); ?>
+				<?php esc_html_e( 'You have changed the recurrence rules of this event. Saving event will update all future events.  If you did not mean to change all events, then please refresh the page.', 'tribe-events-community' ); ?>
 			</td>
 		</tr><!-- #recurrence-changed-row -->
 
 		<tr>
-			<td><?php esc_html__( 'All day', 'tribe-events-community' ); ?></td>
+			<td><?php esc_html_e( 'All day', 'tribe-events-community' ); ?></td>
 			<td>
 				<input type="checkbox" id="allDayCheckbox" name="EventAllDay" value="yes" <?php echo ( $all_day ) ? 'checked' : ''; ?> />
 			</td>

@@ -606,6 +606,7 @@ a.events-list-row {
   right: 5px;
   background: #fff;
   font-size: 0.8em;
+  padding-left: 20px;
 }
 
 @media (max-width: 767px) {
