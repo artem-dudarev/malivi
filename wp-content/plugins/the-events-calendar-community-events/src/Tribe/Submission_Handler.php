@@ -65,6 +65,8 @@ class Tribe__Events__Community__Submission_Handler {
 
 		$event = get_post( $this->event_id );
 
+		$attachment_id = $this->save_submitted_attachment( );
+		$this->submission['_thumbnail_id'] = $attachment_id;
 		// if the post isn't an auto-draft, then we're updating a post. Otherwise, we'll consider it new
 		if ( $this->event_id && $event && 'auto-draft' !== $event->post_status ) {
 			$saved = $this->create_or_update_post($event, $post_type);
@@ -79,12 +81,7 @@ class Tribe__Events__Community__Submission_Handler {
 		} else {
 			$this->submission['post_status'] = Tribe__Events__Community__Main::instance()->getOption( 'defaultStatus' );
 
-			// if we DO have an event ID, then it is an auto-draft, and thus a new post
-			if ( $this->event_id && $event) {
-				$saved = $this->create_or_update_post($event, $post_type);
-			} else {
-				$saved = $this->create_or_update_post($event, $post_type);
-			}
+			$saved = $this->create_or_update_post($event, $post_type);
 
 			if ( $saved ) {
 				$this->event_id = $saved;
@@ -95,7 +92,7 @@ class Tribe__Events__Community__Submission_Handler {
 				$this->add_message( sprintf( __( 'There was a problem submitting your %s, please try again.', 'tribe-events-community' ), mb_strtolower( $post_label_singular ) ), 'error' );
 			}
 		}
-		$this->save_submitted_attachment( $this->event_id );
+		
 
 		// Logged out or underprivileged users will not have terms automatically added during wp_insert_post
 		/*if ( isset( $this->submission['tax_input'] ) ) {
@@ -134,10 +131,11 @@ class Tribe__Events__Community__Submission_Handler {
 	}
 
 
-	protected function save_submitted_attachment( $parent_id ) {
+	protected function save_submitted_attachment( ) {
 		// TODO: we still have to use the global here for now
 		if ( isset( $_FILES['event_image']['name'] ) && ! empty( $_FILES['event_image']['name'] ) ) {
-			return $this->community->insert_attachment( 'event_image', $parent_id, true );
+			//return $this->community->insert_attachment( 'event_image', $parent_id, true );
+			return $this->community->insert_attachment( 'event_image', 0, false );
 		}
 		return 0;
 	}
