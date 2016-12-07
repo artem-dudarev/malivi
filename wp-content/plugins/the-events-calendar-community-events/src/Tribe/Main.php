@@ -1284,7 +1284,7 @@ if ( ! class_exists( 'Tribe__Events__Community__Main' ) ) {
 			$post = get_post( intval( $tribe_event_id ) );
 
 			//$author = wp_specialchars_decode( get_bloginfo( 'name' ), ENT_QUOTES );
-			$author = get_userdata($user)->display_name;
+			$author = get_userdata(wp_get_current_user()->ID)->display_name;
 			$subject = sprintf( '[%s] ' . __( 'Community Events Submission', 'tribe-events-community' ) . ':', $author ) . ' "' . $post->post_title . '"';
 
 			// Get Message HTML from Email Template
