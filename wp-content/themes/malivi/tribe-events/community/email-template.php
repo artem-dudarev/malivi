@@ -24,13 +24,13 @@ $organizer_name = tribe_get_organizer( $organizer_id );
 $organizer_link = esc_url( get_permalink( $organizer_id ) );
 
 $venue_id = tribe_get_event_meta( $post->ID, '_EventVenueID', true );
-$venue_name = tribe_get_organizer( $venue_id );
+$venue_name = tribe_get_venue( $venue_id );
 $venue_link = esc_url( get_permalink( $venue_id ) );
 
 ?>
 <html>
 	<body>
-		
+
 		<h2><a href="<?php echo $event_link; ?>"><?php echo $post->post_title; ?></a></h2>
 		<h4><?php echo tribe_get_start_date( $tribe_event_id ); ?> - <?php echo tribe_get_end_date( $tribe_event_id ); ?></h4>
 
@@ -48,7 +48,7 @@ $venue_link = esc_url( get_permalink( $venue_id ) );
 		<hr />
 
 		<h4><?php
-		echo $this->getEditButton( $post, esc_html__( 'Review event', 'tribe-events-community' ) );
+		echo Tribe__Events__Community__Main::instance()->getEditButton( $post, esc_html__( 'Review event', 'tribe-events-community' ) );
 		if ( 'publish' == $post->post_status ) {
 			echo ' | ';
 			echo '<a href="' . $event_link .'">' . esc_html__( 'View event', 'tribe-events-community' ) . '</a>';
