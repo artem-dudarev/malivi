@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2016-10-22 15:14+0200\n"
+"PO-Revision-Date: 2016-12-07 10:40+0200\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -413,7 +413,7 @@ msgstr ""
 
 #: vendor/tickets/src/views/tickets/orders-rsvp.php:63
 msgid "Attendee %d"
-msgstr ""
+msgstr "Посетитель %d"
 
 #: vendor/tickets/src/views/tickets/orders-rsvp.php:68
 msgid "RSVP: "
@@ -988,7 +988,7 @@ msgstr ""
 
 #: src/Tribe/Linked_Posts/Chooser_Meta_Box.php:151
 msgid "Create New %s"
-msgstr ""
+msgstr "Создать %s"
 
 #: src/Tribe/Linked_Posts/Chooser_Meta_Box.php:221
 msgid "Add another %s"
@@ -2672,7 +2672,7 @@ msgstr "Завершено"
 
 #: vendor/tickets/src/admin-views/attendees.php:89
 msgid "Awaiting review:"
-msgstr ""
+msgstr "Ожидает проверки:"
 
 #: vendor/tickets/src/admin-views/attendees.php:94
 msgid "Checked in:"
@@ -4481,7 +4481,7 @@ msgstr ""
 
 #: src/Tribe/Admin/Timezone_Updater.php:87
 msgid "%d%% complete"
-msgstr ""
+msgstr "%d%% завершено"
 
 #: src/Tribe/Admin/Timezone_Updater.php:105
 msgid "A problem stopped the timezone update process from completing. Please refresh and try again."
