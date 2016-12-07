@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Community Events\n"
 "POT-Creation-Date: 2016-10-31 00:45+0200\n"
-"PO-Revision-Date: 2016-10-31 00:45+0200\n"
+"PO-Revision-Date: 2016-12-07 13:25+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: ru_RU\n"
@@ -151,7 +151,7 @@ msgstr "Этот шорткод может быть использован то�
 
 #: src/Tribe/Main.php:1286
 msgid "Community Events Submission"
-msgstr "Добавление Community Events"
+msgstr "Добавление события"
 
 #: src/Tribe/Main.php:1378
 msgid "Trashed Event #"
