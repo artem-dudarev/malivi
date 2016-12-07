@@ -1283,7 +1283,9 @@ if ( ! class_exists( 'Tribe__Events__Community__Main' ) ) {
 		public function sendEmailAlerts( $tribe_event_id ) {
 			$post = get_post( intval( $tribe_event_id ) );
 
-			$subject = sprintf( '[%s] ' . __( 'Community Events Submission', 'tribe-events-community' ) . ':', wp_specialchars_decode( get_bloginfo( 'name' ), ENT_QUOTES ) ) . ' "' . $post->post_title . '"';
+			//$author = wp_specialchars_decode( get_bloginfo( 'name' ), ENT_QUOTES );
+			$author = get_userdata($user)->display_name;
+			$subject = sprintf( '[%s] ' . __( 'Community Events Submission', 'tribe-events-community' ) . ':', $author ) . ' "' . $post->post_title . '"';
 
 			// Get Message HTML from Email Template
 			ob_start();
