@@ -37,7 +37,7 @@
 			public $queue_realtime;
 
 			/**
-			 * @var Tribe__Events__Pro__Embedded_Maps
+			 * @var Tribe__Events__Pro__Embedded_Maps_Pro
 			 */
 			public $embedded_maps;
 
@@ -412,7 +412,7 @@
 				$this->single_event_overrides = new Tribe__Events__Pro__Recurrence__Single_Event_Overrides;
 				$this->queue_processor = new Tribe__Events__Pro__Recurrence__Queue_Processor;
 				$this->queue_realtime = new Tribe__Events__Pro__Recurrence__Queue_Realtime;
-				$this->embedded_maps = new Tribe__Events__Pro__Embedded_Maps;
+				$this->embedded_maps = new Tribe__Events__Pro__Embedded_Maps_Pro;
 				$this->widget_wrappers = new Tribe__Events__Pro__Shortcodes__Widget_Wrappers;
 				$this->singular_event_label = tribe_get_event_label_singular();
 				$this->plural_event_label = tribe_get_event_label_plural();

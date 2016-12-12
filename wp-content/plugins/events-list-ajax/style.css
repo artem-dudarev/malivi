@@ -1,15 +1,3 @@
-/*
- Theme Name:   Malivi
- Description:  My custom theme based on flat-sky
- 
- Author:       Ilia Dudarev
- Author URI:   https://malivi.ru
- 
- Version:      1.0.0
- License:      GNU General Public License version 2
- License URI:  license.txt
-*/
-
 .tribe-events-event-image img{
     display: block;
     max-height: 500px;

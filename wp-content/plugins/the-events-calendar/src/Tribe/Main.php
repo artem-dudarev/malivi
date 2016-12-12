@@ -2981,7 +2981,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				$data['OrganizerID'] = $post->ID;
 			}
 
-			//google map checkboxes
 			$postdata = array(
 				'post_title'  => $data['Organizer'],
 				'post_type'   => self::ORGANIZER_POST_TYPE,

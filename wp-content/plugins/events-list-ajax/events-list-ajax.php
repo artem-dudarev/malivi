@@ -34,8 +34,8 @@
 	add_action( 'wp_head', 'events_list_head', 1 );
 	function events_list_head() {
 		$version = '1.0.1';
-		wp_register_script('yandexMaps', "//api-maps.yandex.ru/2.1/?lang=" . get_bloginfo('language','display'));
-		wp_enqueue_script('yandexMaps');
+		//wp_register_script('yandexMaps', "//api-maps.yandex.ru/2.1/?lang=" . get_bloginfo('language','display'));
+		//wp_enqueue_script('yandexMaps');
 
 		//wp_register_script('bsscripts', "//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js");
 		//wp_enqueue_script('bsscripts');
@@ -60,6 +60,15 @@
 			true
 		);
 		wp_enqueue_script( 'events-list-ajax-script' );
+
+		/*wp_register_script(
+			'events-list-ajax-popups',
+			SF_URL . 'res/events-list-ajax-popups.js',
+			array('jquery'),
+			EL_CURRENT_VERSION,
+			true
+		);
+		wp_enqueue_script( 'events-list-ajax-popups' );*/
 		
 		?>
 		<script>var sf_ajax_root = '<?php echo admin_url('admin-ajax.php'); ?>'</script>
