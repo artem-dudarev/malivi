@@ -140,20 +140,10 @@ function GetUrlParameter(key, url) {
 	return result;
 }
 
-function SetPageScrollEnabled(is_enabled) {
-	if (is_enabled) {
-		jQuery('body').removeClass('no-scroll');
-	} else {
-		jQuery('body').addClass('no-scroll');
-	}
-}
-
 // Текущая страница отфильтрованных событий
 var current_page = 1;
 // Количество доступных страниц результатов
 var pages_count = -1;
-// Статус открыт ли всплывающий диалог
-var isPopupOpen = false;
 // Счетчик запросов для использования в качестве айдишника и определения ответа
 var current_request_id = 1;
 // Айди запроса, с которого начался новый сеанс(новый фильтр), все предыдущие запросы нужно игнорировать
@@ -237,73 +227,15 @@ function GetFilterResults( is_append ) {
 		});
 }
 
-function OpenPopup(post_id, shouldPushState) {
-	if (isPopupOpen) {
-		return;
-	}
-	isPopupOpen = true;
-	//var url = jQuery( this ).attr( 'href' );
-	var loading_indicator = jQuery('#box_loader');
-	loading_indicator.show();
-	var body = jQuery('body')
-	SetPageScrollEnabled(false);
-	if (shouldPushState) {
-		SetUrlHash('show', post_id, true);
-		//window.history.pushState('forward', null, '#show=' + post_id);
-		 //document.location.search = 'show=' + post_id;
-	}
-	// Получить данные страницы через ajax и создать из них по шаблону страницу
-	var settings = {
-		action	:	'get-post-page',
-		post_id	: post_id	
-	};
-	jQuery.post(sf_ajax_root,settings)
-		.done(function( response ) {
-			loading_indicator.hide();
-			if (isPopupOpen) {
-				var popup = jQuery('<div class="popup-dialog-wrapper"><div class="popup-dialog">' + response + '</div><div class="popup-wrapper-close-button"/></div>');
-				body.append(popup);
-				jQuery('.popup-dialog-wrapper').click(function(e) {
-					event.preventDefault();
-					SetUrlHash('show', '', true);
-					ClosePopup();
-				});
-
-				jQuery('.popup-dialog').click(function(e) {
-					e.stopPropagation();
-				});
-			}
-		}).fail(function() {
-			loading_indicator.hide();
-			ShowConnectionError();
-		});
-}
-
 function ShowConnectionError(text) {
 	ShowMessageBox('Не удалось подключиться к серверу, проверьте соединение с интернетом или обновите страницу.');
 }
 
 function ShowMessageBox(text) {
-	
-}
-
-function ClosePopup() {
-	if (!isPopupOpen) {
-		return;
-	}
-	isPopupOpen = false;
-	jQuery( '.popup-dialog-wrapper' ).remove();
-	SetPageScrollEnabled(true);
+	console.debug(text);
 }
 
 function CheckCurrentPageParameters(do_request_data) {
-	// Если загрузилась страница с указанием фильтров, применим эти фильтры
-	var post_id_string = GetHashUrlParameter('show');
-	if( post_id_string.length > 0) {
-		var post_id = parseInt(post_id_string, 10);
-		OpenPopup(post_id, false);
-		//return;
-	}
 	// Если загрузилась страница с указанием фильтров, применим эти фильтры
 	ParseFilters(do_request_data);
 }
@@ -423,42 +355,6 @@ function HandleFiltersChange() {
 
 jQuery( document ).ready( function() {
 	var win = jQuery(window);
-	// Всплывающий бокс загрузки
-	var loader_box = '';
-	loader_box += '<div id="box_loader" style="display: none">';
-	loader_box += 	'<div class="back">';
-	loader_box += 		'<div class="loader_pr">';
-	loader_box += 			'<div class="pr_bt"></div>';
-	loader_box += 			'<div class="pr_bt"></div>';
-	loader_box += 			'<div class="pr_bt"></div>';
-	loader_box += 		'</div>';
-	loader_box += 	'</div>';
-	loader_box += '</div>';
-	jQuery('body').append(jQuery(loader_box));
-	// Закрытие попапа на Esc
-	win.keydown(function(e) {
-		if (isPopupOpen && e.keyCode == 27) { // escape key maps to keycode `27`
-			event.preventDefault();
-			SetUrlHash('show', '', true);
-			ClosePopup();
-		}
-	});
-	// Закрытие попапа при нажатии "назад"
-	win.on('popstate', function(event) {
-		if (isPopupOpen) {
-			ClosePopup();
-		}
-		CheckCurrentPageParameters(true);
-	});
-
-	jQuery( document ).on('click', '.events-list-row', function( event ){
-		if(event.which == 1) {
-			event.preventDefault();
-			ClosePopup();
-			var post_id = jQuery( this ).attr( 'postid' );
-			OpenPopup(post_id, true);
-		}				
-	});
 
 	var wrapper = jQuery('.sf-wrapper');
 	var anchor = jQuery('#events-list-filters-anchor');

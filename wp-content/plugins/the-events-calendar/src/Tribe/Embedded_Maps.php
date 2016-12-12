@@ -3,6 +3,9 @@
  * Facilitates embedding one or more maps utilizing the Google Maps API.
  */
 class Tribe__Events__Embedded_Maps {
+
+	const USE_GOOGLE_MAPS = false;
+
 	/**
 	 * Script handle for the embedded maps script.
 	 */
@@ -96,14 +99,15 @@ class Tribe__Events__Embedded_Maps {
 
 		// Generate the HTML used to "house" the map
 		ob_start();
-
-		tribe_get_template_part( 'modules/map', null, array(
+		$this->setup_scripts();
+		
+		tribe_get_template_part( 'modules/external-map-placeholder', null, array(
 			'index'  => $index,
 			'width'  => null === $width  ? apply_filters( 'tribe_events_single_map_default_width', '100%' ) : $width,
 			'height' => null === $height ? apply_filters( 'tribe_events_single_map_default_height', '350px' ) : $height,
 		) );
 
-		$this->setup_scripts();
+		
 		do_action( 'tribe_events_map_embedded', $index, $this->venue_id );
 		return apply_filters( 'tribe_get_embedded_map', ob_get_clean() );
 	}
@@ -159,12 +163,19 @@ class Tribe__Events__Embedded_Maps {
 
 	protected function enqueue_map_scripts() {
 		// Setup Google Maps API
-		$url  = apply_filters( 'tribe_events_google_maps_api', 'https://maps.google.com/maps/api/js' );
-		wp_enqueue_script( 'tribe_events_google_maps_api', $url, array(), false, true );
-
+		if (self::USE_GOOGLE_MAPS) {
+			$api_url  = apply_filters( 'tribe_events_google_maps_api', '//maps.google.com/maps/api/js' );
+			$js_script = 'embedded-google-map.js';
+		} else {
+			$api_url = "//api-maps.yandex.ru/2.1/?lang=" . get_bloginfo('language','display');
+			$js_script = 'embedded-yandex-map.js';
+		}
+		
+		wp_enqueue_script( 'external_maps_api', $api_url, array(), false, true );
+		
+		$js_url = Tribe__Events__Template_Factory::getMinFile( tribe_events_resource_url( $js_script ), true );
 		// Setup our own script used to initialize each map
-		$url = Tribe__Events__Template_Factory::getMinFile( tribe_events_resource_url( 'embedded-map.js' ), true );
-		wp_enqueue_script( self::MAP_HANDLE, $url, array( 'tribe_events_google_maps_api' ), false, true );
+		wp_enqueue_script( self::MAP_HANDLE, $js_url, array( 'external_maps_api' ), false, true );
 
 		$this->map_script_enqueued = true;
 	}

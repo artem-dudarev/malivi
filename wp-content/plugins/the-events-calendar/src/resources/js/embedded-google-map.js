@@ -34,7 +34,6 @@ if ( "function" === typeof jQuery ) jQuery( document ).ready( function( $ ) {
 	 */
 	function useAddress() {
 		var geocoder = new google.maps.Geocoder();
-
 		geocoder.geocode(
 			{ "address": venueAddress },
 			function ( results, status ) {
@@ -75,7 +74,7 @@ if ( "function" === typeof jQuery ) jQuery( document ).ready( function( $ ) {
 
 	// Iterate through available addresses and set up the map for each
 	$.each( tribeEventsSingleMap.addresses, function( index, venue ) {
-		mapHolder = document.getElementById( "tribe-events-gmap-" + index );
+		mapHolder = document.getElementById( "tribe-events-map-" + index );
 		if ( null !== mapHolder ) {
 			venueObject  = "undefined" !== typeof venue ? venue: {};
 			venueAddress = "undefined" !== typeof venue.address ? venue.address : false;

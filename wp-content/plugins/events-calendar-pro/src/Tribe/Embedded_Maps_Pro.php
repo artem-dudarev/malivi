@@ -6,7 +6,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Adds support for direct manipulation of venue co-ordinates via the venue editor.
  */
-class Tribe__Events__Pro__Embedded_Maps {
+class Tribe__Events__Pro__Embedded_Maps_Pro {
 	/**
 	 * Script handle for the embedded maps script.
 	 */
@@ -25,6 +25,12 @@ class Tribe__Events__Pro__Embedded_Maps {
 	 * @var string
 	 */
 	protected $lng;
+
+	/* viewport data */
+	protected $left;
+	protected $right;
+	protected $top;
+	protected $bottom;
 
 
 	/**
@@ -60,10 +66,11 @@ class Tribe__Events__Pro__Embedded_Maps {
 		$this->lat = get_post_meta( $venue_id, Tribe__Events__Pro__Geo_Loc::LAT, true );
 		$this->lng = get_post_meta( $venue_id, Tribe__Events__Pro__Geo_Loc::LNG, true );
 
-		// If we have valid coordinates let's put them to work
-		if ( ! $this->are_coords_valid() ) {
-			return;
-		}
+		$this->left = get_post_meta( $venue_id, Tribe__Events__Pro__Geo_Loc::LEFT, true );
+		$this->right = get_post_meta( $venue_id, Tribe__Events__Pro__Geo_Loc::RIGHT, true );
+		$this->top = get_post_meta( $venue_id, Tribe__Events__Pro__Geo_Loc::TOP, true );
+		$this->bottom = get_post_meta( $venue_id, Tribe__Events__Pro__Geo_Loc::BOT, true );
+
 		$this->setup_coords( $map_index );
 	}
 
@@ -72,14 +79,14 @@ class Tribe__Events__Pro__Embedded_Maps {
 	 *encodedAddress
 	 * @return bool
 	 */
-	protected function are_coords_valid() {
-		if ( ! is_numeric( $this->lat ) || $this->lat < -90 || $this->lat > 90 ) {
+	protected function are_coords_valid($lat, $lng) {
+		if ( ! is_numeric( $lat ) || $lat < -90 || $lat > 90 ) {
 			return false;
-		} elseif ( ! is_numeric( $this->lng ) || $this->lng < -180 || $this->lng > 180 ) {
+		} elseif ( ! is_numeric( $lng ) || $lng < -180 || $lng > 180 ) {
 			return false;
 		}
 
-		if ( 0 == $this->lat && 0 == $this->lng ){
+		if ( 0 == $lat && 0 == $lng ) {
 			return false;
 		}
 
@@ -89,7 +96,19 @@ class Tribe__Events__Pro__Embedded_Maps {
 	protected function setup_coords( $map_index ) {
 		$embedded_maps        = Tribe__Events__Embedded_Maps::instance();
 		$venue_data           = $embedded_maps->get_map_data( $map_index );
-		$venue_data['coords'] = array( $this->lat, $this->lng );
-		$embedded_maps->update_map_data( $map_index, $venue_data );
+		$has_data 			  = false;
+		// If we have valid coordinates let's put them to work
+		if ( $this->are_coords_valid($this->lat, $this->lng) ) {
+			$venue_data['coords'] = array( $this->lat, $this->lng );
+			$has_data = true;
+		} 
+		if ($this->are_coords_valid($this->top, $this->left) && $this->are_coords_valid($this->bot, $this->right)) {
+			$venue_data['bounds'] = array( $this->top, $this->right, $this->bot, $this->left );
+			$has_data = true;
+		}
+		
+		if ($has_data) {
+			$embedded_maps->update_map_data( $map_index, $venue_data );
+		}
 	}
 }

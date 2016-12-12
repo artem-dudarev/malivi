@@ -20,6 +20,11 @@ class Tribe__Events__Pro__Geo_Loc {
 	 * Meta key for the venue Longitude
 	 */
 	const LNG = '_VenueLng';
+
+	const LEFT = "_VenueLeft";
+	const RIGHT = "_VenueRight";
+	const TOP = "_VenueTop";
+	const BOT = "_VenueBottom";
 	/**
 	 * Meta key for if the venue ha overwriten Coordinates
 	 */
@@ -432,6 +437,7 @@ class Tribe__Events__Pro__Geo_Loc {
 		}
 
 		// If the address didn't change, doesn't make sense to query google again for the geo data
+		echo '<div>test_address=' . $address . '</div>';
 		if ( $address === get_post_meta( $venueId, self::ADDRESS, true ) && true !== $reset ) {
 			return false;
 		}
@@ -460,9 +466,22 @@ class Tribe__Events__Pro__Geo_Loc {
 		if ( ! empty( $data_arr->results[0]->geometry->location->lat ) ) {
 			update_post_meta( $venueId, self::LAT, (string) $data_arr->results[0]->geometry->location->lat );
 		}
-
 		if ( ! empty( $data_arr->results[0]->geometry->location->lng ) ) {
 			update_post_meta( $venueId, self::LNG, (string) $data_arr->results[0]->geometry->location->lng );
+		}
+
+		if ( ! empty( $data_arr->results[0]->geometry->viewport->northeast->lng ) ) {
+			update_post_meta( $venueId, self::TOP, (string) $data_arr->results[0]->geometry->viewport->northeast->lng );
+		}
+		if ( ! empty( $data_arr->results[0]->geometry->viewport->northeast->lat ) ) {
+			update_post_meta( $venueId, self::RIGHT, (string) $data_arr->results[0]->geometry->viewport->northeast->lat );
+		}
+
+		if ( ! empty( $data_arr->results[0]->geometry->viewport->southwest->lng ) ) {
+			update_post_meta( $venueId, self::BOT, (string) $data_arr->results[0]->geometry->viewport->southwest->lng );
+		}
+		if ( ! empty( $data_arr->results[0]->geometry->viewport->southwest->lat ) ) {
+			update_post_meta( $venueId, self::LEFT, (string) $data_arr->results[0]->geometry->viewport->southwest->lat );
 		}
 
 		// Saving the aggregated address so we don't need to ping google on every save
