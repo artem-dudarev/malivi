@@ -140,6 +140,7 @@ body {
 /* ------------------------------------ masthead ------------------------------------ */
 
 #masthead {
+  font-family: 'Lobster';
   width: 100%;
   text-align: center;
   background-color: #44a2bf /*#3e5062*/;
@@ -173,7 +174,7 @@ body {
 }
 #masthead .site-title {
   line-height: 40px;
-  font-size: 40px;
+  font-size: 44px;
   margin: 0;
   padding-top: 15px;
   margin-bottom: -10px;
@@ -195,14 +196,15 @@ body {
 }
 @media (max-width: 991px) {
   #masthead .site-title {
-    font-size: 24px;
+    font-size: 28px;
     line-height: 40px;
     padding: 0;
   }
 }
 #masthead .site-description {
   line-height: 20px;
-  font-size: 14px;
+  font-size: 18px;
+  opacity: 0.8;
 }
 @media (max-width: 991px) {
   #masthead .site-description {
