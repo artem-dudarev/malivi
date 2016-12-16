@@ -4,7 +4,7 @@
  */
 class Tribe__Events__Embedded_Maps {
 
-	const USE_GOOGLE_MAPS = false;
+	const USE_YANDEX_INSTEAD_OF_GOODLE = true;
 
 	/**
 	 * Script handle for the embedded maps script.
@@ -163,12 +163,12 @@ class Tribe__Events__Embedded_Maps {
 
 	protected function enqueue_map_scripts() {
 		// Setup Google Maps API
-		if (self::USE_GOOGLE_MAPS) {
-			$api_url  = apply_filters( 'tribe_events_google_maps_api', '//maps.google.com/maps/api/js' );
-			$js_script = 'embedded-google-map.js';
-		} else {
+		if (self::USE_YANDEX_INSTEAD_OF_GOODLE) {
 			$api_url = "//api-maps.yandex.ru/2.1/?lang=" . get_bloginfo('language','display');
 			$js_script = 'embedded-yandex-map.js';
+		} else {
+			$api_url  = apply_filters( 'tribe_events_google_maps_api', '//maps.google.com/maps/api/js' );
+			$js_script = 'embedded-google-map.js';
 		}
 		
 		wp_enqueue_script( 'external_maps_api', $api_url, array(), false, true );

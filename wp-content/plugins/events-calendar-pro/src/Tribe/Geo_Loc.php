@@ -430,7 +430,10 @@ class Tribe__Events__Pro__Geo_Loc {
 			update_post_meta( $venueId, self::OVERWRITE, 0 );
 		}
 
-		$address = trim( $_address . ' ' . $_city . ' ' . $_province . ' ' . $_state . ' ' . $_zip . ' ' . $_country );
+		$address_parts = array( $_address, $_city, $_province, $_state, $_zip, $_country );
+		$address_parts = array_diff($address_parts, array(''));
+
+		$address = trim(implode(', ', $address_parts));
 
 		if ( empty( $address ) ) {
 			return false;
@@ -442,7 +445,12 @@ class Tribe__Events__Pro__Geo_Loc {
 			return false;
 		}
 
-		$url  = 'http://maps.googleapis.com/maps/api/geocode/json?address=' . urlencode( $address );
+		if (Tribe__Events__Embedded_Maps::USE_YANDEX_INSTEAD_OF_GOODLE) {
+			$url = 'https://geocode-maps.yandex.ru/1.x/?format=json&geocode=';
+		} else {
+			$url  = 'http://maps.googleapis.com/maps/api/geocode/json?address=';
+		}
+		$url .= urlencode( $address );
 		$data = wp_remote_get( apply_filters( 'tribe_events_pro_geocode_request_url', $url ) );
 
 		if ( is_wp_error( $data ) || ! isset( $data['body'] ) ) {
@@ -451,37 +459,60 @@ class Tribe__Events__Pro__Geo_Loc {
 
 		$data_arr = json_decode( $data['body'] );
 
-		if ( isset( $data_arr->status ) && 'OVER_QUERY_LIMIT' === $data_arr->status ) {
-			if ( $this->over_query_limit_displayed ) {
+		if (Tribe__Events__Embedded_Maps::USE_YANDEX_INSTEAD_OF_GOODLE) {
+			$geo_data = $data_arr->response->GeoObjectCollection->featureMember[0]->GeoObject;
+			if (empty($geo_data) || empty($geo_data->Point)) {
 				return false;
 			}
 
-			set_transient( 'tribe-google-over-limit', 1, time() + MINUTE_IN_SECONDS );
+			if ( ! empty( $geo_data->Point->pos ) ) {
+				$pos = explode(' ', $geo_data->Point->pos);
+				update_post_meta( $venueId, self::LNG, $pos[0] );
+				update_post_meta( $venueId, self::LAT, $pos[1] );
+			}
 
-			$this->over_query_limit_displayed = true;
+			if ( ! empty( $geo_data->boundedBy->Envelope->lowerCorner ) ) {
+				$lower_left = explode(' ', $geo_data->boundedBy->Envelope->lowerCorner);
+				update_post_meta( $venueId, self::LEFT, $lower_left[0] );
+				update_post_meta( $venueId, self::BOT, $lower_left[1] );
+			}
+			if ( ! empty( $geo_data->boundedBy->Envelope->lowerCorner ) ) {
+				$upper_right = explode(' ', $geo_data->boundedBy->Envelope->upperCorner);
+				update_post_meta( $venueId, self::RIGHT, $upper_right[0] );
+				update_post_meta( $venueId, self::TOP, $upper_right[1] );
+			}
+		} else {
+			if ( isset( $data_arr->status ) && 'OVER_QUERY_LIMIT' === $data_arr->status ) {
+				if ( $this->over_query_limit_displayed ) {
+					return false;
+				}
 
-			return false;
-		}
+				set_transient( 'tribe-google-over-limit', 1, time() + MINUTE_IN_SECONDS );
 
-		if ( ! empty( $data_arr->results[0]->geometry->location->lat ) ) {
-			update_post_meta( $venueId, self::LAT, (string) $data_arr->results[0]->geometry->location->lat );
-		}
-		if ( ! empty( $data_arr->results[0]->geometry->location->lng ) ) {
-			update_post_meta( $venueId, self::LNG, (string) $data_arr->results[0]->geometry->location->lng );
-		}
+				$this->over_query_limit_displayed = true;
 
-		if ( ! empty( $data_arr->results[0]->geometry->viewport->northeast->lng ) ) {
-			update_post_meta( $venueId, self::TOP, (string) $data_arr->results[0]->geometry->viewport->northeast->lng );
-		}
-		if ( ! empty( $data_arr->results[0]->geometry->viewport->northeast->lat ) ) {
-			update_post_meta( $venueId, self::RIGHT, (string) $data_arr->results[0]->geometry->viewport->northeast->lat );
-		}
+				return false;
+			}
+			if ( ! empty( $data_arr->results[0]->geometry->location->lat ) ) {
+				update_post_meta( $venueId, self::LAT, (string) $data_arr->results[0]->geometry->location->lat );
+			}
+			if ( ! empty( $data_arr->results[0]->geometry->location->lng ) ) {
+				update_post_meta( $venueId, self::LNG, (string) $data_arr->results[0]->geometry->location->lng );
+			}
 
-		if ( ! empty( $data_arr->results[0]->geometry->viewport->southwest->lng ) ) {
-			update_post_meta( $venueId, self::BOT, (string) $data_arr->results[0]->geometry->viewport->southwest->lng );
-		}
-		if ( ! empty( $data_arr->results[0]->geometry->viewport->southwest->lat ) ) {
-			update_post_meta( $venueId, self::LEFT, (string) $data_arr->results[0]->geometry->viewport->southwest->lat );
+			if ( ! empty( $data_arr->results[0]->geometry->viewport->northeast->lng ) ) {
+				update_post_meta( $venueId, self::TOP, (string) $data_arr->results[0]->geometry->viewport->northeast->lng );
+			}
+			if ( ! empty( $data_arr->results[0]->geometry->viewport->northeast->lat ) ) {
+				update_post_meta( $venueId, self::RIGHT, (string) $data_arr->results[0]->geometry->viewport->northeast->lat );
+			}
+
+			if ( ! empty( $data_arr->results[0]->geometry->viewport->southwest->lng ) ) {
+				update_post_meta( $venueId, self::BOT, (string) $data_arr->results[0]->geometry->viewport->southwest->lng );
+			}
+			if ( ! empty( $data_arr->results[0]->geometry->viewport->southwest->lat ) ) {
+				update_post_meta( $venueId, self::LEFT, (string) $data_arr->results[0]->geometry->viewport->southwest->lat );
+			}
 		}
 
 		// Saving the aggregated address so we don't need to ping google on every save

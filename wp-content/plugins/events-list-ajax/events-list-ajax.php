@@ -44,11 +44,9 @@
 		//wp_enqueue_script('googleMaps');
 		
 
-		wp_register_style( 'events-list-ajax-style', SF_URL . 'res/sf-style.css', array(), $version);
+		wp_register_style( 'events-list-filters-style', SF_URL . 'res/sf-style.css', array(), $version);
 		
 		wp_register_style( 'events-list-style', SF_URL . 'style.css', array(), $version);
-		wp_enqueue_style( 'events-list-style' );	
-		
 		
 		//wp_enqueue_script('jquery');
 		//wp_enqueue_script('jquery-ui-slider');
