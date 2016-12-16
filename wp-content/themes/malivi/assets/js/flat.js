@@ -2297,13 +2297,13 @@ function SetSidebarActive(active) {
   }
   isSidebarActive = active;
   SetPageScrollEnabled(!active);
-  sidebar.toggleClass('active');
-  jQuery('#primary').toggleClass('no-scroll-blocked-mobile');
-  if (sidebar.hasClass('active')) {
-    sidebar.toggleClass('enabled');
+  sidebar.toggleClass('active', active);
+  jQuery('#primary').toggleClass('no-scroll-blocked-mobile', active);
+  if (active) {
+    sidebar.toggleClass('enabled', true);
   } else {
     setTimeout(function() {
-      sidebar.toggleClass('enabled');
+      sidebar.toggleClass('enabled', false);
     }, 250);
   }
 }

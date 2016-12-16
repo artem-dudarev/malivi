@@ -89,6 +89,7 @@ body {
 }
 @media (max-width: 991px) {
   #secondary {
+    background-color: rgba(0,0,0,0.01);
     position: fixed;
     height: 40px;
     padding: 0;
@@ -123,7 +124,6 @@ body {
 #secondary .toggle-sidebar,
 #secondary .toggle-navigation {
   position: absolute;
-  left: 0;
   width: 40px;
   height: 40px;
   border-color: rgba(255, 255, 255, 0.1);
@@ -131,10 +131,14 @@ body {
   border-style: solid;
   color: #fff;
   outline: none !important;
+  z-index: 10;
 }
 #secondary .toggle-navigation {
-  float: right;
+  right: 0;
   border-width: 0 0 0 1px;
+}
+#secondary .toggle-sidebar {
+  left: 0;
 }
 
 /* ------------------------------------ masthead ------------------------------------ */
@@ -166,7 +170,7 @@ body {
     border: none;
   }
 }
-#masthead:hover * {
+#masthead .hgroup:hover {
   opacity: 0.8;
 }
 #masthead button:active {
@@ -241,7 +245,7 @@ body {
   .sidebar-offcanvas {
     padding-top: 40px;
     width: 280px;
-    margin-left: -220px;
+    margin-left: -280px;
     height: 100%;
     overflow: scroll;
     -webkit-transition: margin-left 0.25s;
@@ -335,14 +339,6 @@ body {
 #site-navigation a:hover,
 #site-navigation a:active {
   background-color: rgba(255, 255, 255, 0.05);
-}
-#site-navigation .toggle-sidebar {
-  float: left;
-  color: #fff;
-  width: 40px;
-  height: 40px;
-  border-right: 1px solid rgba(255, 255, 255, 0.1);
-  outline: none !important;
 }
 #site-navigation .menu-item-has-children .fa,
 #site-navigation .page_item_has_children .fa {
