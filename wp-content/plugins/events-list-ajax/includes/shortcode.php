@@ -1,5 +1,6 @@
 <?php
-	wp_enqueue_style( 'events-list-ajax-style' );
+	wp_enqueue_style( 'events-list-filters-style' );
+	wp_enqueue_style( 'events-list-style' );
 
 	$fields = get_option( 'sf-fields' );
 	foreach( $fields as $field ) {

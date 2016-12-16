@@ -1,6 +1,5 @@
 <?php
 
-	// Наличие этого класса делает публичными некоторые типы, заданные в events_calendar
 	function get_malivi_custom_fields() {
 		return array (
 			'EventIsForChildren' => false,

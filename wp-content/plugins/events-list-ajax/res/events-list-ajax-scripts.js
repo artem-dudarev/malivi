@@ -104,9 +104,9 @@ function SetUrlParameter(key, value, create_history_entry, type) {
 	if (i == parameters.length && value.length > 0) {
 		parameters[i] = [key,value].join('=');
 	}
-	var address = type;
+	var address = '.';
 	if (parameters.length > 0) {
-		address += parameters.join('&');
+		address = type + parameters.join('&');
 	}
 	if (create_history_entry) {
 		window.history.pushState('forward', null, address);

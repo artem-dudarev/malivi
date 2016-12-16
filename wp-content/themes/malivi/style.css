@@ -166,7 +166,7 @@ body {
     border: none;
   }
 }
-#masthead a:hover * {
+#masthead:hover * {
   opacity: 0.8;
 }
 #masthead button:active {
@@ -679,4 +679,146 @@ body {
   .ghost {
    display: none;
   }
+}
+
+
+/*--------------------------------------------------------------
+  Tribe-events style tweaks
+--------------------------------------------------------------*/
+.tribe-events-event-image img{
+    display: block;
+    max-height: 500px;
+    margin: 0 auto;
+    width: auto;
+    height: auto;
+}
+
+.tribe-events-list-event-description {
+    padding: 20px;
+}
+@media (max-width: 767px) {
+  .tribe-events-list-event-description {
+    padding: 5px;
+  }
+}
+.tribe-events-list-event-title {
+    text-align: center;
+    margin: 10px 0;
+}
+
+.tribe-events-event-meta {
+    font-size: 1.3em;
+}
+
+.single-tribe_events .tribe-events-event-meta {
+    margin: 10px 0 0 0;
+}
+
+@media (max-width: 767px) {
+    .tribe-events-list-event-title {
+        font-size: 1.2em;
+    }
+    .tribe-events-event-meta {
+        font-size: 0.9em;
+    }
+    .tribe-events-content {
+        font-size: 0.9em;
+    }
+}
+
+.tribe-events-single-section {
+    display: block;
+    margin-top: 10px;
+    font-size: 13px;
+    overflow-wrap: break-word;
+}
+
+.tribe-events-meta-group {
+    display: inline-block;
+    padding: 0 20px 20px 20px;
+    text-align: left;
+    vertical-align: top;
+}
+.tribe-events-meta-group-gmap {
+    width: 100%;
+}
+
+@media (max-width: 767px) {
+    .tribe-events-meta-group {
+        width: 100%;
+        padding: 0 5px 5px 5px;
+    }
+}
+
+@media (max-width: 767px) {
+    .tribe-events-export-links {
+        margin: 5px 0 0 0;
+    }
+}
+
+.post-social-buttons-group {
+    text-align: right;
+    margin-top: 10px;
+}
+
+@media (max-width: 767px) {
+    .post-social-buttons-group {
+        margin-top: 5px;
+    }
+}
+
+@media (max-width: 347px) {
+    .tribe-events-ical {
+        width: 164px;
+        box-sizing: border-box;
+    }
+}
+/* Делаем это заранее, потому что на всплывающем диалоге ширина меньше */
+@media (max-width: 450px) {
+    .tribe-events-export-links {
+        text-align: center;
+    }
+    .post-social-buttons-group {
+        text-align: left;   
+    }
+}
+
+.tribe-events-meta-group-map.tribe-events-ymap {
+    min-width: 200px;
+    width: 100%;
+    height: 400px;
+    background-color: #dddddd;
+    float: none;
+}
+
+.show-map-overlay {
+    text-align: center;
+    line-height: 400px;
+    font-size: 3em;
+    font-weight: lighter;
+    cursor: pointer;
+}
+
+#tribe-events-content.tribe-events-list {
+    margin: 20px 0 0 0;
+}
+
+#tribe-events-content {
+    margin-bottom: 0;
+    padding: 0;
+}
+
+.tribe-events-single {
+}
+
+h2.tribe-events-page-title {
+    text-align: center;
+}
+
+.tribe-event-description p {
+    margin: 20px 0 0;
+}
+
+.events-list-content {
+  padding: 10px;
 }
