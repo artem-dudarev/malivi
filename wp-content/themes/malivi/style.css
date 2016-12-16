@@ -5,7 +5,7 @@
  Author:       Ilia Dudarev
  Author URI:   https://malivi.ru
  
- Version:      1.0.2
+ Version:      1.0.3
  License:      GNU General Public License version 2
  License URI:  license.txt
 */
@@ -628,60 +628,6 @@ body {
   -webkit-overflow-scrolling: auto !important;
 }
 
-.pumpkin {
-  position: absolute;
-  right: -20px;
-  top: 0;
-  background-image: url(/wp-content/themes/malivi/assets/pumpkin.png);
-  background-size: cover;
-  width: 50px;
-  height: 50px;
-}
-
-.ghost {
-  position: absolute;
-  right: 0px;
-  top: 150px;
-  background-image: url(/wp-content/themes/malivi/assets/ghost.png);
-  background-size: cover;
-  width: 40px;
-  height: 50px;
-  -webkit-animation-duration:15000ms;
-  -o-animation-duration:15000ms;
-  animation-duration:15000ms;
-  -webkit-animation-name:ghost_anim;
-  -o-animation-name:ghost_anim;
-  animation-name:ghost_anim;
-  -webkit-animation-direction: alternate; /* Safari 4.0 - 8.0 */
-    animation-direction: alternate;
-    -o-animation-direction:alternate;
-  -webkit-animation-iteration-count:infinite;
-  -o-animation-iteration-count:infinite;
-  animation-iteration-count:infinite;
-}
-
-@keyframes ghost_anim {
-  0%{opacity:0.7;right:0px; top:150px}
-  20%{opacity:0.7;right:0px; top:150px}
-  40%{opacity:0.8;right:2px; top:155px}
-  60%{opacity:0.8;right:4px; top:150px}
-  80%{opacity:0.7;right:2px; top:145px}
-  to{opacity:0.7;right:0px; top:150px}
-}
-@media (max-width: 991px) {
-  .pumpkin {
-    right: 0;
-    top: -10px;
-  }
-}
-
-@media (max-width: 767px) {
-  .ghost {
-   display: none;
-  }
-}
-
-
 /*--------------------------------------------------------------
   Tribe-events style tweaks
 --------------------------------------------------------------*/
@@ -821,4 +767,272 @@ h2.tribe-events-page-title {
 
 .events-list-content {
   padding: 10px;
+}
+
+/*--------------------------------------------------------------
+  Events-list styles
+--------------------------------------------------------------*/
+
+.events-list-table {
+    width: 100%;
+    opacity: 0.999;
+}
+
+a.events-list-row {
+    overflow: hidden;
+    display: block;
+    position: relative;
+    width: 100%;
+    margin-bottom: 16px;
+    height: 100px;
+}
+
+@media (max-width: 767px) {
+    a.events-list-row {
+        height: 80px;
+        margin-bottom: 10px;
+    }
+}
+
+.events-list-row:hover {
+    /*background-color:black;*/
+    opacity: 0.6;
+}
+
+.events-list-cell {
+    float: left;
+    vertical-align: top;
+}
+
+.free_label_overlay {
+    transform: rotate(45deg);
+    position: absolute;
+    top: 0px;
+    right: -20px;
+}
+
+.events-list-row .post-views-block {
+  position: absolute;
+  bottom: 0;
+  right: 5px;
+  background: #fff;
+  font-size: 0.8em;
+  padding-left: 20px;
+}
+
+@media (max-width: 767px) {
+  .events-list-row .post-views-block {
+    font-size: 0.6em;
+  }
+}
+
+
+/* -------------------------- 1 Column: date thumbnail -------------------------- */
+
+.events-list-post-date-thumbnail {
+    color: inherit;
+    font-weight: bold;
+    text-align: center;
+    width: 100px;
+    height: 100px;
+}
+
+@media (max-width: 767px) {
+    .events-list-post-date-thumbnail {
+        width: 80px;
+        height: 80px;
+    }
+}
+
+.events-list-post-date-thumbnail-title {
+    font-size: 2.2em;
+    line-height: 1.3em;
+    margin-top: 20px;
+}
+@media (max-width: 767px) {
+    .events-list-post-date-thumbnail-title {
+        font-size: 1.8em;
+        line-height: 1em;
+        margin-top: 15px;
+    }
+}
+
+.events-list-post-date-thumbnail-title-small {
+    font-size: 1.8em;
+    line-height: 1em;
+    margin-top: 15px;
+}
+@media (max-width: 767px) {
+    .events-list-post-date-thumbnail-title-small {
+        font-size: 1.6em;
+        margin-top: 5px;
+    }
+}
+
+.events-list-post-date-thumbnail-subtitle {
+    font-size: 1em;
+    line-height: 1.5em;
+}
+
+/* -------------------------- 2 Column: image thumbnail-------------------------- */
+
+.events-list-post-image-thumbnail {
+    vertical-align: middle;
+    text-align: center;
+    width: 100px;
+    height: 100px;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2);
+}
+
+@media (max-width: 767px) {
+    .events-list-post-image-thumbnail {
+        width: 80px;
+        height: 80px;
+    }
+}
+
+.events-list-post-image-link {
+    width: 100px;
+    height: 100px;
+}
+
+@media (max-width: 767px) {
+    .events-list-post-image-link {
+        width: 80px;
+        height: 80px;
+    }
+}
+
+.events-list-post-image-noimglink {
+    height:100px;
+    width:100px;
+    font-size: 3em;
+    line-height: 96px;
+    background-color: #fff;
+}
+
+@media (max-width: 767px) {
+    .events-list-post-image-noimglink {
+        width: 80px;
+        height: 80px;
+        line-height: 76px;
+    }
+}
+
+/* -------------------------- 3 Column: text -------------------------- */
+
+.events-list-post-text-cell {
+    padding: 5px 10px;x
+    
+}
+@media (max-width: 767px) {
+    .events-list-post-text-cell {
+        padding: 0px 5px;
+        
+    }
+}
+
+.events-list-post-text {
+    /*height: 88px;*/
+    text-overflow: ellipsis;
+    overflow: hidden;
+    color: #000;
+
+}
+
+@media (max-width: 767px) {
+    .events-list-post-text {
+
+        /*height: 68px;*/
+    }
+}
+@media (max-width: 450px) {
+    .events-list-post-text {
+        /*height: 76px;*/
+    }
+}
+
+.events-list-post-text-header {
+    margin-bottom: 0.25em;
+    font-size: 1em;
+}
+
+@media (max-width: 767px) {
+    .events-list-post-text-header {
+        font-size: 0.9em;
+    }
+}
+@media (max-width: 450px) {
+    .events-list-post-text-header {
+        font-size: 0.9em;
+        margin-top: 5px;
+    }
+}
+
+.events-list-post-text-content {
+    font-size: 0.8em;
+    color: #444444;
+}
+
+@media (max-width: 767px) {
+    .events-list-post-text-content {
+        font-size: 0.65em;
+    }
+}
+@media (max-width: 450px) {
+    .events-list-post-text-content {
+        display: none;
+    }
+}
+
+/* -------------------------- overlay -------------------------- */
+.events-list-post-free-overlay {
+    width: 200px;
+    text-align: center;
+    color: #fff;
+    font-size: 0.9em;
+    background-color: #ff6565;
+    position: absolute;
+    bottom: 17px;
+    right: -55px;
+    -ms-transform: rotate(330deg);
+    -webkit-transform: rotate(330deg);
+    transform: rotate(330deg);
+}
+@media (max-width: 767px) {
+    .events-list-post-free-overlay {
+        font-size: 0.8em;
+        right: -65px;
+        bottom: 13px;
+    }
+}
+
+.events-list-days-divider {
+    margin: 40px 0 45px 0;
+    color: #aaa;
+    border-bottom: solid 1px;
+    text-align: center;
+    height: 0.65em;
+}
+
+/*
+.events-list-row + .events-list-days-divider {
+    margin-top: 40px;
+}
+*/
+
+@media (max-width: 767px) {
+    .events-list-days-divider {
+        margin: 20px 0 25px 0;
+    }
+    /*
+    .events-list-row + .events-list-days-divider {
+        margin-top: 20px;
+    }
+    */
+}
+
+.events-list-days-divider-label {
+    padding: 0 10px;
+    background: rgb(236, 240, 245);
 }

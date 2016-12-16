@@ -3,7 +3,7 @@
 	Plugin Name: Events List Ajax
 	Description: With this Plugin, you can easily create AJAX Search Filters, which enables a more detailed search using Taxonomies and Postmeta data
 	Tags: search,filter,postmeta,taxonomies,ajax
-	Version: 1.0.2
+	Version: 1.0.3
 	Author: Ilia Dudarev
 	License: GPLv2 or later
 	License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -33,7 +33,7 @@
 
 	add_action( 'wp_head', 'events_list_head', 1 );
 	function events_list_head() {
-		$version = '1.0.1';
+		$version = '1.0.3';
 		//wp_register_script('yandexMaps', "//api-maps.yandex.ru/2.1/?lang=" . get_bloginfo('language','display'));
 		//wp_enqueue_script('yandexMaps');
 
