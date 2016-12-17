@@ -338,16 +338,22 @@ class WP_Network_Query {
 		$number = absint( $this->query_vars['number'] );
 		$offset = absint( $this->query_vars['offset'] );
 
-		if ( ! empty( $number ) ) {
+		// Disable LIMIT when no ORDER BY
+		if ( ! $orderby ) {
+			$limits = '';
+		} elseif ( ! empty( $number ) ) {
 			if ( $offset ) {
-				$limits = 'LIMIT ' . $offset . ',' . $number;
+				$limits = 'OFFSET ' . $offset . ' ROWS FETCH NEXT ' . $number . ' ROWS ONLY';
 			} else {
-				$limits = 'LIMIT ' . $number;
+				$limits = 'OFFSET 0 ROWS FETCH NEXT ' . $number . ' ROWS ONLY';
 			}
 		}
 
 		if ( $this->query_vars['count'] ) {
-			$fields = 'COUNT(*)';
+			$fields = 'COUNT(*) as qty';
+			$orderby = ''; // ORDER BY breaks in MSSQL here since comment_date_gmt won't be in the query statement.
+			$order = '';
+			$limits = '';
 		} else {
 			$fields = "$wpdb->site.id";
 		}
@@ -433,12 +439,7 @@ class WP_Network_Query {
 			$orderby = "ORDER BY $orderby";
 		}
 
-		$found_rows = '';
-		if ( ! $this->query_vars['no_found_rows'] ) {
-			$found_rows = 'SQL_CALC_FOUND_ROWS';
-		}
-
-		$this->sql_clauses['select']  = "SELECT $found_rows $fields";
+		$this->sql_clauses['select']  = "SELECT $fields";
 		$this->sql_clauses['from']    = "FROM $wpdb->site $join";
 		$this->sql_clauses['groupby'] = $groupby;
 		$this->sql_clauses['orderby'] = $orderby;
@@ -451,6 +452,10 @@ class WP_Network_Query {
 		}
 
 		$network_ids = $wpdb->get_col( $this->request );
+
+		if ( ! $this->query_vars['no_found_rows'] ) {
+			$wpdb->query("select count(*) as [found_rows] {$this->sql_clauses['from']} {$where} {$this->sql_clauses['groupby']}");
+		}
 
 		return array_map( 'intval', $network_ids );
 	}
@@ -478,7 +483,8 @@ class WP_Network_Query {
 			 */
 			$found_networks_query = apply_filters( 'found_networks_query', 'SELECT FOUND_ROWS()', $this );
 
-			$this->found_networks = (int) $wpdb->get_var( $found_networks_query );
+			//$this->found_networks = (int) $wpdb->get_var( $found_networks_query );
+            $this->found_networks = $wpdb->last_query_total_rows;
 		}
 	}
 
@@ -534,7 +540,7 @@ class WP_Network_Query {
 			$parsed = "FIELD( {$wpdb->site}.id, $network__in )";
 		} elseif ( $orderby == 'domain_length' || $orderby == 'path_length' ) {
 			$field = substr( $orderby, 0, -7 );
-			$parsed = "CHAR_LENGTH($wpdb->site.$field)";
+			$parsed = "LEN($wpdb->site.$field)";
 		} elseif ( in_array( $orderby, $allowed_keys ) ) {
 			$parsed = "$wpdb->site.$orderby";
 		}

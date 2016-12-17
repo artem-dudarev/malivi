@@ -111,7 +111,7 @@ function check_comment($author, $email, $url, $comment, $user_ip, $user_agent, $
 	if ( 1 == get_option('comment_whitelist')) {
 		if ( 'trackback' != $comment_type && 'pingback' != $comment_type && $author != '' && $email != '' ) {
 			// expected_slashed ($author, $email)
-			$ok_to_comment = $wpdb->get_var("SELECT comment_approved FROM $wpdb->comments WHERE comment_author = '$author' AND comment_author_email = '$email' and comment_approved = '1' LIMIT 1");
+			$ok_to_comment = $wpdb->get_var("SELECT TOP 1 comment_approved FROM $wpdb->comments WHERE comment_author = '$author' AND comment_author_email = '$email' and comment_approved = '1'");
 			if ( ( 1 == $ok_to_comment ) &&
 				( empty($mod_keys) || false === strpos( $email, $mod_keys) ) )
 					return true;
@@ -305,13 +305,13 @@ function get_lastcommentmodified($timezone = 'server') {
 
 	switch ( strtolower($timezone)) {
 		case 'gmt':
-			$lastcommentmodified = $wpdb->get_var("SELECT comment_date_gmt FROM $wpdb->comments WHERE comment_approved = '1' ORDER BY comment_date_gmt DESC LIMIT 1");
+			$lastcommentmodified = $wpdb->get_var("SELECT TOP 1 comment_date_gmt FROM $wpdb->comments WHERE comment_approved = '1' ORDER BY comment_date_gmt DESC");
 			break;
 		case 'blog':
-			$lastcommentmodified = $wpdb->get_var("SELECT comment_date FROM $wpdb->comments WHERE comment_approved = '1' ORDER BY comment_date_gmt DESC LIMIT 1");
+			$lastcommentmodified = $wpdb->get_var("SELECT TOP 1 comment_date FROM $wpdb->comments WHERE comment_approved = '1' ORDER BY comment_date_gmt DESC");
 			break;
 		case 'server':
-			$lastcommentmodified = $wpdb->get_var($wpdb->prepare("SELECT DATE_ADD(comment_date_gmt, INTERVAL %s SECOND) FROM $wpdb->comments WHERE comment_approved = '1' ORDER BY comment_date_gmt DESC LIMIT 1", $add_seconds_server));
+			$lastcommentmodified = $wpdb->get_var($wpdb->prepare("SELECT TOP 1 DATEADD(SECOND, %s, comment_date_gmt) FROM $wpdb->comments WHERE comment_approved = '1' ORDER BY comment_date_gmt DESC", $add_seconds_server));
 			break;
 	}
 
@@ -593,7 +593,7 @@ function wp_allow_comment( $commentdata ) {
 	// Simple duplicate check
 	// expected_slashed ($comment_post_ID, $comment_author, $comment_author_email, $comment_content)
 	$dupe = $wpdb->prepare(
-		"SELECT comment_ID FROM $wpdb->comments WHERE comment_post_ID = %d AND comment_parent = %s AND comment_approved != 'trash' AND ( comment_author = %s ",
+		"SELECT TOP 1 comment_ID FROM $wpdb->comments WHERE comment_post_ID = %d AND comment_parent = %s AND comment_approved != 'trash' AND ( comment_author = %s ",
 		wp_unslash( $commentdata['comment_post_ID'] ),
 		wp_unslash( $commentdata['comment_parent'] ),
 		wp_unslash( $commentdata['comment_author'] )
@@ -605,7 +605,7 @@ function wp_allow_comment( $commentdata ) {
 		);
 	}
 	$dupe .= $wpdb->prepare(
-		") AND comment_content = %s LIMIT 1",
+		") AND comment_content = %s",
 		wp_unslash( $commentdata['comment_content'] )
 	);
 
@@ -659,7 +659,7 @@ function wp_allow_comment( $commentdata ) {
 	if ( ! empty( $commentdata['user_id'] ) ) {
 		$user = get_userdata( $commentdata['user_id'] );
 		$post_author = $wpdb->get_var( $wpdb->prepare(
-			"SELECT post_author FROM $wpdb->posts WHERE ID = %d LIMIT 1",
+			"SELECT TOP 1 post_author FROM $wpdb->posts WHERE ID = %d",
 			$commentdata['comment_post_ID']
 		) );
 	}
@@ -734,11 +734,11 @@ function check_comment_flood_db( $ip, $email, $date ) {
 		$check_column = '`user_id`';
 	} else {
 		$user = $ip;
-		$check_column = '`comment_author_IP`';
+		$check_column = 'comment_author_IP';
 	}
 
 	$sql = $wpdb->prepare(
-		"SELECT `comment_date_gmt` FROM `$wpdb->comments` WHERE `comment_date_gmt` >= %s AND ( $check_column = %s OR `comment_author_email` = %s ) ORDER BY `comment_date_gmt` DESC LIMIT 1",
+		"SELECT TOP 1 [comment_date_gmt] FROM [$wpdb->comments] WHERE [comment_date_gmt] >= %s AND ( [$check_column] = %s OR [comment_author_email] = %s ) ORDER BY [comment_date_gmt] DESC",
 		$hour_ago,
 		$user,
 		$email
@@ -2156,7 +2156,7 @@ function wp_update_comment_count_now($post_id) {
 	$new = apply_filters( 'pre_wp_update_comment_count_now', null, $old, $post_id );
 
 	if ( is_null( $new ) ) {
-		$new = (int) $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM $wpdb->comments WHERE comment_post_ID = %d AND comment_approved = '1'", $post_id ) );
+		$new = (int) $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) as qty FROM $wpdb->comments WHERE comment_post_ID = %d AND comment_approved = '1'", $post_id ) );
 	} else {
 		$new = (int) $new;
 	}
@@ -2267,13 +2267,13 @@ function do_all_pings() {
 	global $wpdb;
 
 	// Do pingbacks
-	while ($ping = $wpdb->get_row("SELECT ID, post_content, meta_id FROM {$wpdb->posts}, {$wpdb->postmeta} WHERE {$wpdb->posts}.ID = {$wpdb->postmeta}.post_id AND {$wpdb->postmeta}.meta_key = '_pingme' LIMIT 1")) {
+	while ($ping = $wpdb->get_row("SELECT TOP 1 ID, post_content, meta_id FROM {$wpdb->posts}, {$wpdb->postmeta} WHERE {$wpdb->posts}.ID = {$wpdb->postmeta}.post_id AND {$wpdb->postmeta}.meta_key = '_pingme'")) {
 		delete_metadata_by_mid( 'post', $ping->meta_id );
 		pingback( $ping->post_content, $ping->ID );
 	}
 
 	// Do Enclosures
-	while ($enclosure = $wpdb->get_row("SELECT ID, post_content, meta_id FROM {$wpdb->posts}, {$wpdb->postmeta} WHERE {$wpdb->posts}.ID = {$wpdb->postmeta}.post_id AND {$wpdb->postmeta}.meta_key = '_encloseme' LIMIT 1")) {
+	while ($enclosure = $wpdb->get_row("SELECT TOP 1 ID, post_content, meta_id FROM {$wpdb->posts}, {$wpdb->postmeta} WHERE {$wpdb->posts}.ID = {$wpdb->postmeta}.post_id AND {$wpdb->postmeta}.meta_key = '_encloseme'")) {
 		delete_metadata_by_mid( 'post', $enclosure->meta_id );
 		do_enclose( $enclosure->post_content, $enclosure->ID );
 	}
@@ -2707,7 +2707,7 @@ function _close_comments_for_old_post( $open, $post_id ) {
 		return $open;
 
 	// Undated drafts should not show up as comments closed.
-	if ( '0000-00-00 00:00:00' === $post->post_date_gmt ) {
+	if ( '0001-01-01 00:00:00' === $post->post_date_gmt ) {
 		return $open;
 	}
 

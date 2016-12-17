@@ -70,7 +70,14 @@ final class WP_Site {
 	 * @access public
 	 * @var string Date in MySQL's datetime format.
 	 */
-	public $registered = '0000-00-00 00:00:00';
+
+	/*
+	 * PN Mod: Start
+	 * MSSQL won't accept a date of 0000-00-00 00:00:00 and considers it invalid.
+	 * Default instead to 0001-01-01 00:00:00.
+	 */
+	public $registered = '0001-01-01 00:00:00';
+	// PN Mod: End
 
 	/**
 	 * The date and time on which site settings were last updated.
@@ -79,7 +86,14 @@ final class WP_Site {
 	 * @access public
 	 * @var string Date in MySQL's datetime format.
 	 */
-	public $last_updated = '0000-00-00 00:00:00';
+
+	/*
+	 * PN Mod: Start
+	 * MSSQL won't accept a date of 0000-00-00 00:00:00 and considers it invalid.
+	 * Default instead to 0001-01-01 00:00:00.
+	 */
+	public $last_updated = '0001-01-01 00:00:00';
+	// PN Mod: End
 
 	/**
 	 * Whether the site should be treated as public.
@@ -173,7 +187,7 @@ final class WP_Site {
 		$_site = wp_cache_get( $site_id, 'sites' );
 
 		if ( ! $_site ) {
-			$_site = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM {$wpdb->blogs} WHERE blog_id = %d LIMIT 1", $site_id ) );
+			$_site = $wpdb->get_row( $wpdb->prepare( "SELECT TOP 1 * FROM {$wpdb->blogs} WHERE blog_id = %d", $site_id ) );
 
 			if ( empty( $_site ) || is_wp_error( $_site ) ) {
 				return false;

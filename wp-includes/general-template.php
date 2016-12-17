@@ -583,6 +583,12 @@ function wp_meta() {
 	do_action( 'wp_meta' );
 }
 
+function get_projectnami_version() {
+	include ABSPATH . WPINC . '/pn-version.php';
+
+	return $pn_version;
+}
+
 /**
  * Displays information about the current site.
  *
@@ -1663,7 +1669,7 @@ function wp_get_archives( $args = '' ) {
 
 	if ( ! empty( $r['limit'] ) ) {
 		$r['limit'] = absint( $r['limit'] );
-		$r['limit'] = ' LIMIT ' . $r['limit'];
+		$r['limit'] = ' OFFSET 0 ROWS FETCH NEXT '. $r['limit'] . ' ROWS ONLY';
 	}
 
 	$order = strtoupper( $r['order'] );
@@ -1707,7 +1713,7 @@ function wp_get_archives( $args = '' ) {
 	$limit = $r['limit'];
 
 	if ( 'monthly' == $r['type'] ) {
-		$query = "SELECT YEAR(post_date) AS `year`, MONTH(post_date) AS `month`, count(ID) as posts FROM $wpdb->posts $join $where GROUP BY YEAR(post_date), MONTH(post_date) ORDER BY post_date $order $limit";
+		$query = "SELECT YEAR(post_date) AS [year], MONTH(post_date) AS [month], count(ID) as posts FROM $wpdb->posts $join $where GROUP BY YEAR(post_date), MONTH(post_date) ORDER BY [year] $order , [month] $order $limit";
 		$key = md5( $query );
 		$key = "wp_get_archives:$key:$last_changed";
 		if ( ! $results = wp_cache_get( $key, 'posts' ) ) {
@@ -1730,7 +1736,7 @@ function wp_get_archives( $args = '' ) {
 			}
 		}
 	} elseif ( 'yearly' == $r['type'] ) {
-		$query = "SELECT YEAR(post_date) AS `year`, count(ID) as posts FROM $wpdb->posts $join $where GROUP BY YEAR(post_date) ORDER BY post_date $order $limit";
+		$query = "SELECT YEAR(post_date) AS [year], count(ID) as posts FROM $wpdb->posts $join $where GROUP BY YEAR(post_date) ORDER BY YEAR(post_date) $order $limit";
 		$key = md5( $query );
 		$key = "wp_get_archives:$key:$last_changed";
 		if ( ! $results = wp_cache_get( $key, 'posts' ) ) {
@@ -1752,7 +1758,7 @@ function wp_get_archives( $args = '' ) {
 			}
 		}
 	} elseif ( 'daily' == $r['type'] ) {
-		$query = "SELECT YEAR(post_date) AS `year`, MONTH(post_date) AS `month`, DAYOFMONTH(post_date) AS `dayofmonth`, count(ID) as posts FROM $wpdb->posts $join $where GROUP BY YEAR(post_date), MONTH(post_date), DAYOFMONTH(post_date) ORDER BY post_date $order $limit";
+		$query = "SELECT YEAR(post_date) AS [year], MONTH(post_date) AS [month], DAY(post_date) AS [dayofmonth], count(ID) as posts FROM $wpdb->posts $join $where GROUP BY YEAR(post_date), MONTH(post_date), DAY(post_date) ORDER BY YEAR(post_date) $order, MONTH(post_date) $order, DAY(post_date) $order $limit";
 		$key = md5( $query );
 		$key = "wp_get_archives:$key:$last_changed";
 		if ( ! $results = wp_cache_get( $key, 'posts' ) ) {
@@ -1775,8 +1781,8 @@ function wp_get_archives( $args = '' ) {
 			}
 		}
 	} elseif ( 'weekly' == $r['type'] ) {
-		$week = _wp_mysql_week( '`post_date`' );
-		$query = "SELECT DISTINCT $week AS `week`, YEAR( `post_date` ) AS `yr`, DATE_FORMAT( `post_date`, '%Y-%m-%d' ) AS `yyyymmdd`, count( `ID` ) AS `posts` FROM `$wpdb->posts` $join $where GROUP BY $week, YEAR( `post_date` ) ORDER BY `post_date` $order $limit";
+		$week = _wp_mysql_week( '[post_date]' );
+		$query = "SELECT DISTINCT $week AS [week], YEAR( [post_date] ) AS [yr], DATE_FORMAT( [post_date], '%Y-%m-%d' ) AS [yyyymmdd], count( [ID] ) AS [posts] FROM [$wpdb->posts] $join $where GROUP BY $week, YEAR( [post_date] ) ORDER BY [post_date] $order $limit";
 		$key = md5( $query );
 		$key = "wp_get_archives:$key:$last_changed";
 		if ( ! $results = wp_cache_get( $key, 'posts' ) ) {
@@ -1816,7 +1822,7 @@ function wp_get_archives( $args = '' ) {
 		}
 		if ( $results ) {
 			foreach ( (array) $results as $result ) {
-				if ( $result->post_date != '0000-00-00 00:00:00' ) {
+				if ( $result->post_date != '0001-01-01 00:00:00' ) {
 					$url = get_permalink( $result );
 					if ( $result->post_title ) {
 						/** This filter is documented in wp-includes/post-template.php */
@@ -1891,9 +1897,9 @@ function get_calendar( $initial = true, $echo = true ) {
 	}
 
 	// Quick check. If we have no posts at all, abort!
-	if ( ! $posts ) {
-		$gotsome = $wpdb->get_var("SELECT 1 as test FROM $wpdb->posts WHERE post_type = 'post' AND post_status = 'publish' LIMIT 1");
-		if ( ! $gotsome ) {
+	if ( !$posts ) {
+		$gotsome = $wpdb->get_var("SELECT TOP 1 1 as test FROM $wpdb->posts WHERE post_type = 'post' AND post_status = 'publish'");
+		if ( !$gotsome ) {
 			$cache[ $key ] = '';
 			wp_cache_set( 'get_calendar', $cache, 'calendar' );
 			return;
@@ -1916,7 +1922,7 @@ function get_calendar( $initial = true, $echo = true ) {
 		$thisyear = (int) substr( $m, 0, 4 );
 		//it seems MySQL's weeks disagree with PHP's
 		$d = ( ( $w - 1 ) * 7 ) + 6;
-		$thismonth = $wpdb->get_var("SELECT DATE_FORMAT((DATE_ADD('{$thisyear}0101', INTERVAL $d DAY) ), '%m')");
+		$thismonth = $wpdb->get_var("SELECT DATE_FORMAT((DATEADD(DAY, $d, '{$thisyear}0101')), '%m')");
 	} elseif ( ! empty( $m ) ) {
 		$thisyear = (int) substr( $m, 0, 4 );
 		if ( strlen( $m ) < 6 ) {
@@ -1933,18 +1939,16 @@ function get_calendar( $initial = true, $echo = true ) {
 	$last_day = date( 't', $unixmonth );
 
 	// Get the next and previous month and year with at least one post
-	$previous = $wpdb->get_row("SELECT MONTH(post_date) AS month, YEAR(post_date) AS year
+	$previous = $wpdb->get_row("SELECT TOP 1 MONTH(post_date) AS month, YEAR(post_date) AS year
 		FROM $wpdb->posts
 		WHERE post_date < '$thisyear-$thismonth-01'
 		AND post_type = 'post' AND post_status = 'publish'
-			ORDER BY post_date DESC
-			LIMIT 1");
-	$next = $wpdb->get_row("SELECT MONTH(post_date) AS month, YEAR(post_date) AS year
+			ORDER BY YEAR(post_date) DESC, MONTH(post_date) DESC");
+	$next = $wpdb->get_row("SELECT TOP 1 MONTH(post_date) AS month, YEAR(post_date) AS year
 		FROM $wpdb->posts
 		WHERE post_date > '$thisyear-$thismonth-{$last_day} 23:59:59'
 		AND post_type = 'post' AND post_status = 'publish'
-			ORDER BY post_date ASC
-			LIMIT 1");
+			ORDER BY YEAR(post_date) ASC, MONTH(post_date) ASC");
 
 	/* translators: Calendar caption: 1: month name, 2: 4-digit year */
 	$calendar_caption = _x('%1$s %2$s', 'calendar caption');
@@ -2004,7 +2008,7 @@ function get_calendar( $initial = true, $echo = true ) {
 	$daywithpost = array();
 
 	// Get days with posts
-	$dayswithposts = $wpdb->get_results("SELECT DISTINCT DAYOFMONTH(post_date)
+	$dayswithposts = $wpdb->get_results("SELECT DISTINCT DAY(post_date) as post_date
 		FROM $wpdb->posts WHERE post_date >= '{$thisyear}-{$thismonth}-01 00:00:00'
 		AND post_type = 'post' AND post_status = 'publish'
 		AND post_date <= '{$thisyear}-{$thismonth}-{$last_day} 23:59:59'", ARRAY_N);
@@ -3588,9 +3592,11 @@ function get_the_generator( $type = '' ) {
 	switch ( $type ) {
 		case 'html':
 			$gen = '<meta name="generator" content="WordPress ' . get_bloginfo( 'version' ) . '">';
+            $gen .= '<meta name="projectnami:version" content="' . get_projectnami_version() . '">';
 			break;
 		case 'xhtml':
 			$gen = '<meta name="generator" content="WordPress ' . get_bloginfo( 'version' ) . '" />';
+            $gen .= '<meta name="projectnami:version" content="' . get_projectnami_version() . '" />';
 			break;
 		case 'atom':
 			$gen = '<generator uri="https://wordpress.org/" version="' . get_bloginfo_rss( 'version' ) . '">WordPress</generator>';

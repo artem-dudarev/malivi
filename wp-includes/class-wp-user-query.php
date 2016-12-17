@@ -237,9 +237,6 @@ class WP_User_Query {
 			$this->query_fields = "$wpdb->users.ID";
 		}
 
-		if ( isset( $qv['count_total'] ) && $qv['count_total'] )
-			$this->query_fields = 'SQL_CALC_FOUND_ROWS ' . $this->query_fields;
-
 		$this->query_from = "FROM $wpdb->users";
 		$this->query_where = "WHERE 1=1";
 
@@ -441,9 +438,9 @@ class WP_User_Query {
 		// limit
 		if ( isset( $qv['number'] ) && $qv['number'] > 0 ) {
 			if ( $qv['offset'] ) {
-				$this->query_limit = $wpdb->prepare("LIMIT %d, %d", $qv['offset'], $qv['number']);
+				$this->query_limit = $wpdb->prepare("OFFSET %d ROWS FETCH NEXT %d ROWS ONLY", $qv['offset'], $qv['number']);
 			} else {
-				$this->query_limit = $wpdb->prepare( "LIMIT %d, %d", $qv['number'] * ( $qv['paged'] - 1 ), $qv['number'] );
+				$this->query_limit = $wpdb->prepare("OFFSET %d ROWS FETCH NEXT %d ROWS ONLY", $qv['number'] * ( $qv['paged'] - 1 ), $qv['number']);
 			}
 		}
 
@@ -538,6 +535,8 @@ class WP_User_Query {
 
 		$qv =& $this->query_vars;
 
+		$wpdb->query( "SELECT COUNT(*) as [found_rows] $this->query_from $this->query_where" );
+
 		$this->request = "SELECT $this->query_fields $this->query_from $this->query_where $this->query_orderby $this->query_limit";
 
 		if ( is_array( $qv['fields'] ) || 'all' == $qv['fields'] ) {
@@ -556,7 +555,7 @@ class WP_User_Query {
 		 * @param string $sql The SELECT FOUND_ROWS() query for the current WP_User_Query.
 		 */
 		if ( isset( $qv['count_total'] ) && $qv['count_total'] )
-			$this->total_users = $wpdb->get_var( apply_filters( 'found_users_query', 'SELECT FOUND_ROWS()' ) );
+			$this->total_users = $wpdb->last_query_total_rows;
 
 		if ( !$this->results )
 			return;
@@ -701,7 +700,7 @@ class WP_User_Query {
 		} elseif ( 'meta_value' == $orderby || $this->get( 'meta_key' ) == $orderby ) {
 			$_orderby = "$wpdb->usermeta.meta_value";
 		} elseif ( 'meta_value_num' == $orderby ) {
-			$_orderby = "$wpdb->usermeta.meta_value+0";
+			$_orderby = "CAST($wpdb->usermeta.meta_value as numeric)";
 		} elseif ( 'include' === $orderby && ! empty( $this->query_vars['include'] ) ) {
 			$include = wp_parse_id_list( $this->query_vars['include'] );
 			$include_sql = implode( ',', $include );

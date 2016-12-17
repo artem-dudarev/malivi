@@ -32,6 +32,4 @@ $required_php_version = '5.2.4';
  *
  * @global string $required_mysql_version
  */
-$required_mysql_version = '5.0';
-
-$wp_local_package = 'ru_RU';
+$required_mysql_version = '11.0';

@@ -3270,24 +3270,22 @@ function wp_enqueue_media( $args = array() ) {
 	}
 
 	$has_audio = $wpdb->get_var( "
-		SELECT ID
+		SELECT TOP 1 ID
 		FROM $wpdb->posts
 		WHERE post_type = 'attachment'
 		AND post_mime_type LIKE 'audio%'
-		LIMIT 1
 	" );
 	$has_video = $wpdb->get_var( "
-		SELECT ID
+		SELECT TOP 1 ID
 		FROM $wpdb->posts
 		WHERE post_type = 'attachment'
 		AND post_mime_type LIKE 'video%'
-		LIMIT 1
 	" );
 	$months = $wpdb->get_results( $wpdb->prepare( "
 		SELECT DISTINCT YEAR( post_date ) AS year, MONTH( post_date ) AS month
 		FROM $wpdb->posts
 		WHERE post_type = %s
-		ORDER BY post_date DESC
+		ORDER BY YEAR( post_date ) DESC, MONTH( post_date ) DESC
 	", 'attachment' ) );
 	foreach ( $months as $month_year ) {
 		$month_year->text = sprintf( __( '%1$s %2$d' ), $wp_locale->get_month( $month_year->month ), $month_year->year );

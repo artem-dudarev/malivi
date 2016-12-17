@@ -323,7 +323,7 @@ function ms_load_current_site_and_network( $domain, $path, $subdomain = false ) 
 		 */
 		if ( ! $current_site = wp_cache_get( 'current_network', 'site-options' ) ) {
 			// Are there even two networks installed?
-			$one_network = $wpdb->get_row( "SELECT * FROM $wpdb->site LIMIT 2" ); // [sic]
+			$one_network = $wpdb->get_row( "SELECT TOP 2 * FROM $wpdb->site" ); // [sic]
 			if ( 1 === $wpdb->num_rows ) {
 				$current_site = new WP_Network( $one_network );
 				wp_cache_add( 'current_network', $current_site, 'site-options' );
@@ -473,8 +473,8 @@ function ms_not_installed( $domain, $path ) {
 	$msg  = '<h1>' . $title . '</h1>';
 	$msg .= '<p>' . __( 'If your site does not display, please contact the owner of this network.' ) . '';
 	$msg .= ' ' . __( 'If you are the owner of this network please check that MySQL is running properly and all tables are error free.' ) . '</p>';
-	$query = $wpdb->prepare( "SHOW TABLES LIKE %s", $wpdb->esc_like( $wpdb->site ) );
-	if ( ! $wpdb->get_var( $query ) ) {
+	$query = $wpdb->prepare( "SELECT name FROM sysobjects WHERE type='u' AND name = '$wpdb->site'" );
+	if ( false && ! $wpdb->get_var( $query ) ) {
 		$msg .= '<p>' . sprintf(
 			/* translators: %s: table name */
 			__( '<strong>Database tables are missing.</strong> This means that MySQL is not running, WordPress was not installed properly, or someone deleted %s. You really should look at your database now.' ),

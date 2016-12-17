@@ -83,7 +83,7 @@ function get_option( $option, $default = false ) {
 			$value = wp_cache_get( $option, 'options' );
 
 			if ( false === $value ) {
-				$row = $wpdb->get_row( $wpdb->prepare( "SELECT option_value FROM $wpdb->options WHERE option_name = %s LIMIT 1", $option ) );
+				$row = $wpdb->get_row( $wpdb->prepare( "SELECT TOP 1 option_value FROM $wpdb->options WHERE option_name = %s", $option ) );
 
 				// Has to be get_row instead of get_var because of funkiness with 0, false, null values
 				if ( is_object( $row ) ) {
@@ -103,7 +103,7 @@ function get_option( $option, $default = false ) {
 		}
 	} else {
 		$suppress = $wpdb->suppress_errors();
-		$row = $wpdb->get_row( $wpdb->prepare( "SELECT option_value FROM $wpdb->options WHERE option_name = %s LIMIT 1", $option ) );
+		$row = $wpdb->get_row( $wpdb->prepare( "SELECT TOP 1 option_value FROM $wpdb->options WHERE option_name = %s", $option ) );
 		$wpdb->suppress_errors( $suppress );
 		if ( is_object( $row ) ) {
 			$value = $row->option_value;
@@ -432,8 +432,8 @@ function add_option( $option, $value = '', $deprecated = '', $autoload = 'yes' )
 	 */
 	do_action( 'add_option', $option, $value );
 
-	$result = $wpdb->query( $wpdb->prepare( "INSERT INTO `$wpdb->options` (`option_name`, `option_value`, `autoload`) VALUES (%s, %s, %s) ON DUPLICATE KEY UPDATE `option_name` = VALUES(`option_name`), `option_value` = VALUES(`option_value`), `autoload` = VALUES(`autoload`)", $option, $serialized_value, $autoload ) );
-	if ( ! $result )
+	$result = $wpdb->query_with_params( "IF NOT EXISTS (SELECT * FROM [$wpdb->options] WHERE [option_name] = ?) INSERT INTO [$wpdb->options] ([option_name], [option_value], [autoload]) VALUES (?, ?, ?) else UPDATE [$wpdb->options] set [option_value] = ?, [autoload] = ? where [option_name] = ?", array( array($option, SQLSRV_PARAM_IN), array($option, SQLSRV_PARAM_IN), array($serialized_value, SQLSRV_PARAM_IN), array($autoload, SQLSRV_PARAM_IN), array($serialized_value, SQLSRV_PARAM_IN), array($autoload, SQLSRV_PARAM_IN), array($option, SQLSRV_PARAM_IN) ) );
+	if ( $result === false )
 		return false;
 
 	if ( ! wp_installing() ) {

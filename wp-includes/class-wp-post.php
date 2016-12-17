@@ -42,14 +42,14 @@ final class WP_Post {
 	 *
 	 * @var string
 	 */
-	public $post_date = '0000-00-00 00:00:00';
+	public $post_date = '0001-01-01 00:00:00';
 
 	/**
 	 * The post's GMT publication time.
 	 *
 	 * @var string
 	 */
-	public $post_date_gmt = '0000-00-00 00:00:00';
+	public $post_date_gmt = '0001-01-01 00:00:00';
 
 	/**
 	 * The post's content.
@@ -126,14 +126,14 @@ final class WP_Post {
 	 *
 	 * @var string
 	 */
-	public $post_modified = '0000-00-00 00:00:00';
+	public $post_modified = '0001-01-01 00:00:00';
 
 	/**
 	 * The post's GMT modified time.
 	 *
 	 * @var string
 	 */
-	public $post_modified_gmt = '0000-00-00 00:00:00';
+	public $post_modified_gmt = '0001-01-01 00:00:00';
 
 	/**
 	 * A utility DB field for post content.
@@ -217,7 +217,7 @@ final class WP_Post {
 		$_post = wp_cache_get( $post_id, 'posts' );
 
 		if ( ! $_post ) {
-			$_post = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM $wpdb->posts WHERE ID = %d LIMIT 1", $post_id ) );
+			$_post = $wpdb->get_row( $wpdb->prepare( "SELECT TOP 1 * FROM $wpdb->posts WHERE ID = %d", $post_id ) );
 
 			if ( ! $_post )
 				return false;

@@ -762,13 +762,13 @@ class WP_Date_Query {
 			$where_parts[] = _wp_mysql_week( $column ) . " $compare $value";
 		}
 		if ( isset( $query['dayofyear'] ) && $value = $this->build_value( $compare, $query['dayofyear'] ) )
-			$where_parts[] = "DAYOFYEAR( $column ) $compare $value";
+			$where_parts[] = "DATEPART( dayofyear, $column ) $compare $value";
 
 		if ( isset( $query['day'] ) && $value = $this->build_value( $compare, $query['day'] ) )
-			$where_parts[] = "DAYOFMONTH( $column ) $compare $value";
+			$where_parts[] = "DAY( $column ) $compare $value";
 
 		if ( isset( $query['dayofweek'] ) && $value = $this->build_value( $compare, $query['dayofweek'] ) )
-			$where_parts[] = "DAYOFWEEK( $column ) $compare $value";
+			$where_parts[] = "DATEPART( weekday, $column ) $compare $value";
 
 		if ( isset( $query['dayofweek_iso'] ) && $value = $this->build_value( $compare, $query['dayofweek_iso'] ) )
 			$where_parts[] = "WEEKDAY( $column ) + 1 $compare $value";
@@ -1013,6 +1013,6 @@ class WP_Date_Query {
 			$time   .= sprintf( '%02d', $second );
 		}
 
-		return $wpdb->prepare( "DATE_FORMAT( $column, %s ) $compare %f", $format, $time );
+		return $wpdb->prepare( "CONVERT( $column, %s, 114 ) $compare %f", $format, $time );
 	}
 }

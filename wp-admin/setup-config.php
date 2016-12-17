@@ -183,32 +183,28 @@ switch($step) {
 
 		setup_config_display_header();
 	?>
-<h1 class="screen-reader-text"><?php _e( 'Set up your database connection' ) ?></h1>
 <form method="post" action="setup-config.php?step=2">
-	<p><?php _e( 'Below you should enter your database connection details. If you&#8217;re not sure about these, contact your host.' ); ?></p>
+	<p><?php _e( "Below you should enter your database connection details. If you&#8217;re not sure about these, contact your host." ); ?></p>
 	<table class="form-table">
 		<tr>
 			<th scope="row"><label for="dbname"><?php _e( 'Database Name' ); ?></label></th>
-			<td><input name="dbname" id="dbname" type="text" size="25" value="wordpress" /></td>
+			<td><input name="dbname" id="dbname" type="text" size="25" value="<?php echo ( getenv("ProjectNami.DBName") ? getenv("ProjectNami.DBName") : "wordpress" ); ?>" /></td>
 			<td><?php _e( 'The name of the database you want to use with WordPress.' ); ?></td>
 		</tr>
 		<tr>
-			<th scope="row"><label for="uname"><?php _e( 'Username' ); ?></label></th>
-			<td><input name="uname" id="uname" type="text" size="25" value="<?php echo htmlspecialchars( _x( 'username', 'example username' ), ENT_QUOTES ); ?>" /></td>
-			<td><?php _e( 'Your database username.' ); ?></td>
+			<th scope="row"><label for="uname"><?php _e( 'User Name' ); ?></label></th>
+			<td><input name="uname" id="uname" type="text" size="25" value="<?php echo ( getenv("ProjectNami.DBUser") ? htmlspecialchars( getenv("ProjectNami.DBUser") ) : htmlspecialchars( _x( 'username', 'example username' ), ENT_QUOTES ) ); ?>" /></td>
+			<td><?php _e( 'Your MSSQL username. <span style="font-weight: bold; font-size: 12px; display: block;">Note: If using SQL Azure, username is of the form username@servername.</span>' ); ?></td>
 		</tr>
 		<tr>
 			<th scope="row"><label for="pwd"><?php _e( 'Password' ); ?></label></th>
-			<td><input name="pwd" id="pwd" type="text" size="25" value="<?php echo htmlspecialchars( _x( 'password', 'example password' ), ENT_QUOTES ); ?>" autocomplete="off" /></td>
-			<td><?php _e( 'Your database password.' ); ?></td>
+			<td><input name="pwd" id="pwd" type="password" size="25" value="<?php echo ( getenv("ProjectNami.DBPass") ? htmlspecialchars( getenv("ProjectNami.DBPass"), ENT_QUOTES ) : htmlspecialchars( _x( 'password', 'example password' ), ENT_QUOTES ) ); ?>" autocomplete="off" /></td>
+			<td><?php _e( '&hellip;and your MSSQL password.' ); ?></td>
 		</tr>
 		<tr>
 			<th scope="row"><label for="dbhost"><?php _e( 'Database Host' ); ?></label></th>
-			<td><input name="dbhost" id="dbhost" type="text" size="25" value="localhost" /></td>
-			<td><?php
-				/* translators: %s: localhost */
-				printf( __( 'You should be able to get this info from your web host, if %s doesn&#8217;t work.' ),'<code>localhost</code>' );
-			?></td>
+			<td><input name="dbhost" id="dbhost" type="text" size="25" value="<?php echo ( getenv("ProjectNami.DBHost") ? getenv("ProjectNami.DBHost") : "localhost" ); ?>" /></td>
+			<td><?php _e( 'You should be able to get this info from your web host, if <code>localhost</code> does not work.' ); ?></td>
 		</tr>
 		<tr>
 			<th scope="row"><label for="prefix"><?php _e( 'Table Prefix' ); ?></label></th>
@@ -331,10 +327,16 @@ switch($step) {
 
 		switch ( $constant ) {
 			case 'DB_NAME'     :
+				$config_file[ $line_num ] = "define('" . $constant . "'," . $padding . "( getenv('ProjectNami.DBName') ? getenv('ProjectNami.DBName') : '" . addcslashes( constant( $constant ), "\\'" ) . "'));\r\n";
+				break;
 			case 'DB_USER'     :
+				$config_file[ $line_num ] = "define('" . $constant . "'," . $padding . "( getenv('ProjectNami.DBUser') ? getenv('ProjectNami.DBUser') : '" . addcslashes( constant( $constant ), "\\'" ) . "'));\r\n";
+				break;
 			case 'DB_PASSWORD' :
+				$config_file[ $line_num ] = "define('" . $constant . "'," . $padding . "( getenv('ProjectNami.DBPass') ? getenv('ProjectNami.DBPass') : '" . addcslashes( constant( $constant ), "\\'" ) . "'));\r\n";
+				break;
 			case 'DB_HOST'     :
-				$config_file[ $line_num ] = "define('" . $constant . "'," . $padding . "'" . addcslashes( constant( $constant ), "\\'" ) . "');\r\n";
+				$config_file[ $line_num ] = "define('" . $constant . "'," . $padding . "( getenv('ProjectNami.DBHost') ? getenv('ProjectNami.DBHost') : '" . addcslashes( constant( $constant ), "\\'" ) . "'));\r\n";
 				break;
 			case 'DB_CHARSET'  :
 				if ( 'utf8mb4' === $wpdb->charset || ( ! $wpdb->charset && $wpdb->has_cap( 'utf8mb4' ) ) ) {

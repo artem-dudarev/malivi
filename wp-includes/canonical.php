@@ -204,7 +204,7 @@ function redirect_canonical( $requested_url = null, $do_redirect = true ) {
 				$redirect['query'] = remove_query_arg('year', $redirect['query']);
 		} elseif ( is_author() && !empty($_GET['author']) && preg_match( '|^[0-9]+$|', $_GET['author'] ) ) {
 			$author = get_userdata(get_query_var('author'));
-			if ( ( false !== $author ) && $wpdb->get_var( $wpdb->prepare( "SELECT ID FROM $wpdb->posts WHERE $wpdb->posts.post_author = %d AND $wpdb->posts.post_status = 'publish' LIMIT 1", $author->ID ) ) ) {
+			if ( ( false !== $author ) && $wpdb->get_var( $wpdb->prepare( "SELECT TOP 1 ID FROM $wpdb->posts WHERE $wpdb->posts.post_author = %d AND $wpdb->posts.post_status = 'publish'", $author->ID ) ) ) {
 				if ( $redirect_url = get_author_posts_url($author->ID, $author->user_nicename) )
 					$redirect['query'] = remove_query_arg('author', $redirect['query']);
 			}
@@ -602,7 +602,7 @@ function redirect_guess_404_permalink() {
 		if ( get_query_var('monthnum') )
 			$where .= $wpdb->prepare(" AND MONTH(post_date) = %d", get_query_var('monthnum'));
 		if ( get_query_var('day') )
-			$where .= $wpdb->prepare(" AND DAYOFMONTH(post_date) = %d", get_query_var('day'));
+			$where .= $wpdb->prepare(" AND DAY(post_date) = %d", get_query_var('day'));
 
 		$post_id = $wpdb->get_var("SELECT ID FROM $wpdb->posts WHERE $where AND post_status = 'publish'");
 		if ( ! $post_id )

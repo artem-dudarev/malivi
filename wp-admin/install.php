@@ -92,7 +92,7 @@ function display_header( $body_classes = '' ) {
 function display_setup_form( $error = null ) {
 	global $wpdb;
 
-	$sql = $wpdb->prepare( "SHOW TABLES LIKE %s", $wpdb->esc_like( $wpdb->users ) );
+	$sql = "SELECT name FROM sysobjects WHERE type='u' AND name = '$wpdb->users'";
 	$user_table = ( $wpdb->get_var( $sql ) != null );
 
 	// Ensure that Blogs appear in search engines by default.
@@ -233,11 +233,11 @@ $php_compat     = version_compare( $php_version, $required_php_version, '>=' );
 $mysql_compat   = version_compare( $mysql_version, $required_mysql_version, '>=' ) || file_exists( WP_CONTENT_DIR . '/db.php' );
 
 if ( !$mysql_compat && !$php_compat )
-	$compat = sprintf( __( 'You cannot install because <a href="https://codex.wordpress.org/Version_%1$s">WordPress %1$s</a> requires PHP version %2$s or higher and MySQL version %3$s or higher. You are running PHP version %4$s and MySQL version %5$s.' ), $wp_version, $required_php_version, $required_mysql_version, $php_version, $mysql_version );
+	$compat = sprintf( __( 'You cannot install because Project Nami requires PHP version %1$s or higher and MSSQL version %2$s or higher. You are running PHP version %3$s and MSSQL version %4$s.' ), $required_php_version, $required_mysql_version, $php_version, $mysql_version );
 elseif ( !$php_compat )
-	$compat = sprintf( __( 'You cannot install because <a href="https://codex.wordpress.org/Version_%1$s">WordPress %1$s</a> requires PHP version %2$s or higher. You are running version %3$s.' ), $wp_version, $required_php_version, $php_version );
+	$compat = sprintf( __( 'You cannot install because Project Nami requires PHP version %1$s or higher. You are running version %2$s.' ), $required_php_version, $php_version );
 elseif ( !$mysql_compat )
-	$compat = sprintf( __( 'You cannot install because <a href="https://codex.wordpress.org/Version_%1$s">WordPress %1$s</a> requires MySQL version %2$s or higher. You are running version %3$s.' ), $wp_version, $required_mysql_version, $mysql_version );
+	$compat = sprintf( __( 'You cannot install because Project Nami requires MSSQL version %1$s or higher. You are running version %2$s.' ), $required_mysql_version, $mysql_version );
 
 if ( !$mysql_compat || !$php_compat ) {
 	display_header();
@@ -246,27 +246,28 @@ if ( !$mysql_compat || !$php_compat ) {
 
 if ( ! is_string( $wpdb->base_prefix ) || '' === $wpdb->base_prefix ) {
 	display_header();
-	die(
-		'<h1>' . __( 'Configuration Error' ) . '</h1>' .
-		'<p>' . sprintf(
-			/* translators: %s: wp-config.php */
-			__( 'Your %s file has an empty database table prefix, which is not supported.' ),
-			'<code>wp-config.php</code>'
-		) . '</p></body></html>'
-	);
+	die( 
+		'<h1>' . __( 'Configuration Error' ) . '</h1>' . 
+		'<p>' . sprintf( 
+			/* translators: %s: wp-config.php */ 
+			__( 'Your %s file has an empty database table prefix, which is not supported.' ), 
+			'<code>wp-config.php</code>' 
+		) . '</p></body></html>' 
+	); 
 }
 
 // Set error message if DO_NOT_UPGRADE_GLOBAL_TABLES isn't set as it will break install.
 if ( defined( 'DO_NOT_UPGRADE_GLOBAL_TABLES' ) ) {
 	display_header();
-	die(
-		'<h1>' . __( 'Configuration Error' ) . '</h1>' .
-		'<p>' . sprintf(
-			/* translators: %s: DO_NOT_UPGRADE_GLOBAL_TABLES */
-			__( 'The constant %s cannot be defined when installing WordPress.' ),
-			'<code>DO_NOT_UPGRADE_GLOBAL_TABLES</code>'
-		) . '</p></body></html>'
-	);
+	die( '<h1>' . __( 'Configuration Error' ) . '</h1><p>' . __( 'The constant DO_NOT_UPGRADE_GLOBAL_TABLES cannot be defined when installing WordPress.' ) . '</p></body></html>' );
+	die( 
+		'<h1>' . __( 'Configuration Error' ) . '</h1>' . 
+		'<p>' . sprintf( 
+			/* translators: %s: DO_NOT_UPGRADE_GLOBAL_TABLES */ 
+			__( 'The constant %s cannot be defined when installing WordPress.' ), 
+			'<code>DO_NOT_UPGRADE_GLOBAL_TABLES</code>' 
+		) . '</p></body></html>' 
+	); 
 }
 
 /**

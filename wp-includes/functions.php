@@ -5,6 +5,10 @@
  * @package WordPress
  */
 
+function mssql_escape( $string ) {
+	return str_replace( "'", "''", $string );
+}
+
 require( ABSPATH . WPINC . '/option.php' );
 
 /**
@@ -26,6 +30,9 @@ require( ABSPATH . WPINC . '/option.php' );
 function mysql2date( $format, $date, $translate = true ) {
 	if ( empty( $date ) )
 		return false;
+
+	if( is_object( $date ) && get_class( $date ) == 'DateTime' )
+		$date = $date->gettimestamp();
 
 	if ( 'G' == $format )
 		return strtotime( $date . ' +0000' );
@@ -171,6 +178,11 @@ function date_i18n( $dateformatstring, $unixtimestamp = false, $gmt = false ) {
  */
 function wp_maybe_decline_date( $date ) {
 	global $wp_locale;
+
+	// i18n functions are not available in SHORTINIT mode
+	if ( ! function_exists( '_x' ) ) {
+		return $date;
+	}
 
 	// i18n functions are not available in SHORTINIT mode
 	if ( ! function_exists( '_x' ) ) {
@@ -1373,7 +1385,7 @@ function is_blog_installed() {
 	}
 	// If siteurl is not set to autoload, check it specifically
 	if ( !isset( $alloptions['siteurl'] ) )
-		$installed = $wpdb->get_var( "SELECT option_value FROM $wpdb->options WHERE option_name = 'siteurl'" );
+		$installed = $wpdb->get_var( "SELECT option_value FROM [$wpdb->options] WHERE option_name = 'siteurl'" );
 	else
 		$installed = $alloptions['siteurl'];
 	$wpdb->suppress_errors( $suppress );
@@ -1403,7 +1415,7 @@ function is_blog_installed() {
 		if ( defined( 'CUSTOM_USER_META_TABLE' ) && CUSTOM_USER_META_TABLE == $table )
 			continue;
 
-		if ( ! $wpdb->get_results( "DESCRIBE $table;" ) )
+		if ( ! $wpdb->get_results( "exec sp_columns '$table'" ) )
 			continue;
 
 		// One or more tables exist. We are insane.
@@ -4308,7 +4320,7 @@ function get_main_network_id() {
 		$main_network_id = wp_cache_get( 'primary_network_id', 'site-options' );
 
 		if ( false === $main_network_id ) {
-			$main_network_id = (int) $wpdb->get_var( "SELECT id FROM {$wpdb->site} ORDER BY id LIMIT 1" );
+			$main_network_id = (int) $wpdb->get_var( "SELECT TOP 1 id FROM {$wpdb->site} ORDER BY id" );
 			wp_cache_add( 'primary_network_id', $main_network_id, 'site-options' );
 		}
 	}
@@ -4790,18 +4802,21 @@ function send_nosniff_header() {
  * @return string SQL clause.
  */
 function _wp_mysql_week( $column ) {
+	global $wpdb;
+
 	switch ( $start_of_week = (int) get_option( 'start_of_week' ) ) {
 	case 1 :
-		return "WEEK( $column, 1 )";
 	case 2 :
 	case 3 :
 	case 4 :
 	case 5 :
 	case 6 :
-		return "WEEK( DATE_SUB( $column, INTERVAL $start_of_week DAY ), 0 )";
+		sqlsrv_query( $wpdb->dbh, "SET DATEFIRST $start_of_week" );
+		return "DATEPART( wk, $column )";
 	case 0 :
 	default :
-		return "WEEK( $column, 0 )";
+		sqlsrv_query( $wpdb->dbh, "SET DATEFIRST 7" );
+		return "DATEPART( wk, $column )";
 	}
 }
 

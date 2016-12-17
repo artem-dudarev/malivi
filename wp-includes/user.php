@@ -359,7 +359,7 @@ function count_user_posts( $userid, $post_type = 'post', $public_only = false ) 
 
 	$where = get_posts_by_author_sql( $post_type, true, $userid, $public_only );
 
-	$count = $wpdb->get_var( "SELECT COUNT(*) FROM $wpdb->posts $where" );
+	$count = $wpdb->get_var( "SELECT COUNT(*) as qty FROM $wpdb->posts $where" );
 
 	/**
 	 * Filters the number of posts a user has written.
@@ -398,7 +398,7 @@ function count_many_users_posts( $users, $post_type = 'post', $public_only = fal
 	$userlist = implode( ',', array_map( 'absint', $users ) );
 	$where = get_posts_by_author_sql( $post_type, true, null, $public_only );
 
-	$result = $wpdb->get_results( "SELECT post_author, COUNT(*) FROM $wpdb->posts $where AND post_author IN ($userlist) GROUP BY post_author", ARRAY_N );
+	$result = $wpdb->get_results( "SELECT post_author, COUNT(*) as [found_rows] FROM $wpdb->posts $where AND post_author IN ($userlist) GROUP BY post_author", ARRAY_N );
 	foreach ( $result as $row ) {
 		$count[ $row[0] ] = $row[1];
 	}
@@ -848,13 +848,13 @@ function count_users($strategy = 'time') {
 		// Build a CPU-intensive query that will return concise information.
 		$select_count = array();
 		foreach ( $avail_roles as $this_role => $name ) {
-			$select_count[] = $wpdb->prepare( "COUNT(NULLIF(`meta_value` LIKE %s, false))", '%' . $wpdb->esc_like( '"' . $this_role . '"' ) . '%');
+			$select_count[] = "(SELECT COUNT(*) as qty FROM $wpdb->usermeta WHERE [meta_key] = '{$blog_prefix}capabilities' AND [meta_value] LIKE '%" . $wpdb->esc_like( $this_role ) . "%') as $this_role";
 		}
-		$select_count[] = "COUNT(NULLIF(`meta_value` = 'a:0:{}', false))";
+		$select_count[] = "(SELECT COUNT(*) as qty FROM $wpdb->usermeta WHERE [meta_key] = '{$blog_prefix}capabilities' AND [meta_value] = 'a:0:{}') as none";
 		$select_count = implode(', ', $select_count);
 
 		// Add the meta_value index to the selection list, then run the query.
-		$row = $wpdb->get_row( "SELECT $select_count, COUNT(*) FROM $wpdb->usermeta WHERE meta_key = '{$blog_prefix}capabilities'", ARRAY_N );
+		$row = $wpdb->get_row( "SELECT $select_count, COUNT(*) as total_users FROM $wpdb->usermeta WHERE meta_key = '{$blog_prefix}capabilities'", ARRAY_N );
 
 		// Run the previous loop again to associate results with role names.
 		$col = 0;
@@ -1594,15 +1594,13 @@ function wp_insert_user( $userdata ) {
 
 	$meta['show_admin_bar_front'] = empty( $userdata['show_admin_bar_front'] ) ? 'true' : $userdata['show_admin_bar_front'];
 
-	$user_nicename_check = $wpdb->get_var( $wpdb->prepare("SELECT ID FROM $wpdb->users WHERE user_nicename = %s AND user_login != %s LIMIT 1" , $user_nicename, $user_login));
+	$user_nicename_check = $wpdb->get_var( $wpdb->prepare("SELECT TOP 1 ID FROM $wpdb->users WHERE user_nicename = %s AND user_login != %s" , $user_nicename, $user_login));
 
 	if ( $user_nicename_check ) {
 		$suffix = 2;
 		while ($user_nicename_check) {
-			// user_nicename allows 50 chars. Subtract one for a hyphen, plus the length of the suffix.
-			$base_length = 49 - mb_strlen( $suffix );
-			$alt_user_nicename = mb_substr( $user_nicename, 0, $base_length ) . "-$suffix";
-			$user_nicename_check = $wpdb->get_var( $wpdb->prepare("SELECT ID FROM $wpdb->users WHERE user_nicename = %s AND user_login != %s LIMIT 1" , $alt_user_nicename, $user_login));
+			$alt_user_nicename = $user_nicename . "-$suffix";
+			$user_nicename_check = $wpdb->get_var( $wpdb->prepare("SELECT TOP 1 ID FROM $wpdb->users WHERE user_nicename = %s AND user_login != %s" , $alt_user_nicename, $user_login));
 			$suffix++;
 		}
 		$user_nicename = $alt_user_nicename;
@@ -2419,6 +2417,7 @@ function wp_destroy_all_sessions() {
  * @return array Array of user IDs.
  */
 function wp_get_users_with_no_role() {
+    return array(); // PN - return empty until solution for REGEXP worked out
 	global $wpdb;
 
 	if ( is_multisite() ) {

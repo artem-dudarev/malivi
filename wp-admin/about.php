@@ -9,31 +9,11 @@
 /** WordPress Administration Bootstrap */
 require_once( dirname( __FILE__ ) . '/admin.php' );
 
-if ( ! wp_is_mobile() ) {
-	wp_enqueue_style( 'wp-mediaelement' );
-	wp_enqueue_script( 'wp-mediaelement' );
-	wp_localize_script( 'mediaelement', '_wpmejsSettings', array(
-		'pluginPath'        => includes_url( 'js/mediaelement/', 'relative' ),
-		'pauseOtherPlayers' => '',
-	) );
+if ( current_user_can( 'customize' ) ) {
+	wp_enqueue_script( 'customize-loader' );
 }
 
-/**
- * Replaces the height and width attributes with values for full size.
- *
- * wp_video_shortcode() limits the width to 640px.
- *
- * @since 4.6.0
- * @ignore
- *
- * @param $output Video shortcode HTML output.
- * @return string Filtered HTML content to display video.
- */
-function _wp_override_admin_video_width_limit( $output ) {
-	return str_replace( array( '640', '384' ), array( '1050', '630' ), $output );
-}
-
-$video_url = 'https://videopress.com/embed/GbdhpGF3?hd=true';
+$video_url = 'https://videopress.com/embed/J44FHXvg?hd=true';
 $locale    = str_replace( '_', '-', get_locale() );
 list( $locale ) = explode( '-', $locale );
 if ( 'en' !== $locale ) {
@@ -52,7 +32,7 @@ include( ABSPATH . 'wp-admin/admin-header.php' );
 		<p class="about-text"><?php printf( __( 'Thank you for updating to the latest version. WordPress %s changes a lot behind the scenes to make your WordPress experience even better!' ), $display_version ); ?></p>
 		<div class="wp-badge"><?php printf( __( 'Version %s' ), $display_version ); ?></div>
 
-		<h2 class="nav-tab-wrapper wp-clearfix">
+		<h2 class="nav-tab-wrapper">
 			<a href="about.php" class="nav-tab nav-tab-active"><?php _e( 'What&#8217;s New' ); ?></a>
 			<a href="credits.php" class="nav-tab"><?php _e( 'Credits' ); ?></a>
 			<a href="freedoms.php" class="nav-tab"><?php _e( 'Freedoms' ); ?></a>

@@ -959,7 +959,7 @@ function get_term_by( $field, $value, $taxonomy = '', $output = OBJECT, $filter 
 		return $term;
 	}
 
-	$term = $wpdb->get_row( $wpdb->prepare( "SELECT t.*, tt.* FROM $wpdb->terms AS t INNER JOIN $wpdb->term_taxonomy AS tt ON t.term_id = tt.term_id WHERE $_field = %s", $value ) . " $tax_clause LIMIT 1" );
+	$term = $wpdb->get_row( $wpdb->prepare( "SELECT TOP 1 t.*, tt.* FROM $wpdb->terms AS t INNER JOIN $wpdb->term_taxonomy AS tt ON t.term_id = tt.term_id WHERE $_field = %s", $value ) . " $tax_clause" );
 	if ( ! $term )
 		return false;
 
@@ -1411,7 +1411,7 @@ function term_exists( $term, $taxonomy = '', $parent = null ) {
 	$where_fields = array($slug);
 	$else_where_fields = array($term);
 	$orderby = 'ORDER BY t.term_id ASC';
-	$limit = 'LIMIT 1';
+	$top = 'TOP 1';
 	if ( !empty($taxonomy) ) {
 		if ( is_numeric( $parent ) ) {
 			$parent = (int) $parent;
@@ -1424,16 +1424,16 @@ function term_exists( $term, $taxonomy = '', $parent = null ) {
 		$where_fields[] = $taxonomy;
 		$else_where_fields[] = $taxonomy;
 
-		if ( $result = $wpdb->get_row( $wpdb->prepare("SELECT tt.term_id, tt.term_taxonomy_id FROM $wpdb->terms AS t INNER JOIN $wpdb->term_taxonomy as tt ON tt.term_id = t.term_id WHERE $where AND tt.taxonomy = %s $orderby $limit", $where_fields), ARRAY_A) )
+		if ( $result = $wpdb->get_row( $wpdb->prepare("SELECT $top tt.term_id, tt.term_taxonomy_id FROM $wpdb->terms AS t INNER JOIN $wpdb->term_taxonomy as tt ON tt.term_id = t.term_id WHERE $where AND tt.taxonomy = %s $orderby", $where_fields), ARRAY_A) )
 			return $result;
 
-		return $wpdb->get_row( $wpdb->prepare("SELECT tt.term_id, tt.term_taxonomy_id FROM $wpdb->terms AS t INNER JOIN $wpdb->term_taxonomy as tt ON tt.term_id = t.term_id WHERE $else_where AND tt.taxonomy = %s $orderby $limit", $else_where_fields), ARRAY_A);
+		return $wpdb->get_row( $wpdb->prepare("SELECT $top tt.term_id, tt.term_taxonomy_id FROM $wpdb->terms AS t INNER JOIN $wpdb->term_taxonomy as tt ON tt.term_id = t.term_id WHERE $else_where AND tt.taxonomy = %s $orderby", $else_where_fields), ARRAY_A);
 	}
 
-	if ( $result = $wpdb->get_var( $wpdb->prepare("SELECT term_id FROM $wpdb->terms as t WHERE $where $orderby $limit", $where_fields) ) )
+	if ( $result = $wpdb->get_var( $wpdb->prepare("SELECT $top term_id FROM $wpdb->terms as t WHERE $where $orderby", $where_fields) ) )
 		return $result;
 
-	return $wpdb->get_var( $wpdb->prepare("SELECT term_id FROM $wpdb->terms as t WHERE $else_where $orderby $limit", $else_where_fields) );
+	return $wpdb->get_var( $wpdb->prepare("SELECT $top term_id FROM $wpdb->terms as t WHERE $else_where $orderby", $else_where_fields) );
 }
 
 /**
@@ -1804,7 +1804,7 @@ function wp_delete_term( $term, $taxonomy, $args = array() ) {
 			return $term_obj;
 		$parent = $term_obj->parent;
 
-		$edit_ids = $wpdb->get_results( "SELECT term_id, term_taxonomy_id FROM $wpdb->term_taxonomy WHERE `parent` = " . (int)$term_obj->term_id );
+		$edit_ids = $wpdb->get_results( "SELECT term_id, term_taxonomy_id FROM $wpdb->term_taxonomy WHERE [parent] = " . (int)$term_obj->term_id );
 		$edit_tt_ids = wp_list_pluck( $edit_ids, 'term_taxonomy_id' );
 
 		/**
@@ -1880,7 +1880,7 @@ function wp_delete_term( $term, $taxonomy, $args = array() ) {
 	do_action( 'deleted_term_taxonomy', $tt_id );
 
 	// Delete the term if no taxonomies use it.
-	if ( !$wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM $wpdb->term_taxonomy WHERE term_id = %d", $term) ) )
+	if ( !$wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) as qty FROM $wpdb->term_taxonomy WHERE term_id = %d", $term) ) )
 		$wpdb->delete( $wpdb->terms, array( 'term_id' => $term ) );
 
 	clean_term_cache($term, $taxonomy);
@@ -3608,10 +3608,10 @@ function _update_post_term_count( $terms, $taxonomy ) {
 
 		// Attachments can be 'inherit' status, we need to base count off the parent's status if so.
 		if ( $check_attachments )
-			$count += (int) $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM $wpdb->term_relationships, $wpdb->posts p1 WHERE p1.ID = $wpdb->term_relationships.object_id AND ( post_status = 'publish' OR ( post_status = 'inherit' AND post_parent > 0 AND ( SELECT post_status FROM $wpdb->posts WHERE ID = p1.post_parent ) = 'publish' ) ) AND post_type = 'attachment' AND term_taxonomy_id = %d", $term ) );
+			$count += (int) $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) as qty FROM $wpdb->term_relationships, $wpdb->posts p1 WHERE p1.ID = $wpdb->term_relationships.object_id AND ( post_status = 'publish' OR ( post_status = 'inherit' AND post_parent > 0 AND ( SELECT post_status FROM $wpdb->posts WHERE ID = p1.post_parent ) = 'publish' ) ) AND post_type = 'attachment' AND term_taxonomy_id = %d", $term ) );
 
 		if ( $object_types )
-			$count += (int) $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM $wpdb->term_relationships, $wpdb->posts WHERE $wpdb->posts.ID = $wpdb->term_relationships.object_id AND post_status = 'publish' AND post_type IN ('" . implode("', '", $object_types ) . "') AND term_taxonomy_id = %d", $term ) );
+			$count += (int) $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) as qty FROM $wpdb->term_relationships, $wpdb->posts WHERE $wpdb->posts.ID = $wpdb->term_relationships.object_id AND post_status = 'publish' AND post_type IN ('" . implode("', '", $object_types ) . "') AND term_taxonomy_id = %d", $term ) );
 
 		/** This action is documented in wp-includes/taxonomy.php */
 		do_action( 'edit_term_taxonomy', $term, $taxonomy->name );
@@ -3638,7 +3638,7 @@ function _update_generic_term_count( $terms, $taxonomy ) {
 	global $wpdb;
 
 	foreach ( (array) $terms as $term ) {
-		$count = $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM $wpdb->term_relationships WHERE term_taxonomy_id = %d", $term ) );
+		$count = $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) as qty FROM $wpdb->term_relationships WHERE term_taxonomy_id = %d", $term ) );
 
 		/** This action is documented in wp-includes/taxonomy.php */
 		do_action( 'edit_term_taxonomy', $term, $taxonomy->name );
@@ -3686,7 +3686,7 @@ function _split_shared_term( $term_id, $term_taxonomy_id, $record = true ) {
 	}
 
 	// If there are no shared term_taxonomy rows, there's nothing to do here.
-	$shared_tt_count = $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM $wpdb->term_taxonomy tt WHERE tt.term_id = %d AND tt.term_taxonomy_id != %d", $term_id, $term_taxonomy_id ) );
+	$shared_tt_count = $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) as qty FROM $wpdb->term_taxonomy tt WHERE tt.term_id = %d AND tt.term_taxonomy_id != %d", $term_id, $term_taxonomy_id ) );
 
 	if ( ! $shared_tt_count ) {
 		return $term_id;
@@ -3764,11 +3764,10 @@ function _split_shared_term( $term_id, $term_taxonomy_id, $record = true ) {
 
 	// If we've just split the final shared term, set the "finished" flag.
 	$shared_terms_exist = $wpdb->get_results(
-		"SELECT tt.term_id, t.*, count(*) as term_tt_count FROM {$wpdb->term_taxonomy} tt
+		"SELECT TOP 1 tt.term_id, t.*, count(*) as term_tt_count FROM {$wpdb->term_taxonomy} tt
 		 LEFT JOIN {$wpdb->terms} t ON t.term_id = tt.term_id
 		 GROUP BY t.term_id
-		 HAVING term_tt_count > 1
-		 LIMIT 1"
+		 HAVING term_tt_count > 1"
 	);
 	if ( ! $shared_terms_exist ) {
 		update_option( 'finished_splitting_shared_terms', true );
@@ -3802,7 +3801,7 @@ function _wp_batch_split_terms() {
 	$lock_name = 'term_split.lock';
 
 	// Try to lock.
-	$lock_result = $wpdb->query( $wpdb->prepare( "INSERT IGNORE INTO `$wpdb->options` ( `option_name`, `option_value`, `autoload` ) VALUES (%s, %s, 'no') /* LOCK */", $lock_name, time() ) );
+	$lock_result = $wpdb->query( $wpdb->prepare( "INSERT $wpdb->options ( option_name, option_value, autoload ) VALUES (%s, %s, 'no') /* LOCK */", $lock_name, time() ) );
 
 	if ( ! $lock_result ) {
 		$lock_result = get_option( $lock_name );
@@ -3819,11 +3818,11 @@ function _wp_batch_split_terms() {
 
 	// Get a list of shared terms (those with more than one associated row in term_taxonomy).
 	$shared_terms = $wpdb->get_results(
-		"SELECT tt.term_id, t.*, count(*) as term_tt_count FROM {$wpdb->term_taxonomy} tt
+		"SELECT TOP 10 tt.term_id, t.*, count(*) as term_tt_count FROM {$wpdb->term_taxonomy} tt
 		 LEFT JOIN {$wpdb->terms} t ON t.term_id = tt.term_id
-		 GROUP BY t.term_id
-		 HAVING term_tt_count > 1
-		 LIMIT 10"
+		 GROUP BY tt.term_id, t.term_id, t.name, t.slug, t.term_group
+		 HAVING count(*) > 1
+		 "
 	);
 
 	// No more terms, we're done here.
@@ -3846,7 +3845,7 @@ function _wp_batch_split_terms() {
 
 	// Get term taxonomy data for all shared terms.
 	$shared_term_ids = implode( ',', array_keys( $shared_terms ) );
-	$shared_tts = $wpdb->get_results( "SELECT * FROM {$wpdb->term_taxonomy} WHERE `term_id` IN ({$shared_term_ids})" );
+	$shared_tts = $wpdb->get_results( "SELECT * FROM {$wpdb->term_taxonomy} WHERE term_id IN ({$shared_term_ids})" );
 
 	// Split term data recording is slow, so we do it just once, outside the loop.
 	$split_term_data = get_option( '_split_terms', array() );
@@ -4039,7 +4038,7 @@ function wp_term_is_shared( $term_id ) {
 		return false;
 	}
 
-	$tt_count = $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM $wpdb->term_taxonomy WHERE term_id = %d", $term_id ) );
+	$tt_count = $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) as qty FROM $wpdb->term_taxonomy WHERE term_id = %d", $term_id ) );
 
 	return $tt_count > 1;
 }

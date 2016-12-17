@@ -552,6 +552,11 @@ class WP_List_Table {
 			return;
 		}
 
+		/*
+		 * PN Mod: Start
+		 * MSSQL can't ORDER BY post_date alone since it is not actually being SELECTed.
+		 * The workaround is to ORDER BY both YEAR( post_date ) DESC and MONTH( post_date ) DESC to get the same effect.
+		 */
 		$extra_checks = "AND post_status != 'auto-draft'";
 		if ( ! isset( $_GET['post_status'] ) || 'trash' !== $_GET['post_status'] ) {
 			$extra_checks .= " AND post_status != 'trash'";
@@ -564,8 +569,9 @@ class WP_List_Table {
 			FROM $wpdb->posts
 			WHERE post_type = %s
 			$extra_checks
-			ORDER BY post_date DESC
+			ORDER BY YEAR( post_date ) DESC, MONTH( post_date ) DESC
 		", $post_type ) );
+		// PN Mod: End
 
 		/**
 		 * Filters the 'Months' drop-down results.

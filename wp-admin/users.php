@@ -212,9 +212,9 @@ case 'delete':
 		$userids = array_map( 'intval', (array) $_REQUEST['users'] );
 
 	$users_have_content = false;
-	if ( $wpdb->get_var( "SELECT ID FROM {$wpdb->posts} WHERE post_author IN( " . implode( ',', $userids ) . " ) LIMIT 1" ) ) {
+	if ( $wpdb->get_var( "SELECT TOP 1 ID FROM {$wpdb->posts} WHERE post_author IN( " . implode( ',', $userids ) . " )" ) ) {
 		$users_have_content = true;
-	} elseif ( $wpdb->get_var( "SELECT link_id FROM {$wpdb->links} WHERE link_owner IN( " . implode( ',', $userids ) . " ) LIMIT 1" ) ) {
+	} elseif ( $wpdb->get_var( "SELECT TOP 1 link_id FROM {$wpdb->links} WHERE link_owner IN( " . implode( ',', $userids ) . " )" ) ) {
 		$users_have_content = true;
 	}
 

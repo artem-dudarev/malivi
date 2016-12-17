@@ -33,7 +33,7 @@ function get_bookmark($bookmark, $output = OBJECT, $filter = 'raw') {
 		if ( isset($GLOBALS['link']) && ($GLOBALS['link']->link_id == $bookmark) ) {
 			$_bookmark = & $GLOBALS['link'];
 		} elseif ( ! $_bookmark = wp_cache_get($bookmark, 'bookmark') ) {
-			$_bookmark = $wpdb->get_row($wpdb->prepare("SELECT * FROM $wpdb->links WHERE link_id = %d LIMIT 1", $bookmark));
+			$_bookmark = $wpdb->get_row($wpdb->prepare("SELECT TOP 1 * FROM $wpdb->links WHERE link_id = %d", $bookmark));
 			if ( $_bookmark ) {
 				$_bookmark->link_category = array_unique( wp_get_object_terms( $_bookmark->link_id, 'link_category', array( 'fields' => 'ids' ) ) );
 				wp_cache_add( $_bookmark->link_id, $_bookmark, 'bookmark' );
@@ -229,7 +229,7 @@ function get_bookmarks( $args = '' ) {
 	}
 
 	if ( $r['show_updated'] ) {
-		$recently_updated_test = ", IF (DATE_ADD(link_updated, INTERVAL 120 MINUTE) >= NOW(), 1,0) as recently_updated ";
+		$recently_updated_test = ", IF (DATEADD(MINUTE, 120, link_updated) >= GETDATE(), 1,0) as recently_updated ";
 	} else {
 		$recently_updated_test = '';
 	}
@@ -240,10 +240,10 @@ function get_bookmarks( $args = '' ) {
 	$length = '';
 	switch ( $orderby ) {
 		case 'length':
-			$length = ", CHAR_LENGTH(link_name) AS length";
+			$length = ", LEN(link_name) AS length";
 			break;
 		case 'rand':
-			$orderby = 'rand()';
+			$orderby = 'newid()';
 			break;
 		case 'link_id':
 			$orderby = "$wpdb->links.link_id";
@@ -281,7 +281,7 @@ function get_bookmarks( $args = '' ) {
 	$query .= " $exclusions $inclusions $search";
 	$query .= " ORDER BY $orderby $order";
 	if ( $r['limit'] != -1 ) {
-		$query .= ' LIMIT ' . $r['limit'];
+		$query .= " OFFSET 0 ROWS FETCH NEXT ". $r['limit'] . " ROWS ONLY";
 	}
 
 	$results = $wpdb->get_results( $query );

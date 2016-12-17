@@ -1719,14 +1719,12 @@ function get_adjacent_post( $in_same_term = false, $excluded_terms = '', $previo
 	 * of adjacency, 'next' or 'previous'.
 	 *
 	 * @since 2.5.0
-	 * @since 4.4.0 Added the `$post` parameter.
 	 *
 	 * @param string $order_by The `ORDER BY` clause in the SQL.
-	 * @param WP_Post $post    WP_Post object.
 	 */
-	$sort  = apply_filters( "get_{$adjacent}_post_sort", "ORDER BY p.post_date $order LIMIT 1", $post );
+	$sort  = apply_filters( "get_{$adjacent}_post_sort", "ORDER BY p.post_date $order" );
 
-	$query = "SELECT p.ID FROM $wpdb->posts AS p $join $where $sort";
+	$query = "SELECT TOP 1 p.ID FROM $wpdb->posts AS p $join $where $sort";
 	$query_key = 'adjacent_post_' . md5( $query );
 	$result = wp_cache_get( $query_key, 'counts' );
 	if ( false !== $result ) {

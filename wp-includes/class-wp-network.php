@@ -109,7 +109,7 @@ class WP_Network {
 		$_network = wp_cache_get( $network_id, 'networks' );
 
 		if ( ! $_network ) {
-			$_network = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM {$wpdb->site} WHERE id = %d LIMIT 1", $network_id ) );
+			$_network = $wpdb->get_row( $wpdb->prepare( "SELECT TOP 1 * FROM {$wpdb->site} WHERE id = %d", $network_id ) );
 
 			if ( empty( $_network ) || is_wp_error( $_network ) ) {
 				return false;
@@ -295,7 +295,7 @@ class WP_Network {
 		if ( wp_using_ext_object_cache() ) {
 			$using_paths = wp_cache_get( 'networks_have_paths', 'site-options' );
 			if ( false === $using_paths ) {
-				$using_paths = (int) $wpdb->get_var( "SELECT id FROM {$wpdb->site} WHERE path <> '/' LIMIT 1" );
+    			$using_paths = (bool) $wpdb->get_var( "SELECT TOP 1 id FROM $wpdb->site WHERE path <> '/'" );
 				wp_cache_add( 'networks_have_paths', $using_paths, 'site-options'  );
 			}
 		}
@@ -360,10 +360,10 @@ class WP_Network {
 
 		if ( ! $using_paths ) {
 			$network = $wpdb->get_row( "
-				SELECT * FROM {$wpdb->site}
+				SELECT TOP 1 * FROM {$wpdb->site}
 				WHERE domain IN ({$search_domains})
-				ORDER BY CHAR_LENGTH(domain)
-				DESC LIMIT 1
+				ORDER BY LEN(domain)
+				DESC
 			" );
 
 			if ( ! empty( $network ) && ! is_wp_error( $network ) ) {
@@ -378,7 +378,7 @@ class WP_Network {
 				SELECT * FROM {$wpdb->site}
 				WHERE domain IN ({$search_domains})
 				AND path IN ({$search_paths})
-				ORDER BY CHAR_LENGTH(domain) DESC, CHAR_LENGTH(path) DESC
+				ORDER BY LEN(domain) DESC, LEN(path) DESC
 			" );
 		}
 

@@ -122,7 +122,7 @@ function wpmu_delete_blog( $blog_id, $drop = false ) {
 		$drop_tables = apply_filters( 'wpmu_drop_tables', $tables, $blog_id );
 
 		foreach ( (array) $drop_tables as $table ) {
-			$wpdb->query( "DROP TABLE IF EXISTS `$table`" );
+			$wpdb->query( "IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = '" . $table . "') DROP TABLE [" . $table . "]" );
 		}
 
 		$wpdb->delete( $wpdb->blogs, array( 'blog_id' => $blog_id ) );

@@ -183,7 +183,7 @@ function find_core_update( $version, $locale ) {
  */
 function core_update_footer( $msg = '' ) {
 	if ( !current_user_can('update_core') )
-		return sprintf( __( 'Version %s' ), get_bloginfo( 'version', 'display' ) );
+		return sprintf( __( '<img src="https://pnsrc.azurewebsites.net/adminfooter/image.png" height="15" width="15" /> Version %1$s ( WP Version %2$s )' ), get_projectnami_version(), get_bloginfo( 'version', 'display' ) );
 
 	$cur = get_preferred_from_update_core();
 	if ( ! is_object( $cur ) )
@@ -200,14 +200,14 @@ function core_update_footer( $msg = '' ) {
 
 	switch ( $cur->response ) {
 	case 'development' :
-		return sprintf( __( 'You are using a development version (%1$s). Cool! Please <a href="%2$s">stay updated</a>.' ), get_bloginfo( 'version', 'display' ), network_admin_url( 'update-core.php' ) );
+		return sprintf( __( 'You are using a development version ( %1$s ) of Project Nami compatible with WordPress version ( %2$s ). Cool!' ), get_projectnami_version(), get_bloginfo( 'version', 'display' ) );
 
 	case 'upgrade' :
-		return '<strong><a href="' . network_admin_url( 'update-core.php' ) . '">' . sprintf( __( 'Get Version %s' ), $cur->current ) . '</a></strong>';
+		return sprintf( __('<img src="https://pnsrc.azurewebsites.net/adminfooter/image.png" height="15" width="15" /> Version %1$s <strong>( <a href="%2$s">Get WP Version %3$s</a> )</strong>' ), get_projectnami_version(), network_admin_url( 'update-core.php' ), $cur->current );
 
 	case 'latest' :
 	default :
-		return sprintf( __( 'Version %s' ), get_bloginfo( 'version', 'display' ) );
+		return sprintf( __( '<img src="https://pnsrc.azurewebsites.net/adminfooter/image.png" height="15" width="15" /> Version %1$s ( WP Version %2$s )' ), get_projectnami_version(), get_bloginfo( 'version', 'display' ) );
 	}
 }
 

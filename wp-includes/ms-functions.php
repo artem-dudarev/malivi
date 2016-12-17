@@ -1340,7 +1340,7 @@ function install_blog( $blog_id, $blog_title = '' ) {
 	require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
 
 	$suppress = $wpdb->suppress_errors();
-	if ( $wpdb->get_results( "DESCRIBE {$wpdb->posts}" ) )
+	if ( $wpdb->get_results( "exec sp_columns [$wpdb->posts]" ) )
 		die( '<h1>' . __( 'Already Installed' ) . '</h1><p>' . __( 'You appear to have already installed WordPress. To reinstall please clear your old database tables first.' ) . '</p></body></html>' );
 	$wpdb->suppress_errors( $suppress );
 
@@ -1349,10 +1349,10 @@ function install_blog( $blog_id, $blog_title = '' ) {
 	// Set everything up
 	make_db_current_silent( 'blog' );
 	populate_options();
-	populate_roles();
 
 	// populate_roles() clears previous role definitions so we start over.
 	$wp_roles = new WP_Roles();
+	populate_roles();
 
 	$siteurl = $home = untrailingslashit( $url );
 
@@ -1633,7 +1633,7 @@ function get_most_recent_post_of_user( $user_id ) {
 	// published by $user_id
 	foreach ( (array) $user_blogs as $blog ) {
 		$prefix = $wpdb->get_blog_prefix( $blog->userblog_id );
-		$recent_post = $wpdb->get_row( $wpdb->prepare("SELECT ID, post_date_gmt FROM {$prefix}posts WHERE post_author = %d AND post_type = 'post' AND post_status = 'publish' ORDER BY post_date_gmt DESC LIMIT 1", $user_id ), ARRAY_A);
+		$recent_post = $wpdb->get_row( $wpdb->prepare("SELECT TOP 1 ID, post_date_gmt FROM {$prefix}posts WHERE post_author = %d AND post_type = 'post' AND post_status = 'publish' ORDER BY post_date_gmt DESC", $user_id ), ARRAY_A);
 
 		// Make sure we found a post
 		if ( isset($recent_post['ID']) ) {

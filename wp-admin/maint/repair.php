@@ -80,7 +80,7 @@ if ( ! defined( 'WP_ALLOW_REPAIR' ) ) {
 	$tables = $wpdb->tables();
 
 	// Sitecategories may not exist if global terms are disabled.
-	$query = $wpdb->prepare( "SHOW TABLES LIKE %s", $wpdb->esc_like( $wpdb->sitecategories ) );
+	$query = "SELECT name FROM sysobjects WHERE type='u' AND name = '$wpdb->sitecategories'";
 	if ( is_multisite() && ! $wpdb->get_var( $query ) ) {
 		unset( $tables['sitecategories'] );
 	}
